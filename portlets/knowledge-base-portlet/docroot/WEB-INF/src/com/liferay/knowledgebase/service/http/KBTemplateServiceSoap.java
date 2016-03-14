@@ -25,7 +25,7 @@ import java.rmi.RemoteException;
 
 /**
  * Provides the SOAP utility for the
- * {@link com.liferay.knowledgebase.service.KBTemplateServiceUtil} service utility. The
+ * {@link KBTemplateServiceUtil} service utility. The
  * static methods of this class calls the same methods of the service utility.
  * However, the signatures are different because it is difficult for SOAP to
  * support certain types.
@@ -60,7 +60,7 @@ import java.rmi.RemoteException;
  * @author Brian Wing Shun Chan
  * @see KBTemplateServiceHttp
  * @see com.liferay.knowledgebase.model.KBTemplateSoap
- * @see com.liferay.knowledgebase.service.KBTemplateServiceUtil
+ * @see KBTemplateServiceUtil
  * @generated
  */
 @ProviderType
@@ -68,7 +68,7 @@ public class KBTemplateServiceSoap {
 	public static com.liferay.knowledgebase.model.KBTemplateSoap addKBTemplate(
 		java.lang.String portletId, java.lang.String title,
 		java.lang.String content,
-		com.liferay.portal.service.ServiceContext serviceContext)
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws RemoteException {
 		try {
 			com.liferay.knowledgebase.model.KBTemplate returnValue = KBTemplateServiceUtil.addKBTemplate(portletId,
@@ -177,7 +177,7 @@ public class KBTemplateServiceSoap {
 
 	public static com.liferay.knowledgebase.model.KBTemplateSoap updateKBTemplate(
 		long kbTemplateId, java.lang.String title, java.lang.String content,
-		com.liferay.portal.service.ServiceContext serviceContext)
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws RemoteException {
 		try {
 			com.liferay.knowledgebase.model.KBTemplate returnValue = KBTemplateServiceUtil.updateKBTemplate(kbTemplateId,

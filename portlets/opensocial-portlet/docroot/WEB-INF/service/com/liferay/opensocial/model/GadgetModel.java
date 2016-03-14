@@ -14,13 +14,16 @@
 
 package com.liferay.opensocial.model;
 
-import com.liferay.portal.kernel.bean.AutoEscape;
-import com.liferay.portal.model.BaseModel;
-import com.liferay.portal.model.CacheModel;
-import com.liferay.portal.model.StagedModel;
-import com.liferay.portal.service.ServiceContext;
+import aQute.bnd.annotation.ProviderType;
 
-import com.liferay.portlet.expando.model.ExpandoBridge;
+import com.liferay.expando.kernel.model.ExpandoBridge;
+
+import com.liferay.portal.kernel.bean.AutoEscape;
+import com.liferay.portal.kernel.model.BaseModel;
+import com.liferay.portal.kernel.model.CacheModel;
+import com.liferay.portal.kernel.model.ShardedModel;
+import com.liferay.portal.kernel.model.StagedModel;
+import com.liferay.portal.kernel.service.ServiceContext;
 
 import java.io.Serializable;
 
@@ -39,7 +42,8 @@ import java.util.Date;
  * @see com.liferay.opensocial.model.impl.GadgetModelImpl
  * @generated
  */
-public interface GadgetModel extends BaseModel<Gadget>, StagedModel {
+@ProviderType
+public interface GadgetModel extends BaseModel<Gadget>, ShardedModel, StagedModel {
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
@@ -184,6 +188,20 @@ public interface GadgetModel extends BaseModel<Gadget>, StagedModel {
 	 */
 	public void setPortletCategoryNames(String portletCategoryNames);
 
+	/**
+	 * Returns the last publish date of this gadget.
+	 *
+	 * @return the last publish date of this gadget
+	 */
+	public Date getLastPublishDate();
+
+	/**
+	 * Sets the last publish date of this gadget.
+	 *
+	 * @param lastPublishDate the last publish date of this gadget
+	 */
+	public void setLastPublishDate(Date lastPublishDate);
+
 	@Override
 	public boolean isNew();
 
@@ -221,19 +239,19 @@ public interface GadgetModel extends BaseModel<Gadget>, StagedModel {
 	public Object clone();
 
 	@Override
-	public int compareTo(Gadget gadget);
+	public int compareTo(com.liferay.opensocial.model.Gadget gadget);
 
 	@Override
 	public int hashCode();
 
 	@Override
-	public CacheModel<Gadget> toCacheModel();
+	public CacheModel<com.liferay.opensocial.model.Gadget> toCacheModel();
 
 	@Override
-	public Gadget toEscapedModel();
+	public com.liferay.opensocial.model.Gadget toEscapedModel();
 
 	@Override
-	public Gadget toUnescapedModel();
+	public com.liferay.opensocial.model.Gadget toUnescapedModel();
 
 	@Override
 	public String toString();

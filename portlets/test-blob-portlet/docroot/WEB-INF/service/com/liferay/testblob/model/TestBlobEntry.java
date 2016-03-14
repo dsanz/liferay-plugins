@@ -14,7 +14,11 @@
 
 package com.liferay.testblob.model;
 
-import com.liferay.portal.model.PersistedModel;
+import aQute.bnd.annotation.ProviderType;
+
+import com.liferay.portal.kernel.annotation.ImplementationClassName;
+import com.liferay.portal.kernel.model.PersistedModel;
+import com.liferay.portal.kernel.util.Accessor;
 
 /**
  * The extended model interface for the TestBlobEntry service. Represents a row in the &quot;TestBlob_TestBlobEntry&quot; database table, with each column mapped to a property of this class.
@@ -25,10 +29,29 @@ import com.liferay.portal.model.PersistedModel;
  * @see com.liferay.testblob.model.impl.TestBlobEntryModelImpl
  * @generated
  */
+@ImplementationClassName("com.liferay.testblob.model.impl.TestBlobEntryImpl")
+@ProviderType
 public interface TestBlobEntry extends TestBlobEntryModel, PersistedModel {
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify this interface directly. Add methods to {@link com.liferay.testblob.model.impl.TestBlobEntryImpl} and rerun ServiceBuilder to automatically copy the method declarations to this interface.
 	 */
+	public static final Accessor<TestBlobEntry, Long> TEST_BLOB_ENTRY_ID_ACCESSOR =
+		new Accessor<TestBlobEntry, Long>() {
+			@Override
+			public Long get(TestBlobEntry testBlobEntry) {
+				return testBlobEntry.getTestBlobEntryId();
+			}
+
+			@Override
+			public Class<Long> getAttributeClass() {
+				return Long.class;
+			}
+
+			@Override
+			public Class<TestBlobEntry> getTypeClass() {
+				return TestBlobEntry.class;
+			}
+		};
 }

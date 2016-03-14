@@ -14,7 +14,9 @@
 
 package com.liferay.opensocial.service;
 
-import com.liferay.portal.service.ServiceWrapper;
+import aQute.bnd.annotation.ProviderType;
+
+import com.liferay.portal.kernel.service.ServiceWrapper;
 
 /**
  * Provides a wrapper for {@link GadgetService}.
@@ -23,6 +25,7 @@ import com.liferay.portal.service.ServiceWrapper;
  * @see GadgetService
  * @generated
  */
+@ProviderType
 public class GadgetServiceWrapper implements GadgetService,
 	ServiceWrapper<GadgetService> {
 	public GadgetServiceWrapper(GadgetService gadgetService) {
@@ -32,7 +35,7 @@ public class GadgetServiceWrapper implements GadgetService,
 	@Override
 	public com.liferay.opensocial.model.Gadget addGadget(long companyId,
 		java.lang.String url, java.lang.String portletCategoryNames,
-		com.liferay.portal.service.ServiceContext serviceContext)
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		return _gadgetService.addGadget(companyId, url, portletCategoryNames,
 			serviceContext);
@@ -40,19 +43,19 @@ public class GadgetServiceWrapper implements GadgetService,
 
 	@Override
 	public void deleteGadget(long gadgetId,
-		com.liferay.portal.service.ServiceContext serviceContext)
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		_gadgetService.deleteGadget(gadgetId, serviceContext);
 	}
 
 	/**
-	* Returns the Spring bean ID for this bean.
+	* Returns the OSGi service identifier.
 	*
-	* @return the Spring bean ID for this bean
+	* @return the OSGi service identifier
 	*/
 	@Override
-	public java.lang.String getBeanIdentifier() {
-		return _gadgetService.getBeanIdentifier();
+	public java.lang.String getOSGiServiceIdentifier() {
+		return _gadgetService.getOSGiServiceIdentifier();
 	}
 
 	@Override
@@ -62,39 +65,13 @@ public class GadgetServiceWrapper implements GadgetService,
 		return _gadgetService.invokeMethod(name, parameterTypes, arguments);
 	}
 
-	/**
-	* Sets the Spring bean ID for this bean.
-	*
-	* @param beanIdentifier the Spring bean ID for this bean
-	*/
-	@Override
-	public void setBeanIdentifier(java.lang.String beanIdentifier) {
-		_gadgetService.setBeanIdentifier(beanIdentifier);
-	}
-
 	@Override
 	public void updateGadget(long gadgetId,
 		java.lang.String portletCategoryNames,
-		com.liferay.portal.service.ServiceContext serviceContext)
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		_gadgetService.updateGadget(gadgetId, portletCategoryNames,
 			serviceContext);
-	}
-
-	/**
-	 * @deprecated As of 6.1.0, replaced by {@link #getWrappedService}
-	 */
-	@Deprecated
-	public GadgetService getWrappedGadgetService() {
-		return _gadgetService;
-	}
-
-	/**
-	 * @deprecated As of 6.1.0, replaced by {@link #setWrappedService}
-	 */
-	@Deprecated
-	public void setWrappedGadgetService(GadgetService gadgetService) {
-		_gadgetService = gadgetService;
 	}
 
 	@Override

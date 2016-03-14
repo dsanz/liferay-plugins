@@ -16,7 +16,7 @@ package com.liferay.socialcoding.service;
 
 import aQute.bnd.annotation.ProviderType;
 
-import com.liferay.portal.service.ServiceWrapper;
+import com.liferay.portal.kernel.service.ServiceWrapper;
 
 /**
  * Provides a wrapper for {@link JIRAIssueLocalService}.
@@ -87,8 +87,8 @@ public class JIRAIssueLocalServiceWrapper implements JIRAIssueLocalService,
 	* @throws PortalException
 	*/
 	@Override
-	public com.liferay.portal.model.PersistedModel deletePersistedModel(
-		com.liferay.portal.model.PersistedModel persistedModel)
+	public com.liferay.portal.kernel.model.PersistedModel deletePersistedModel(
+		com.liferay.portal.kernel.model.PersistedModel persistedModel)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		return _jiraIssueLocalService.deletePersistedModel(persistedModel);
 	}
@@ -152,10 +152,10 @@ public class JIRAIssueLocalServiceWrapper implements JIRAIssueLocalService,
 	}
 
 	/**
-	* Returns the number of rows that match the dynamic query.
+	* Returns the number of rows matching the dynamic query.
 	*
 	* @param dynamicQuery the dynamic query
-	* @return the number of rows that match the dynamic query
+	* @return the number of rows matching the dynamic query
 	*/
 	@Override
 	public long dynamicQueryCount(
@@ -164,11 +164,11 @@ public class JIRAIssueLocalServiceWrapper implements JIRAIssueLocalService,
 	}
 
 	/**
-	* Returns the number of rows that match the dynamic query.
+	* Returns the number of rows matching the dynamic query.
 	*
 	* @param dynamicQuery the dynamic query
 	* @param projection the projection to apply to the query
-	* @return the number of rows that match the dynamic query
+	* @return the number of rows matching the dynamic query
 	*/
 	@Override
 	public long dynamicQueryCount(
@@ -232,16 +232,6 @@ public class JIRAIssueLocalServiceWrapper implements JIRAIssueLocalService,
 			assigneeJiraUserId, status);
 	}
 
-	/**
-	* Returns the Spring bean ID for this bean.
-	*
-	* @return the Spring bean ID for this bean
-	*/
-	@Override
-	public java.lang.String getBeanIdentifier() {
-		return _jiraIssueLocalService.getBeanIdentifier();
-	}
-
 	@Override
 	public com.liferay.socialcoding.model.JIRAIssue getFirstAssigneeJIRAIssue(
 		long projectId, java.lang.String assigneeJiraUserId)
@@ -256,6 +246,11 @@ public class JIRAIssueLocalServiceWrapper implements JIRAIssueLocalService,
 		throws com.liferay.portal.kernel.exception.PortalException {
 		return _jiraIssueLocalService.getFirstReporterJIRAIssue(projectId,
 			reporterJiraUserId);
+	}
+
+	@Override
+	public com.liferay.portal.kernel.dao.orm.IndexableActionableDynamicQuery getIndexableActionableDynamicQuery() {
+		return _jiraIssueLocalService.getIndexableActionableDynamicQuery();
 	}
 
 	/**
@@ -322,8 +317,18 @@ public class JIRAIssueLocalServiceWrapper implements JIRAIssueLocalService,
 			reporterJiraUserId);
 	}
 
+	/**
+	* Returns the OSGi service identifier.
+	*
+	* @return the OSGi service identifier
+	*/
 	@Override
-	public com.liferay.portal.model.PersistedModel getPersistedModel(
+	public java.lang.String getOSGiServiceIdentifier() {
+		return _jiraIssueLocalService.getOSGiServiceIdentifier();
+	}
+
+	@Override
+	public com.liferay.portal.kernel.model.PersistedModel getPersistedModel(
 		java.io.Serializable primaryKeyObj)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		return _jiraIssueLocalService.getPersistedModel(primaryKeyObj);
@@ -382,16 +387,6 @@ public class JIRAIssueLocalServiceWrapper implements JIRAIssueLocalService,
 	}
 
 	/**
-	* Sets the Spring bean ID for this bean.
-	*
-	* @param beanIdentifier the Spring bean ID for this bean
-	*/
-	@Override
-	public void setBeanIdentifier(java.lang.String beanIdentifier) {
-		_jiraIssueLocalService.setBeanIdentifier(beanIdentifier);
-	}
-
-	/**
 	* Updates the j i r a issue in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
 	*
 	* @param jiraIssue the j i r a issue
@@ -407,23 +402,6 @@ public class JIRAIssueLocalServiceWrapper implements JIRAIssueLocalService,
 	public void updateJIRAIssues(long projectId)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		_jiraIssueLocalService.updateJIRAIssues(projectId);
-	}
-
-	/**
-	 * @deprecated As of 6.1.0, replaced by {@link #getWrappedService}
-	 */
-	@Deprecated
-	public JIRAIssueLocalService getWrappedJIRAIssueLocalService() {
-		return _jiraIssueLocalService;
-	}
-
-	/**
-	 * @deprecated As of 6.1.0, replaced by {@link #setWrappedService}
-	 */
-	@Deprecated
-	public void setWrappedJIRAIssueLocalService(
-		JIRAIssueLocalService jiraIssueLocalService) {
-		_jiraIssueLocalService = jiraIssueLocalService;
 	}
 
 	@Override

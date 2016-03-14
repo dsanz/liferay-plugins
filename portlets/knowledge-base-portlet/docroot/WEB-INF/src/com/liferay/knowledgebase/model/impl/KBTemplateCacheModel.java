@@ -18,10 +18,10 @@ import aQute.bnd.annotation.ProviderType;
 
 import com.liferay.knowledgebase.model.KBTemplate;
 
+import com.liferay.portal.kernel.model.CacheModel;
 import com.liferay.portal.kernel.util.HashUtil;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringPool;
-import com.liferay.portal.model.CacheModel;
 
 import java.io.Externalizable;
 import java.io.IOException;
@@ -66,7 +66,7 @@ public class KBTemplateCacheModel implements CacheModel<KBTemplate>,
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(21);
+		StringBundler sb = new StringBundler(23);
 
 		sb.append("{uuid=");
 		sb.append(uuid);
@@ -88,6 +88,8 @@ public class KBTemplateCacheModel implements CacheModel<KBTemplate>,
 		sb.append(title);
 		sb.append(", content=");
 		sb.append(content);
+		sb.append(", lastPublishDate=");
+		sb.append(lastPublishDate);
 		sb.append("}");
 
 		return sb.toString();
@@ -144,6 +146,13 @@ public class KBTemplateCacheModel implements CacheModel<KBTemplate>,
 			kbTemplateImpl.setContent(content);
 		}
 
+		if (lastPublishDate == Long.MIN_VALUE) {
+			kbTemplateImpl.setLastPublishDate(null);
+		}
+		else {
+			kbTemplateImpl.setLastPublishDate(new Date(lastPublishDate));
+		}
+
 		kbTemplateImpl.resetOriginalValues();
 
 		return kbTemplateImpl;
@@ -152,15 +161,20 @@ public class KBTemplateCacheModel implements CacheModel<KBTemplate>,
 	@Override
 	public void readExternal(ObjectInput objectInput) throws IOException {
 		uuid = objectInput.readUTF();
+
 		kbTemplateId = objectInput.readLong();
+
 		groupId = objectInput.readLong();
+
 		companyId = objectInput.readLong();
+
 		userId = objectInput.readLong();
 		userName = objectInput.readUTF();
 		createDate = objectInput.readLong();
 		modifiedDate = objectInput.readLong();
 		title = objectInput.readUTF();
 		content = objectInput.readUTF();
+		lastPublishDate = objectInput.readLong();
 	}
 
 	@Override
@@ -174,8 +188,11 @@ public class KBTemplateCacheModel implements CacheModel<KBTemplate>,
 		}
 
 		objectOutput.writeLong(kbTemplateId);
+
 		objectOutput.writeLong(groupId);
+
 		objectOutput.writeLong(companyId);
+
 		objectOutput.writeLong(userId);
 
 		if (userName == null) {
@@ -201,6 +218,8 @@ public class KBTemplateCacheModel implements CacheModel<KBTemplate>,
 		else {
 			objectOutput.writeUTF(content);
 		}
+
+		objectOutput.writeLong(lastPublishDate);
 	}
 
 	public String uuid;
@@ -213,4 +232,5 @@ public class KBTemplateCacheModel implements CacheModel<KBTemplate>,
 	public long modifiedDate;
 	public String title;
 	public String content;
+	public long lastPublishDate;
 }

@@ -14,8 +14,8 @@
 
 package com.liferay.knowledgebase.hook.upgrade.v1_3_4;
 
+import com.liferay.portal.kernel.portlet.PortletPreferencesFactoryUtil;
 import com.liferay.portal.kernel.upgrade.BaseUpgradePortletPreferences;
-import com.liferay.portlet.PortletPreferencesFactoryUtil;
 
 import javax.portlet.PortletPreferences;
 
@@ -53,9 +53,7 @@ public class UpgradePortletPreferences extends BaseUpgradePortletPreferences {
 		return PortletPreferencesFactoryUtil.toXML(portletPreferences);
 	}
 
-	private static final String[] _PORTLET_IDS = {
-		"1_WAR_knowledgebaseportlet"
-	};
+	private static final String[] _PORTLET_IDS = {"1_WAR_knowledgebaseportlet"};
 
 	private static final String[][] _PREFERENCE_NAMES = {
 		{

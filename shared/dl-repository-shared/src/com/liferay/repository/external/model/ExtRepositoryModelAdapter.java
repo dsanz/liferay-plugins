@@ -14,15 +14,15 @@
 
 package com.liferay.repository.external.model;
 
+import com.liferay.expando.kernel.model.ExpandoBridge;
+import com.liferay.expando.kernel.util.ExpandoBridgeFactoryUtil;
+import com.liferay.portal.kernel.model.CompanyConstants;
+import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.repository.model.RepositoryModel;
+import com.liferay.portal.kernel.service.UserLocalServiceUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.Validator;
-import com.liferay.portal.model.CompanyConstants;
-import com.liferay.portal.model.User;
-import com.liferay.portal.service.UserLocalServiceUtil;
-import com.liferay.portlet.expando.model.ExpandoBridge;
-import com.liferay.portlet.expando.util.ExpandoBridgeFactoryUtil;
 import com.liferay.repository.external.ExtRepositoryAdapter;
 import com.liferay.repository.external.ExtRepositoryModel;
 
@@ -82,6 +82,11 @@ public abstract class ExtRepositoryModelAdapter<T>
 	@Override
 	public long getGroupId() {
 		return _extRepositoryAdapter.getGroupId();
+	}
+
+	@Override
+	public Date getLastPublishDate() {
+		return null;
 	}
 
 	@Override
@@ -167,6 +172,11 @@ public abstract class ExtRepositoryModelAdapter<T>
 
 	@Override
 	public void setGroupId(long groupId) {
+		throw new UnsupportedOperationException("Model is read only");
+	}
+
+	@Override
+	public void setLastPublishDate(Date lastPublishDate) {
 		throw new UnsupportedOperationException("Model is read only");
 	}
 

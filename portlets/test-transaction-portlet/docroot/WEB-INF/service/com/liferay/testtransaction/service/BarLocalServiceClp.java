@@ -14,12 +14,15 @@
 
 package com.liferay.testtransaction.service;
 
-import com.liferay.portal.service.InvokableLocalService;
+import aQute.bnd.annotation.ProviderType;
+
+import com.liferay.portal.kernel.service.InvokableLocalService;
 
 /**
  * @author Brian Wing Shun Chan
  * @generated
  */
+@ProviderType
 public class BarLocalServiceClp implements BarLocalService {
 	public BarLocalServiceClp(InvokableLocalService invokableLocalService) {
 		_invokableLocalService = invokableLocalService;
@@ -69,7 +72,7 @@ public class BarLocalServiceClp implements BarLocalService {
 		_methodName9 = "deletePersistedModel";
 
 		_methodParameterTypes9 = new String[] {
-				"com.liferay.portal.model.PersistedModel"
+				"com.liferay.portal.kernel.model.PersistedModel"
 			};
 
 		_methodName10 = "dynamicQuery";
@@ -132,25 +135,25 @@ public class BarLocalServiceClp implements BarLocalService {
 
 		_methodParameterTypes21 = new String[] {  };
 
-		_methodName22 = "getBeanIdentifier";
+		_methodName22 = "getIndexableActionableDynamicQuery";
 
 		_methodParameterTypes22 = new String[] {  };
 
-		_methodName23 = "getPersistedModel";
+		_methodName23 = "getOSGiServiceIdentifier";
 
-		_methodParameterTypes23 = new String[] { "java.io.Serializable" };
+		_methodParameterTypes23 = new String[] {  };
 
-		_methodName24 = "hasBar";
+		_methodName24 = "getPersistedModel";
 
-		_methodParameterTypes24 = new String[] { "java.lang.String" };
+		_methodParameterTypes24 = new String[] { "java.io.Serializable" };
 
-		_methodName25 = "hasClassName";
+		_methodName25 = "hasBar";
 
-		_methodParameterTypes25 = new String[] {  };
+		_methodParameterTypes25 = new String[] { "java.lang.String" };
 
-		_methodName27 = "setBeanIdentifier";
+		_methodName26 = "hasClassName";
 
-		_methodParameterTypes27 = new String[] { "java.lang.String" };
+		_methodParameterTypes26 = new String[] {  };
 
 		_methodName28 = "testAddClassNameAndBar_Success";
 
@@ -375,8 +378,8 @@ public class BarLocalServiceClp implements BarLocalService {
 	}
 
 	@Override
-	public com.liferay.portal.model.PersistedModel deletePersistedModel(
-		com.liferay.portal.model.PersistedModel persistedModel)
+	public com.liferay.portal.kernel.model.PersistedModel deletePersistedModel(
+		com.liferay.portal.kernel.model.PersistedModel persistedModel)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		Object returnObj = null;
 
@@ -401,7 +404,7 @@ public class BarLocalServiceClp implements BarLocalService {
 			}
 		}
 
-		return (com.liferay.portal.model.PersistedModel)ClpSerializer.translateOutput(returnObj);
+		return (com.liferay.portal.kernel.model.PersistedModel)ClpSerializer.translateOutput(returnObj);
 	}
 
 	@Override
@@ -725,7 +728,7 @@ public class BarLocalServiceClp implements BarLocalService {
 	}
 
 	@Override
-	public java.lang.String getBeanIdentifier() {
+	public com.liferay.portal.kernel.dao.orm.IndexableActionableDynamicQuery getIndexableActionableDynamicQuery() {
 		Object returnObj = null;
 
 		try {
@@ -744,18 +747,41 @@ public class BarLocalServiceClp implements BarLocalService {
 			}
 		}
 
+		return (com.liferay.portal.kernel.dao.orm.IndexableActionableDynamicQuery)ClpSerializer.translateOutput(returnObj);
+	}
+
+	@Override
+	public java.lang.String getOSGiServiceIdentifier() {
+		Object returnObj = null;
+
+		try {
+			returnObj = _invokableLocalService.invokeMethod(_methodName23,
+					_methodParameterTypes23, new Object[] {  });
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
 		return (java.lang.String)ClpSerializer.translateOutput(returnObj);
 	}
 
 	@Override
-	public com.liferay.portal.model.PersistedModel getPersistedModel(
+	public com.liferay.portal.kernel.model.PersistedModel getPersistedModel(
 		java.io.Serializable primaryKeyObj)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName23,
-					_methodParameterTypes23,
+			returnObj = _invokableLocalService.invokeMethod(_methodName24,
+					_methodParameterTypes24,
 					new Object[] { ClpSerializer.translateInput(primaryKeyObj) });
 		}
 		catch (Throwable t) {
@@ -774,7 +800,7 @@ public class BarLocalServiceClp implements BarLocalService {
 			}
 		}
 
-		return (com.liferay.portal.model.PersistedModel)ClpSerializer.translateOutput(returnObj);
+		return (com.liferay.portal.kernel.model.PersistedModel)ClpSerializer.translateOutput(returnObj);
 	}
 
 	@Override
@@ -782,8 +808,8 @@ public class BarLocalServiceClp implements BarLocalService {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName24,
-					_methodParameterTypes24,
+			returnObj = _invokableLocalService.invokeMethod(_methodName25,
+					_methodParameterTypes25,
 					new Object[] { ClpSerializer.translateInput(text) });
 		}
 		catch (Throwable t) {
@@ -806,8 +832,8 @@ public class BarLocalServiceClp implements BarLocalService {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName25,
-					_methodParameterTypes25, new Object[] {  });
+			returnObj = _invokableLocalService.invokeMethod(_methodName26,
+					_methodParameterTypes26, new Object[] {  });
 		}
 		catch (Throwable t) {
 			t = ClpSerializer.translateThrowable(t);
@@ -829,26 +855,6 @@ public class BarLocalServiceClp implements BarLocalService {
 		java.lang.String[] parameterTypes, java.lang.Object[] arguments)
 		throws java.lang.Throwable {
 		throw new UnsupportedOperationException();
-	}
-
-	@Override
-	public void setBeanIdentifier(java.lang.String beanIdentifier) {
-		try {
-			_invokableLocalService.invokeMethod(_methodName27,
-				_methodParameterTypes27,
-				new Object[] { ClpSerializer.translateInput(beanIdentifier) });
-		}
-		catch (Throwable t) {
-			t = ClpSerializer.translateThrowable(t);
-
-			if (t instanceof RuntimeException) {
-				throw (RuntimeException)t;
-			}
-			else {
-				throw new RuntimeException(t.getClass().getName() +
-					" is not a valid exception");
-			}
-		}
 	}
 
 	@Override
@@ -949,8 +955,8 @@ public class BarLocalServiceClp implements BarLocalService {
 	private String[] _methodParameterTypes24;
 	private String _methodName25;
 	private String[] _methodParameterTypes25;
-	private String _methodName27;
-	private String[] _methodParameterTypes27;
+	private String _methodName26;
+	private String[] _methodParameterTypes26;
 	private String _methodName28;
 	private String[] _methodParameterTypes28;
 	private String _methodName29;

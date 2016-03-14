@@ -18,10 +18,10 @@ import aQute.bnd.annotation.ProviderType;
 
 import com.liferay.knowledgebase.model.KBArticle;
 
+import com.liferay.portal.kernel.model.CacheModel;
 import com.liferay.portal.kernel.util.HashUtil;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringPool;
-import com.liferay.portal.model.CacheModel;
 
 import java.io.Externalizable;
 import java.io.IOException;
@@ -66,7 +66,7 @@ public class KBArticleCacheModel implements CacheModel<KBArticle>,
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(57);
+		StringBundler sb = new StringBundler(59);
 
 		sb.append("{uuid=");
 		sb.append(uuid);
@@ -116,6 +116,8 @@ public class KBArticleCacheModel implements CacheModel<KBArticle>,
 		sb.append(main);
 		sb.append(", sourceURL=");
 		sb.append(sourceURL);
+		sb.append(", lastPublishDate=");
+		sb.append(lastPublishDate);
 		sb.append(", status=");
 		sb.append(status);
 		sb.append(", statusByUserId=");
@@ -221,6 +223,13 @@ public class KBArticleCacheModel implements CacheModel<KBArticle>,
 			kbArticleImpl.setSourceURL(sourceURL);
 		}
 
+		if (lastPublishDate == Long.MIN_VALUE) {
+			kbArticleImpl.setLastPublishDate(null);
+		}
+		else {
+			kbArticleImpl.setLastPublishDate(new Date(lastPublishDate));
+		}
+
 		kbArticleImpl.setStatus(status);
 		kbArticleImpl.setStatusByUserId(statusByUserId);
 
@@ -246,30 +255,47 @@ public class KBArticleCacheModel implements CacheModel<KBArticle>,
 	@Override
 	public void readExternal(ObjectInput objectInput) throws IOException {
 		uuid = objectInput.readUTF();
+
 		kbArticleId = objectInput.readLong();
+
 		resourcePrimKey = objectInput.readLong();
+
 		groupId = objectInput.readLong();
+
 		companyId = objectInput.readLong();
+
 		userId = objectInput.readLong();
 		userName = objectInput.readUTF();
 		createDate = objectInput.readLong();
 		modifiedDate = objectInput.readLong();
+
 		rootResourcePrimKey = objectInput.readLong();
+
 		parentResourceClassNameId = objectInput.readLong();
+
 		parentResourcePrimKey = objectInput.readLong();
+
 		kbFolderId = objectInput.readLong();
+
 		version = objectInput.readInt();
 		title = objectInput.readUTF();
 		urlTitle = objectInput.readUTF();
 		content = objectInput.readUTF();
 		description = objectInput.readUTF();
+
 		priority = objectInput.readDouble();
 		sections = objectInput.readUTF();
+
 		viewCount = objectInput.readInt();
+
 		latest = objectInput.readBoolean();
+
 		main = objectInput.readBoolean();
 		sourceURL = objectInput.readUTF();
+		lastPublishDate = objectInput.readLong();
+
 		status = objectInput.readInt();
+
 		statusByUserId = objectInput.readLong();
 		statusByUserName = objectInput.readUTF();
 		statusDate = objectInput.readLong();
@@ -286,9 +312,13 @@ public class KBArticleCacheModel implements CacheModel<KBArticle>,
 		}
 
 		objectOutput.writeLong(kbArticleId);
+
 		objectOutput.writeLong(resourcePrimKey);
+
 		objectOutput.writeLong(groupId);
+
 		objectOutput.writeLong(companyId);
+
 		objectOutput.writeLong(userId);
 
 		if (userName == null) {
@@ -300,10 +330,15 @@ public class KBArticleCacheModel implements CacheModel<KBArticle>,
 
 		objectOutput.writeLong(createDate);
 		objectOutput.writeLong(modifiedDate);
+
 		objectOutput.writeLong(rootResourcePrimKey);
+
 		objectOutput.writeLong(parentResourceClassNameId);
+
 		objectOutput.writeLong(parentResourcePrimKey);
+
 		objectOutput.writeLong(kbFolderId);
+
 		objectOutput.writeInt(version);
 
 		if (title == null) {
@@ -344,7 +379,9 @@ public class KBArticleCacheModel implements CacheModel<KBArticle>,
 		}
 
 		objectOutput.writeInt(viewCount);
+
 		objectOutput.writeBoolean(latest);
+
 		objectOutput.writeBoolean(main);
 
 		if (sourceURL == null) {
@@ -354,7 +391,10 @@ public class KBArticleCacheModel implements CacheModel<KBArticle>,
 			objectOutput.writeUTF(sourceURL);
 		}
 
+		objectOutput.writeLong(lastPublishDate);
+
 		objectOutput.writeInt(status);
+
 		objectOutput.writeLong(statusByUserId);
 
 		if (statusByUserName == null) {
@@ -391,6 +431,7 @@ public class KBArticleCacheModel implements CacheModel<KBArticle>,
 	public boolean latest;
 	public boolean main;
 	public String sourceURL;
+	public long lastPublishDate;
 	public int status;
 	public long statusByUserId;
 	public String statusByUserName;

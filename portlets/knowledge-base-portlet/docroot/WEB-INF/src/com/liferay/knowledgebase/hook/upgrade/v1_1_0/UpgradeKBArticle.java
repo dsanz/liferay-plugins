@@ -26,10 +26,10 @@ import com.liferay.portal.kernel.upgrade.util.TempUpgradeColumnImpl;
 import com.liferay.portal.kernel.upgrade.util.UpgradeColumn;
 import com.liferay.portal.kernel.upgrade.util.UpgradeTable;
 import com.liferay.portal.kernel.upgrade.util.UpgradeTableFactoryUtil;
+import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.StringUtil;
-import com.liferay.portal.util.PortalUtil;
 
 /**
  * @author Peter Shin
@@ -49,7 +49,7 @@ public class UpgradeKBArticle extends UpgradeProcess {
 			String tableSqlCreate, String tableSqlDrop)
 		throws Exception {
 
-		if (tableHasData(newTableName)) {
+		if (hasRows(newTableName)) {
 			if (_log.isWarnEnabled()) {
 				_log.warn(
 					"Not renaming " + oldTableName + " to " + newTableName +
@@ -59,7 +59,7 @@ public class UpgradeKBArticle extends UpgradeProcess {
 			return;
 		}
 
-		if (!tableHasData(oldTableName)) {
+		if (!hasRows(oldTableName)) {
 			if (_log.isWarnEnabled()) {
 				_log.warn(
 					"Not renaming " + oldTableName + " to " + newTableName +
@@ -95,7 +95,7 @@ public class UpgradeKBArticle extends UpgradeProcess {
 			String tableName, String columnName, String dataType, String data)
 		throws Exception {
 
-		if (tableHasColumn(tableName, columnName)) {
+		if (hasColumn(tableName, columnName)) {
 			return;
 		}
 
@@ -150,7 +150,7 @@ public class UpgradeKBArticle extends UpgradeProcess {
 		updateColumn(oldTableName, "statusByUserName", "STRING", "userName");
 		updateColumn(oldTableName, "statusDate", "DATE", "modifiedDate");
 
-		if (tableHasColumn(oldTableName, "articleId")) {
+		if (hasColumn(oldTableName, "articleId")) {
 			runSQL("alter table " + oldTableName + " drop column articleId");
 		}
 	}

@@ -16,7 +16,9 @@ package com.liferay.mail.model;
 
 import aQute.bnd.annotation.ProviderType;
 
-import com.liferay.portal.model.PersistedModel;
+import com.liferay.portal.kernel.annotation.ImplementationClassName;
+import com.liferay.portal.kernel.model.PersistedModel;
+import com.liferay.portal.kernel.util.Accessor;
 
 /**
  * The extended model interface for the Attachment service. Represents a row in the &quot;Mail_Attachment&quot; database table, with each column mapped to a property of this class.
@@ -27,6 +29,7 @@ import com.liferay.portal.model.PersistedModel;
  * @see com.liferay.mail.model.impl.AttachmentModelImpl
  * @generated
  */
+@ImplementationClassName("com.liferay.mail.model.impl.AttachmentImpl")
 @ProviderType
 public interface Attachment extends AttachmentModel, PersistedModel {
 	/*
@@ -34,4 +37,20 @@ public interface Attachment extends AttachmentModel, PersistedModel {
 	 *
 	 * Never modify this interface directly. Add methods to {@link com.liferay.mail.model.impl.AttachmentImpl} and rerun ServiceBuilder to automatically copy the method declarations to this interface.
 	 */
+	public static final Accessor<Attachment, Long> ATTACHMENT_ID_ACCESSOR = new Accessor<Attachment, Long>() {
+			@Override
+			public Long get(Attachment attachment) {
+				return attachment.getAttachmentId();
+			}
+
+			@Override
+			public Class<Long> getAttributeClass() {
+				return Long.class;
+			}
+
+			@Override
+			public Class<Attachment> getTypeClass() {
+				return Attachment.class;
+			}
+		};
 }

@@ -14,9 +14,17 @@
 
 package com.liferay.samplelar.model;
 
-import com.liferay.portal.kernel.lar.StagedModelType;
+import aQute.bnd.annotation.ProviderType;
+
+import com.liferay.expando.kernel.model.ExpandoBridge;
+
+import com.liferay.exportimport.kernel.lar.StagedModelType;
+
+import com.liferay.portal.kernel.model.ModelWrapper;
+import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.util.Validator;
-import com.liferay.portal.model.ModelWrapper;
+
+import java.io.Serializable;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -31,6 +39,7 @@ import java.util.Map;
  * @see SampleLARBooking
  * @generated
  */
+@ProviderType
 public class SampleLARBookingWrapper implements SampleLARBooking,
 	ModelWrapper<SampleLARBooking> {
 	public SampleLARBookingWrapper(SampleLARBooking sampleLARBooking) {
@@ -60,6 +69,7 @@ public class SampleLARBookingWrapper implements SampleLARBooking,
 		attributes.put("createDate", getCreateDate());
 		attributes.put("modifiedDate", getModifiedDate());
 		attributes.put("bookingNumber", getBookingNumber());
+		attributes.put("lastPublishDate", getLastPublishDate());
 
 		return attributes;
 	}
@@ -119,6 +129,12 @@ public class SampleLARBookingWrapper implements SampleLARBooking,
 		if (bookingNumber != null) {
 			setBookingNumber(bookingNumber);
 		}
+
+		Date lastPublishDate = (Date)attributes.get("lastPublishDate");
+
+		if (lastPublishDate != null) {
+			setLastPublishDate(lastPublishDate);
+		}
 	}
 
 	@Override
@@ -158,12 +174,12 @@ public class SampleLARBookingWrapper implements SampleLARBooking,
 	* @return the create date of this sample l a r booking
 	*/
 	@Override
-	public java.util.Date getCreateDate() {
+	public Date getCreateDate() {
 		return _sampleLARBooking.getCreateDate();
 	}
 
 	@Override
-	public com.liferay.portlet.expando.model.ExpandoBridge getExpandoBridge() {
+	public ExpandoBridge getExpandoBridge() {
 		return _sampleLARBooking.getExpandoBridge();
 	}
 
@@ -178,12 +194,22 @@ public class SampleLARBookingWrapper implements SampleLARBooking,
 	}
 
 	/**
+	* Returns the last publish date of this sample l a r booking.
+	*
+	* @return the last publish date of this sample l a r booking
+	*/
+	@Override
+	public Date getLastPublishDate() {
+		return _sampleLARBooking.getLastPublishDate();
+	}
+
+	/**
 	* Returns the modified date of this sample l a r booking.
 	*
 	* @return the modified date of this sample l a r booking
 	*/
 	@Override
-	public java.util.Date getModifiedDate() {
+	public Date getModifiedDate() {
 		return _sampleLARBooking.getModifiedDate();
 	}
 
@@ -198,7 +224,7 @@ public class SampleLARBookingWrapper implements SampleLARBooking,
 	}
 
 	@Override
-	public java.io.Serializable getPrimaryKeyObj() {
+	public Serializable getPrimaryKeyObj() {
 		return _sampleLARBooking.getPrimaryKeyObj();
 	}
 
@@ -308,25 +334,23 @@ public class SampleLARBookingWrapper implements SampleLARBooking,
 	* @param createDate the create date of this sample l a r booking
 	*/
 	@Override
-	public void setCreateDate(java.util.Date createDate) {
+	public void setCreateDate(Date createDate) {
 		_sampleLARBooking.setCreateDate(createDate);
 	}
 
 	@Override
 	public void setExpandoBridgeAttributes(
-		com.liferay.portal.model.BaseModel<?> baseModel) {
+		com.liferay.portal.kernel.model.BaseModel<?> baseModel) {
 		_sampleLARBooking.setExpandoBridgeAttributes(baseModel);
 	}
 
 	@Override
-	public void setExpandoBridgeAttributes(
-		com.liferay.portlet.expando.model.ExpandoBridge expandoBridge) {
+	public void setExpandoBridgeAttributes(ExpandoBridge expandoBridge) {
 		_sampleLARBooking.setExpandoBridgeAttributes(expandoBridge);
 	}
 
 	@Override
-	public void setExpandoBridgeAttributes(
-		com.liferay.portal.service.ServiceContext serviceContext) {
+	public void setExpandoBridgeAttributes(ServiceContext serviceContext) {
 		_sampleLARBooking.setExpandoBridgeAttributes(serviceContext);
 	}
 
@@ -341,12 +365,22 @@ public class SampleLARBookingWrapper implements SampleLARBooking,
 	}
 
 	/**
+	* Sets the last publish date of this sample l a r booking.
+	*
+	* @param lastPublishDate the last publish date of this sample l a r booking
+	*/
+	@Override
+	public void setLastPublishDate(Date lastPublishDate) {
+		_sampleLARBooking.setLastPublishDate(lastPublishDate);
+	}
+
+	/**
 	* Sets the modified date of this sample l a r booking.
 	*
 	* @param modifiedDate the modified date of this sample l a r booking
 	*/
 	@Override
-	public void setModifiedDate(java.util.Date modifiedDate) {
+	public void setModifiedDate(Date modifiedDate) {
 		_sampleLARBooking.setModifiedDate(modifiedDate);
 	}
 
@@ -366,7 +400,7 @@ public class SampleLARBookingWrapper implements SampleLARBooking,
 	}
 
 	@Override
-	public void setPrimaryKeyObj(java.io.Serializable primaryKeyObj) {
+	public void setPrimaryKeyObj(Serializable primaryKeyObj) {
 		_sampleLARBooking.setPrimaryKeyObj(primaryKeyObj);
 	}
 
@@ -421,7 +455,7 @@ public class SampleLARBookingWrapper implements SampleLARBooking,
 	}
 
 	@Override
-	public com.liferay.portal.model.CacheModel<com.liferay.samplelar.model.SampleLARBooking> toCacheModel() {
+	public com.liferay.portal.kernel.model.CacheModel<com.liferay.samplelar.model.SampleLARBooking> toCacheModel() {
 		return _sampleLARBooking.toCacheModel();
 	}
 
@@ -470,14 +504,6 @@ public class SampleLARBookingWrapper implements SampleLARBooking,
 		return _sampleLARBooking.getStagedModelType();
 	}
 
-	/**
-	 * @deprecated As of 6.1.0, replaced by {@link #getWrappedModel}
-	 */
-	@Deprecated
-	public SampleLARBooking getWrappedSampleLARBooking() {
-		return _sampleLARBooking;
-	}
-
 	@Override
 	public SampleLARBooking getWrappedModel() {
 		return _sampleLARBooking;
@@ -498,5 +524,5 @@ public class SampleLARBookingWrapper implements SampleLARBooking,
 		_sampleLARBooking.resetOriginalValues();
 	}
 
-	private SampleLARBooking _sampleLARBooking;
+	private final SampleLARBooking _sampleLARBooking;
 }

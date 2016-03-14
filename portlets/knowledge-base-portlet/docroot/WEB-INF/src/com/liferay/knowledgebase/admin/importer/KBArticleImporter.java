@@ -14,8 +14,8 @@
 
 package com.liferay.knowledgebase.admin.importer;
 
-import com.liferay.knowledgebase.KBArticleImportException;
 import com.liferay.knowledgebase.admin.importer.util.KBArticleMarkdownConverter;
+import com.liferay.knowledgebase.exception.KBArticleImportException;
 import com.liferay.knowledgebase.model.KBArticle;
 import com.liferay.knowledgebase.model.KBArticleConstants;
 import com.liferay.knowledgebase.model.KBFolderConstants;
@@ -25,9 +25,11 @@ import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.repository.model.FileEntry;
+import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.CharPool;
 import com.liferay.portal.kernel.util.FileUtil;
+import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.kernel.util.StreamUtil;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringPool;
@@ -35,8 +37,6 @@ import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.workflow.WorkflowConstants;
 import com.liferay.portal.kernel.zip.ZipReader;
 import com.liferay.portal.kernel.zip.ZipReaderFactoryUtil;
-import com.liferay.portal.service.ServiceContext;
-import com.liferay.portal.util.PortalUtil;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -314,7 +314,7 @@ public class KBArticleImporter {
 					if (_log.isWarnEnabled()) {
 						_log.warn(
 							"Missing Markdown in file entry " +
-							sectionFileEntryName);
+								sectionFileEntryName);
 					}
 				}
 

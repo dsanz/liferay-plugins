@@ -16,9 +16,10 @@ package com.liferay.socialcoding.model.impl;
 
 import aQute.bnd.annotation.ProviderType;
 
+import com.liferay.portal.kernel.model.CacheModel;
+import com.liferay.portal.kernel.util.HashUtil;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringPool;
-import com.liferay.portal.model.CacheModel;
 
 import com.liferay.socialcoding.model.JIRAProject;
 
@@ -37,6 +38,30 @@ import java.io.ObjectOutput;
 @ProviderType
 public class JIRAProjectCacheModel implements CacheModel<JIRAProject>,
 	Externalizable {
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+
+		if (!(obj instanceof JIRAProjectCacheModel)) {
+			return false;
+		}
+
+		JIRAProjectCacheModel jiraProjectCacheModel = (JIRAProjectCacheModel)obj;
+
+		if (jiraProjectId == jiraProjectCacheModel.jiraProjectId) {
+			return true;
+		}
+
+		return false;
+	}
+
+	@Override
+	public int hashCode() {
+		return HashUtil.hash(0, jiraProjectId);
+	}
+
 	@Override
 	public String toString() {
 		StringBundler sb = new StringBundler(7);

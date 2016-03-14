@@ -16,7 +16,7 @@ package com.liferay.knowledgebase.service;
 
 import aQute.bnd.annotation.ProviderType;
 
-import com.liferay.portal.service.ServiceWrapper;
+import com.liferay.portal.kernel.service.ServiceWrapper;
 
 /**
  * Provides a wrapper for {@link KBTemplateService}.
@@ -36,7 +36,7 @@ public class KBTemplateServiceWrapper implements KBTemplateService,
 	public com.liferay.knowledgebase.model.KBTemplate addKBTemplate(
 		java.lang.String portletId, java.lang.String title,
 		java.lang.String content,
-		com.liferay.portal.service.ServiceContext serviceContext)
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		return _kbTemplateService.addKBTemplate(portletId, title, content,
 			serviceContext);
@@ -53,16 +53,6 @@ public class KBTemplateServiceWrapper implements KBTemplateService,
 	public void deleteKBTemplates(long groupId, long[] kbTemplateIds)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		_kbTemplateService.deleteKBTemplates(groupId, kbTemplateIds);
-	}
-
-	/**
-	* Returns the Spring bean ID for this bean.
-	*
-	* @return the Spring bean ID for this bean
-	*/
-	@Override
-	public java.lang.String getBeanIdentifier() {
-		return _kbTemplateService.getBeanIdentifier();
 	}
 
 	@Override
@@ -97,6 +87,16 @@ public class KBTemplateServiceWrapper implements KBTemplateService,
 			delta, orderByComparator);
 	}
 
+	/**
+	* Returns the OSGi service identifier.
+	*
+	* @return the OSGi service identifier
+	*/
+	@Override
+	public java.lang.String getOSGiServiceIdentifier() {
+		return _kbTemplateService.getOSGiServiceIdentifier();
+	}
+
 	@Override
 	public java.lang.Object invokeMethod(java.lang.String name,
 		java.lang.String[] parameterTypes, java.lang.Object[] arguments)
@@ -104,39 +104,13 @@ public class KBTemplateServiceWrapper implements KBTemplateService,
 		return _kbTemplateService.invokeMethod(name, parameterTypes, arguments);
 	}
 
-	/**
-	* Sets the Spring bean ID for this bean.
-	*
-	* @param beanIdentifier the Spring bean ID for this bean
-	*/
-	@Override
-	public void setBeanIdentifier(java.lang.String beanIdentifier) {
-		_kbTemplateService.setBeanIdentifier(beanIdentifier);
-	}
-
 	@Override
 	public com.liferay.knowledgebase.model.KBTemplate updateKBTemplate(
 		long kbTemplateId, java.lang.String title, java.lang.String content,
-		com.liferay.portal.service.ServiceContext serviceContext)
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		return _kbTemplateService.updateKBTemplate(kbTemplateId, title,
 			content, serviceContext);
-	}
-
-	/**
-	 * @deprecated As of 6.1.0, replaced by {@link #getWrappedService}
-	 */
-	@Deprecated
-	public KBTemplateService getWrappedKBTemplateService() {
-		return _kbTemplateService;
-	}
-
-	/**
-	 * @deprecated As of 6.1.0, replaced by {@link #setWrappedService}
-	 */
-	@Deprecated
-	public void setWrappedKBTemplateService(KBTemplateService kbTemplateService) {
-		_kbTemplateService = kbTemplateService;
 	}
 
 	@Override

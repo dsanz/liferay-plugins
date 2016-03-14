@@ -16,7 +16,8 @@
 
 <%@ include file="/init.jsp" %>
 
-<%@ page import="com.liferay.knowledgebase.admin.search.KBArticleDisplayTerms" %><%@
+<%@ page import="com.liferay.document.library.kernel.util.DLUtil" %><%@
+page import="com.liferay.knowledgebase.admin.search.KBArticleDisplayTerms" %><%@
 page import="com.liferay.knowledgebase.admin.search.KBArticleSearch" %><%@
 page import="com.liferay.knowledgebase.admin.search.KBArticleSearchTerms" %><%@
 page import="com.liferay.knowledgebase.admin.search.KBTemplateDisplayTerms" %><%@
@@ -26,10 +27,9 @@ page import="com.liferay.knowledgebase.admin.util.AdminUtil" %><%@
 page import="com.liferay.knowledgebase.admin.util.KBArticleAssetEntriesUtil" %><%@
 page import="com.liferay.knowledgebase.model.KBCommentConstants" %><%@
 page import="com.liferay.knowledgebase.util.KBSuggestionListDisplayContext" %><%@
-page import="com.liferay.portal.kernel.servlet.SessionMessages" %><%@
-page import="com.liferay.portal.model.Portlet" %><%@
-page import="com.liferay.portal.service.PortletLocalServiceUtil" %><%@
-page import="com.liferay.portlet.documentlibrary.util.DLUtil" %>
+page import="com.liferay.portal.kernel.model.Portlet" %><%@
+page import="com.liferay.portal.kernel.service.PortletLocalServiceUtil" %><%@
+page import="com.liferay.portal.kernel.servlet.SessionMessages" %>
 
 <%
 String kbArticlesOrderByCol = portletPreferences.getValue("kbArticlesOrderByCol", StringPool.BLANK);
@@ -39,6 +39,7 @@ boolean enableKBArticleDescription = GetterUtil.getBoolean(portletPreferences.ge
 boolean enableKBArticleRatings = GetterUtil.getBoolean(portletPreferences.getValue("enableKBArticleRatings", null));
 String kbArticleRatingsType = GetterUtil.getString(portletPreferences.getValue("kbArticleRatingsType", null), "thumbs");
 boolean showKBArticleAssetEntries = GetterUtil.getBoolean(portletPreferences.getValue("showKBArticleAssetEntries", null));
+boolean showKBArticleAttachments = GetterUtil.getBoolean(portletPreferences.getValue("showKBArticleAttachments", null), true);
 boolean enableKBArticleAssetLinks = GetterUtil.getBoolean(portletPreferences.getValue("enableKBArticleAssetLinks", null), true);
 boolean enableKBArticleViewCountIncrement = GetterUtil.getBoolean(portletPreferences.getValue("enableKBArticleViewCountIncrement", null));
 boolean enableKBArticleSubscriptions = GetterUtil.getBoolean(portletPreferences.getValue("enableKBArticleSubscriptions", null), true);

@@ -17,9 +17,9 @@
 
 package com.liferay.microblogs.hook.upgrade.v1_0_0;
 
+import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.upgrade.UpgradeProcess;
-import com.liferay.portal.model.User;
-import com.liferay.portal.util.PortalUtil;
+import com.liferay.portal.kernel.util.PortalUtil;
 
 /**
  * @author Calvin Keum
@@ -32,8 +32,8 @@ public class UpgradeMicroblogsEntry extends UpgradeProcess {
 	}
 
 	protected void updateMicroBlogsEntry() throws Exception {
-		if (tableHasColumn("MicroblogsEntry", "creatorClassNameId") ||
-			tableHasColumn("MicroblogsEntry", "creatorClassPK")) {
+		if (hasColumn("MicroblogsEntry", "creatorClassNameId") ||
+			hasColumn("MicroblogsEntry", "creatorClassPK")) {
 
 			return;
 		}

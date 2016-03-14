@@ -16,8 +16,9 @@ package com.liferay.socialcoding.service.persistence;
 
 import aQute.bnd.annotation.ProviderType;
 
-import com.liferay.portal.service.persistence.BasePersistence;
+import com.liferay.portal.kernel.service.persistence.BasePersistence;
 
+import com.liferay.socialcoding.exception.NoSuchSVNRevisionException;
 import com.liferay.socialcoding.model.SVNRevision;
 
 /**
@@ -28,7 +29,7 @@ import com.liferay.socialcoding.model.SVNRevision;
  * </p>
  *
  * @author Brian Wing Shun Chan
- * @see SVNRevisionPersistenceImpl
+ * @see com.liferay.socialcoding.service.persistence.impl.SVNRevisionPersistenceImpl
  * @see SVNRevisionUtil
  * @generated
  */
@@ -46,14 +47,14 @@ public interface SVNRevisionPersistence extends BasePersistence<SVNRevision> {
 	* @param svnUserId the svn user ID
 	* @return the matching s v n revisions
 	*/
-	public java.util.List<com.liferay.socialcoding.model.SVNRevision> findBySVNUserId(
+	public java.util.List<SVNRevision> findBySVNUserId(
 		java.lang.String svnUserId);
 
 	/**
 	* Returns a range of all the s v n revisions where svnUserId = &#63;.
 	*
 	* <p>
-	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link com.liferay.socialcoding.model.impl.SVNRevisionModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link SVNRevisionModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	* </p>
 	*
 	* @param svnUserId the svn user ID
@@ -61,14 +62,14 @@ public interface SVNRevisionPersistence extends BasePersistence<SVNRevision> {
 	* @param end the upper bound of the range of s v n revisions (not inclusive)
 	* @return the range of matching s v n revisions
 	*/
-	public java.util.List<com.liferay.socialcoding.model.SVNRevision> findBySVNUserId(
+	public java.util.List<SVNRevision> findBySVNUserId(
 		java.lang.String svnUserId, int start, int end);
 
 	/**
 	* Returns an ordered range of all the s v n revisions where svnUserId = &#63;.
 	*
 	* <p>
-	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link com.liferay.socialcoding.model.impl.SVNRevisionModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link SVNRevisionModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	* </p>
 	*
 	* @param svnUserId the svn user ID
@@ -77,9 +78,28 @@ public interface SVNRevisionPersistence extends BasePersistence<SVNRevision> {
 	* @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
 	* @return the ordered range of matching s v n revisions
 	*/
-	public java.util.List<com.liferay.socialcoding.model.SVNRevision> findBySVNUserId(
+	public java.util.List<SVNRevision> findBySVNUserId(
 		java.lang.String svnUserId, int start, int end,
-		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.socialcoding.model.SVNRevision> orderByComparator);
+		com.liferay.portal.kernel.util.OrderByComparator<SVNRevision> orderByComparator);
+
+	/**
+	* Returns an ordered range of all the s v n revisions where svnUserId = &#63;.
+	*
+	* <p>
+	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link SVNRevisionModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	* </p>
+	*
+	* @param svnUserId the svn user ID
+	* @param start the lower bound of the range of s v n revisions
+	* @param end the upper bound of the range of s v n revisions (not inclusive)
+	* @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	* @param retrieveFromCache whether to retrieve from the finder cache
+	* @return the ordered range of matching s v n revisions
+	*/
+	public java.util.List<SVNRevision> findBySVNUserId(
+		java.lang.String svnUserId, int start, int end,
+		com.liferay.portal.kernel.util.OrderByComparator<SVNRevision> orderByComparator,
+		boolean retrieveFromCache);
 
 	/**
 	* Returns the first s v n revision in the ordered set where svnUserId = &#63;.
@@ -87,12 +107,11 @@ public interface SVNRevisionPersistence extends BasePersistence<SVNRevision> {
 	* @param svnUserId the svn user ID
 	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	* @return the first matching s v n revision
-	* @throws com.liferay.socialcoding.NoSuchSVNRevisionException if a matching s v n revision could not be found
+	* @throws NoSuchSVNRevisionException if a matching s v n revision could not be found
 	*/
-	public com.liferay.socialcoding.model.SVNRevision findBySVNUserId_First(
-		java.lang.String svnUserId,
-		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.socialcoding.model.SVNRevision> orderByComparator)
-		throws com.liferay.socialcoding.NoSuchSVNRevisionException;
+	public SVNRevision findBySVNUserId_First(java.lang.String svnUserId,
+		com.liferay.portal.kernel.util.OrderByComparator<SVNRevision> orderByComparator)
+		throws NoSuchSVNRevisionException;
 
 	/**
 	* Returns the first s v n revision in the ordered set where svnUserId = &#63;.
@@ -101,9 +120,8 @@ public interface SVNRevisionPersistence extends BasePersistence<SVNRevision> {
 	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	* @return the first matching s v n revision, or <code>null</code> if a matching s v n revision could not be found
 	*/
-	public com.liferay.socialcoding.model.SVNRevision fetchBySVNUserId_First(
-		java.lang.String svnUserId,
-		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.socialcoding.model.SVNRevision> orderByComparator);
+	public SVNRevision fetchBySVNUserId_First(java.lang.String svnUserId,
+		com.liferay.portal.kernel.util.OrderByComparator<SVNRevision> orderByComparator);
 
 	/**
 	* Returns the last s v n revision in the ordered set where svnUserId = &#63;.
@@ -111,12 +129,11 @@ public interface SVNRevisionPersistence extends BasePersistence<SVNRevision> {
 	* @param svnUserId the svn user ID
 	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	* @return the last matching s v n revision
-	* @throws com.liferay.socialcoding.NoSuchSVNRevisionException if a matching s v n revision could not be found
+	* @throws NoSuchSVNRevisionException if a matching s v n revision could not be found
 	*/
-	public com.liferay.socialcoding.model.SVNRevision findBySVNUserId_Last(
-		java.lang.String svnUserId,
-		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.socialcoding.model.SVNRevision> orderByComparator)
-		throws com.liferay.socialcoding.NoSuchSVNRevisionException;
+	public SVNRevision findBySVNUserId_Last(java.lang.String svnUserId,
+		com.liferay.portal.kernel.util.OrderByComparator<SVNRevision> orderByComparator)
+		throws NoSuchSVNRevisionException;
 
 	/**
 	* Returns the last s v n revision in the ordered set where svnUserId = &#63;.
@@ -125,9 +142,8 @@ public interface SVNRevisionPersistence extends BasePersistence<SVNRevision> {
 	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	* @return the last matching s v n revision, or <code>null</code> if a matching s v n revision could not be found
 	*/
-	public com.liferay.socialcoding.model.SVNRevision fetchBySVNUserId_Last(
-		java.lang.String svnUserId,
-		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.socialcoding.model.SVNRevision> orderByComparator);
+	public SVNRevision fetchBySVNUserId_Last(java.lang.String svnUserId,
+		com.liferay.portal.kernel.util.OrderByComparator<SVNRevision> orderByComparator);
 
 	/**
 	* Returns the s v n revisions before and after the current s v n revision in the ordered set where svnUserId = &#63;.
@@ -136,12 +152,12 @@ public interface SVNRevisionPersistence extends BasePersistence<SVNRevision> {
 	* @param svnUserId the svn user ID
 	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	* @return the previous, current, and next s v n revision
-	* @throws com.liferay.socialcoding.NoSuchSVNRevisionException if a s v n revision with the primary key could not be found
+	* @throws NoSuchSVNRevisionException if a s v n revision with the primary key could not be found
 	*/
-	public com.liferay.socialcoding.model.SVNRevision[] findBySVNUserId_PrevAndNext(
-		long svnRevisionId, java.lang.String svnUserId,
-		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.socialcoding.model.SVNRevision> orderByComparator)
-		throws com.liferay.socialcoding.NoSuchSVNRevisionException;
+	public SVNRevision[] findBySVNUserId_PrevAndNext(long svnRevisionId,
+		java.lang.String svnUserId,
+		com.liferay.portal.kernel.util.OrderByComparator<SVNRevision> orderByComparator)
+		throws NoSuchSVNRevisionException;
 
 	/**
 	* Removes all the s v n revisions where svnUserId = &#63; from the database.
@@ -164,14 +180,14 @@ public interface SVNRevisionPersistence extends BasePersistence<SVNRevision> {
 	* @param svnRepositoryId the svn repository ID
 	* @return the matching s v n revisions
 	*/
-	public java.util.List<com.liferay.socialcoding.model.SVNRevision> findBySVNRepositoryId(
+	public java.util.List<SVNRevision> findBySVNRepositoryId(
 		long svnRepositoryId);
 
 	/**
 	* Returns a range of all the s v n revisions where svnRepositoryId = &#63;.
 	*
 	* <p>
-	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link com.liferay.socialcoding.model.impl.SVNRevisionModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link SVNRevisionModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	* </p>
 	*
 	* @param svnRepositoryId the svn repository ID
@@ -179,14 +195,14 @@ public interface SVNRevisionPersistence extends BasePersistence<SVNRevision> {
 	* @param end the upper bound of the range of s v n revisions (not inclusive)
 	* @return the range of matching s v n revisions
 	*/
-	public java.util.List<com.liferay.socialcoding.model.SVNRevision> findBySVNRepositoryId(
+	public java.util.List<SVNRevision> findBySVNRepositoryId(
 		long svnRepositoryId, int start, int end);
 
 	/**
 	* Returns an ordered range of all the s v n revisions where svnRepositoryId = &#63;.
 	*
 	* <p>
-	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link com.liferay.socialcoding.model.impl.SVNRevisionModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link SVNRevisionModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	* </p>
 	*
 	* @param svnRepositoryId the svn repository ID
@@ -195,9 +211,28 @@ public interface SVNRevisionPersistence extends BasePersistence<SVNRevision> {
 	* @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
 	* @return the ordered range of matching s v n revisions
 	*/
-	public java.util.List<com.liferay.socialcoding.model.SVNRevision> findBySVNRepositoryId(
+	public java.util.List<SVNRevision> findBySVNRepositoryId(
 		long svnRepositoryId, int start, int end,
-		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.socialcoding.model.SVNRevision> orderByComparator);
+		com.liferay.portal.kernel.util.OrderByComparator<SVNRevision> orderByComparator);
+
+	/**
+	* Returns an ordered range of all the s v n revisions where svnRepositoryId = &#63;.
+	*
+	* <p>
+	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link SVNRevisionModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	* </p>
+	*
+	* @param svnRepositoryId the svn repository ID
+	* @param start the lower bound of the range of s v n revisions
+	* @param end the upper bound of the range of s v n revisions (not inclusive)
+	* @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	* @param retrieveFromCache whether to retrieve from the finder cache
+	* @return the ordered range of matching s v n revisions
+	*/
+	public java.util.List<SVNRevision> findBySVNRepositoryId(
+		long svnRepositoryId, int start, int end,
+		com.liferay.portal.kernel.util.OrderByComparator<SVNRevision> orderByComparator,
+		boolean retrieveFromCache);
 
 	/**
 	* Returns the first s v n revision in the ordered set where svnRepositoryId = &#63;.
@@ -205,12 +240,11 @@ public interface SVNRevisionPersistence extends BasePersistence<SVNRevision> {
 	* @param svnRepositoryId the svn repository ID
 	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	* @return the first matching s v n revision
-	* @throws com.liferay.socialcoding.NoSuchSVNRevisionException if a matching s v n revision could not be found
+	* @throws NoSuchSVNRevisionException if a matching s v n revision could not be found
 	*/
-	public com.liferay.socialcoding.model.SVNRevision findBySVNRepositoryId_First(
-		long svnRepositoryId,
-		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.socialcoding.model.SVNRevision> orderByComparator)
-		throws com.liferay.socialcoding.NoSuchSVNRevisionException;
+	public SVNRevision findBySVNRepositoryId_First(long svnRepositoryId,
+		com.liferay.portal.kernel.util.OrderByComparator<SVNRevision> orderByComparator)
+		throws NoSuchSVNRevisionException;
 
 	/**
 	* Returns the first s v n revision in the ordered set where svnRepositoryId = &#63;.
@@ -219,9 +253,8 @@ public interface SVNRevisionPersistence extends BasePersistence<SVNRevision> {
 	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	* @return the first matching s v n revision, or <code>null</code> if a matching s v n revision could not be found
 	*/
-	public com.liferay.socialcoding.model.SVNRevision fetchBySVNRepositoryId_First(
-		long svnRepositoryId,
-		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.socialcoding.model.SVNRevision> orderByComparator);
+	public SVNRevision fetchBySVNRepositoryId_First(long svnRepositoryId,
+		com.liferay.portal.kernel.util.OrderByComparator<SVNRevision> orderByComparator);
 
 	/**
 	* Returns the last s v n revision in the ordered set where svnRepositoryId = &#63;.
@@ -229,12 +262,11 @@ public interface SVNRevisionPersistence extends BasePersistence<SVNRevision> {
 	* @param svnRepositoryId the svn repository ID
 	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	* @return the last matching s v n revision
-	* @throws com.liferay.socialcoding.NoSuchSVNRevisionException if a matching s v n revision could not be found
+	* @throws NoSuchSVNRevisionException if a matching s v n revision could not be found
 	*/
-	public com.liferay.socialcoding.model.SVNRevision findBySVNRepositoryId_Last(
-		long svnRepositoryId,
-		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.socialcoding.model.SVNRevision> orderByComparator)
-		throws com.liferay.socialcoding.NoSuchSVNRevisionException;
+	public SVNRevision findBySVNRepositoryId_Last(long svnRepositoryId,
+		com.liferay.portal.kernel.util.OrderByComparator<SVNRevision> orderByComparator)
+		throws NoSuchSVNRevisionException;
 
 	/**
 	* Returns the last s v n revision in the ordered set where svnRepositoryId = &#63;.
@@ -243,9 +275,8 @@ public interface SVNRevisionPersistence extends BasePersistence<SVNRevision> {
 	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	* @return the last matching s v n revision, or <code>null</code> if a matching s v n revision could not be found
 	*/
-	public com.liferay.socialcoding.model.SVNRevision fetchBySVNRepositoryId_Last(
-		long svnRepositoryId,
-		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.socialcoding.model.SVNRevision> orderByComparator);
+	public SVNRevision fetchBySVNRepositoryId_Last(long svnRepositoryId,
+		com.liferay.portal.kernel.util.OrderByComparator<SVNRevision> orderByComparator);
 
 	/**
 	* Returns the s v n revisions before and after the current s v n revision in the ordered set where svnRepositoryId = &#63;.
@@ -254,12 +285,12 @@ public interface SVNRevisionPersistence extends BasePersistence<SVNRevision> {
 	* @param svnRepositoryId the svn repository ID
 	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	* @return the previous, current, and next s v n revision
-	* @throws com.liferay.socialcoding.NoSuchSVNRevisionException if a s v n revision with the primary key could not be found
+	* @throws NoSuchSVNRevisionException if a s v n revision with the primary key could not be found
 	*/
-	public com.liferay.socialcoding.model.SVNRevision[] findBySVNRepositoryId_PrevAndNext(
-		long svnRevisionId, long svnRepositoryId,
-		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.socialcoding.model.SVNRevision> orderByComparator)
-		throws com.liferay.socialcoding.NoSuchSVNRevisionException;
+	public SVNRevision[] findBySVNRepositoryId_PrevAndNext(long svnRevisionId,
+		long svnRepositoryId,
+		com.liferay.portal.kernel.util.OrderByComparator<SVNRevision> orderByComparator)
+		throws NoSuchSVNRevisionException;
 
 	/**
 	* Removes all the s v n revisions where svnRepositoryId = &#63; from the database.
@@ -283,14 +314,14 @@ public interface SVNRevisionPersistence extends BasePersistence<SVNRevision> {
 	* @param svnRepositoryId the svn repository ID
 	* @return the matching s v n revisions
 	*/
-	public java.util.List<com.liferay.socialcoding.model.SVNRevision> findBySVNU_SVNR(
+	public java.util.List<SVNRevision> findBySVNU_SVNR(
 		java.lang.String svnUserId, long svnRepositoryId);
 
 	/**
 	* Returns a range of all the s v n revisions where svnUserId = &#63; and svnRepositoryId = &#63;.
 	*
 	* <p>
-	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link com.liferay.socialcoding.model.impl.SVNRevisionModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link SVNRevisionModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	* </p>
 	*
 	* @param svnUserId the svn user ID
@@ -299,14 +330,14 @@ public interface SVNRevisionPersistence extends BasePersistence<SVNRevision> {
 	* @param end the upper bound of the range of s v n revisions (not inclusive)
 	* @return the range of matching s v n revisions
 	*/
-	public java.util.List<com.liferay.socialcoding.model.SVNRevision> findBySVNU_SVNR(
+	public java.util.List<SVNRevision> findBySVNU_SVNR(
 		java.lang.String svnUserId, long svnRepositoryId, int start, int end);
 
 	/**
 	* Returns an ordered range of all the s v n revisions where svnUserId = &#63; and svnRepositoryId = &#63;.
 	*
 	* <p>
-	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link com.liferay.socialcoding.model.impl.SVNRevisionModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link SVNRevisionModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	* </p>
 	*
 	* @param svnUserId the svn user ID
@@ -316,9 +347,29 @@ public interface SVNRevisionPersistence extends BasePersistence<SVNRevision> {
 	* @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
 	* @return the ordered range of matching s v n revisions
 	*/
-	public java.util.List<com.liferay.socialcoding.model.SVNRevision> findBySVNU_SVNR(
+	public java.util.List<SVNRevision> findBySVNU_SVNR(
 		java.lang.String svnUserId, long svnRepositoryId, int start, int end,
-		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.socialcoding.model.SVNRevision> orderByComparator);
+		com.liferay.portal.kernel.util.OrderByComparator<SVNRevision> orderByComparator);
+
+	/**
+	* Returns an ordered range of all the s v n revisions where svnUserId = &#63; and svnRepositoryId = &#63;.
+	*
+	* <p>
+	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link SVNRevisionModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	* </p>
+	*
+	* @param svnUserId the svn user ID
+	* @param svnRepositoryId the svn repository ID
+	* @param start the lower bound of the range of s v n revisions
+	* @param end the upper bound of the range of s v n revisions (not inclusive)
+	* @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	* @param retrieveFromCache whether to retrieve from the finder cache
+	* @return the ordered range of matching s v n revisions
+	*/
+	public java.util.List<SVNRevision> findBySVNU_SVNR(
+		java.lang.String svnUserId, long svnRepositoryId, int start, int end,
+		com.liferay.portal.kernel.util.OrderByComparator<SVNRevision> orderByComparator,
+		boolean retrieveFromCache);
 
 	/**
 	* Returns the first s v n revision in the ordered set where svnUserId = &#63; and svnRepositoryId = &#63;.
@@ -327,12 +378,12 @@ public interface SVNRevisionPersistence extends BasePersistence<SVNRevision> {
 	* @param svnRepositoryId the svn repository ID
 	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	* @return the first matching s v n revision
-	* @throws com.liferay.socialcoding.NoSuchSVNRevisionException if a matching s v n revision could not be found
+	* @throws NoSuchSVNRevisionException if a matching s v n revision could not be found
 	*/
-	public com.liferay.socialcoding.model.SVNRevision findBySVNU_SVNR_First(
-		java.lang.String svnUserId, long svnRepositoryId,
-		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.socialcoding.model.SVNRevision> orderByComparator)
-		throws com.liferay.socialcoding.NoSuchSVNRevisionException;
+	public SVNRevision findBySVNU_SVNR_First(java.lang.String svnUserId,
+		long svnRepositoryId,
+		com.liferay.portal.kernel.util.OrderByComparator<SVNRevision> orderByComparator)
+		throws NoSuchSVNRevisionException;
 
 	/**
 	* Returns the first s v n revision in the ordered set where svnUserId = &#63; and svnRepositoryId = &#63;.
@@ -342,9 +393,9 @@ public interface SVNRevisionPersistence extends BasePersistence<SVNRevision> {
 	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	* @return the first matching s v n revision, or <code>null</code> if a matching s v n revision could not be found
 	*/
-	public com.liferay.socialcoding.model.SVNRevision fetchBySVNU_SVNR_First(
-		java.lang.String svnUserId, long svnRepositoryId,
-		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.socialcoding.model.SVNRevision> orderByComparator);
+	public SVNRevision fetchBySVNU_SVNR_First(java.lang.String svnUserId,
+		long svnRepositoryId,
+		com.liferay.portal.kernel.util.OrderByComparator<SVNRevision> orderByComparator);
 
 	/**
 	* Returns the last s v n revision in the ordered set where svnUserId = &#63; and svnRepositoryId = &#63;.
@@ -353,12 +404,12 @@ public interface SVNRevisionPersistence extends BasePersistence<SVNRevision> {
 	* @param svnRepositoryId the svn repository ID
 	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	* @return the last matching s v n revision
-	* @throws com.liferay.socialcoding.NoSuchSVNRevisionException if a matching s v n revision could not be found
+	* @throws NoSuchSVNRevisionException if a matching s v n revision could not be found
 	*/
-	public com.liferay.socialcoding.model.SVNRevision findBySVNU_SVNR_Last(
-		java.lang.String svnUserId, long svnRepositoryId,
-		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.socialcoding.model.SVNRevision> orderByComparator)
-		throws com.liferay.socialcoding.NoSuchSVNRevisionException;
+	public SVNRevision findBySVNU_SVNR_Last(java.lang.String svnUserId,
+		long svnRepositoryId,
+		com.liferay.portal.kernel.util.OrderByComparator<SVNRevision> orderByComparator)
+		throws NoSuchSVNRevisionException;
 
 	/**
 	* Returns the last s v n revision in the ordered set where svnUserId = &#63; and svnRepositoryId = &#63;.
@@ -368,9 +419,9 @@ public interface SVNRevisionPersistence extends BasePersistence<SVNRevision> {
 	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	* @return the last matching s v n revision, or <code>null</code> if a matching s v n revision could not be found
 	*/
-	public com.liferay.socialcoding.model.SVNRevision fetchBySVNU_SVNR_Last(
-		java.lang.String svnUserId, long svnRepositoryId,
-		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.socialcoding.model.SVNRevision> orderByComparator);
+	public SVNRevision fetchBySVNU_SVNR_Last(java.lang.String svnUserId,
+		long svnRepositoryId,
+		com.liferay.portal.kernel.util.OrderByComparator<SVNRevision> orderByComparator);
 
 	/**
 	* Returns the s v n revisions before and after the current s v n revision in the ordered set where svnUserId = &#63; and svnRepositoryId = &#63;.
@@ -380,12 +431,12 @@ public interface SVNRevisionPersistence extends BasePersistence<SVNRevision> {
 	* @param svnRepositoryId the svn repository ID
 	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	* @return the previous, current, and next s v n revision
-	* @throws com.liferay.socialcoding.NoSuchSVNRevisionException if a s v n revision with the primary key could not be found
+	* @throws NoSuchSVNRevisionException if a s v n revision with the primary key could not be found
 	*/
-	public com.liferay.socialcoding.model.SVNRevision[] findBySVNU_SVNR_PrevAndNext(
-		long svnRevisionId, java.lang.String svnUserId, long svnRepositoryId,
-		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.socialcoding.model.SVNRevision> orderByComparator)
-		throws com.liferay.socialcoding.NoSuchSVNRevisionException;
+	public SVNRevision[] findBySVNU_SVNR_PrevAndNext(long svnRevisionId,
+		java.lang.String svnUserId, long svnRepositoryId,
+		com.liferay.portal.kernel.util.OrderByComparator<SVNRevision> orderByComparator)
+		throws NoSuchSVNRevisionException;
 
 	/**
 	* Removes all the s v n revisions where svnUserId = &#63; and svnRepositoryId = &#63; from the database.
@@ -410,16 +461,14 @@ public interface SVNRevisionPersistence extends BasePersistence<SVNRevision> {
 	*
 	* @param svnRevision the s v n revision
 	*/
-	public void cacheResult(
-		com.liferay.socialcoding.model.SVNRevision svnRevision);
+	public void cacheResult(SVNRevision svnRevision);
 
 	/**
 	* Caches the s v n revisions in the entity cache if it is enabled.
 	*
 	* @param svnRevisions the s v n revisions
 	*/
-	public void cacheResult(
-		java.util.List<com.liferay.socialcoding.model.SVNRevision> svnRevisions);
+	public void cacheResult(java.util.List<SVNRevision> svnRevisions);
 
 	/**
 	* Creates a new s v n revision with the primary key. Does not add the s v n revision to the database.
@@ -427,31 +476,29 @@ public interface SVNRevisionPersistence extends BasePersistence<SVNRevision> {
 	* @param svnRevisionId the primary key for the new s v n revision
 	* @return the new s v n revision
 	*/
-	public com.liferay.socialcoding.model.SVNRevision create(long svnRevisionId);
+	public SVNRevision create(long svnRevisionId);
 
 	/**
 	* Removes the s v n revision with the primary key from the database. Also notifies the appropriate model listeners.
 	*
 	* @param svnRevisionId the primary key of the s v n revision
 	* @return the s v n revision that was removed
-	* @throws com.liferay.socialcoding.NoSuchSVNRevisionException if a s v n revision with the primary key could not be found
+	* @throws NoSuchSVNRevisionException if a s v n revision with the primary key could not be found
 	*/
-	public com.liferay.socialcoding.model.SVNRevision remove(long svnRevisionId)
-		throws com.liferay.socialcoding.NoSuchSVNRevisionException;
+	public SVNRevision remove(long svnRevisionId)
+		throws NoSuchSVNRevisionException;
 
-	public com.liferay.socialcoding.model.SVNRevision updateImpl(
-		com.liferay.socialcoding.model.SVNRevision svnRevision);
+	public SVNRevision updateImpl(SVNRevision svnRevision);
 
 	/**
-	* Returns the s v n revision with the primary key or throws a {@link com.liferay.socialcoding.NoSuchSVNRevisionException} if it could not be found.
+	* Returns the s v n revision with the primary key or throws a {@link NoSuchSVNRevisionException} if it could not be found.
 	*
 	* @param svnRevisionId the primary key of the s v n revision
 	* @return the s v n revision
-	* @throws com.liferay.socialcoding.NoSuchSVNRevisionException if a s v n revision with the primary key could not be found
+	* @throws NoSuchSVNRevisionException if a s v n revision with the primary key could not be found
 	*/
-	public com.liferay.socialcoding.model.SVNRevision findByPrimaryKey(
-		long svnRevisionId)
-		throws com.liferay.socialcoding.NoSuchSVNRevisionException;
+	public SVNRevision findByPrimaryKey(long svnRevisionId)
+		throws NoSuchSVNRevisionException;
 
 	/**
 	* Returns the s v n revision with the primary key or returns <code>null</code> if it could not be found.
@@ -459,11 +506,10 @@ public interface SVNRevisionPersistence extends BasePersistence<SVNRevision> {
 	* @param svnRevisionId the primary key of the s v n revision
 	* @return the s v n revision, or <code>null</code> if a s v n revision with the primary key could not be found
 	*/
-	public com.liferay.socialcoding.model.SVNRevision fetchByPrimaryKey(
-		long svnRevisionId);
+	public SVNRevision fetchByPrimaryKey(long svnRevisionId);
 
 	@Override
-	public java.util.Map<java.io.Serializable, com.liferay.socialcoding.model.SVNRevision> fetchByPrimaryKeys(
+	public java.util.Map<java.io.Serializable, SVNRevision> fetchByPrimaryKeys(
 		java.util.Set<java.io.Serializable> primaryKeys);
 
 	/**
@@ -471,27 +517,26 @@ public interface SVNRevisionPersistence extends BasePersistence<SVNRevision> {
 	*
 	* @return the s v n revisions
 	*/
-	public java.util.List<com.liferay.socialcoding.model.SVNRevision> findAll();
+	public java.util.List<SVNRevision> findAll();
 
 	/**
 	* Returns a range of all the s v n revisions.
 	*
 	* <p>
-	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link com.liferay.socialcoding.model.impl.SVNRevisionModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link SVNRevisionModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	* </p>
 	*
 	* @param start the lower bound of the range of s v n revisions
 	* @param end the upper bound of the range of s v n revisions (not inclusive)
 	* @return the range of s v n revisions
 	*/
-	public java.util.List<com.liferay.socialcoding.model.SVNRevision> findAll(
-		int start, int end);
+	public java.util.List<SVNRevision> findAll(int start, int end);
 
 	/**
 	* Returns an ordered range of all the s v n revisions.
 	*
 	* <p>
-	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link com.liferay.socialcoding.model.impl.SVNRevisionModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link SVNRevisionModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	* </p>
 	*
 	* @param start the lower bound of the range of s v n revisions
@@ -499,9 +544,25 @@ public interface SVNRevisionPersistence extends BasePersistence<SVNRevision> {
 	* @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
 	* @return the ordered range of s v n revisions
 	*/
-	public java.util.List<com.liferay.socialcoding.model.SVNRevision> findAll(
-		int start, int end,
-		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.socialcoding.model.SVNRevision> orderByComparator);
+	public java.util.List<SVNRevision> findAll(int start, int end,
+		com.liferay.portal.kernel.util.OrderByComparator<SVNRevision> orderByComparator);
+
+	/**
+	* Returns an ordered range of all the s v n revisions.
+	*
+	* <p>
+	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link SVNRevisionModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	* </p>
+	*
+	* @param start the lower bound of the range of s v n revisions
+	* @param end the upper bound of the range of s v n revisions (not inclusive)
+	* @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	* @param retrieveFromCache whether to retrieve from the finder cache
+	* @return the ordered range of s v n revisions
+	*/
+	public java.util.List<SVNRevision> findAll(int start, int end,
+		com.liferay.portal.kernel.util.OrderByComparator<SVNRevision> orderByComparator,
+		boolean retrieveFromCache);
 
 	/**
 	* Removes all the s v n revisions from the database.

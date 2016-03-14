@@ -17,8 +17,8 @@ package com.liferay.knowledgebase.service;
 import aQute.bnd.annotation.ProviderType;
 
 import com.liferay.portal.kernel.bean.PortletBeanLocatorUtil;
+import com.liferay.portal.kernel.service.InvokableLocalService;
 import com.liferay.portal.kernel.util.ReferenceRegistry;
-import com.liferay.portal.service.InvokableLocalService;
 
 /**
  * Provides the local service utility for KBComment. This utility wraps
@@ -55,7 +55,7 @@ public class KBCommentLocalServiceUtil {
 
 	public static com.liferay.knowledgebase.model.KBComment addKBComment(
 		long userId, long classNameId, long classPK, java.lang.String content,
-		com.liferay.portal.service.ServiceContext serviceContext)
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		return getService()
 				   .addKBComment(userId, classNameId, classPK, content,
@@ -64,7 +64,8 @@ public class KBCommentLocalServiceUtil {
 
 	public static com.liferay.knowledgebase.model.KBComment addKBComment(
 		long userId, long classNameId, long classPK, java.lang.String content,
-		int userRating, com.liferay.portal.service.ServiceContext serviceContext)
+		int userRating,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		return getService()
 				   .addKBComment(userId, classNameId, classPK, content,
@@ -116,8 +117,8 @@ public class KBCommentLocalServiceUtil {
 	/**
 	* @throws PortalException
 	*/
-	public static com.liferay.portal.model.PersistedModel deletePersistedModel(
-		com.liferay.portal.model.PersistedModel persistedModel)
+	public static com.liferay.portal.kernel.model.PersistedModel deletePersistedModel(
+		com.liferay.portal.kernel.model.PersistedModel persistedModel)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		return getService().deletePersistedModel(persistedModel);
 	}
@@ -221,18 +222,13 @@ public class KBCommentLocalServiceUtil {
 		return getService().getActionableDynamicQuery();
 	}
 
-	/**
-	* Returns the Spring bean ID for this bean.
-	*
-	* @return the Spring bean ID for this bean
-	*/
-	public static java.lang.String getBeanIdentifier() {
-		return getService().getBeanIdentifier();
+	public static com.liferay.portal.kernel.dao.orm.ExportActionableDynamicQuery getExportActionableDynamicQuery(
+		com.liferay.exportimport.kernel.lar.PortletDataContext portletDataContext) {
+		return getService().getExportActionableDynamicQuery(portletDataContext);
 	}
 
-	public static com.liferay.portal.kernel.dao.orm.ExportActionableDynamicQuery getExportActionableDynamicQuery(
-		com.liferay.portal.kernel.lar.PortletDataContext portletDataContext) {
-		return getService().getExportActionableDynamicQuery(portletDataContext);
+	public static com.liferay.portal.kernel.dao.orm.IndexableActionableDynamicQuery getIndexableActionableDynamicQuery() {
+		return getService().getIndexableActionableDynamicQuery();
 	}
 
 	/**
@@ -380,7 +376,16 @@ public class KBCommentLocalServiceUtil {
 		return getService().getKBCommentsCount(userId, className, classPK);
 	}
 
-	public static com.liferay.portal.model.PersistedModel getPersistedModel(
+	/**
+	* Returns the OSGi service identifier.
+	*
+	* @return the OSGi service identifier
+	*/
+	public static java.lang.String getOSGiServiceIdentifier() {
+		return getService().getOSGiServiceIdentifier();
+	}
+
+	public static com.liferay.portal.kernel.model.PersistedModel getPersistedModel(
 		java.io.Serializable primaryKeyObj)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		return getService().getPersistedModel(primaryKeyObj);
@@ -390,15 +395,6 @@ public class KBCommentLocalServiceUtil {
 		java.lang.String[] parameterTypes, java.lang.Object[] arguments)
 		throws java.lang.Throwable {
 		return getService().invokeMethod(name, parameterTypes, arguments);
-	}
-
-	/**
-	* Sets the Spring bean ID for this bean.
-	*
-	* @param beanIdentifier the Spring bean ID for this bean
-	*/
-	public static void setBeanIdentifier(java.lang.String beanIdentifier) {
-		getService().setBeanIdentifier(beanIdentifier);
 	}
 
 	/**
@@ -415,7 +411,7 @@ public class KBCommentLocalServiceUtil {
 	public static com.liferay.knowledgebase.model.KBComment updateKBComment(
 		long kbCommentId, long classNameId, long classPK,
 		java.lang.String content, int status,
-		com.liferay.portal.service.ServiceContext serviceContext)
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		return getService()
 				   .updateKBComment(kbCommentId, classNameId, classPK, content,
@@ -425,7 +421,7 @@ public class KBCommentLocalServiceUtil {
 	public static com.liferay.knowledgebase.model.KBComment updateKBComment(
 		long kbCommentId, long classNameId, long classPK,
 		java.lang.String content, int userRating, int status,
-		com.liferay.portal.service.ServiceContext serviceContext)
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		return getService()
 				   .updateKBComment(kbCommentId, classNameId, classPK, content,
@@ -434,7 +430,7 @@ public class KBCommentLocalServiceUtil {
 
 	public static com.liferay.knowledgebase.model.KBComment updateStatus(
 		long userId, long kbCommentId, int status,
-		com.liferay.portal.service.ServiceContext serviceContext)
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		return getService()
 				   .updateStatus(userId, kbCommentId, status, serviceContext);
@@ -461,13 +457,6 @@ public class KBCommentLocalServiceUtil {
 		}
 
 		return _service;
-	}
-
-	/**
-	 * @deprecated As of 6.2.0
-	 */
-	@Deprecated
-	public void setService(KBCommentLocalService service) {
 	}
 
 	private static KBCommentLocalService _service;

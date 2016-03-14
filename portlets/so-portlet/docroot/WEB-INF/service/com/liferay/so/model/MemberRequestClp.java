@@ -14,17 +14,19 @@
 
 package com.liferay.so.model;
 
+import aQute.bnd.annotation.ProviderType;
+
 import com.liferay.portal.kernel.bean.AutoEscapeBeanHandler;
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.model.BaseModel;
+import com.liferay.portal.kernel.model.User;
+import com.liferay.portal.kernel.model.impl.BaseModelImpl;
+import com.liferay.portal.kernel.service.UserLocalServiceUtil;
 import com.liferay.portal.kernel.util.DateUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.ProxyUtil;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringPool;
-import com.liferay.portal.model.BaseModel;
-import com.liferay.portal.model.User;
-import com.liferay.portal.model.impl.BaseModelImpl;
-import com.liferay.portal.service.UserLocalServiceUtil;
 
 import com.liferay.so.service.ClpSerializer;
 import com.liferay.so.service.MemberRequestLocalServiceUtil;
@@ -38,8 +40,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * @author Brian Wing Shun Chan
+ * @generated
  */
+@ProviderType
 public class MemberRequestClp extends BaseModelImpl<MemberRequest>
 	implements MemberRequest {
 	public MemberRequestClp() {

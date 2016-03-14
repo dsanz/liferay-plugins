@@ -14,13 +14,16 @@
 
 package com.liferay.wsrp.model;
 
-import com.liferay.portal.kernel.bean.AutoEscape;
-import com.liferay.portal.model.BaseModel;
-import com.liferay.portal.model.CacheModel;
-import com.liferay.portal.model.StagedModel;
-import com.liferay.portal.service.ServiceContext;
+import aQute.bnd.annotation.ProviderType;
 
-import com.liferay.portlet.expando.model.ExpandoBridge;
+import com.liferay.expando.kernel.model.ExpandoBridge;
+
+import com.liferay.portal.kernel.bean.AutoEscape;
+import com.liferay.portal.kernel.model.BaseModel;
+import com.liferay.portal.kernel.model.CacheModel;
+import com.liferay.portal.kernel.model.ShardedModel;
+import com.liferay.portal.kernel.model.StagedModel;
+import com.liferay.portal.kernel.service.ServiceContext;
 
 import java.io.Serializable;
 
@@ -39,7 +42,9 @@ import java.util.Date;
  * @see com.liferay.wsrp.model.impl.WSRPProducerModelImpl
  * @generated
  */
-public interface WSRPProducerModel extends BaseModel<WSRPProducer>, StagedModel {
+@ProviderType
+public interface WSRPProducerModel extends BaseModel<WSRPProducer>, ShardedModel,
+	StagedModel {
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
@@ -198,6 +203,20 @@ public interface WSRPProducerModel extends BaseModel<WSRPProducer>, StagedModel 
 	 */
 	public void setPortletIds(String portletIds);
 
+	/**
+	 * Returns the last publish date of this w s r p producer.
+	 *
+	 * @return the last publish date of this w s r p producer
+	 */
+	public Date getLastPublishDate();
+
+	/**
+	 * Sets the last publish date of this w s r p producer.
+	 *
+	 * @param lastPublishDate the last publish date of this w s r p producer
+	 */
+	public void setLastPublishDate(Date lastPublishDate);
+
 	@Override
 	public boolean isNew();
 
@@ -235,19 +254,19 @@ public interface WSRPProducerModel extends BaseModel<WSRPProducer>, StagedModel 
 	public Object clone();
 
 	@Override
-	public int compareTo(WSRPProducer wsrpProducer);
+	public int compareTo(com.liferay.wsrp.model.WSRPProducer wsrpProducer);
 
 	@Override
 	public int hashCode();
 
 	@Override
-	public CacheModel<WSRPProducer> toCacheModel();
+	public CacheModel<com.liferay.wsrp.model.WSRPProducer> toCacheModel();
 
 	@Override
-	public WSRPProducer toEscapedModel();
+	public com.liferay.wsrp.model.WSRPProducer toEscapedModel();
 
 	@Override
-	public WSRPProducer toUnescapedModel();
+	public com.liferay.wsrp.model.WSRPProducer toUnescapedModel();
 
 	@Override
 	public String toString();

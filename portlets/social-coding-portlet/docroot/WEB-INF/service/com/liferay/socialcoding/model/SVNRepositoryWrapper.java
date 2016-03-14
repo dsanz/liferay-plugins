@@ -16,8 +16,13 @@ package com.liferay.socialcoding.model;
 
 import aQute.bnd.annotation.ProviderType;
 
+import com.liferay.expando.kernel.model.ExpandoBridge;
+
+import com.liferay.portal.kernel.model.ModelWrapper;
+import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.util.Validator;
-import com.liferay.portal.model.ModelWrapper;
+
+import java.io.Serializable;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -92,7 +97,7 @@ public class SVNRepositoryWrapper implements SVNRepository,
 	}
 
 	@Override
-	public com.liferay.portlet.expando.model.ExpandoBridge getExpandoBridge() {
+	public ExpandoBridge getExpandoBridge() {
 		return _svnRepository.getExpandoBridge();
 	}
 
@@ -112,7 +117,7 @@ public class SVNRepositoryWrapper implements SVNRepository,
 	}
 
 	@Override
-	public java.io.Serializable getPrimaryKeyObj() {
+	public Serializable getPrimaryKeyObj() {
 		return _svnRepository.getPrimaryKeyObj();
 	}
 
@@ -183,19 +188,17 @@ public class SVNRepositoryWrapper implements SVNRepository,
 
 	@Override
 	public void setExpandoBridgeAttributes(
-		com.liferay.portal.model.BaseModel<?> baseModel) {
+		com.liferay.portal.kernel.model.BaseModel<?> baseModel) {
 		_svnRepository.setExpandoBridgeAttributes(baseModel);
 	}
 
 	@Override
-	public void setExpandoBridgeAttributes(
-		com.liferay.portlet.expando.model.ExpandoBridge expandoBridge) {
+	public void setExpandoBridgeAttributes(ExpandoBridge expandoBridge) {
 		_svnRepository.setExpandoBridgeAttributes(expandoBridge);
 	}
 
 	@Override
-	public void setExpandoBridgeAttributes(
-		com.liferay.portal.service.ServiceContext serviceContext) {
+	public void setExpandoBridgeAttributes(ServiceContext serviceContext) {
 		_svnRepository.setExpandoBridgeAttributes(serviceContext);
 	}
 
@@ -215,7 +218,7 @@ public class SVNRepositoryWrapper implements SVNRepository,
 	}
 
 	@Override
-	public void setPrimaryKeyObj(java.io.Serializable primaryKeyObj) {
+	public void setPrimaryKeyObj(Serializable primaryKeyObj) {
 		_svnRepository.setPrimaryKeyObj(primaryKeyObj);
 	}
 
@@ -250,7 +253,7 @@ public class SVNRepositoryWrapper implements SVNRepository,
 	}
 
 	@Override
-	public com.liferay.portal.model.CacheModel<com.liferay.socialcoding.model.SVNRepository> toCacheModel() {
+	public com.liferay.portal.kernel.model.CacheModel<com.liferay.socialcoding.model.SVNRepository> toCacheModel() {
 		return _svnRepository.toCacheModel();
 	}
 
@@ -291,14 +294,6 @@ public class SVNRepositoryWrapper implements SVNRepository,
 		}
 
 		return false;
-	}
-
-	/**
-	 * @deprecated As of 6.1.0, replaced by {@link #getWrappedModel}
-	 */
-	@Deprecated
-	public SVNRepository getWrappedSVNRepository() {
-		return _svnRepository;
 	}
 
 	@Override

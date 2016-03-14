@@ -16,7 +16,9 @@ package com.liferay.knowledgebase.model;
 
 import aQute.bnd.annotation.ProviderType;
 
-import com.liferay.portal.model.PersistedModel;
+import com.liferay.portal.kernel.annotation.ImplementationClassName;
+import com.liferay.portal.kernel.model.PersistedModel;
+import com.liferay.portal.kernel.util.Accessor;
 
 /**
  * The extended model interface for the KBFolder service. Represents a row in the &quot;KBFolder&quot; database table, with each column mapped to a property of this class.
@@ -27,6 +29,7 @@ import com.liferay.portal.model.PersistedModel;
  * @see com.liferay.knowledgebase.model.impl.KBFolderModelImpl
  * @generated
  */
+@ImplementationClassName("com.liferay.knowledgebase.model.impl.KBFolderImpl")
 @ProviderType
 public interface KBFolder extends KBFolderModel, PersistedModel {
 	/*
@@ -34,6 +37,23 @@ public interface KBFolder extends KBFolderModel, PersistedModel {
 	 *
 	 * Never modify this interface directly. Add methods to {@link com.liferay.knowledgebase.model.impl.KBFolderImpl} and rerun ServiceBuilder to automatically copy the method declarations to this interface.
 	 */
+	public static final Accessor<KBFolder, Long> KB_FOLDER_ID_ACCESSOR = new Accessor<KBFolder, Long>() {
+			@Override
+			public Long get(KBFolder kbFolder) {
+				return kbFolder.getKbFolderId();
+			}
+
+			@Override
+			public Class<Long> getAttributeClass() {
+				return Long.class;
+			}
+
+			@Override
+			public Class<KBFolder> getTypeClass() {
+				return KBFolder.class;
+			}
+		};
+
 	public long getClassNameId();
 
 	public java.lang.String getParentTitle(java.util.Locale locale)

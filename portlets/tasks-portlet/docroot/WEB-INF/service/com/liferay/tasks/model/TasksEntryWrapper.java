@@ -14,8 +14,15 @@
 
 package com.liferay.tasks.model;
 
+import aQute.bnd.annotation.ProviderType;
+
+import com.liferay.expando.kernel.model.ExpandoBridge;
+
+import com.liferay.portal.kernel.model.ModelWrapper;
+import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.util.Validator;
-import com.liferay.portal.model.ModelWrapper;
+
+import java.io.Serializable;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -30,6 +37,7 @@ import java.util.Map;
  * @see TasksEntry
  * @generated
  */
+@ProviderType
 public class TasksEntryWrapper implements TasksEntry, ModelWrapper<TasksEntry> {
 	public TasksEntryWrapper(TasksEntry tasksEntry) {
 		_tasksEntry = tasksEntry;
@@ -205,7 +213,7 @@ public class TasksEntryWrapper implements TasksEntry, ModelWrapper<TasksEntry> {
 	* @return the create date of this tasks entry
 	*/
 	@Override
-	public java.util.Date getCreateDate() {
+	public Date getCreateDate() {
 		return _tasksEntry.getCreateDate();
 	}
 
@@ -215,12 +223,12 @@ public class TasksEntryWrapper implements TasksEntry, ModelWrapper<TasksEntry> {
 	* @return the due date of this tasks entry
 	*/
 	@Override
-	public java.util.Date getDueDate() {
+	public Date getDueDate() {
 		return _tasksEntry.getDueDate();
 	}
 
 	@Override
-	public com.liferay.portlet.expando.model.ExpandoBridge getExpandoBridge() {
+	public ExpandoBridge getExpandoBridge() {
 		return _tasksEntry.getExpandoBridge();
 	}
 
@@ -230,7 +238,7 @@ public class TasksEntryWrapper implements TasksEntry, ModelWrapper<TasksEntry> {
 	* @return the finish date of this tasks entry
 	*/
 	@Override
-	public java.util.Date getFinishDate() {
+	public Date getFinishDate() {
 		return _tasksEntry.getFinishDate();
 	}
 
@@ -250,7 +258,7 @@ public class TasksEntryWrapper implements TasksEntry, ModelWrapper<TasksEntry> {
 	* @return the modified date of this tasks entry
 	*/
 	@Override
-	public java.util.Date getModifiedDate() {
+	public Date getModifiedDate() {
 		return _tasksEntry.getModifiedDate();
 	}
 
@@ -265,7 +273,7 @@ public class TasksEntryWrapper implements TasksEntry, ModelWrapper<TasksEntry> {
 	}
 
 	@Override
-	public java.io.Serializable getPrimaryKeyObj() {
+	public Serializable getPrimaryKeyObj() {
 		return _tasksEntry.getPrimaryKeyObj();
 	}
 
@@ -440,7 +448,7 @@ public class TasksEntryWrapper implements TasksEntry, ModelWrapper<TasksEntry> {
 	* @param createDate the create date of this tasks entry
 	*/
 	@Override
-	public void setCreateDate(java.util.Date createDate) {
+	public void setCreateDate(Date createDate) {
 		_tasksEntry.setCreateDate(createDate);
 	}
 
@@ -450,25 +458,23 @@ public class TasksEntryWrapper implements TasksEntry, ModelWrapper<TasksEntry> {
 	* @param dueDate the due date of this tasks entry
 	*/
 	@Override
-	public void setDueDate(java.util.Date dueDate) {
+	public void setDueDate(Date dueDate) {
 		_tasksEntry.setDueDate(dueDate);
 	}
 
 	@Override
 	public void setExpandoBridgeAttributes(
-		com.liferay.portal.model.BaseModel<?> baseModel) {
+		com.liferay.portal.kernel.model.BaseModel<?> baseModel) {
 		_tasksEntry.setExpandoBridgeAttributes(baseModel);
 	}
 
 	@Override
-	public void setExpandoBridgeAttributes(
-		com.liferay.portlet.expando.model.ExpandoBridge expandoBridge) {
+	public void setExpandoBridgeAttributes(ExpandoBridge expandoBridge) {
 		_tasksEntry.setExpandoBridgeAttributes(expandoBridge);
 	}
 
 	@Override
-	public void setExpandoBridgeAttributes(
-		com.liferay.portal.service.ServiceContext serviceContext) {
+	public void setExpandoBridgeAttributes(ServiceContext serviceContext) {
 		_tasksEntry.setExpandoBridgeAttributes(serviceContext);
 	}
 
@@ -478,7 +484,7 @@ public class TasksEntryWrapper implements TasksEntry, ModelWrapper<TasksEntry> {
 	* @param finishDate the finish date of this tasks entry
 	*/
 	@Override
-	public void setFinishDate(java.util.Date finishDate) {
+	public void setFinishDate(Date finishDate) {
 		_tasksEntry.setFinishDate(finishDate);
 	}
 
@@ -498,7 +504,7 @@ public class TasksEntryWrapper implements TasksEntry, ModelWrapper<TasksEntry> {
 	* @param modifiedDate the modified date of this tasks entry
 	*/
 	@Override
-	public void setModifiedDate(java.util.Date modifiedDate) {
+	public void setModifiedDate(Date modifiedDate) {
 		_tasksEntry.setModifiedDate(modifiedDate);
 	}
 
@@ -518,7 +524,7 @@ public class TasksEntryWrapper implements TasksEntry, ModelWrapper<TasksEntry> {
 	}
 
 	@Override
-	public void setPrimaryKeyObj(java.io.Serializable primaryKeyObj) {
+	public void setPrimaryKeyObj(Serializable primaryKeyObj) {
 		_tasksEntry.setPrimaryKeyObj(primaryKeyObj);
 	}
 
@@ -613,7 +619,7 @@ public class TasksEntryWrapper implements TasksEntry, ModelWrapper<TasksEntry> {
 	}
 
 	@Override
-	public com.liferay.portal.model.CacheModel<com.liferay.tasks.model.TasksEntry> toCacheModel() {
+	public com.liferay.portal.kernel.model.CacheModel<com.liferay.tasks.model.TasksEntry> toCacheModel() {
 		return _tasksEntry.toCacheModel();
 	}
 
@@ -656,14 +662,6 @@ public class TasksEntryWrapper implements TasksEntry, ModelWrapper<TasksEntry> {
 		return false;
 	}
 
-	/**
-	 * @deprecated As of 6.1.0, replaced by {@link #getWrappedModel}
-	 */
-	@Deprecated
-	public TasksEntry getWrappedTasksEntry() {
-		return _tasksEntry;
-	}
-
 	@Override
 	public TasksEntry getWrappedModel() {
 		return _tasksEntry;
@@ -684,5 +682,5 @@ public class TasksEntryWrapper implements TasksEntry, ModelWrapper<TasksEntry> {
 		_tasksEntry.resetOriginalValues();
 	}
 
-	private TasksEntry _tasksEntry;
+	private final TasksEntry _tasksEntry;
 }

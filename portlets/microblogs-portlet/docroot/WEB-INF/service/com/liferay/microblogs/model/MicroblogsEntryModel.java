@@ -16,13 +16,14 @@ package com.liferay.microblogs.model;
 
 import aQute.bnd.annotation.ProviderType;
 
-import com.liferay.portal.kernel.bean.AutoEscape;
-import com.liferay.portal.model.AuditedModel;
-import com.liferay.portal.model.BaseModel;
-import com.liferay.portal.model.CacheModel;
-import com.liferay.portal.service.ServiceContext;
+import com.liferay.expando.kernel.model.ExpandoBridge;
 
-import com.liferay.portlet.expando.model.ExpandoBridge;
+import com.liferay.portal.kernel.bean.AutoEscape;
+import com.liferay.portal.kernel.model.AuditedModel;
+import com.liferay.portal.kernel.model.BaseModel;
+import com.liferay.portal.kernel.model.CacheModel;
+import com.liferay.portal.kernel.model.ShardedModel;
+import com.liferay.portal.kernel.service.ServiceContext;
 
 import java.io.Serializable;
 
@@ -43,7 +44,7 @@ import java.util.Date;
  */
 @ProviderType
 public interface MicroblogsEntryModel extends AuditedModel,
-	BaseModel<MicroblogsEntry> {
+	BaseModel<MicroblogsEntry>, ShardedModel {
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *

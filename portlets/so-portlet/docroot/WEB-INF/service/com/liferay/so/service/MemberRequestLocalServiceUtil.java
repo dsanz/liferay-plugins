@@ -14,9 +14,11 @@
 
 package com.liferay.so.service;
 
+import aQute.bnd.annotation.ProviderType;
+
 import com.liferay.portal.kernel.bean.PortletBeanLocatorUtil;
+import com.liferay.portal.kernel.service.InvokableLocalService;
 import com.liferay.portal.kernel.util.ReferenceRegistry;
-import com.liferay.portal.service.InvokableLocalService;
 
 /**
  * Provides the local service utility for MemberRequest. This utility wraps
@@ -32,6 +34,7 @@ import com.liferay.portal.service.InvokableLocalService;
  * @see com.liferay.so.service.impl.MemberRequestLocalServiceImpl
  * @generated
  */
+@ProviderType
 public class MemberRequestLocalServiceUtil {
 	/*
 	 * NOTE FOR DEVELOPERS:
@@ -54,7 +57,7 @@ public class MemberRequestLocalServiceUtil {
 		long userId, long groupId, long receiverUserId,
 		java.lang.String receiverEmailAddress, long invitedRoleId,
 		long invitedTeamId,
-		com.liferay.portal.service.ServiceContext serviceContext)
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		return getService()
 				   .addMemberRequest(userId, groupId, receiverUserId,
@@ -64,7 +67,7 @@ public class MemberRequestLocalServiceUtil {
 	public static void addMemberRequests(long userId, long groupId,
 		java.lang.String[] emailAddresses, long invitedRoleId,
 		long invitedTeamId,
-		com.liferay.portal.service.ServiceContext serviceContext)
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		getService()
 			.addMemberRequests(userId, groupId, emailAddresses, invitedRoleId,
@@ -73,7 +76,7 @@ public class MemberRequestLocalServiceUtil {
 
 	public static void addMemberRequests(long userId, long groupId,
 		long[] receiverUserIds, long invitedRoleId, long invitedTeamId,
-		com.liferay.portal.service.ServiceContext serviceContext)
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		getService()
 			.addMemberRequests(userId, groupId, receiverUserIds, invitedRoleId,
@@ -118,8 +121,8 @@ public class MemberRequestLocalServiceUtil {
 	/**
 	* @throws PortalException
 	*/
-	public static com.liferay.portal.model.PersistedModel deletePersistedModel(
-		com.liferay.portal.model.PersistedModel persistedModel)
+	public static com.liferay.portal.kernel.model.PersistedModel deletePersistedModel(
+		com.liferay.portal.kernel.model.PersistedModel persistedModel)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		return getService().deletePersistedModel(persistedModel);
 	}
@@ -179,10 +182,10 @@ public class MemberRequestLocalServiceUtil {
 	}
 
 	/**
-	* Returns the number of rows that match the dynamic query.
+	* Returns the number of rows matching the dynamic query.
 	*
 	* @param dynamicQuery the dynamic query
-	* @return the number of rows that match the dynamic query
+	* @return the number of rows matching the dynamic query
 	*/
 	public static long dynamicQueryCount(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery) {
@@ -190,11 +193,11 @@ public class MemberRequestLocalServiceUtil {
 	}
 
 	/**
-	* Returns the number of rows that match the dynamic query.
+	* Returns the number of rows matching the dynamic query.
 	*
 	* @param dynamicQuery the dynamic query
 	* @param projection the projection to apply to the query
-	* @return the number of rows that match the dynamic query
+	* @return the number of rows matching the dynamic query
 	*/
 	public static long dynamicQueryCount(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery,
@@ -211,13 +214,8 @@ public class MemberRequestLocalServiceUtil {
 		return getService().getActionableDynamicQuery();
 	}
 
-	/**
-	* Returns the Spring bean ID for this bean.
-	*
-	* @return the Spring bean ID for this bean
-	*/
-	public static java.lang.String getBeanIdentifier() {
-		return getService().getBeanIdentifier();
+	public static com.liferay.portal.kernel.dao.orm.IndexableActionableDynamicQuery getIndexableActionableDynamicQuery() {
+		return getService().getIndexableActionableDynamicQuery();
 	}
 
 	public static com.liferay.so.model.MemberRequest getMemberRequest(
@@ -264,7 +262,16 @@ public class MemberRequestLocalServiceUtil {
 		return getService().getMemberRequestsCount();
 	}
 
-	public static com.liferay.portal.model.PersistedModel getPersistedModel(
+	/**
+	* Returns the OSGi service identifier.
+	*
+	* @return the OSGi service identifier
+	*/
+	public static java.lang.String getOSGiServiceIdentifier() {
+		return getService().getOSGiServiceIdentifier();
+	}
+
+	public static com.liferay.portal.kernel.model.PersistedModel getPersistedModel(
 		java.io.Serializable primaryKeyObj)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		return getService().getPersistedModel(primaryKeyObj);
@@ -301,15 +308,6 @@ public class MemberRequestLocalServiceUtil {
 		java.lang.String[] parameterTypes, java.lang.Object[] arguments)
 		throws java.lang.Throwable {
 		return getService().invokeMethod(name, parameterTypes, arguments);
-	}
-
-	/**
-	* Sets the Spring bean ID for this bean.
-	*
-	* @param beanIdentifier the Spring bean ID for this bean
-	*/
-	public static void setBeanIdentifier(java.lang.String beanIdentifier) {
-		getService().setBeanIdentifier(beanIdentifier);
 	}
 
 	public static com.liferay.so.model.MemberRequest updateMemberRequest(
@@ -356,13 +354,6 @@ public class MemberRequestLocalServiceUtil {
 		}
 
 		return _service;
-	}
-
-	/**
-	 * @deprecated As of 6.2.0
-	 */
-	@Deprecated
-	public void setService(MemberRequestLocalService service) {
 	}
 
 	private static MemberRequestLocalService _service;

@@ -15,16 +15,16 @@
 package com.liferay.pushnotifications.service.base;
 
 import com.liferay.portal.kernel.bean.BeanReference;
-import com.liferay.portal.kernel.bean.IdentifiableBean;
 import com.liferay.portal.kernel.dao.db.DB;
-import com.liferay.portal.kernel.dao.db.DBFactoryUtil;
+import com.liferay.portal.kernel.dao.db.DBManagerUtil;
 import com.liferay.portal.kernel.dao.jdbc.SqlUpdate;
 import com.liferay.portal.kernel.dao.jdbc.SqlUpdateFactoryUtil;
 import com.liferay.portal.kernel.exception.SystemException;
-import com.liferay.portal.service.BaseServiceImpl;
-import com.liferay.portal.service.persistence.ClassNamePersistence;
-import com.liferay.portal.service.persistence.UserPersistence;
-import com.liferay.portal.util.PortalUtil;
+import com.liferay.portal.kernel.module.framework.service.IdentifiableOSGiService;
+import com.liferay.portal.kernel.service.BaseServiceImpl;
+import com.liferay.portal.kernel.service.persistence.ClassNamePersistence;
+import com.liferay.portal.kernel.service.persistence.UserPersistence;
+import com.liferay.portal.kernel.util.PortalUtil;
 
 import com.liferay.pushnotifications.model.PushNotificationsDevice;
 import com.liferay.pushnotifications.service.PushNotificationsDeviceService;
@@ -46,7 +46,7 @@ import javax.sql.DataSource;
  */
 public abstract class PushNotificationsDeviceServiceBaseImpl
 	extends BaseServiceImpl implements PushNotificationsDeviceService,
-		IdentifiableBean {
+		IdentifiableOSGiService {
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
@@ -77,7 +77,7 @@ public abstract class PushNotificationsDeviceServiceBaseImpl
 	 *
 	 * @return the push notifications device remote service
 	 */
-	public com.liferay.pushnotifications.service.PushNotificationsDeviceService getPushNotificationsDeviceService() {
+	public PushNotificationsDeviceService getPushNotificationsDeviceService() {
 		return pushNotificationsDeviceService;
 	}
 
@@ -87,7 +87,7 @@ public abstract class PushNotificationsDeviceServiceBaseImpl
 	 * @param pushNotificationsDeviceService the push notifications device remote service
 	 */
 	public void setPushNotificationsDeviceService(
-		com.liferay.pushnotifications.service.PushNotificationsDeviceService pushNotificationsDeviceService) {
+		PushNotificationsDeviceService pushNotificationsDeviceService) {
 		this.pushNotificationsDeviceService = pushNotificationsDeviceService;
 	}
 
@@ -115,7 +115,7 @@ public abstract class PushNotificationsDeviceServiceBaseImpl
 	 *
 	 * @return the counter local service
 	 */
-	public com.liferay.counter.service.CounterLocalService getCounterLocalService() {
+	public com.liferay.counter.kernel.service.CounterLocalService getCounterLocalService() {
 		return counterLocalService;
 	}
 
@@ -125,7 +125,7 @@ public abstract class PushNotificationsDeviceServiceBaseImpl
 	 * @param counterLocalService the counter local service
 	 */
 	public void setCounterLocalService(
-		com.liferay.counter.service.CounterLocalService counterLocalService) {
+		com.liferay.counter.kernel.service.CounterLocalService counterLocalService) {
 		this.counterLocalService = counterLocalService;
 	}
 
@@ -134,7 +134,7 @@ public abstract class PushNotificationsDeviceServiceBaseImpl
 	 *
 	 * @return the class name local service
 	 */
-	public com.liferay.portal.service.ClassNameLocalService getClassNameLocalService() {
+	public com.liferay.portal.kernel.service.ClassNameLocalService getClassNameLocalService() {
 		return classNameLocalService;
 	}
 
@@ -144,7 +144,7 @@ public abstract class PushNotificationsDeviceServiceBaseImpl
 	 * @param classNameLocalService the class name local service
 	 */
 	public void setClassNameLocalService(
-		com.liferay.portal.service.ClassNameLocalService classNameLocalService) {
+		com.liferay.portal.kernel.service.ClassNameLocalService classNameLocalService) {
 		this.classNameLocalService = classNameLocalService;
 	}
 
@@ -153,7 +153,7 @@ public abstract class PushNotificationsDeviceServiceBaseImpl
 	 *
 	 * @return the class name remote service
 	 */
-	public com.liferay.portal.service.ClassNameService getClassNameService() {
+	public com.liferay.portal.kernel.service.ClassNameService getClassNameService() {
 		return classNameService;
 	}
 
@@ -163,7 +163,7 @@ public abstract class PushNotificationsDeviceServiceBaseImpl
 	 * @param classNameService the class name remote service
 	 */
 	public void setClassNameService(
-		com.liferay.portal.service.ClassNameService classNameService) {
+		com.liferay.portal.kernel.service.ClassNameService classNameService) {
 		this.classNameService = classNameService;
 	}
 
@@ -191,7 +191,7 @@ public abstract class PushNotificationsDeviceServiceBaseImpl
 	 *
 	 * @return the resource local service
 	 */
-	public com.liferay.portal.service.ResourceLocalService getResourceLocalService() {
+	public com.liferay.portal.kernel.service.ResourceLocalService getResourceLocalService() {
 		return resourceLocalService;
 	}
 
@@ -201,7 +201,7 @@ public abstract class PushNotificationsDeviceServiceBaseImpl
 	 * @param resourceLocalService the resource local service
 	 */
 	public void setResourceLocalService(
-		com.liferay.portal.service.ResourceLocalService resourceLocalService) {
+		com.liferay.portal.kernel.service.ResourceLocalService resourceLocalService) {
 		this.resourceLocalService = resourceLocalService;
 	}
 
@@ -210,7 +210,7 @@ public abstract class PushNotificationsDeviceServiceBaseImpl
 	 *
 	 * @return the user local service
 	 */
-	public com.liferay.portal.service.UserLocalService getUserLocalService() {
+	public com.liferay.portal.kernel.service.UserLocalService getUserLocalService() {
 		return userLocalService;
 	}
 
@@ -220,7 +220,7 @@ public abstract class PushNotificationsDeviceServiceBaseImpl
 	 * @param userLocalService the user local service
 	 */
 	public void setUserLocalService(
-		com.liferay.portal.service.UserLocalService userLocalService) {
+		com.liferay.portal.kernel.service.UserLocalService userLocalService) {
 		this.userLocalService = userLocalService;
 	}
 
@@ -229,7 +229,7 @@ public abstract class PushNotificationsDeviceServiceBaseImpl
 	 *
 	 * @return the user remote service
 	 */
-	public com.liferay.portal.service.UserService getUserService() {
+	public com.liferay.portal.kernel.service.UserService getUserService() {
 		return userService;
 	}
 
@@ -239,7 +239,7 @@ public abstract class PushNotificationsDeviceServiceBaseImpl
 	 * @param userService the user remote service
 	 */
 	public void setUserService(
-		com.liferay.portal.service.UserService userService) {
+		com.liferay.portal.kernel.service.UserService userService) {
 		this.userService = userService;
 	}
 
@@ -271,23 +271,13 @@ public abstract class PushNotificationsDeviceServiceBaseImpl
 	}
 
 	/**
-	 * Returns the Spring bean ID for this bean.
+	 * Returns the OSGi service identifier.
 	 *
-	 * @return the Spring bean ID for this bean
+	 * @return the OSGi service identifier
 	 */
 	@Override
-	public String getBeanIdentifier() {
-		return _beanIdentifier;
-	}
-
-	/**
-	 * Sets the Spring bean ID for this bean.
-	 *
-	 * @param beanIdentifier the Spring bean ID for this bean
-	 */
-	@Override
-	public void setBeanIdentifier(String beanIdentifier) {
-		_beanIdentifier = beanIdentifier;
+	public String getOSGiServiceIdentifier() {
+		return PushNotificationsDeviceService.class.getName();
 	}
 
 	@Override
@@ -328,13 +318,13 @@ public abstract class PushNotificationsDeviceServiceBaseImpl
 		try {
 			DataSource dataSource = pushNotificationsDevicePersistence.getDataSource();
 
-			DB db = DBFactoryUtil.getDB();
+			DB db = DBManagerUtil.getDB();
 
 			sql = db.buildSQL(sql);
 			sql = PortalUtil.transformSQL(sql);
 
 			SqlUpdate sqlUpdate = SqlUpdateFactoryUtil.getSqlUpdate(dataSource,
-					sql, new int[0]);
+					sql);
 
 			sqlUpdate.update();
 		}
@@ -346,26 +336,25 @@ public abstract class PushNotificationsDeviceServiceBaseImpl
 	@BeanReference(type = com.liferay.pushnotifications.service.PushNotificationsDeviceLocalService.class)
 	protected com.liferay.pushnotifications.service.PushNotificationsDeviceLocalService pushNotificationsDeviceLocalService;
 	@BeanReference(type = com.liferay.pushnotifications.service.PushNotificationsDeviceService.class)
-	protected com.liferay.pushnotifications.service.PushNotificationsDeviceService pushNotificationsDeviceService;
+	protected PushNotificationsDeviceService pushNotificationsDeviceService;
 	@BeanReference(type = PushNotificationsDevicePersistence.class)
 	protected PushNotificationsDevicePersistence pushNotificationsDevicePersistence;
-	@BeanReference(type = com.liferay.counter.service.CounterLocalService.class)
-	protected com.liferay.counter.service.CounterLocalService counterLocalService;
-	@BeanReference(type = com.liferay.portal.service.ClassNameLocalService.class)
-	protected com.liferay.portal.service.ClassNameLocalService classNameLocalService;
-	@BeanReference(type = com.liferay.portal.service.ClassNameService.class)
-	protected com.liferay.portal.service.ClassNameService classNameService;
+	@BeanReference(type = com.liferay.counter.kernel.service.CounterLocalService.class)
+	protected com.liferay.counter.kernel.service.CounterLocalService counterLocalService;
+	@BeanReference(type = com.liferay.portal.kernel.service.ClassNameLocalService.class)
+	protected com.liferay.portal.kernel.service.ClassNameLocalService classNameLocalService;
+	@BeanReference(type = com.liferay.portal.kernel.service.ClassNameService.class)
+	protected com.liferay.portal.kernel.service.ClassNameService classNameService;
 	@BeanReference(type = ClassNamePersistence.class)
 	protected ClassNamePersistence classNamePersistence;
-	@BeanReference(type = com.liferay.portal.service.ResourceLocalService.class)
-	protected com.liferay.portal.service.ResourceLocalService resourceLocalService;
-	@BeanReference(type = com.liferay.portal.service.UserLocalService.class)
-	protected com.liferay.portal.service.UserLocalService userLocalService;
-	@BeanReference(type = com.liferay.portal.service.UserService.class)
-	protected com.liferay.portal.service.UserService userService;
+	@BeanReference(type = com.liferay.portal.kernel.service.ResourceLocalService.class)
+	protected com.liferay.portal.kernel.service.ResourceLocalService resourceLocalService;
+	@BeanReference(type = com.liferay.portal.kernel.service.UserLocalService.class)
+	protected com.liferay.portal.kernel.service.UserLocalService userLocalService;
+	@BeanReference(type = com.liferay.portal.kernel.service.UserService.class)
+	protected com.liferay.portal.kernel.service.UserService userService;
 	@BeanReference(type = UserPersistence.class)
 	protected UserPersistence userPersistence;
-	private String _beanIdentifier;
 	private ClassLoader _classLoader;
 	private PushNotificationsDeviceServiceClpInvoker _clpInvoker = new PushNotificationsDeviceServiceClpInvoker();
 }

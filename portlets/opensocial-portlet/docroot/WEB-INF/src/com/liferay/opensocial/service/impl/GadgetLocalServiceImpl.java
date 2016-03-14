@@ -14,10 +14,10 @@
 
 package com.liferay.opensocial.service.impl;
 
-import com.liferay.opensocial.DuplicateGadgetURLException;
-import com.liferay.opensocial.GadgetPortletCategoryNamesException;
-import com.liferay.opensocial.GadgetURLException;
-import com.liferay.opensocial.NoSuchGadgetException;
+import com.liferay.opensocial.exception.DuplicateGadgetURLException;
+import com.liferay.opensocial.exception.GadgetPortletCategoryNamesException;
+import com.liferay.opensocial.exception.GadgetURLException;
+import com.liferay.opensocial.exception.NoSuchGadgetException;
 import com.liferay.opensocial.gadget.portlet.GadgetPortlet;
 import com.liferay.opensocial.model.Gadget;
 import com.liferay.opensocial.model.impl.GadgetConstants;
@@ -27,22 +27,22 @@ import com.liferay.opensocial.shindig.util.ShindigUtil;
 import com.liferay.portal.kernel.cluster.Clusterable;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.portal.kernel.model.Portlet;
+import com.liferay.portal.kernel.model.PortletApp;
+import com.liferay.portal.kernel.model.PortletInfo;
+import com.liferay.portal.kernel.model.SystemEventConstants;
+import com.liferay.portal.kernel.portlet.InvokerPortlet;
 import com.liferay.portal.kernel.portlet.PortletBag;
 import com.liferay.portal.kernel.portlet.PortletBagPool;
+import com.liferay.portal.kernel.portlet.PortletInstanceFactoryUtil;
+import com.liferay.portal.kernel.service.PortletLocalServiceUtil;
+import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.systemevent.SystemEvent;
 import com.liferay.portal.kernel.util.ContentTypes;
+import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.uuid.PortalUUIDUtil;
-import com.liferay.portal.model.Portlet;
-import com.liferay.portal.model.PortletApp;
-import com.liferay.portal.model.PortletInfo;
-import com.liferay.portal.model.SystemEventConstants;
-import com.liferay.portal.service.PortletLocalServiceUtil;
-import com.liferay.portal.service.ServiceContext;
-import com.liferay.portal.util.PortalUtil;
-import com.liferay.portlet.InvokerPortlet;
-import com.liferay.portlet.PortletInstanceFactoryUtil;
 
 import java.util.Date;
 import java.util.HashSet;

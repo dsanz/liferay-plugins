@@ -14,15 +14,31 @@
 
 package com.liferay.so.service;
 
+import aQute.bnd.annotation.ProviderType;
+
+import com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery;
+import com.liferay.portal.kernel.dao.orm.DynamicQuery;
+import com.liferay.portal.kernel.dao.orm.IndexableActionableDynamicQuery;
+import com.liferay.portal.kernel.dao.orm.Projection;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.portal.kernel.model.PersistedModel;
+import com.liferay.portal.kernel.search.Indexable;
 import com.liferay.portal.kernel.search.IndexableType;
+import com.liferay.portal.kernel.service.BaseLocalService;
+import com.liferay.portal.kernel.service.InvokableLocalService;
+import com.liferay.portal.kernel.service.PersistedModelLocalService;
+import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.transaction.Isolation;
 import com.liferay.portal.kernel.transaction.Propagation;
 import com.liferay.portal.kernel.transaction.Transactional;
-import com.liferay.portal.service.BaseLocalService;
-import com.liferay.portal.service.InvokableLocalService;
-import com.liferay.portal.service.PersistedModelLocalService;
+import com.liferay.portal.kernel.util.OrderByComparator;
+
+import com.liferay.so.model.MemberRequest;
+
+import java.io.Serializable;
+
+import java.util.List;
 
 /**
  * Provides the local service interface for MemberRequest. Methods of this
@@ -36,6 +52,7 @@ import com.liferay.portal.service.PersistedModelLocalService;
  * @see com.liferay.so.service.impl.MemberRequestLocalServiceImpl
  * @generated
  */
+@ProviderType
 @Transactional(isolation = Isolation.PORTAL, rollbackFor =  {
 	PortalException.class, SystemException.class})
 public interface MemberRequestLocalService extends BaseLocalService,
@@ -52,27 +69,22 @@ public interface MemberRequestLocalService extends BaseLocalService,
 	* @param memberRequest the member request
 	* @return the member request that was added
 	*/
-	@com.liferay.portal.kernel.search.Indexable(type = IndexableType.REINDEX)
-	public com.liferay.so.model.MemberRequest addMemberRequest(
-		com.liferay.so.model.MemberRequest memberRequest);
+	@Indexable(type = IndexableType.REINDEX)
+	public MemberRequest addMemberRequest(MemberRequest memberRequest);
 
-	public com.liferay.so.model.MemberRequest addMemberRequest(long userId,
-		long groupId, long receiverUserId,
-		java.lang.String receiverEmailAddress, long invitedRoleId,
-		long invitedTeamId,
-		com.liferay.portal.service.ServiceContext serviceContext)
-		throws com.liferay.portal.kernel.exception.PortalException;
+	public MemberRequest addMemberRequest(long userId, long groupId,
+		long receiverUserId, java.lang.String receiverEmailAddress,
+		long invitedRoleId, long invitedTeamId, ServiceContext serviceContext)
+		throws PortalException;
 
 	public void addMemberRequests(long userId, long groupId,
 		java.lang.String[] emailAddresses, long invitedRoleId,
-		long invitedTeamId,
-		com.liferay.portal.service.ServiceContext serviceContext)
-		throws com.liferay.portal.kernel.exception.PortalException;
+		long invitedTeamId, ServiceContext serviceContext)
+		throws PortalException;
 
 	public void addMemberRequests(long userId, long groupId,
 		long[] receiverUserIds, long invitedRoleId, long invitedTeamId,
-		com.liferay.portal.service.ServiceContext serviceContext)
-		throws com.liferay.portal.kernel.exception.PortalException;
+		ServiceContext serviceContext) throws PortalException;
 
 	/**
 	* Creates a new member request with the primary key. Does not add the member request to the database.
@@ -80,8 +92,7 @@ public interface MemberRequestLocalService extends BaseLocalService,
 	* @param memberRequestId the primary key for the new member request
 	* @return the new member request
 	*/
-	public com.liferay.so.model.MemberRequest createMemberRequest(
-		long memberRequestId);
+	public MemberRequest createMemberRequest(long memberRequestId);
 
 	/**
 	* Deletes the member request from the database. Also notifies the appropriate model listeners.
@@ -89,9 +100,8 @@ public interface MemberRequestLocalService extends BaseLocalService,
 	* @param memberRequest the member request
 	* @return the member request that was removed
 	*/
-	@com.liferay.portal.kernel.search.Indexable(type = IndexableType.DELETE)
-	public com.liferay.so.model.MemberRequest deleteMemberRequest(
-		com.liferay.so.model.MemberRequest memberRequest);
+	@Indexable(type = IndexableType.DELETE)
+	public MemberRequest deleteMemberRequest(MemberRequest memberRequest);
 
 	/**
 	* Deletes the member request with the primary key from the database. Also notifies the appropriate model listeners.
@@ -100,20 +110,18 @@ public interface MemberRequestLocalService extends BaseLocalService,
 	* @return the member request that was removed
 	* @throws PortalException if a member request with the primary key could not be found
 	*/
-	@com.liferay.portal.kernel.search.Indexable(type = IndexableType.DELETE)
-	public com.liferay.so.model.MemberRequest deleteMemberRequest(
-		long memberRequestId)
-		throws com.liferay.portal.kernel.exception.PortalException;
+	@Indexable(type = IndexableType.DELETE)
+	public MemberRequest deleteMemberRequest(long memberRequestId)
+		throws PortalException;
 
 	/**
 	* @throws PortalException
 	*/
 	@Override
-	public com.liferay.portal.model.PersistedModel deletePersistedModel(
-		com.liferay.portal.model.PersistedModel persistedModel)
-		throws com.liferay.portal.kernel.exception.PortalException;
+	public PersistedModel deletePersistedModel(PersistedModel persistedModel)
+		throws PortalException;
 
-	public com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery();
+	public DynamicQuery dynamicQuery();
 
 	/**
 	* Performs a dynamic query on the database and returns the matching rows.
@@ -121,8 +129,7 @@ public interface MemberRequestLocalService extends BaseLocalService,
 	* @param dynamicQuery the dynamic query
 	* @return the matching rows
 	*/
-	public <T> java.util.List<T> dynamicQuery(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery);
+	public <T> List<T> dynamicQuery(DynamicQuery dynamicQuery);
 
 	/**
 	* Performs a dynamic query on the database and returns a range of the matching rows.
@@ -136,8 +143,7 @@ public interface MemberRequestLocalService extends BaseLocalService,
 	* @param end the upper bound of the range of model instances (not inclusive)
 	* @return the range of matching rows
 	*/
-	public <T> java.util.List<T> dynamicQuery(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
+	public <T> List<T> dynamicQuery(DynamicQuery dynamicQuery, int start,
 		int end);
 
 	/**
@@ -153,49 +159,39 @@ public interface MemberRequestLocalService extends BaseLocalService,
 	* @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
 	* @return the ordered range of matching rows
 	*/
-	public <T> java.util.List<T> dynamicQuery(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
-		int end,
-		com.liferay.portal.kernel.util.OrderByComparator<T> orderByComparator);
+	public <T> List<T> dynamicQuery(DynamicQuery dynamicQuery, int start,
+		int end, OrderByComparator<T> orderByComparator);
 
 	/**
-	* Returns the number of rows that match the dynamic query.
+	* Returns the number of rows matching the dynamic query.
 	*
 	* @param dynamicQuery the dynamic query
-	* @return the number of rows that match the dynamic query
+	* @return the number of rows matching the dynamic query
 	*/
-	public long dynamicQueryCount(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery);
+	public long dynamicQueryCount(DynamicQuery dynamicQuery);
 
 	/**
-	* Returns the number of rows that match the dynamic query.
+	* Returns the number of rows matching the dynamic query.
 	*
 	* @param dynamicQuery the dynamic query
 	* @param projection the projection to apply to the query
-	* @return the number of rows that match the dynamic query
+	* @return the number of rows matching the dynamic query
 	*/
-	public long dynamicQueryCount(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery,
-		com.liferay.portal.kernel.dao.orm.Projection projection);
+	public long dynamicQueryCount(DynamicQuery dynamicQuery,
+		Projection projection);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public com.liferay.so.model.MemberRequest fetchMemberRequest(
-		long memberRequestId);
+	public MemberRequest fetchMemberRequest(long memberRequestId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery getActionableDynamicQuery();
-
-	/**
-	* Returns the Spring bean ID for this bean.
-	*
-	* @return the Spring bean ID for this bean
-	*/
-	public java.lang.String getBeanIdentifier();
+	public ActionableDynamicQuery getActionableDynamicQuery();
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public com.liferay.so.model.MemberRequest getMemberRequest(long groupId,
-		long receiverUserId, int status)
-		throws com.liferay.portal.kernel.exception.PortalException;
+	public IndexableActionableDynamicQuery getIndexableActionableDynamicQuery();
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public MemberRequest getMemberRequest(long groupId, long receiverUserId,
+		int status) throws PortalException;
 
 	/**
 	* Returns the member request with the primary key.
@@ -205,9 +201,8 @@ public interface MemberRequestLocalService extends BaseLocalService,
 	* @throws PortalException if a member request with the primary key could not be found
 	*/
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public com.liferay.so.model.MemberRequest getMemberRequest(
-		long memberRequestId)
-		throws com.liferay.portal.kernel.exception.PortalException;
+	public MemberRequest getMemberRequest(long memberRequestId)
+		throws PortalException;
 
 	/**
 	* Returns a range of all the member requests.
@@ -221,8 +216,7 @@ public interface MemberRequestLocalService extends BaseLocalService,
 	* @return the range of member requests
 	*/
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public java.util.List<com.liferay.so.model.MemberRequest> getMemberRequests(
-		int start, int end);
+	public List<MemberRequest> getMemberRequests(int start, int end);
 
 	/**
 	* Returns the number of member requests.
@@ -232,21 +226,27 @@ public interface MemberRequestLocalService extends BaseLocalService,
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public int getMemberRequestsCount();
 
+	/**
+	* Returns the OSGi service identifier.
+	*
+	* @return the OSGi service identifier
+	*/
+	public java.lang.String getOSGiServiceIdentifier();
+
 	@Override
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public com.liferay.portal.model.PersistedModel getPersistedModel(
-		java.io.Serializable primaryKeyObj)
-		throws com.liferay.portal.kernel.exception.PortalException;
+	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
+		throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public java.util.List<com.liferay.so.model.MemberRequest> getReceiverMemberRequest(
-		long receiverUserId, int start, int end);
+	public List<MemberRequest> getReceiverMemberRequest(long receiverUserId,
+		int start, int end);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public int getReceiverMemberRequestCount(long receiverUserId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public java.util.List<com.liferay.so.model.MemberRequest> getReceiverStatusMemberRequest(
+	public List<MemberRequest> getReceiverStatusMemberRequest(
 		long receiverUserId, int status, int start, int end);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
@@ -261,16 +261,8 @@ public interface MemberRequestLocalService extends BaseLocalService,
 		java.lang.String[] parameterTypes, java.lang.Object[] arguments)
 		throws java.lang.Throwable;
 
-	/**
-	* Sets the Spring bean ID for this bean.
-	*
-	* @param beanIdentifier the Spring bean ID for this bean
-	*/
-	public void setBeanIdentifier(java.lang.String beanIdentifier);
-
-	public com.liferay.so.model.MemberRequest updateMemberRequest(
-		java.lang.String key, long receiverUserId)
-		throws com.liferay.portal.kernel.exception.PortalException;
+	public MemberRequest updateMemberRequest(java.lang.String key,
+		long receiverUserId) throws PortalException;
 
 	/**
 	* Updates the member request in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
@@ -278,10 +270,9 @@ public interface MemberRequestLocalService extends BaseLocalService,
 	* @param memberRequest the member request
 	* @return the member request that was updated
 	*/
-	@com.liferay.portal.kernel.search.Indexable(type = IndexableType.REINDEX)
-	public com.liferay.so.model.MemberRequest updateMemberRequest(
-		com.liferay.so.model.MemberRequest memberRequest);
+	@Indexable(type = IndexableType.REINDEX)
+	public MemberRequest updateMemberRequest(MemberRequest memberRequest);
 
-	public com.liferay.so.model.MemberRequest updateMemberRequest(long userId,
-		long memberRequestId, int status) throws java.lang.Exception;
+	public MemberRequest updateMemberRequest(long userId, long memberRequestId,
+		int status) throws java.lang.Exception;
 }

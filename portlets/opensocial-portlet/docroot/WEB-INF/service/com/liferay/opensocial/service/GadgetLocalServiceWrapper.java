@@ -14,7 +14,9 @@
 
 package com.liferay.opensocial.service;
 
-import com.liferay.portal.service.ServiceWrapper;
+import aQute.bnd.annotation.ProviderType;
+
+import com.liferay.portal.kernel.service.ServiceWrapper;
 
 /**
  * Provides a wrapper for {@link GadgetLocalService}.
@@ -23,6 +25,7 @@ import com.liferay.portal.service.ServiceWrapper;
  * @see GadgetLocalService
  * @generated
  */
+@ProviderType
 public class GadgetLocalServiceWrapper implements GadgetLocalService,
 	ServiceWrapper<GadgetLocalService> {
 	public GadgetLocalServiceWrapper(GadgetLocalService gadgetLocalService) {
@@ -32,7 +35,7 @@ public class GadgetLocalServiceWrapper implements GadgetLocalService,
 	@Override
 	public com.liferay.opensocial.model.Gadget addGadget(long companyId,
 		java.lang.String url, java.lang.String portletCategoryNames,
-		com.liferay.portal.service.ServiceContext serviceContext)
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		return _gadgetLocalService.addGadget(companyId, url,
 			portletCategoryNames, serviceContext);
@@ -95,8 +98,8 @@ public class GadgetLocalServiceWrapper implements GadgetLocalService,
 	* @throws PortalException
 	*/
 	@Override
-	public com.liferay.portal.model.PersistedModel deletePersistedModel(
-		com.liferay.portal.model.PersistedModel persistedModel)
+	public com.liferay.portal.kernel.model.PersistedModel deletePersistedModel(
+		com.liferay.portal.kernel.model.PersistedModel persistedModel)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		return _gadgetLocalService.deletePersistedModel(persistedModel);
 	}
@@ -170,10 +173,10 @@ public class GadgetLocalServiceWrapper implements GadgetLocalService,
 	}
 
 	/**
-	* Returns the number of rows that match the dynamic query.
+	* Returns the number of rows matching the dynamic query.
 	*
 	* @param dynamicQuery the dynamic query
-	* @return the number of rows that match the dynamic query
+	* @return the number of rows matching the dynamic query
 	*/
 	@Override
 	public long dynamicQueryCount(
@@ -182,11 +185,11 @@ public class GadgetLocalServiceWrapper implements GadgetLocalService,
 	}
 
 	/**
-	* Returns the number of rows that match the dynamic query.
+	* Returns the number of rows matching the dynamic query.
 	*
 	* @param dynamicQuery the dynamic query
 	* @param projection the projection to apply to the query
-	* @return the number of rows that match the dynamic query
+	* @return the number of rows matching the dynamic query
 	*/
 	@Override
 	public long dynamicQueryCount(
@@ -224,19 +227,9 @@ public class GadgetLocalServiceWrapper implements GadgetLocalService,
 		return _gadgetLocalService.getActionableDynamicQuery();
 	}
 
-	/**
-	* Returns the Spring bean ID for this bean.
-	*
-	* @return the Spring bean ID for this bean
-	*/
-	@Override
-	public java.lang.String getBeanIdentifier() {
-		return _gadgetLocalService.getBeanIdentifier();
-	}
-
 	@Override
 	public com.liferay.portal.kernel.dao.orm.ExportActionableDynamicQuery getExportActionableDynamicQuery(
-		com.liferay.portal.kernel.lar.PortletDataContext portletDataContext) {
+		com.liferay.exportimport.kernel.lar.PortletDataContext portletDataContext) {
 		return _gadgetLocalService.getExportActionableDynamicQuery(portletDataContext);
 	}
 
@@ -321,7 +314,22 @@ public class GadgetLocalServiceWrapper implements GadgetLocalService,
 	}
 
 	@Override
-	public com.liferay.portal.model.PersistedModel getPersistedModel(
+	public com.liferay.portal.kernel.dao.orm.IndexableActionableDynamicQuery getIndexableActionableDynamicQuery() {
+		return _gadgetLocalService.getIndexableActionableDynamicQuery();
+	}
+
+	/**
+	* Returns the OSGi service identifier.
+	*
+	* @return the OSGi service identifier
+	*/
+	@Override
+	public java.lang.String getOSGiServiceIdentifier() {
+		return _gadgetLocalService.getOSGiServiceIdentifier();
+	}
+
+	@Override
+	public com.liferay.portal.kernel.model.PersistedModel getPersistedModel(
 		java.io.Serializable primaryKeyObj)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		return _gadgetLocalService.getPersistedModel(primaryKeyObj);
@@ -350,16 +358,6 @@ public class GadgetLocalServiceWrapper implements GadgetLocalService,
 	}
 
 	/**
-	* Sets the Spring bean ID for this bean.
-	*
-	* @param beanIdentifier the Spring bean ID for this bean
-	*/
-	@Override
-	public void setBeanIdentifier(java.lang.String beanIdentifier) {
-		_gadgetLocalService.setBeanIdentifier(beanIdentifier);
-	}
-
-	/**
 	* Updates the gadget in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
 	*
 	* @param gadget the gadget
@@ -376,23 +374,6 @@ public class GadgetLocalServiceWrapper implements GadgetLocalService,
 		java.lang.String portletCategoryNames)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		return _gadgetLocalService.updateGadget(gadgetId, portletCategoryNames);
-	}
-
-	/**
-	 * @deprecated As of 6.1.0, replaced by {@link #getWrappedService}
-	 */
-	@Deprecated
-	public GadgetLocalService getWrappedGadgetLocalService() {
-		return _gadgetLocalService;
-	}
-
-	/**
-	 * @deprecated As of 6.1.0, replaced by {@link #setWrappedService}
-	 */
-	@Deprecated
-	public void setWrappedGadgetLocalService(
-		GadgetLocalService gadgetLocalService) {
-		_gadgetLocalService = gadgetLocalService;
 	}
 
 	@Override

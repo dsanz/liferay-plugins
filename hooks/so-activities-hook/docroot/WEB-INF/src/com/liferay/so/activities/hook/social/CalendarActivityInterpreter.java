@@ -14,25 +14,26 @@
 
 package com.liferay.so.activities.hook.social;
 
+import com.liferay.asset.kernel.model.AssetRenderer;
+import com.liferay.calendar.constants.CalendarPortletKeys;
 import com.liferay.calendar.model.CalendarBooking;
 import com.liferay.calendar.service.CalendarBookingLocalServiceUtil;
 import com.liferay.calendar.service.permission.CalendarPermission;
+import com.liferay.portal.kernel.portlet.PortletURLFactoryUtil;
+import com.liferay.portal.kernel.security.permission.ActionKeys;
+import com.liferay.portal.kernel.security.permission.PermissionChecker;
+import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.util.FastDateFormatFactoryUtil;
 import com.liferay.portal.kernel.util.HtmlUtil;
+import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.StringUtil;
-import com.liferay.portal.security.permission.ActionKeys;
-import com.liferay.portal.security.permission.PermissionChecker;
-import com.liferay.portal.service.ServiceContext;
-import com.liferay.portal.util.PortalUtil;
-import com.liferay.portlet.PortletURLFactoryUtil;
-import com.liferay.portlet.asset.model.AssetRenderer;
-import com.liferay.portlet.social.model.SocialActivity;
-import com.liferay.portlet.social.model.SocialActivitySet;
-import com.liferay.portlet.social.service.SocialActivityLocalServiceUtil;
-import com.liferay.portlet.social.service.SocialActivitySetLocalServiceUtil;
 import com.liferay.so.activities.util.SocialActivityKeyConstants;
+import com.liferay.social.kernel.model.SocialActivity;
+import com.liferay.social.kernel.model.SocialActivitySet;
+import com.liferay.social.kernel.service.SocialActivityLocalServiceUtil;
+import com.liferay.social.kernel.service.SocialActivitySetLocalServiceUtil;
 
 import java.text.DateFormat;
 import java.text.Format;
@@ -163,10 +164,10 @@ public class CalendarActivityInterpreter extends SOSocialActivityInterpreter {
 			CalendarBookingLocalServiceUtil.fetchCalendarBooking(classPK);
 
 		long plid = PortalUtil.getPlidFromPortletId(
-			calendarBooking.getGroupId(), "1_WAR_calendarportlet");
+			calendarBooking.getGroupId(), CalendarPortletKeys.CALENDAR);
 
 		PortletURL portletURL = PortletURLFactoryUtil.create(
-			serviceContext.getRequest(), "1_WAR_calendarportlet", plid,
+			serviceContext.getRequest(), CalendarPortletKeys.CALENDAR, plid,
 			PortletRequest.RENDER_PHASE);
 
 		portletURL.setParameter("mvcPath", "/view_calendar_booking.jsp");

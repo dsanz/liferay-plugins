@@ -14,12 +14,14 @@
 
 package com.liferay.chat.model;
 
-import com.liferay.portal.kernel.bean.AutoEscape;
-import com.liferay.portal.model.BaseModel;
-import com.liferay.portal.model.CacheModel;
-import com.liferay.portal.service.ServiceContext;
+import aQute.bnd.annotation.ProviderType;
 
-import com.liferay.portlet.expando.model.ExpandoBridge;
+import com.liferay.expando.kernel.model.ExpandoBridge;
+
+import com.liferay.portal.kernel.bean.AutoEscape;
+import com.liferay.portal.kernel.model.BaseModel;
+import com.liferay.portal.kernel.model.CacheModel;
+import com.liferay.portal.kernel.service.ServiceContext;
 
 import java.io.Serializable;
 
@@ -36,6 +38,7 @@ import java.io.Serializable;
  * @see com.liferay.chat.model.impl.EntryModelImpl
  * @generated
  */
+@ProviderType
 public interface EntryModel extends BaseModel<Entry> {
 	/*
 	 * NOTE FOR DEVELOPERS:
@@ -207,19 +210,19 @@ public interface EntryModel extends BaseModel<Entry> {
 	public Object clone();
 
 	@Override
-	public int compareTo(Entry entry);
+	public int compareTo(com.liferay.chat.model.Entry entry);
 
 	@Override
 	public int hashCode();
 
 	@Override
-	public CacheModel<Entry> toCacheModel();
+	public CacheModel<com.liferay.chat.model.Entry> toCacheModel();
 
 	@Override
-	public Entry toEscapedModel();
+	public com.liferay.chat.model.Entry toEscapedModel();
 
 	@Override
-	public Entry toUnescapedModel();
+	public com.liferay.chat.model.Entry toUnescapedModel();
 
 	@Override
 	public String toString();

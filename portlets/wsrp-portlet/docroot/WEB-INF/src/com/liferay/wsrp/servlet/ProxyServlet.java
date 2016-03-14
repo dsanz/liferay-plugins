@@ -21,9 +21,9 @@ import com.liferay.portal.kernel.servlet.ServletResponseUtil;
 import com.liferay.portal.kernel.util.CharPool;
 import com.liferay.portal.kernel.util.HttpUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
+import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Validator;
-import com.liferay.portal.util.PortalUtil;
 import com.liferay.wsrp.util.PortletPropsValues;
 import com.liferay.wsrp.util.WebKeys;
 
@@ -37,6 +37,7 @@ import java.net.URLConnection;
 import java.util.Enumeration;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -87,9 +88,9 @@ public class ProxyServlet extends HttpServlet {
 
 		String hostAddress = inetAddress.getHostAddress();
 
-		String serverIp = PortalUtil.getComputerAddress();
+		Set<String> computerAddresses = PortalUtil.getComputerAddresses();
 
-		boolean serverIpIsHostAddress = serverIp.equals(hostAddress);
+		boolean serverIpIsHostAddress = computerAddresses.contains(hostAddress);
 
 		for (String ip : allowedIps) {
 			if ((serverIpIsHostAddress && ip.equals("SERVER_IP")) ||

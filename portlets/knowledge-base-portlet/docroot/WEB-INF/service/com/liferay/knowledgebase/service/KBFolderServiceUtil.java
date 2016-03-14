@@ -17,8 +17,8 @@ package com.liferay.knowledgebase.service;
 import aQute.bnd.annotation.ProviderType;
 
 import com.liferay.portal.kernel.bean.PortletBeanLocatorUtil;
+import com.liferay.portal.kernel.service.InvokableService;
 import com.liferay.portal.kernel.util.ReferenceRegistry;
-import com.liferay.portal.service.InvokableService;
 
 /**
  * Provides the remote service utility for KBFolder. This utility wraps
@@ -45,7 +45,7 @@ public class KBFolderServiceUtil {
 		long groupId, long parentResourceClassNameId,
 		long parentResourcePrimKey, java.lang.String name,
 		java.lang.String description,
-		com.liferay.portal.service.ServiceContext serviceContext)
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		return getService()
 				   .addKBFolder(groupId, parentResourceClassNameId,
@@ -63,15 +63,6 @@ public class KBFolderServiceUtil {
 		throws com.liferay.portal.kernel.exception.PortalException {
 		return getService()
 				   .fetchKBFolderByUrlTitle(groupId, parentKbFolderId, urlTitle);
-	}
-
-	/**
-	* Returns the Spring bean ID for this bean.
-	*
-	* @return the Spring bean ID for this bean
-	*/
-	public static java.lang.String getBeanIdentifier() {
-		return getService().getBeanIdentifier();
 	}
 
 	public static com.liferay.knowledgebase.model.KBFolder getKBFolder(
@@ -98,6 +89,15 @@ public class KBFolderServiceUtil {
 		return getService().getKBFoldersCount(groupId, parentKBFolderId);
 	}
 
+	/**
+	* Returns the OSGi service identifier.
+	*
+	* @return the OSGi service identifier
+	*/
+	public static java.lang.String getOSGiServiceIdentifier() {
+		return getService().getOSGiServiceIdentifier();
+	}
+
 	public static java.lang.Object invokeMethod(java.lang.String name,
 		java.lang.String[] parameterTypes, java.lang.Object[] arguments)
 		throws java.lang.Throwable {
@@ -107,15 +107,6 @@ public class KBFolderServiceUtil {
 	public static void moveKBFolder(long kbFolderId, long parentKBFolderId)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		getService().moveKBFolder(kbFolderId, parentKBFolderId);
-	}
-
-	/**
-	* Sets the Spring bean ID for this bean.
-	*
-	* @param beanIdentifier the Spring bean ID for this bean
-	*/
-	public static void setBeanIdentifier(java.lang.String beanIdentifier) {
-		getService().setBeanIdentifier(beanIdentifier);
 	}
 
 	public static com.liferay.knowledgebase.model.KBFolder updateKBFolder(
@@ -148,13 +139,6 @@ public class KBFolderServiceUtil {
 		}
 
 		return _service;
-	}
-
-	/**
-	 * @deprecated As of 6.2.0
-	 */
-	@Deprecated
-	public void setService(KBFolderService service) {
 	}
 
 	private static KBFolderService _service;

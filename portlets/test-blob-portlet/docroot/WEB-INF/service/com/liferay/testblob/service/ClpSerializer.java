@@ -14,14 +14,16 @@
 
 package com.liferay.testblob.service;
 
+import aQute.bnd.annotation.ProviderType;
+
 import com.liferay.portal.kernel.io.unsync.UnsyncByteArrayInputStream;
 import com.liferay.portal.kernel.io.unsync.UnsyncByteArrayOutputStream;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.model.BaseModel;
 import com.liferay.portal.kernel.util.ClassLoaderObjectInputStream;
 import com.liferay.portal.kernel.util.PropsUtil;
 import com.liferay.portal.kernel.util.Validator;
-import com.liferay.portal.model.BaseModel;
 
 import com.liferay.testblob.model.TestBlobEntryClp;
 
@@ -36,6 +38,7 @@ import java.util.List;
 /**
  * @author Brian Wing Shun Chan
  */
+@ProviderType
 public class ClpSerializer {
 	public static String getServletContextName() {
 		if (Validator.isNotNull(_servletContextName)) {
@@ -262,8 +265,9 @@ public class ClpSerializer {
 
 		String className = clazz.getName();
 
-		if (className.equals("com.liferay.testblob.NoSuchEntryException")) {
-			return new com.liferay.testblob.NoSuchEntryException(throwable.getMessage(),
+		if (className.equals(
+					"com.liferay.testblob.exception.NoSuchEntryException")) {
+			return new com.liferay.testblob.exception.NoSuchEntryException(throwable.getMessage(),
 				throwable.getCause());
 		}
 

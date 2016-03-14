@@ -14,9 +14,12 @@
 
 package com.liferay.so.model.impl;
 
+import aQute.bnd.annotation.ProviderType;
+
+import com.liferay.portal.kernel.model.CacheModel;
+import com.liferay.portal.kernel.util.HashUtil;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringPool;
-import com.liferay.portal.model.CacheModel;
 
 import com.liferay.so.model.MemberRequest;
 
@@ -34,8 +37,33 @@ import java.util.Date;
  * @see MemberRequest
  * @generated
  */
+@ProviderType
 public class MemberRequestCacheModel implements CacheModel<MemberRequest>,
 	Externalizable {
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+
+		if (!(obj instanceof MemberRequestCacheModel)) {
+			return false;
+		}
+
+		MemberRequestCacheModel memberRequestCacheModel = (MemberRequestCacheModel)obj;
+
+		if (memberRequestId == memberRequestCacheModel.memberRequestId) {
+			return true;
+		}
+
+		return false;
+	}
+
+	@Override
+	public int hashCode() {
+		return HashUtil.hash(0, memberRequestId);
+	}
+
 	@Override
 	public String toString() {
 		StringBundler sb = new StringBundler(25);
@@ -119,16 +147,23 @@ public class MemberRequestCacheModel implements CacheModel<MemberRequest>,
 	@Override
 	public void readExternal(ObjectInput objectInput) throws IOException {
 		memberRequestId = objectInput.readLong();
+
 		groupId = objectInput.readLong();
+
 		companyId = objectInput.readLong();
+
 		userId = objectInput.readLong();
 		userName = objectInput.readUTF();
 		createDate = objectInput.readLong();
 		modifiedDate = objectInput.readLong();
 		key = objectInput.readUTF();
+
 		receiverUserId = objectInput.readLong();
+
 		invitedRoleId = objectInput.readLong();
+
 		invitedTeamId = objectInput.readLong();
+
 		status = objectInput.readInt();
 	}
 
@@ -136,8 +171,11 @@ public class MemberRequestCacheModel implements CacheModel<MemberRequest>,
 	public void writeExternal(ObjectOutput objectOutput)
 		throws IOException {
 		objectOutput.writeLong(memberRequestId);
+
 		objectOutput.writeLong(groupId);
+
 		objectOutput.writeLong(companyId);
+
 		objectOutput.writeLong(userId);
 
 		if (userName == null) {
@@ -158,8 +196,11 @@ public class MemberRequestCacheModel implements CacheModel<MemberRequest>,
 		}
 
 		objectOutput.writeLong(receiverUserId);
+
 		objectOutput.writeLong(invitedRoleId);
+
 		objectOutput.writeLong(invitedTeamId);
+
 		objectOutput.writeInt(status);
 	}
 

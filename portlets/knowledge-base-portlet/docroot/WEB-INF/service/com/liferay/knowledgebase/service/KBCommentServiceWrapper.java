@@ -16,7 +16,7 @@ package com.liferay.knowledgebase.service;
 
 import aQute.bnd.annotation.ProviderType;
 
-import com.liferay.portal.service.ServiceWrapper;
+import com.liferay.portal.kernel.service.ServiceWrapper;
 
 /**
  * Provides a wrapper for {@link KBCommentService}.
@@ -44,16 +44,6 @@ public class KBCommentServiceWrapper implements KBCommentService,
 		long kbCommentId)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		return _kbCommentService.deleteKBComment(kbCommentId);
-	}
-
-	/**
-	* Returns the Spring bean ID for this bean.
-	*
-	* @return the Spring bean ID for this bean
-	*/
-	@Override
-	public java.lang.String getBeanIdentifier() {
-		return _kbCommentService.getBeanIdentifier();
 	}
 
 	@Override
@@ -93,6 +83,16 @@ public class KBCommentServiceWrapper implements KBCommentService,
 		return _kbCommentService.getKBCommentsCount(groupId, status);
 	}
 
+	/**
+	* Returns the OSGi service identifier.
+	*
+	* @return the OSGi service identifier
+	*/
+	@Override
+	public java.lang.String getOSGiServiceIdentifier() {
+		return _kbCommentService.getOSGiServiceIdentifier();
+	}
+
 	@Override
 	public java.lang.Object invokeMethod(java.lang.String name,
 		java.lang.String[] parameterTypes, java.lang.Object[] arguments)
@@ -100,21 +100,11 @@ public class KBCommentServiceWrapper implements KBCommentService,
 		return _kbCommentService.invokeMethod(name, parameterTypes, arguments);
 	}
 
-	/**
-	* Sets the Spring bean ID for this bean.
-	*
-	* @param beanIdentifier the Spring bean ID for this bean
-	*/
-	@Override
-	public void setBeanIdentifier(java.lang.String beanIdentifier) {
-		_kbCommentService.setBeanIdentifier(beanIdentifier);
-	}
-
 	@Override
 	public com.liferay.knowledgebase.model.KBComment updateKBComment(
 		long kbCommentId, long classNameId, long classPK,
 		java.lang.String content,
-		com.liferay.portal.service.ServiceContext serviceContext)
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		return _kbCommentService.updateKBComment(kbCommentId, classNameId,
 			classPK, content, serviceContext);
@@ -124,7 +114,7 @@ public class KBCommentServiceWrapper implements KBCommentService,
 	public com.liferay.knowledgebase.model.KBComment updateKBComment(
 		long kbCommentId, long classNameId, long classPK,
 		java.lang.String content, int status,
-		com.liferay.portal.service.ServiceContext serviceContext)
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		return _kbCommentService.updateKBComment(kbCommentId, classNameId,
 			classPK, content, status, serviceContext);
@@ -133,26 +123,10 @@ public class KBCommentServiceWrapper implements KBCommentService,
 	@Override
 	public com.liferay.knowledgebase.model.KBComment updateStatus(
 		long kbCommentId, int status,
-		com.liferay.portal.service.ServiceContext serviceContext)
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		return _kbCommentService.updateStatus(kbCommentId, status,
 			serviceContext);
-	}
-
-	/**
-	 * @deprecated As of 6.1.0, replaced by {@link #getWrappedService}
-	 */
-	@Deprecated
-	public KBCommentService getWrappedKBCommentService() {
-		return _kbCommentService;
-	}
-
-	/**
-	 * @deprecated As of 6.1.0, replaced by {@link #setWrappedService}
-	 */
-	@Deprecated
-	public void setWrappedKBCommentService(KBCommentService kbCommentService) {
-		_kbCommentService = kbCommentService;
 	}
 
 	@Override

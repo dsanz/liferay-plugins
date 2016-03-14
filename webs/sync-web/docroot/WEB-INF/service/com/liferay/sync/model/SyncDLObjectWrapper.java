@@ -16,8 +16,13 @@ package com.liferay.sync.model;
 
 import aQute.bnd.annotation.ProviderType;
 
+import com.liferay.expando.kernel.model.ExpandoBridge;
+
+import com.liferay.portal.kernel.model.ModelWrapper;
+import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.util.Validator;
-import com.liferay.portal.model.ModelWrapper;
+
+import java.io.Serializable;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -61,6 +66,7 @@ public class SyncDLObjectWrapper implements SyncDLObject,
 		attributes.put("modifiedTime", getModifiedTime());
 		attributes.put("repositoryId", getRepositoryId());
 		attributes.put("parentFolderId", getParentFolderId());
+		attributes.put("treePath", getTreePath());
 		attributes.put("name", getName());
 		attributes.put("extension", getExtension());
 		attributes.put("mimeType", getMimeType());
@@ -72,6 +78,7 @@ public class SyncDLObjectWrapper implements SyncDLObject,
 		attributes.put("size", getSize());
 		attributes.put("checksum", getChecksum());
 		attributes.put("event", getEvent());
+		attributes.put("lastPermissionChangeDate", getLastPermissionChangeDate());
 		attributes.put("lockExpirationDate", getLockExpirationDate());
 		attributes.put("lockUserId", getLockUserId());
 		attributes.put("lockUserName", getLockUserName());
@@ -130,6 +137,12 @@ public class SyncDLObjectWrapper implements SyncDLObject,
 
 		if (parentFolderId != null) {
 			setParentFolderId(parentFolderId);
+		}
+
+		String treePath = (String)attributes.get("treePath");
+
+		if (treePath != null) {
+			setTreePath(treePath);
 		}
 
 		String name = (String)attributes.get("name");
@@ -198,6 +211,13 @@ public class SyncDLObjectWrapper implements SyncDLObject,
 			setEvent(event);
 		}
 
+		Date lastPermissionChangeDate = (Date)attributes.get(
+				"lastPermissionChangeDate");
+
+		if (lastPermissionChangeDate != null) {
+			setLastPermissionChangeDate(lastPermissionChangeDate);
+		}
+
 		Date lockExpirationDate = (Date)attributes.get("lockExpirationDate");
 
 		if (lockExpirationDate != null) {
@@ -233,6 +253,11 @@ public class SyncDLObjectWrapper implements SyncDLObject,
 		if (typeUuid != null) {
 			setTypeUuid(typeUuid);
 		}
+	}
+
+	@Override
+	public java.lang.String buildTreePath() {
+		return _syncDLObject.buildTreePath();
 	}
 
 	@Override
@@ -306,7 +331,7 @@ public class SyncDLObjectWrapper implements SyncDLObject,
 	}
 
 	@Override
-	public com.liferay.portlet.expando.model.ExpandoBridge getExpandoBridge() {
+	public ExpandoBridge getExpandoBridge() {
 		return _syncDLObject.getExpandoBridge();
 	}
 
@@ -328,6 +353,16 @@ public class SyncDLObjectWrapper implements SyncDLObject,
 	@Override
 	public java.lang.String getExtraSettings() {
 		return _syncDLObject.getExtraSettings();
+	}
+
+	/**
+	* Returns the last permission change date of this sync d l object.
+	*
+	* @return the last permission change date of this sync d l object
+	*/
+	@Override
+	public Date getLastPermissionChangeDate() {
+		return _syncDLObject.getLastPermissionChangeDate();
 	}
 
 	/**
@@ -421,7 +456,7 @@ public class SyncDLObjectWrapper implements SyncDLObject,
 	}
 
 	@Override
-	public java.io.Serializable getPrimaryKeyObj() {
+	public Serializable getPrimaryKeyObj() {
 		return _syncDLObject.getPrimaryKeyObj();
 	}
 
@@ -453,6 +488,16 @@ public class SyncDLObjectWrapper implements SyncDLObject,
 	@Override
 	public long getSyncDLObjectId() {
 		return _syncDLObject.getSyncDLObjectId();
+	}
+
+	/**
+	* Returns the tree path of this sync d l object.
+	*
+	* @return the tree path of this sync d l object
+	*/
+	@Override
+	public java.lang.String getTreePath() {
+		return _syncDLObject.getTreePath();
 	}
 
 	/**
@@ -632,19 +677,17 @@ public class SyncDLObjectWrapper implements SyncDLObject,
 
 	@Override
 	public void setExpandoBridgeAttributes(
-		com.liferay.portal.model.BaseModel<?> baseModel) {
+		com.liferay.portal.kernel.model.BaseModel<?> baseModel) {
 		_syncDLObject.setExpandoBridgeAttributes(baseModel);
 	}
 
 	@Override
-	public void setExpandoBridgeAttributes(
-		com.liferay.portlet.expando.model.ExpandoBridge expandoBridge) {
+	public void setExpandoBridgeAttributes(ExpandoBridge expandoBridge) {
 		_syncDLObject.setExpandoBridgeAttributes(expandoBridge);
 	}
 
 	@Override
-	public void setExpandoBridgeAttributes(
-		com.liferay.portal.service.ServiceContext serviceContext) {
+	public void setExpandoBridgeAttributes(ServiceContext serviceContext) {
 		_syncDLObject.setExpandoBridgeAttributes(serviceContext);
 	}
 
@@ -666,6 +709,16 @@ public class SyncDLObjectWrapper implements SyncDLObject,
 	@Override
 	public void setExtraSettings(java.lang.String extraSettings) {
 		_syncDLObject.setExtraSettings(extraSettings);
+	}
+
+	/**
+	* Sets the last permission change date of this sync d l object.
+	*
+	* @param lastPermissionChangeDate the last permission change date of this sync d l object
+	*/
+	@Override
+	public void setLastPermissionChangeDate(Date lastPermissionChangeDate) {
+		_syncDLObject.setLastPermissionChangeDate(lastPermissionChangeDate);
 	}
 
 	/**
@@ -769,7 +822,7 @@ public class SyncDLObjectWrapper implements SyncDLObject,
 	}
 
 	@Override
-	public void setPrimaryKeyObj(java.io.Serializable primaryKeyObj) {
+	public void setPrimaryKeyObj(Serializable primaryKeyObj) {
 		_syncDLObject.setPrimaryKeyObj(primaryKeyObj);
 	}
 
@@ -801,6 +854,16 @@ public class SyncDLObjectWrapper implements SyncDLObject,
 	@Override
 	public void setSyncDLObjectId(long syncDLObjectId) {
 		_syncDLObject.setSyncDLObjectId(syncDLObjectId);
+	}
+
+	/**
+	* Sets the tree path of this sync d l object.
+	*
+	* @param treePath the tree path of this sync d l object
+	*/
+	@Override
+	public void setTreePath(java.lang.String treePath) {
+		_syncDLObject.setTreePath(treePath);
 	}
 
 	/**
@@ -884,7 +947,7 @@ public class SyncDLObjectWrapper implements SyncDLObject,
 	}
 
 	@Override
-	public com.liferay.portal.model.CacheModel<com.liferay.sync.model.SyncDLObject> toCacheModel() {
+	public com.liferay.portal.kernel.model.CacheModel<com.liferay.sync.model.SyncDLObject> toCacheModel() {
 		return _syncDLObject.toCacheModel();
 	}
 
@@ -909,6 +972,11 @@ public class SyncDLObjectWrapper implements SyncDLObject,
 	}
 
 	@Override
+	public void updateTreePath(java.lang.String treePath) {
+		_syncDLObject.updateTreePath(treePath);
+	}
+
+	@Override
 	public boolean equals(Object obj) {
 		if (this == obj) {
 			return true;
@@ -925,14 +993,6 @@ public class SyncDLObjectWrapper implements SyncDLObject,
 		}
 
 		return false;
-	}
-
-	/**
-	 * @deprecated As of 6.1.0, replaced by {@link #getWrappedModel}
-	 */
-	@Deprecated
-	public SyncDLObject getWrappedSyncDLObject() {
-		return _syncDLObject;
 	}
 
 	@Override

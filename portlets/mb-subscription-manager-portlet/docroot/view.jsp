@@ -25,11 +25,11 @@ String keywords = ParamUtil.getString(request, "keywords");
 />
 
 <aui:form action="<%= portletURL %>" cssClass="form-search" method="post" name="fm1">
-	<liferay-ui:input-search placeholder='<%= LanguageUtil.get(locale, "keywords") %>' title='<%= LanguageUtil.get(locale, "keywords") %>' />
+	<liferay-ui:input-search placeholder='<%= LanguageUtil.get(request, "keywords") %>' title='<%= LanguageUtil.get(request, "keywords") %>' />
 </aui:form>
 
 <liferay-ui:search-container
-	emptyResultsMessage="no-categories-found"
+	emptyResultsMessage="no-categories-were-found"
 	iteratorURL="<%= portletURL %>"
 	total="<%= SubscriptionManagerUtil.getMBCategoriesCount(scopeGroupId, keywords) %>"
 >
@@ -38,7 +38,7 @@ String keywords = ParamUtil.getString(request, "keywords");
 	/>
 
 	<liferay-ui:search-container-row
-		className="com.liferay.portlet.messageboards.model.MBCategory"
+		className="com.liferay.message.boards.kernel.model.MBCategory"
 		escapedModel="<%= true %>"
 		keyProperty="categoryId"
 		modelVar="mbCategory"

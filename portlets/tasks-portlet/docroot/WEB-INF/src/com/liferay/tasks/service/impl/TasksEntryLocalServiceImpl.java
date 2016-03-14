@@ -17,24 +17,24 @@
 
 package com.liferay.tasks.service.impl;
 
-import com.liferay.counter.service.CounterLocalServiceUtil;
+import com.liferay.asset.kernel.service.AssetEntryLocalServiceUtil;
+import com.liferay.counter.kernel.service.CounterLocalServiceUtil;
+import com.liferay.portal.kernel.comment.CommentManagerUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.json.JSONFactoryUtil;
 import com.liferay.portal.kernel.json.JSONObject;
+import com.liferay.portal.kernel.model.User;
+import com.liferay.portal.kernel.model.UserNotificationDeliveryConstants;
 import com.liferay.portal.kernel.notifications.UserNotificationManagerUtil;
+import com.liferay.portal.kernel.service.ServiceContext;
+import com.liferay.portal.kernel.service.UserLocalServiceUtil;
+import com.liferay.portal.kernel.service.UserNotificationEventLocalServiceUtil;
+import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.Validator;
-import com.liferay.portal.model.User;
-import com.liferay.portal.model.UserNotificationDeliveryConstants;
-import com.liferay.portal.service.ServiceContext;
-import com.liferay.portal.service.UserLocalServiceUtil;
-import com.liferay.portal.service.UserNotificationEventLocalServiceUtil;
-import com.liferay.portal.util.PortalUtil;
-import com.liferay.portlet.asset.service.AssetEntryLocalServiceUtil;
-import com.liferay.portlet.messageboards.service.MBMessageLocalServiceUtil;
-import com.liferay.portlet.social.service.SocialActivityLocalServiceUtil;
-import com.liferay.tasks.TasksEntryDueDateException;
-import com.liferay.tasks.TasksEntryTitleException;
+import com.liferay.social.kernel.service.SocialActivityLocalServiceUtil;
+import com.liferay.tasks.exception.TasksEntryDueDateException;
+import com.liferay.tasks.exception.TasksEntryTitleException;
 import com.liferay.tasks.model.TasksEntry;
 import com.liferay.tasks.model.TasksEntryConstants;
 import com.liferay.tasks.service.base.TasksEntryLocalServiceBaseImpl;
@@ -146,9 +146,9 @@ public class TasksEntryLocalServiceImpl extends TasksEntryLocalServiceBaseImpl {
 		AssetEntryLocalServiceUtil.deleteEntry(
 			TasksEntry.class.getName(), tasksEntry.getTasksEntryId());
 
-		// Message boards
+		// Comment
 
-		MBMessageLocalServiceUtil.deleteDiscussionMessages(
+		CommentManagerUtil.deleteDiscussion(
 			TasksEntry.class.getName(), tasksEntry.getTasksEntryId());
 
 		// Social

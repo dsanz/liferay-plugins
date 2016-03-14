@@ -14,13 +14,15 @@
 
 package com.liferay.akismet.model;
 
-import com.liferay.portal.kernel.bean.AutoEscape;
-import com.liferay.portal.model.AttachedModel;
-import com.liferay.portal.model.BaseModel;
-import com.liferay.portal.model.CacheModel;
-import com.liferay.portal.service.ServiceContext;
+import aQute.bnd.annotation.ProviderType;
 
-import com.liferay.portlet.expando.model.ExpandoBridge;
+import com.liferay.expando.kernel.model.ExpandoBridge;
+
+import com.liferay.portal.kernel.bean.AutoEscape;
+import com.liferay.portal.kernel.model.AttachedModel;
+import com.liferay.portal.kernel.model.BaseModel;
+import com.liferay.portal.kernel.model.CacheModel;
+import com.liferay.portal.kernel.service.ServiceContext;
 
 import java.io.Serializable;
 
@@ -39,6 +41,7 @@ import java.util.Date;
  * @see com.liferay.akismet.model.impl.AkismetDataModelImpl
  * @generated
  */
+@ProviderType
 public interface AkismetDataModel extends AttachedModel, BaseModel<AkismetData> {
 	/*
 	 * NOTE FOR DEVELOPERS:
@@ -257,19 +260,19 @@ public interface AkismetDataModel extends AttachedModel, BaseModel<AkismetData> 
 	public Object clone();
 
 	@Override
-	public int compareTo(AkismetData akismetData);
+	public int compareTo(com.liferay.akismet.model.AkismetData akismetData);
 
 	@Override
 	public int hashCode();
 
 	@Override
-	public CacheModel<AkismetData> toCacheModel();
+	public CacheModel<com.liferay.akismet.model.AkismetData> toCacheModel();
 
 	@Override
-	public AkismetData toEscapedModel();
+	public com.liferay.akismet.model.AkismetData toEscapedModel();
 
 	@Override
-	public AkismetData toUnescapedModel();
+	public com.liferay.akismet.model.AkismetData toUnescapedModel();
 
 	@Override
 	public String toString();

@@ -16,13 +16,14 @@ package com.liferay.knowledgebase.model;
 
 import aQute.bnd.annotation.ProviderType;
 
-import com.liferay.portal.kernel.bean.AutoEscape;
-import com.liferay.portal.model.BaseModel;
-import com.liferay.portal.model.CacheModel;
-import com.liferay.portal.model.StagedGroupedModel;
-import com.liferay.portal.service.ServiceContext;
+import com.liferay.expando.kernel.model.ExpandoBridge;
 
-import com.liferay.portlet.expando.model.ExpandoBridge;
+import com.liferay.portal.kernel.bean.AutoEscape;
+import com.liferay.portal.kernel.model.BaseModel;
+import com.liferay.portal.kernel.model.CacheModel;
+import com.liferay.portal.kernel.model.ShardedModel;
+import com.liferay.portal.kernel.model.StagedGroupedModel;
+import com.liferay.portal.kernel.service.ServiceContext;
 
 import java.io.Serializable;
 
@@ -42,7 +43,7 @@ import java.util.Date;
  * @generated
  */
 @ProviderType
-public interface KBTemplateModel extends BaseModel<KBTemplate>,
+public interface KBTemplateModel extends BaseModel<KBTemplate>, ShardedModel,
 	StagedGroupedModel {
 	/*
 	 * NOTE FOR DEVELOPERS:
@@ -237,6 +238,22 @@ public interface KBTemplateModel extends BaseModel<KBTemplate>,
 	 * @param content the content of this k b template
 	 */
 	public void setContent(String content);
+
+	/**
+	 * Returns the last publish date of this k b template.
+	 *
+	 * @return the last publish date of this k b template
+	 */
+	@Override
+	public Date getLastPublishDate();
+
+	/**
+	 * Sets the last publish date of this k b template.
+	 *
+	 * @param lastPublishDate the last publish date of this k b template
+	 */
+	@Override
+	public void setLastPublishDate(Date lastPublishDate);
 
 	@Override
 	public boolean isNew();

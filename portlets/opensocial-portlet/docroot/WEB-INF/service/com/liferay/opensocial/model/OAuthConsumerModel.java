@@ -14,12 +14,15 @@
 
 package com.liferay.opensocial.model;
 
-import com.liferay.portal.kernel.bean.AutoEscape;
-import com.liferay.portal.model.BaseModel;
-import com.liferay.portal.model.CacheModel;
-import com.liferay.portal.service.ServiceContext;
+import aQute.bnd.annotation.ProviderType;
 
-import com.liferay.portlet.expando.model.ExpandoBridge;
+import com.liferay.expando.kernel.model.ExpandoBridge;
+
+import com.liferay.portal.kernel.bean.AutoEscape;
+import com.liferay.portal.kernel.model.BaseModel;
+import com.liferay.portal.kernel.model.CacheModel;
+import com.liferay.portal.kernel.model.ShardedModel;
+import com.liferay.portal.kernel.service.ServiceContext;
 
 import java.io.Serializable;
 
@@ -38,7 +41,9 @@ import java.util.Date;
  * @see com.liferay.opensocial.model.impl.OAuthConsumerModelImpl
  * @generated
  */
-public interface OAuthConsumerModel extends BaseModel<OAuthConsumer> {
+@ProviderType
+public interface OAuthConsumerModel extends BaseModel<OAuthConsumer>,
+	ShardedModel {
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
@@ -78,6 +83,7 @@ public interface OAuthConsumerModel extends BaseModel<OAuthConsumer> {
 	 *
 	 * @return the company ID of this o auth consumer
 	 */
+	@Override
 	public long getCompanyId();
 
 	/**
@@ -85,6 +91,7 @@ public interface OAuthConsumerModel extends BaseModel<OAuthConsumer> {
 	 *
 	 * @param companyId the company ID of this o auth consumer
 	 */
+	@Override
 	public void setCompanyId(long companyId);
 
 	/**
@@ -227,19 +234,20 @@ public interface OAuthConsumerModel extends BaseModel<OAuthConsumer> {
 	public Object clone();
 
 	@Override
-	public int compareTo(OAuthConsumer oAuthConsumer);
+	public int compareTo(
+		com.liferay.opensocial.model.OAuthConsumer oAuthConsumer);
 
 	@Override
 	public int hashCode();
 
 	@Override
-	public CacheModel<OAuthConsumer> toCacheModel();
+	public CacheModel<com.liferay.opensocial.model.OAuthConsumer> toCacheModel();
 
 	@Override
-	public OAuthConsumer toEscapedModel();
+	public com.liferay.opensocial.model.OAuthConsumer toEscapedModel();
 
 	@Override
-	public OAuthConsumer toUnescapedModel();
+	public com.liferay.opensocial.model.OAuthConsumer toUnescapedModel();
 
 	@Override
 	public String toString();

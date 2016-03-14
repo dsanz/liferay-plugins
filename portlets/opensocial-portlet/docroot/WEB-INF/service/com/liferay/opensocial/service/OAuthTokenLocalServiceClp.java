@@ -14,12 +14,15 @@
 
 package com.liferay.opensocial.service;
 
-import com.liferay.portal.service.InvokableLocalService;
+import aQute.bnd.annotation.ProviderType;
+
+import com.liferay.portal.kernel.service.InvokableLocalService;
 
 /**
  * @author Brian Wing Shun Chan
  * @generated
  */
+@ProviderType
 public class OAuthTokenLocalServiceClp implements OAuthTokenLocalService {
 	public OAuthTokenLocalServiceClp(
 		InvokableLocalService invokableLocalService) {
@@ -69,7 +72,7 @@ public class OAuthTokenLocalServiceClp implements OAuthTokenLocalService {
 		_methodName7 = "deletePersistedModel";
 
 		_methodParameterTypes7 = new String[] {
-				"com.liferay.portal.model.PersistedModel"
+				"com.liferay.portal.kernel.model.PersistedModel"
 			};
 
 		_methodName8 = "dynamicQuery";
@@ -123,7 +126,7 @@ public class OAuthTokenLocalServiceClp implements OAuthTokenLocalService {
 
 		_methodParameterTypes16 = new String[] {  };
 
-		_methodName17 = "getBeanIdentifier";
+		_methodName17 = "getIndexableActionableDynamicQuery";
 
 		_methodParameterTypes17 = new String[] {  };
 
@@ -152,13 +155,13 @@ public class OAuthTokenLocalServiceClp implements OAuthTokenLocalService {
 
 		_methodParameterTypes22 = new String[] {  };
 
-		_methodName23 = "getPersistedModel";
+		_methodName23 = "getOSGiServiceIdentifier";
 
-		_methodParameterTypes23 = new String[] { "java.io.Serializable" };
+		_methodParameterTypes23 = new String[] {  };
 
-		_methodName25 = "setBeanIdentifier";
+		_methodName24 = "getPersistedModel";
 
-		_methodParameterTypes25 = new String[] { "java.lang.String" };
+		_methodParameterTypes24 = new String[] { "java.io.Serializable" };
 
 		_methodName26 = "updateOAuthToken";
 
@@ -383,8 +386,8 @@ public class OAuthTokenLocalServiceClp implements OAuthTokenLocalService {
 	}
 
 	@Override
-	public com.liferay.portal.model.PersistedModel deletePersistedModel(
-		com.liferay.portal.model.PersistedModel persistedModel)
+	public com.liferay.portal.kernel.model.PersistedModel deletePersistedModel(
+		com.liferay.portal.kernel.model.PersistedModel persistedModel)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		Object returnObj = null;
 
@@ -409,7 +412,7 @@ public class OAuthTokenLocalServiceClp implements OAuthTokenLocalService {
 			}
 		}
 
-		return (com.liferay.portal.model.PersistedModel)ClpSerializer.translateOutput(returnObj);
+		return (com.liferay.portal.kernel.model.PersistedModel)ClpSerializer.translateOutput(returnObj);
 	}
 
 	@Override
@@ -666,7 +669,7 @@ public class OAuthTokenLocalServiceClp implements OAuthTokenLocalService {
 	}
 
 	@Override
-	public java.lang.String getBeanIdentifier() {
+	public com.liferay.portal.kernel.dao.orm.IndexableActionableDynamicQuery getIndexableActionableDynamicQuery() {
 		Object returnObj = null;
 
 		try {
@@ -685,7 +688,7 @@ public class OAuthTokenLocalServiceClp implements OAuthTokenLocalService {
 			}
 		}
 
-		return (java.lang.String)ClpSerializer.translateOutput(returnObj);
+		return (com.liferay.portal.kernel.dao.orm.IndexableActionableDynamicQuery)ClpSerializer.translateOutput(returnObj);
 	}
 
 	@Override
@@ -835,14 +838,37 @@ public class OAuthTokenLocalServiceClp implements OAuthTokenLocalService {
 	}
 
 	@Override
-	public com.liferay.portal.model.PersistedModel getPersistedModel(
+	public java.lang.String getOSGiServiceIdentifier() {
+		Object returnObj = null;
+
+		try {
+			returnObj = _invokableLocalService.invokeMethod(_methodName23,
+					_methodParameterTypes23, new Object[] {  });
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return (java.lang.String)ClpSerializer.translateOutput(returnObj);
+	}
+
+	@Override
+	public com.liferay.portal.kernel.model.PersistedModel getPersistedModel(
 		java.io.Serializable primaryKeyObj)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName23,
-					_methodParameterTypes23,
+			returnObj = _invokableLocalService.invokeMethod(_methodName24,
+					_methodParameterTypes24,
 					new Object[] { ClpSerializer.translateInput(primaryKeyObj) });
 		}
 		catch (Throwable t) {
@@ -861,7 +887,7 @@ public class OAuthTokenLocalServiceClp implements OAuthTokenLocalService {
 			}
 		}
 
-		return (com.liferay.portal.model.PersistedModel)ClpSerializer.translateOutput(returnObj);
+		return (com.liferay.portal.kernel.model.PersistedModel)ClpSerializer.translateOutput(returnObj);
 	}
 
 	@Override
@@ -869,26 +895,6 @@ public class OAuthTokenLocalServiceClp implements OAuthTokenLocalService {
 		java.lang.String[] parameterTypes, java.lang.Object[] arguments)
 		throws java.lang.Throwable {
 		throw new UnsupportedOperationException();
-	}
-
-	@Override
-	public void setBeanIdentifier(java.lang.String beanIdentifier) {
-		try {
-			_invokableLocalService.invokeMethod(_methodName25,
-				_methodParameterTypes25,
-				new Object[] { ClpSerializer.translateInput(beanIdentifier) });
-		}
-		catch (Throwable t) {
-			t = ClpSerializer.translateThrowable(t);
-
-			if (t instanceof RuntimeException) {
-				throw (RuntimeException)t;
-			}
-			else {
-				throw new RuntimeException(t.getClass().getName() +
-					" is not a valid exception");
-			}
-		}
 	}
 
 	@Override
@@ -965,8 +971,8 @@ public class OAuthTokenLocalServiceClp implements OAuthTokenLocalService {
 	private String[] _methodParameterTypes22;
 	private String _methodName23;
 	private String[] _methodParameterTypes23;
-	private String _methodName25;
-	private String[] _methodParameterTypes25;
+	private String _methodName24;
+	private String[] _methodParameterTypes24;
 	private String _methodName26;
 	private String[] _methodParameterTypes26;
 }

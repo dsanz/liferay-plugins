@@ -18,31 +18,30 @@
 package com.liferay.so.messaging;
 
 import com.liferay.deploylistener.messaging.BaseDeployListenerMessageListener;
+import com.liferay.expando.kernel.model.ExpandoColumn;
+import com.liferay.expando.kernel.model.ExpandoTableConstants;
+import com.liferay.expando.kernel.service.ExpandoColumnLocalServiceUtil;
+import com.liferay.expando.kernel.service.ExpandoValueLocalServiceUtil;
 import com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.messaging.Message;
+import com.liferay.portal.kernel.model.Company;
+import com.liferay.portal.kernel.model.Group;
+import com.liferay.portal.kernel.model.Layout;
+import com.liferay.portal.kernel.model.LayoutSet;
+import com.liferay.portal.kernel.model.LayoutSetPrototype;
+import com.liferay.portal.kernel.model.Role;
+import com.liferay.portal.kernel.service.CompanyLocalServiceUtil;
+import com.liferay.portal.kernel.service.GroupLocalServiceUtil;
+import com.liferay.portal.kernel.service.LayoutLocalServiceUtil;
+import com.liferay.portal.kernel.service.LayoutSetLocalServiceUtil;
+import com.liferay.portal.kernel.service.LayoutSetPrototypeLocalServiceUtil;
+import com.liferay.portal.kernel.service.RoleLocalServiceUtil;
 import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.UnicodeProperties;
-import com.liferay.portal.model.Company;
-import com.liferay.portal.model.Group;
-import com.liferay.portal.model.Layout;
-import com.liferay.portal.model.LayoutSet;
-import com.liferay.portal.model.LayoutSetPrototype;
-import com.liferay.portal.model.Role;
-import com.liferay.portal.service.CompanyLocalServiceUtil;
-import com.liferay.portal.service.GroupLocalServiceUtil;
-import com.liferay.portal.service.LayoutLocalServiceUtil;
-import com.liferay.portal.service.LayoutSetLocalServiceUtil;
-import com.liferay.portal.service.LayoutSetPrototypeLocalServiceUtil;
-import com.liferay.portal.service.RoleLocalServiceUtil;
-import com.liferay.portal.service.persistence.GroupActionableDynamicQuery;
-import com.liferay.portlet.expando.model.ExpandoColumn;
-import com.liferay.portlet.expando.model.ExpandoTableConstants;
-import com.liferay.portlet.expando.service.ExpandoColumnLocalServiceUtil;
-import com.liferay.portlet.expando.service.ExpandoValueLocalServiceUtil;
 import com.liferay.so.service.SocialOfficeServiceUtil;
 import com.liferay.so.util.InstanceUtil;
 import com.liferay.so.util.LayoutSetPrototypeUtil;
@@ -156,42 +155,43 @@ public class SODeployListenerMessageListener
 
 	protected void updateGroups(long companyId) throws PortalException {
 		ActionableDynamicQuery actionableDynamicQuery =
-			new GroupActionableDynamicQuery() {
-
-			@Override
-			protected void performAction(Object object) throws PortalException {
-				Group group = (Group)object;
-
-				if (!group.isRegularSite()) {
-					return;
-				}
-
-				if (!SocialOfficeServiceUtil.isSocialOfficeGroup(
-						group.getGroupId())) {
-
-					return;
-				}
-
-				if (group.hasPrivateLayouts()) {
-					updateLayoutSetPrototype(group.getGroupId(), true);
-				}
-
-				if (group.hasPublicLayouts()) {
-					updateLayoutSetPrototype(group.getGroupId(), false);
-				}
-
-				UnicodeProperties typeSettingsProperties =
-					group.getTypeSettingsProperties();
-
-				typeSettingsProperties.remove("customJspServletContextName");
-
-				GroupLocalServiceUtil.updateGroup(
-					group.getGroupId(), typeSettingsProperties.toString());
-			}
-
-		};
+			GroupLocalServiceUtil.getActionableDynamicQuery();
 
 		actionableDynamicQuery.setCompanyId(companyId);
+		actionableDynamicQuery.setPerformActionMethod(
+			new ActionableDynamicQuery.PerformActionMethod<Group>() {
+
+				@Override
+				public void performAction(Group group) throws PortalException {
+					if (!group.isRegularSite()) {
+						return;
+					}
+
+					if (!SocialOfficeServiceUtil.isSocialOfficeGroup(
+							group.getGroupId())) {
+
+						return;
+					}
+
+					if (group.hasPrivateLayouts()) {
+						updateLayoutSetPrototype(group.getGroupId(), true);
+					}
+
+					if (group.hasPublicLayouts()) {
+						updateLayoutSetPrototype(group.getGroupId(), false);
+					}
+
+					UnicodeProperties typeSettingsProperties =
+						group.getTypeSettingsProperties();
+
+					typeSettingsProperties.remove(
+						"customJspServletContextName");
+
+					GroupLocalServiceUtil.updateGroup(
+						group.getGroupId(), typeSettingsProperties.toString());
+				}
+
+			});
 
 		actionableDynamicQuery.performActions();
 	}
@@ -254,7 +254,7 @@ public class SODeployListenerMessageListener
 		LayoutSetLocalServiceUtil.updateLayoutSet(layoutSet);
 
 		LayoutSetLocalServiceUtil.updateLookAndFeel(
-			layoutSet.getGroupId(), null, null, StringPool.BLANK, false);
+			layoutSet.getGroupId(), null, null, StringPool.BLANK);
 	}
 
 	private static Log _log = LogFactoryUtil.getLog(

@@ -14,18 +14,27 @@
 
 package com.liferay.webform.portlet;
 
-import com.liferay.counter.service.CounterLocalServiceUtil;
-import com.liferay.mail.service.MailServiceUtil;
+import com.liferay.counter.kernel.service.CounterLocalServiceUtil;
+import com.liferay.expando.kernel.model.ExpandoRow;
+import com.liferay.expando.kernel.service.ExpandoRowLocalServiceUtil;
+import com.liferay.expando.kernel.service.ExpandoTableLocalServiceUtil;
+import com.liferay.expando.kernel.service.ExpandoValueLocalServiceUtil;
+import com.liferay.mail.kernel.model.MailMessage;
+import com.liferay.mail.kernel.service.MailServiceUtil;
 import com.liferay.portal.kernel.captcha.CaptchaTextException;
 import com.liferay.portal.kernel.captcha.CaptchaUtil;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
+import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
-import com.liferay.portal.kernel.mail.MailMessage;
+import com.liferay.portal.kernel.portlet.PortletPreferencesFactoryUtil;
 import com.liferay.portal.kernel.portlet.PortletResponseUtil;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCPortlet;
+import com.liferay.portal.kernel.security.permission.ActionKeys;
+import com.liferay.portal.kernel.service.permission.PortletPermissionUtil;
 import com.liferay.portal.kernel.servlet.SessionErrors;
 import com.liferay.portal.kernel.servlet.SessionMessages;
+import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.CharPool;
 import com.liferay.portal.kernel.util.Constants;
 import com.liferay.portal.kernel.util.ContentTypes;
@@ -33,20 +42,12 @@ import com.liferay.portal.kernel.util.FileUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.LocalizationUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
+import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.util.WebKeys;
-import com.liferay.portal.security.permission.ActionKeys;
-import com.liferay.portal.service.permission.PortletPermissionUtil;
-import com.liferay.portal.theme.ThemeDisplay;
-import com.liferay.portal.util.PortalUtil;
-import com.liferay.portlet.PortletPreferencesFactoryUtil;
-import com.liferay.portlet.expando.model.ExpandoRow;
-import com.liferay.portlet.expando.service.ExpandoRowLocalServiceUtil;
-import com.liferay.portlet.expando.service.ExpandoTableLocalServiceUtil;
-import com.liferay.portlet.expando.service.ExpandoValueLocalServiceUtil;
 import com.liferay.webform.util.PortletPropsValues;
 import com.liferay.webform.util.WebFormUtil;
 
@@ -251,6 +252,34 @@ public class WebFormPortlet extends MVCPortlet {
 		}
 	}
 
+	protected void appendFieldLabels(
+		Map<String, String> fieldsMap, StringBundler sb) {
+
+		for (String fieldLabel : fieldsMap.keySet()) {
+			sb.append(getCSVFormattedValue(fieldLabel));
+			sb.append(PortletPropsValues.CSV_SEPARATOR);
+		}
+
+		sb.setIndex(sb.index() - 1);
+
+		sb.append(CharPool.NEW_LINE);
+	}
+
+	protected void appendFieldValues(
+		Map<String, String> fieldsMap, StringBundler sb) {
+
+		for (String fieldLabel : fieldsMap.keySet()) {
+			String fieldValue = fieldsMap.get(fieldLabel);
+
+			sb.append(getCSVFormattedValue(fieldValue));
+			sb.append(PortletPropsValues.CSV_SEPARATOR);
+		}
+
+		sb.setIndex(sb.index() - 1);
+
+		sb.append(CharPool.NEW_LINE);
+	}
+
 	protected void exportData(
 			ResourceRequest resourceRequest, ResourceResponse resourceResponse)
 		throws Exception {
@@ -381,19 +410,16 @@ public class WebFormPortlet extends MVCPortlet {
 		}
 	}
 
-	protected boolean saveFile(Map<String, String> fieldsMap, String fileName) {
+	protected boolean saveFile(Map<String, String> fieldsMap, String fileName)
+		throws PortalException {
+
 		StringBundler sb = new StringBundler();
 
-		for (String fieldLabel : fieldsMap.keySet()) {
-			String fieldValue = fieldsMap.get(fieldLabel);
-
-			sb.append(getCSVFormattedValue(fieldValue));
-			sb.append(PortletPropsValues.CSV_SEPARATOR);
+		if (!FileUtil.exists(fileName)) {
+			appendFieldLabels(fieldsMap, sb);
 		}
 
-		sb.setIndex(sb.index() - 1);
-
-		sb.append(CharPool.NEW_LINE);
+		appendFieldValues(fieldsMap, sb);
 
 		try {
 			FileUtil.write(fileName, sb.toString(), false, true);

@@ -25,7 +25,7 @@ import java.rmi.RemoteException;
 
 /**
  * Provides the SOAP utility for the
- * {@link com.liferay.knowledgebase.service.KBCommentServiceUtil} service utility. The
+ * {@link KBCommentServiceUtil} service utility. The
  * static methods of this class calls the same methods of the service utility.
  * However, the signatures are different because it is difficult for SOAP to
  * support certain types.
@@ -60,7 +60,7 @@ import java.rmi.RemoteException;
  * @author Brian Wing Shun Chan
  * @see KBCommentServiceHttp
  * @see com.liferay.knowledgebase.model.KBCommentSoap
- * @see com.liferay.knowledgebase.service.KBCommentServiceUtil
+ * @see KBCommentServiceUtil
  * @generated
  */
 @ProviderType
@@ -175,7 +175,7 @@ public class KBCommentServiceSoap {
 	public static com.liferay.knowledgebase.model.KBCommentSoap updateKBComment(
 		long kbCommentId, long classNameId, long classPK,
 		java.lang.String content, int status,
-		com.liferay.portal.service.ServiceContext serviceContext)
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws RemoteException {
 		try {
 			com.liferay.knowledgebase.model.KBComment returnValue = KBCommentServiceUtil.updateKBComment(kbCommentId,
@@ -193,7 +193,7 @@ public class KBCommentServiceSoap {
 	public static com.liferay.knowledgebase.model.KBCommentSoap updateKBComment(
 		long kbCommentId, long classNameId, long classPK,
 		java.lang.String content,
-		com.liferay.portal.service.ServiceContext serviceContext)
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws RemoteException {
 		try {
 			com.liferay.knowledgebase.model.KBComment returnValue = KBCommentServiceUtil.updateKBComment(kbCommentId,
@@ -210,7 +210,7 @@ public class KBCommentServiceSoap {
 
 	public static com.liferay.knowledgebase.model.KBCommentSoap updateStatus(
 		long kbCommentId, int status,
-		com.liferay.portal.service.ServiceContext serviceContext)
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws RemoteException {
 		try {
 			com.liferay.knowledgebase.model.KBComment returnValue = KBCommentServiceUtil.updateStatus(kbCommentId,

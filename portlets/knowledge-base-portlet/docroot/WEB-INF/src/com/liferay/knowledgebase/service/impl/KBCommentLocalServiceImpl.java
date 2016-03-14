@@ -14,10 +14,10 @@
 
 package com.liferay.knowledgebase.service.impl;
 
-import com.liferay.knowledgebase.KBCommentContentException;
 import com.liferay.knowledgebase.admin.social.AdminActivityKeys;
 import com.liferay.knowledgebase.admin.util.AdminSubscriptionSender;
 import com.liferay.knowledgebase.admin.util.AdminUtil;
+import com.liferay.knowledgebase.exception.KBCommentContentException;
 import com.liferay.knowledgebase.model.KBArticle;
 import com.liferay.knowledgebase.model.KBComment;
 import com.liferay.knowledgebase.model.KBCommentConstants;
@@ -32,18 +32,18 @@ import com.liferay.portal.kernel.json.JSONFactoryUtil;
 import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.model.ClassName;
+import com.liferay.portal.kernel.model.SystemEventConstants;
+import com.liferay.portal.kernel.model.User;
+import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.systemevent.SystemEvent;
 import com.liferay.portal.kernel.util.DateFormatFactoryUtil;
 import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.StringUtil;
+import com.liferay.portal.kernel.util.SubscriptionSender;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.workflow.WorkflowConstants;
-import com.liferay.portal.model.ClassName;
-import com.liferay.portal.model.SystemEventConstants;
-import com.liferay.portal.model.User;
-import com.liferay.portal.service.ServiceContext;
-import com.liferay.portal.util.SubscriptionSender;
-import com.liferay.portlet.ratings.model.RatingsEntry;
+import com.liferay.ratings.kernel.model.RatingsEntry;
 
 import java.text.DateFormat;
 
@@ -374,10 +374,7 @@ public class KBCommentLocalServiceImpl extends KBCommentLocalServiceBaseImpl {
 			kbComment.getClassPK(), WorkflowConstants.STATUS_APPROVED);
 
 		String kbArticleContent = StringUtil.replace(
-			kbArticle.getContent(),
-			new String[] {
-				"href=\"/", "src=\"/"
-			},
+			kbArticle.getContent(), new String[] {"href=\"/", "src=\"/"},
 			new String[] {
 				"href=\"" + serviceContext.getPortalURL() + "/",
 				"src=\"" + serviceContext.getPortalURL() + "/"

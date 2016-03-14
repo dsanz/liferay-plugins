@@ -16,13 +16,14 @@ package com.liferay.knowledgebase.model;
 
 import aQute.bnd.annotation.ProviderType;
 
-import com.liferay.portal.kernel.bean.AutoEscape;
-import com.liferay.portal.model.BaseModel;
-import com.liferay.portal.model.CacheModel;
-import com.liferay.portal.model.StagedGroupedModel;
-import com.liferay.portal.service.ServiceContext;
+import com.liferay.expando.kernel.model.ExpandoBridge;
 
-import com.liferay.portlet.expando.model.ExpandoBridge;
+import com.liferay.portal.kernel.bean.AutoEscape;
+import com.liferay.portal.kernel.model.BaseModel;
+import com.liferay.portal.kernel.model.CacheModel;
+import com.liferay.portal.kernel.model.ShardedModel;
+import com.liferay.portal.kernel.model.StagedGroupedModel;
+import com.liferay.portal.kernel.service.ServiceContext;
 
 import java.io.Serializable;
 
@@ -42,7 +43,8 @@ import java.util.Date;
  * @generated
  */
 @ProviderType
-public interface KBFolderModel extends BaseModel<KBFolder>, StagedGroupedModel {
+public interface KBFolderModel extends BaseModel<KBFolder>, ShardedModel,
+	StagedGroupedModel {
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
@@ -265,6 +267,22 @@ public interface KBFolderModel extends BaseModel<KBFolder>, StagedGroupedModel {
 	 * @param description the description of this k b folder
 	 */
 	public void setDescription(String description);
+
+	/**
+	 * Returns the last publish date of this k b folder.
+	 *
+	 * @return the last publish date of this k b folder
+	 */
+	@Override
+	public Date getLastPublishDate();
+
+	/**
+	 * Sets the last publish date of this k b folder.
+	 *
+	 * @param lastPublishDate the last publish date of this k b folder
+	 */
+	@Override
+	public void setLastPublishDate(Date lastPublishDate);
 
 	@Override
 	public boolean isNew();

@@ -16,15 +16,29 @@ package com.liferay.socialcoding.service;
 
 import aQute.bnd.annotation.ProviderType;
 
+import com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery;
+import com.liferay.portal.kernel.dao.orm.DynamicQuery;
+import com.liferay.portal.kernel.dao.orm.IndexableActionableDynamicQuery;
+import com.liferay.portal.kernel.dao.orm.Projection;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.portal.kernel.model.PersistedModel;
+import com.liferay.portal.kernel.search.Indexable;
 import com.liferay.portal.kernel.search.IndexableType;
+import com.liferay.portal.kernel.service.BaseLocalService;
+import com.liferay.portal.kernel.service.InvokableLocalService;
+import com.liferay.portal.kernel.service.PersistedModelLocalService;
 import com.liferay.portal.kernel.transaction.Isolation;
 import com.liferay.portal.kernel.transaction.Propagation;
 import com.liferay.portal.kernel.transaction.Transactional;
-import com.liferay.portal.service.BaseLocalService;
-import com.liferay.portal.service.InvokableLocalService;
-import com.liferay.portal.service.PersistedModelLocalService;
+import com.liferay.portal.kernel.util.OrderByComparator;
+
+import com.liferay.socialcoding.model.SVNRevision;
+
+import java.io.Serializable;
+
+import java.util.Date;
+import java.util.List;
 
 /**
  * Provides the local service interface for SVNRevision. Methods of this
@@ -55,14 +69,12 @@ public interface SVNRevisionLocalService extends BaseLocalService,
 	* @param svnRevision the s v n revision
 	* @return the s v n revision that was added
 	*/
-	@com.liferay.portal.kernel.search.Indexable(type = IndexableType.REINDEX)
-	public com.liferay.socialcoding.model.SVNRevision addSVNRevision(
-		com.liferay.socialcoding.model.SVNRevision svnRevision);
+	@Indexable(type = IndexableType.REINDEX)
+	public SVNRevision addSVNRevision(SVNRevision svnRevision);
 
-	public com.liferay.socialcoding.model.SVNRevision addSVNRevision(
-		java.lang.String svnUserId, java.util.Date createDate,
-		long svnRepositoryId, long revisionNumber, java.lang.String comments)
-		throws com.liferay.portal.kernel.exception.PortalException;
+	public SVNRevision addSVNRevision(java.lang.String svnUserId,
+		Date createDate, long svnRepositoryId, long revisionNumber,
+		java.lang.String comments) throws PortalException;
 
 	/**
 	* Creates a new s v n revision with the primary key. Does not add the s v n revision to the database.
@@ -70,16 +82,14 @@ public interface SVNRevisionLocalService extends BaseLocalService,
 	* @param svnRevisionId the primary key for the new s v n revision
 	* @return the new s v n revision
 	*/
-	public com.liferay.socialcoding.model.SVNRevision createSVNRevision(
-		long svnRevisionId);
+	public SVNRevision createSVNRevision(long svnRevisionId);
 
 	/**
 	* @throws PortalException
 	*/
 	@Override
-	public com.liferay.portal.model.PersistedModel deletePersistedModel(
-		com.liferay.portal.model.PersistedModel persistedModel)
-		throws com.liferay.portal.kernel.exception.PortalException;
+	public PersistedModel deletePersistedModel(PersistedModel persistedModel)
+		throws PortalException;
 
 	/**
 	* Deletes the s v n revision from the database. Also notifies the appropriate model listeners.
@@ -87,9 +97,8 @@ public interface SVNRevisionLocalService extends BaseLocalService,
 	* @param svnRevision the s v n revision
 	* @return the s v n revision that was removed
 	*/
-	@com.liferay.portal.kernel.search.Indexable(type = IndexableType.DELETE)
-	public com.liferay.socialcoding.model.SVNRevision deleteSVNRevision(
-		com.liferay.socialcoding.model.SVNRevision svnRevision);
+	@Indexable(type = IndexableType.DELETE)
+	public SVNRevision deleteSVNRevision(SVNRevision svnRevision);
 
 	/**
 	* Deletes the s v n revision with the primary key from the database. Also notifies the appropriate model listeners.
@@ -98,12 +107,11 @@ public interface SVNRevisionLocalService extends BaseLocalService,
 	* @return the s v n revision that was removed
 	* @throws PortalException if a s v n revision with the primary key could not be found
 	*/
-	@com.liferay.portal.kernel.search.Indexable(type = IndexableType.DELETE)
-	public com.liferay.socialcoding.model.SVNRevision deleteSVNRevision(
-		long svnRevisionId)
-		throws com.liferay.portal.kernel.exception.PortalException;
+	@Indexable(type = IndexableType.DELETE)
+	public SVNRevision deleteSVNRevision(long svnRevisionId)
+		throws PortalException;
 
-	public com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery();
+	public DynamicQuery dynamicQuery();
 
 	/**
 	* Performs a dynamic query on the database and returns the matching rows.
@@ -111,8 +119,7 @@ public interface SVNRevisionLocalService extends BaseLocalService,
 	* @param dynamicQuery the dynamic query
 	* @return the matching rows
 	*/
-	public <T> java.util.List<T> dynamicQuery(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery);
+	public <T> List<T> dynamicQuery(DynamicQuery dynamicQuery);
 
 	/**
 	* Performs a dynamic query on the database and returns a range of the matching rows.
@@ -126,8 +133,7 @@ public interface SVNRevisionLocalService extends BaseLocalService,
 	* @param end the upper bound of the range of model instances (not inclusive)
 	* @return the range of matching rows
 	*/
-	public <T> java.util.List<T> dynamicQuery(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
+	public <T> List<T> dynamicQuery(DynamicQuery dynamicQuery, int start,
 		int end);
 
 	/**
@@ -143,60 +149,55 @@ public interface SVNRevisionLocalService extends BaseLocalService,
 	* @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
 	* @return the ordered range of matching rows
 	*/
-	public <T> java.util.List<T> dynamicQuery(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
-		int end,
-		com.liferay.portal.kernel.util.OrderByComparator<T> orderByComparator);
+	public <T> List<T> dynamicQuery(DynamicQuery dynamicQuery, int start,
+		int end, OrderByComparator<T> orderByComparator);
 
 	/**
-	* Returns the number of rows that match the dynamic query.
+	* Returns the number of rows matching the dynamic query.
 	*
 	* @param dynamicQuery the dynamic query
-	* @return the number of rows that match the dynamic query
+	* @return the number of rows matching the dynamic query
 	*/
-	public long dynamicQueryCount(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery);
+	public long dynamicQueryCount(DynamicQuery dynamicQuery);
 
 	/**
-	* Returns the number of rows that match the dynamic query.
+	* Returns the number of rows matching the dynamic query.
 	*
 	* @param dynamicQuery the dynamic query
 	* @param projection the projection to apply to the query
-	* @return the number of rows that match the dynamic query
+	* @return the number of rows matching the dynamic query
 	*/
-	public long dynamicQueryCount(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery,
-		com.liferay.portal.kernel.dao.orm.Projection projection);
+	public long dynamicQueryCount(DynamicQuery dynamicQuery,
+		Projection projection);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public com.liferay.socialcoding.model.SVNRevision fetchSVNRevision(
-		long svnRevisionId);
+	public SVNRevision fetchSVNRevision(long svnRevisionId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery getActionableDynamicQuery();
+	public ActionableDynamicQuery getActionableDynamicQuery();
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public SVNRevision getFirstSVNRevision(java.lang.String svnUserId)
+		throws PortalException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public IndexableActionableDynamicQuery getIndexableActionableDynamicQuery();
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public SVNRevision getLastSVNRevision(java.lang.String svnUserId)
+		throws PortalException;
 
 	/**
-	* Returns the Spring bean ID for this bean.
+	* Returns the OSGi service identifier.
 	*
-	* @return the Spring bean ID for this bean
+	* @return the OSGi service identifier
 	*/
-	public java.lang.String getBeanIdentifier();
-
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public com.liferay.socialcoding.model.SVNRevision getFirstSVNRevision(
-		java.lang.String svnUserId)
-		throws com.liferay.portal.kernel.exception.PortalException;
-
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public com.liferay.socialcoding.model.SVNRevision getLastSVNRevision(
-		java.lang.String svnUserId)
-		throws com.liferay.portal.kernel.exception.PortalException;
+	public java.lang.String getOSGiServiceIdentifier();
 
 	@Override
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public com.liferay.portal.model.PersistedModel getPersistedModel(
-		java.io.Serializable primaryKeyObj)
-		throws com.liferay.portal.kernel.exception.PortalException;
+	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
+		throws PortalException;
 
 	/**
 	* Returns the s v n revision with the primary key.
@@ -206,9 +207,8 @@ public interface SVNRevisionLocalService extends BaseLocalService,
 	* @throws PortalException if a s v n revision with the primary key could not be found
 	*/
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public com.liferay.socialcoding.model.SVNRevision getSVNRevision(
-		long svnRevisionId)
-		throws com.liferay.portal.kernel.exception.PortalException;
+	public SVNRevision getSVNRevision(long svnRevisionId)
+		throws PortalException;
 
 	/**
 	* Returns a range of all the s v n revisions.
@@ -222,20 +222,19 @@ public interface SVNRevisionLocalService extends BaseLocalService,
 	* @return the range of s v n revisions
 	*/
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public java.util.List<com.liferay.socialcoding.model.SVNRevision> getSVNRevisions(
+	public List<SVNRevision> getSVNRevisions(int start, int end);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<SVNRevision> getSVNRevisions(long svnRepositoryId, int start,
+		int end);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<SVNRevision> getSVNRevisions(java.lang.String svnUserId,
 		int start, int end);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public java.util.List<com.liferay.socialcoding.model.SVNRevision> getSVNRevisions(
+	public List<SVNRevision> getSVNRevisions(java.lang.String svnUserId,
 		long svnRepositoryId, int start, int end);
-
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public java.util.List<com.liferay.socialcoding.model.SVNRevision> getSVNRevisions(
-		java.lang.String svnUserId, int start, int end);
-
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public java.util.List<com.liferay.socialcoding.model.SVNRevision> getSVNRevisions(
-		java.lang.String svnUserId, long svnRepositoryId, int start, int end);
 
 	/**
 	* Returns the number of s v n revisions.
@@ -261,19 +260,11 @@ public interface SVNRevisionLocalService extends BaseLocalService,
 		throws java.lang.Throwable;
 
 	/**
-	* Sets the Spring bean ID for this bean.
-	*
-	* @param beanIdentifier the Spring bean ID for this bean
-	*/
-	public void setBeanIdentifier(java.lang.String beanIdentifier);
-
-	/**
 	* Updates the s v n revision in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
 	*
 	* @param svnRevision the s v n revision
 	* @return the s v n revision that was updated
 	*/
-	@com.liferay.portal.kernel.search.Indexable(type = IndexableType.REINDEX)
-	public com.liferay.socialcoding.model.SVNRevision updateSVNRevision(
-		com.liferay.socialcoding.model.SVNRevision svnRevision);
+	@Indexable(type = IndexableType.REINDEX)
+	public SVNRevision updateSVNRevision(SVNRevision svnRevision);
 }

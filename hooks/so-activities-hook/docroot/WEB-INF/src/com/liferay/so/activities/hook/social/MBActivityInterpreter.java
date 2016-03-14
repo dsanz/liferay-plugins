@@ -14,20 +14,20 @@
 
 package com.liferay.so.activities.hook.social;
 
+import com.liferay.message.boards.kernel.model.MBMessage;
+import com.liferay.message.boards.kernel.service.MBMessageLocalServiceUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.parsers.bbcode.BBCodeTranslatorUtil;
+import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.util.HtmlUtil;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.StringUtil;
-import com.liferay.portal.service.ServiceContext;
-import com.liferay.portlet.messageboards.model.MBMessage;
-import com.liferay.portlet.messageboards.service.MBMessageLocalServiceUtil;
-import com.liferay.portlet.social.model.SocialActivity;
-import com.liferay.portlet.social.model.SocialActivitySet;
-import com.liferay.portlet.social.service.SocialActivityLocalServiceUtil;
-import com.liferay.portlet.social.service.SocialActivitySetLocalServiceUtil;
 import com.liferay.so.activities.util.SocialActivityKeyConstants;
+import com.liferay.social.kernel.model.SocialActivity;
+import com.liferay.social.kernel.model.SocialActivitySet;
+import com.liferay.social.kernel.service.SocialActivityLocalServiceUtil;
+import com.liferay.social.kernel.service.SocialActivitySetLocalServiceUtil;
 
 import java.util.List;
 

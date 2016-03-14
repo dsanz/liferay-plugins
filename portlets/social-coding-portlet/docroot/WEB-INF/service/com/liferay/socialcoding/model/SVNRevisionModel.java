@@ -16,12 +16,12 @@ package com.liferay.socialcoding.model;
 
 import aQute.bnd.annotation.ProviderType;
 
-import com.liferay.portal.kernel.bean.AutoEscape;
-import com.liferay.portal.model.BaseModel;
-import com.liferay.portal.model.CacheModel;
-import com.liferay.portal.service.ServiceContext;
+import com.liferay.expando.kernel.model.ExpandoBridge;
 
-import com.liferay.portlet.expando.model.ExpandoBridge;
+import com.liferay.portal.kernel.bean.AutoEscape;
+import com.liferay.portal.kernel.model.BaseModel;
+import com.liferay.portal.kernel.model.CacheModel;
+import com.liferay.portal.kernel.service.ServiceContext;
 
 import java.io.Serializable;
 
@@ -185,19 +185,19 @@ public interface SVNRevisionModel extends BaseModel<SVNRevision> {
 	public Object clone();
 
 	@Override
-	public int compareTo(SVNRevision svnRevision);
+	public int compareTo(com.liferay.socialcoding.model.SVNRevision svnRevision);
 
 	@Override
 	public int hashCode();
 
 	@Override
-	public CacheModel<SVNRevision> toCacheModel();
+	public CacheModel<com.liferay.socialcoding.model.SVNRevision> toCacheModel();
 
 	@Override
-	public SVNRevision toEscapedModel();
+	public com.liferay.socialcoding.model.SVNRevision toEscapedModel();
 
 	@Override
-	public SVNRevision toUnescapedModel();
+	public com.liferay.socialcoding.model.SVNRevision toUnescapedModel();
 
 	@Override
 	public String toString();

@@ -24,33 +24,33 @@ import com.liferay.knowledgebase.service.permission.KBArticlePermission;
 import com.liferay.knowledgebase.util.ActionKeys;
 import com.liferay.knowledgebase.util.PortletKeys;
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.model.Group;
+import com.liferay.portal.kernel.model.Layout;
+import com.liferay.portal.kernel.model.LayoutConstants;
+import com.liferay.portal.kernel.model.LayoutTypePortlet;
+import com.liferay.portal.kernel.model.Portlet;
+import com.liferay.portal.kernel.model.PortletConstants;
 import com.liferay.portal.kernel.portlet.LiferayWindowState;
+import com.liferay.portal.kernel.portlet.PortletPreferencesFactoryUtil;
+import com.liferay.portal.kernel.portlet.PortletURLFactoryUtil;
+import com.liferay.portal.kernel.security.auth.AuthTokenUtil;
+import com.liferay.portal.kernel.security.permission.PermissionChecker;
+import com.liferay.portal.kernel.security.permission.PermissionThreadLocal;
+import com.liferay.portal.kernel.service.GroupLocalServiceUtil;
+import com.liferay.portal.kernel.service.LayoutLocalServiceUtil;
 import com.liferay.portal.kernel.struts.BaseStrutsAction;
 import com.liferay.portal.kernel.struts.StrutsAction;
+import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
+import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.kernel.util.PropsKeys;
 import com.liferay.portal.kernel.util.PropsUtil;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.portal.kernel.workflow.WorkflowConstants;
-import com.liferay.portal.model.Group;
-import com.liferay.portal.model.Layout;
-import com.liferay.portal.model.LayoutConstants;
-import com.liferay.portal.model.LayoutTypePortlet;
-import com.liferay.portal.model.Portlet;
-import com.liferay.portal.model.PortletConstants;
-import com.liferay.portal.security.auth.AuthTokenUtil;
-import com.liferay.portal.security.permission.PermissionChecker;
-import com.liferay.portal.security.permission.PermissionThreadLocal;
-import com.liferay.portal.service.GroupLocalServiceUtil;
-import com.liferay.portal.service.LayoutLocalServiceUtil;
-import com.liferay.portal.theme.ThemeDisplay;
-import com.liferay.portal.util.PortalUtil;
-import com.liferay.portlet.PortletPreferencesFactoryUtil;
-import com.liferay.portlet.PortletURLFactoryUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -406,6 +406,10 @@ public class FindKBArticleAction extends BaseStrutsAction {
 
 	protected boolean isParentFolder(long resourcePrimKey, long kbFolderId)
 		throws PortalException {
+
+		if (resourcePrimKey == kbFolderId) {
+			return true;
+		}
 
 		while (kbFolderId != KBFolderConstants.DEFAULT_PARENT_FOLDER_ID) {
 			if (resourcePrimKey == kbFolderId) {

@@ -21,12 +21,12 @@ import com.liferay.portal.kernel.util.ContentTypes;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.Http;
 import com.liferay.portal.kernel.util.ParamUtil;
+import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.kernel.util.SetUtil;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Validator;
-import com.liferay.portal.util.PortalUtil;
 import com.liferay.wsrp.model.WSRPProducer;
 import com.liferay.wsrp.service.WSRPProducerLocalServiceUtil;
 import com.liferay.wsrp.util.Constants;
@@ -111,12 +111,8 @@ public class WSDLServlet extends HttpServlet {
 
 		return StringUtil.replace(
 			content,
-			new String[] {
-				"http://my.service:8080", "${wsrpProducerUuid}"
-			},
-			new String[] {
-				getURL(request), wsrpProducerUuid
-			});
+			new String[] {"http://my.service:8080", "${wsrpProducerUuid}"},
+			new String[] {getURL(request), wsrpProducerUuid});
 	}
 
 	protected String getURL(HttpServletRequest request) {
@@ -146,9 +142,7 @@ public class WSDLServlet extends HttpServlet {
 
 		return StringUtil.replace(
 			content,
-			new String[] {
-				"location=\"wsrp-", "schemaLocation=\"wsrp-"
-			},
+			new String[] {"location=\"wsrp-", "schemaLocation=\"wsrp-"},
 			new String[] {
 				"location=\"" + url + "/wsrp-",
 				"schemaLocation=\"" + url + "/wsrp-"

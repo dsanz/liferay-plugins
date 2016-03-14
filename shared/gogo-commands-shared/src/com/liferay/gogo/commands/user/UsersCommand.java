@@ -19,8 +19,8 @@ import aQute.bnd.annotation.component.Reference;
 
 import com.liferay.gogo.commands.user.internal.AbstractCommand;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
-import com.liferay.portal.model.User;
-import com.liferay.portal.service.UserLocalService;
+import com.liferay.portal.kernel.model.User;
+import com.liferay.portal.kernel.service.UserLocalService;
 
 import java.util.List;
 
@@ -32,7 +32,8 @@ import java.util.List;
 		AbstractCommand.OSGI_COMMAND_FUNCTION + "=users",
 		AbstractCommand.OSGI_COMMAND_SCOPE + "=liferay"
 	},
-	provide = Object.class)
+	provide = Object.class
+)
 public class UsersCommand extends AbstractCommand {
 
 	@Override

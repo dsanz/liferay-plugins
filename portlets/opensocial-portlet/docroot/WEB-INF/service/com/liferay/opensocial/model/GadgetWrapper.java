@@ -14,9 +14,17 @@
 
 package com.liferay.opensocial.model;
 
-import com.liferay.portal.kernel.lar.StagedModelType;
+import aQute.bnd.annotation.ProviderType;
+
+import com.liferay.expando.kernel.model.ExpandoBridge;
+
+import com.liferay.exportimport.kernel.lar.StagedModelType;
+
+import com.liferay.portal.kernel.model.ModelWrapper;
+import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.util.Validator;
-import com.liferay.portal.model.ModelWrapper;
+
+import java.io.Serializable;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -31,6 +39,7 @@ import java.util.Map;
  * @see Gadget
  * @generated
  */
+@ProviderType
 public class GadgetWrapper implements Gadget, ModelWrapper<Gadget> {
 	public GadgetWrapper(Gadget gadget) {
 		_gadget = gadget;
@@ -58,6 +67,7 @@ public class GadgetWrapper implements Gadget, ModelWrapper<Gadget> {
 		attributes.put("name", getName());
 		attributes.put("url", getUrl());
 		attributes.put("portletCategoryNames", getPortletCategoryNames());
+		attributes.put("lastPublishDate", getLastPublishDate());
 
 		return attributes;
 	}
@@ -112,6 +122,12 @@ public class GadgetWrapper implements Gadget, ModelWrapper<Gadget> {
 		if (portletCategoryNames != null) {
 			setPortletCategoryNames(portletCategoryNames);
 		}
+
+		Date lastPublishDate = (Date)attributes.get("lastPublishDate");
+
+		if (lastPublishDate != null) {
+			setLastPublishDate(lastPublishDate);
+		}
 	}
 
 	@Override
@@ -140,12 +156,12 @@ public class GadgetWrapper implements Gadget, ModelWrapper<Gadget> {
 	* @return the create date of this gadget
 	*/
 	@Override
-	public java.util.Date getCreateDate() {
+	public Date getCreateDate() {
 		return _gadget.getCreateDate();
 	}
 
 	@Override
-	public com.liferay.portlet.expando.model.ExpandoBridge getExpandoBridge() {
+	public ExpandoBridge getExpandoBridge() {
 		return _gadget.getExpandoBridge();
 	}
 
@@ -160,12 +176,22 @@ public class GadgetWrapper implements Gadget, ModelWrapper<Gadget> {
 	}
 
 	/**
+	* Returns the last publish date of this gadget.
+	*
+	* @return the last publish date of this gadget
+	*/
+	@Override
+	public Date getLastPublishDate() {
+		return _gadget.getLastPublishDate();
+	}
+
+	/**
 	* Returns the modified date of this gadget.
 	*
 	* @return the modified date of this gadget
 	*/
 	@Override
-	public java.util.Date getModifiedDate() {
+	public Date getModifiedDate() {
 		return _gadget.getModifiedDate();
 	}
 
@@ -200,7 +226,7 @@ public class GadgetWrapper implements Gadget, ModelWrapper<Gadget> {
 	}
 
 	@Override
-	public java.io.Serializable getPrimaryKeyObj() {
+	public Serializable getPrimaryKeyObj() {
 		return _gadget.getPrimaryKeyObj();
 	}
 
@@ -270,25 +296,23 @@ public class GadgetWrapper implements Gadget, ModelWrapper<Gadget> {
 	* @param createDate the create date of this gadget
 	*/
 	@Override
-	public void setCreateDate(java.util.Date createDate) {
+	public void setCreateDate(Date createDate) {
 		_gadget.setCreateDate(createDate);
 	}
 
 	@Override
 	public void setExpandoBridgeAttributes(
-		com.liferay.portal.model.BaseModel<?> baseModel) {
+		com.liferay.portal.kernel.model.BaseModel<?> baseModel) {
 		_gadget.setExpandoBridgeAttributes(baseModel);
 	}
 
 	@Override
-	public void setExpandoBridgeAttributes(
-		com.liferay.portlet.expando.model.ExpandoBridge expandoBridge) {
+	public void setExpandoBridgeAttributes(ExpandoBridge expandoBridge) {
 		_gadget.setExpandoBridgeAttributes(expandoBridge);
 	}
 
 	@Override
-	public void setExpandoBridgeAttributes(
-		com.liferay.portal.service.ServiceContext serviceContext) {
+	public void setExpandoBridgeAttributes(ServiceContext serviceContext) {
 		_gadget.setExpandoBridgeAttributes(serviceContext);
 	}
 
@@ -303,12 +327,22 @@ public class GadgetWrapper implements Gadget, ModelWrapper<Gadget> {
 	}
 
 	/**
+	* Sets the last publish date of this gadget.
+	*
+	* @param lastPublishDate the last publish date of this gadget
+	*/
+	@Override
+	public void setLastPublishDate(Date lastPublishDate) {
+		_gadget.setLastPublishDate(lastPublishDate);
+	}
+
+	/**
 	* Sets the modified date of this gadget.
 	*
 	* @param modifiedDate the modified date of this gadget
 	*/
 	@Override
-	public void setModifiedDate(java.util.Date modifiedDate) {
+	public void setModifiedDate(Date modifiedDate) {
 		_gadget.setModifiedDate(modifiedDate);
 	}
 
@@ -348,7 +382,7 @@ public class GadgetWrapper implements Gadget, ModelWrapper<Gadget> {
 	}
 
 	@Override
-	public void setPrimaryKeyObj(java.io.Serializable primaryKeyObj) {
+	public void setPrimaryKeyObj(Serializable primaryKeyObj) {
 		_gadget.setPrimaryKeyObj(primaryKeyObj);
 	}
 
@@ -373,7 +407,7 @@ public class GadgetWrapper implements Gadget, ModelWrapper<Gadget> {
 	}
 
 	@Override
-	public com.liferay.portal.model.CacheModel<com.liferay.opensocial.model.Gadget> toCacheModel() {
+	public com.liferay.portal.kernel.model.CacheModel<com.liferay.opensocial.model.Gadget> toCacheModel() {
 		return _gadget.toCacheModel();
 	}
 
@@ -421,14 +455,6 @@ public class GadgetWrapper implements Gadget, ModelWrapper<Gadget> {
 		return _gadget.getStagedModelType();
 	}
 
-	/**
-	 * @deprecated As of 6.1.0, replaced by {@link #getWrappedModel}
-	 */
-	@Deprecated
-	public Gadget getWrappedGadget() {
-		return _gadget;
-	}
-
 	@Override
 	public Gadget getWrappedModel() {
 		return _gadget;
@@ -449,5 +475,5 @@ public class GadgetWrapper implements Gadget, ModelWrapper<Gadget> {
 		_gadget.resetOriginalValues();
 	}
 
-	private Gadget _gadget;
+	private final Gadget _gadget;
 }

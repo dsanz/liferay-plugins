@@ -16,8 +16,13 @@ package com.liferay.socialcoding.model;
 
 import aQute.bnd.annotation.ProviderType;
 
+import com.liferay.expando.kernel.model.ExpandoBridge;
+
+import com.liferay.portal.kernel.model.ModelWrapper;
+import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.util.Validator;
-import com.liferay.portal.model.ModelWrapper;
+
+import java.io.Serializable;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -120,7 +125,7 @@ public class JIRAChangeItemWrapper implements JIRAChangeItem,
 	}
 
 	@Override
-	public com.liferay.portlet.expando.model.ExpandoBridge getExpandoBridge() {
+	public ExpandoBridge getExpandoBridge() {
 		return _jiraChangeItem.getExpandoBridge();
 	}
 
@@ -205,7 +210,7 @@ public class JIRAChangeItemWrapper implements JIRAChangeItem,
 	}
 
 	@Override
-	public java.io.Serializable getPrimaryKeyObj() {
+	public Serializable getPrimaryKeyObj() {
 		return _jiraChangeItem.getPrimaryKeyObj();
 	}
 
@@ -241,19 +246,17 @@ public class JIRAChangeItemWrapper implements JIRAChangeItem,
 
 	@Override
 	public void setExpandoBridgeAttributes(
-		com.liferay.portal.model.BaseModel<?> baseModel) {
+		com.liferay.portal.kernel.model.BaseModel<?> baseModel) {
 		_jiraChangeItem.setExpandoBridgeAttributes(baseModel);
 	}
 
 	@Override
-	public void setExpandoBridgeAttributes(
-		com.liferay.portlet.expando.model.ExpandoBridge expandoBridge) {
+	public void setExpandoBridgeAttributes(ExpandoBridge expandoBridge) {
 		_jiraChangeItem.setExpandoBridgeAttributes(expandoBridge);
 	}
 
 	@Override
-	public void setExpandoBridgeAttributes(
-		com.liferay.portal.service.ServiceContext serviceContext) {
+	public void setExpandoBridgeAttributes(ServiceContext serviceContext) {
 		_jiraChangeItem.setExpandoBridgeAttributes(serviceContext);
 	}
 
@@ -343,12 +346,12 @@ public class JIRAChangeItemWrapper implements JIRAChangeItem,
 	}
 
 	@Override
-	public void setPrimaryKeyObj(java.io.Serializable primaryKeyObj) {
+	public void setPrimaryKeyObj(Serializable primaryKeyObj) {
 		_jiraChangeItem.setPrimaryKeyObj(primaryKeyObj);
 	}
 
 	@Override
-	public com.liferay.portal.model.CacheModel<com.liferay.socialcoding.model.JIRAChangeItem> toCacheModel() {
+	public com.liferay.portal.kernel.model.CacheModel<com.liferay.socialcoding.model.JIRAChangeItem> toCacheModel() {
 		return _jiraChangeItem.toCacheModel();
 	}
 
@@ -390,14 +393,6 @@ public class JIRAChangeItemWrapper implements JIRAChangeItem,
 		}
 
 		return false;
-	}
-
-	/**
-	 * @deprecated As of 6.1.0, replaced by {@link #getWrappedModel}
-	 */
-	@Deprecated
-	public JIRAChangeItem getWrappedJIRAChangeItem() {
-		return _jiraChangeItem;
 	}
 
 	@Override

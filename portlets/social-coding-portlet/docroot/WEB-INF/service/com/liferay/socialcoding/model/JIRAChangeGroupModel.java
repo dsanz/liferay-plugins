@@ -16,12 +16,12 @@ package com.liferay.socialcoding.model;
 
 import aQute.bnd.annotation.ProviderType;
 
-import com.liferay.portal.kernel.bean.AutoEscape;
-import com.liferay.portal.model.BaseModel;
-import com.liferay.portal.model.CacheModel;
-import com.liferay.portal.service.ServiceContext;
+import com.liferay.expando.kernel.model.ExpandoBridge;
 
-import com.liferay.portlet.expando.model.ExpandoBridge;
+import com.liferay.portal.kernel.bean.AutoEscape;
+import com.liferay.portal.kernel.model.BaseModel;
+import com.liferay.portal.kernel.model.CacheModel;
+import com.liferay.portal.kernel.service.ServiceContext;
 
 import java.io.Serializable;
 
@@ -156,19 +156,20 @@ public interface JIRAChangeGroupModel extends BaseModel<JIRAChangeGroup> {
 	public Object clone();
 
 	@Override
-	public int compareTo(JIRAChangeGroup jiraChangeGroup);
+	public int compareTo(
+		com.liferay.socialcoding.model.JIRAChangeGroup jiraChangeGroup);
 
 	@Override
 	public int hashCode();
 
 	@Override
-	public CacheModel<JIRAChangeGroup> toCacheModel();
+	public CacheModel<com.liferay.socialcoding.model.JIRAChangeGroup> toCacheModel();
 
 	@Override
-	public JIRAChangeGroup toEscapedModel();
+	public com.liferay.socialcoding.model.JIRAChangeGroup toEscapedModel();
 
 	@Override
-	public JIRAChangeGroup toUnescapedModel();
+	public com.liferay.socialcoding.model.JIRAChangeGroup toUnescapedModel();
 
 	@Override
 	public String toString();

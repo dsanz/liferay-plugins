@@ -14,30 +14,30 @@
 
 package com.liferay.knowledgebase.admin.util;
 
+import com.liferay.asset.kernel.model.AssetEntry;
+import com.liferay.asset.kernel.model.AssetRenderer;
+import com.liferay.asset.kernel.model.AssetRendererFactory;
+import com.liferay.asset.kernel.model.AssetTag;
+import com.liferay.asset.kernel.service.AssetEntryServiceUtil;
+import com.liferay.asset.kernel.service.AssetTagLocalServiceUtil;
+import com.liferay.asset.kernel.service.AssetTagServiceUtil;
+import com.liferay.asset.kernel.service.persistence.AssetEntryQuery;
+import com.liferay.blogs.kernel.model.BlogsEntry;
+import com.liferay.journal.model.JournalArticle;
+import com.liferay.journal.service.JournalArticleLocalServiceUtil;
 import com.liferay.knowledgebase.model.KBArticle;
 import com.liferay.knowledgebase.util.PortletKeys;
+import com.liferay.message.boards.kernel.model.MBMessage;
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.model.Group;
 import com.liferay.portal.kernel.portlet.PortletProvider;
 import com.liferay.portal.kernel.portlet.PortletProviderUtil;
+import com.liferay.portal.kernel.portlet.PortletURLFactoryUtil;
+import com.liferay.portal.kernel.security.auth.PrincipalException;
+import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.ListUtil;
+import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.kernel.util.StringUtil;
-import com.liferay.portal.model.Group;
-import com.liferay.portal.security.auth.PrincipalException;
-import com.liferay.portal.theme.ThemeDisplay;
-import com.liferay.portal.util.PortalUtil;
-import com.liferay.portlet.PortletURLFactoryUtil;
-import com.liferay.portlet.asset.model.AssetEntry;
-import com.liferay.portlet.asset.model.AssetRenderer;
-import com.liferay.portlet.asset.model.AssetRendererFactory;
-import com.liferay.portlet.asset.model.AssetTag;
-import com.liferay.portlet.asset.service.AssetEntryServiceUtil;
-import com.liferay.portlet.asset.service.AssetTagLocalServiceUtil;
-import com.liferay.portlet.asset.service.AssetTagServiceUtil;
-import com.liferay.portlet.asset.service.persistence.AssetEntryQuery;
-import com.liferay.portlet.blogs.model.BlogsEntry;
-import com.liferay.portlet.journal.model.JournalArticle;
-import com.liferay.portlet.journal.service.JournalArticleLocalServiceUtil;
-import com.liferay.portlet.messageboards.model.MBMessage;
 import com.liferay.wiki.model.WikiPage;
 import com.liferay.wiki.service.WikiPageLocalServiceUtil;
 
@@ -134,7 +134,8 @@ public class KBArticleAssetEntriesUtil {
 				request, portletId, themeDisplay.getPlid(),
 				PortletRequest.RENDER_PHASE);
 
-			portletURL.setParameter("struts_action", "/blogs/view_entry");
+			portletURL.setParameter(
+				"mvcRenderCommandName", "/blogs/view_entry");
 			portletURL.setParameter("entryId", String.valueOf(classPK));
 		}
 		else if (className.equals(JournalArticle.class.getName())) {

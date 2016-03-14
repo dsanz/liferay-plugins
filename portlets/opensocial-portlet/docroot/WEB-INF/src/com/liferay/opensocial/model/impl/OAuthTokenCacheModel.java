@@ -14,11 +14,14 @@
 
 package com.liferay.opensocial.model.impl;
 
+import aQute.bnd.annotation.ProviderType;
+
 import com.liferay.opensocial.model.OAuthToken;
 
+import com.liferay.portal.kernel.model.CacheModel;
+import com.liferay.portal.kernel.util.HashUtil;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringPool;
-import com.liferay.portal.model.CacheModel;
 
 import java.io.Externalizable;
 import java.io.IOException;
@@ -34,8 +37,33 @@ import java.util.Date;
  * @see OAuthToken
  * @generated
  */
+@ProviderType
 public class OAuthTokenCacheModel implements CacheModel<OAuthToken>,
 	Externalizable {
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+
+		if (!(obj instanceof OAuthTokenCacheModel)) {
+			return false;
+		}
+
+		OAuthTokenCacheModel oAuthTokenCacheModel = (OAuthTokenCacheModel)obj;
+
+		if (oAuthTokenId == oAuthTokenCacheModel.oAuthTokenId) {
+			return true;
+		}
+
+		return false;
+	}
+
+	@Override
+	public int hashCode() {
+		return HashUtil.hash(0, oAuthTokenId);
+	}
+
 	@Override
 	public String toString() {
 		StringBundler sb = new StringBundler(29);
@@ -156,18 +184,22 @@ public class OAuthTokenCacheModel implements CacheModel<OAuthToken>,
 	@Override
 	public void readExternal(ObjectInput objectInput) throws IOException {
 		oAuthTokenId = objectInput.readLong();
+
 		companyId = objectInput.readLong();
+
 		userId = objectInput.readLong();
 		userName = objectInput.readUTF();
 		createDate = objectInput.readLong();
 		modifiedDate = objectInput.readLong();
 		gadgetKey = objectInput.readUTF();
 		serviceName = objectInput.readUTF();
+
 		moduleId = objectInput.readLong();
 		accessToken = objectInput.readUTF();
 		tokenName = objectInput.readUTF();
 		tokenSecret = objectInput.readUTF();
 		sessionHandle = objectInput.readUTF();
+
 		expiration = objectInput.readLong();
 	}
 
@@ -175,7 +207,9 @@ public class OAuthTokenCacheModel implements CacheModel<OAuthToken>,
 	public void writeExternal(ObjectOutput objectOutput)
 		throws IOException {
 		objectOutput.writeLong(oAuthTokenId);
+
 		objectOutput.writeLong(companyId);
+
 		objectOutput.writeLong(userId);
 
 		if (userName == null) {

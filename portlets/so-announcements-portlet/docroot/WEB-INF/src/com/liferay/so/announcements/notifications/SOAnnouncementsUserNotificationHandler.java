@@ -17,23 +17,23 @@
 
 package com.liferay.so.announcements.notifications;
 
+import com.liferay.announcements.kernel.model.AnnouncementsEntry;
+import com.liferay.announcements.kernel.service.AnnouncementsEntryLocalServiceUtil;
 import com.liferay.portal.kernel.json.JSONFactoryUtil;
 import com.liferay.portal.kernel.json.JSONObject;
+import com.liferay.portal.kernel.model.Group;
+import com.liferay.portal.kernel.model.User;
+import com.liferay.portal.kernel.model.UserNotificationEvent;
 import com.liferay.portal.kernel.notifications.BaseUserNotificationHandler;
-import com.liferay.portal.kernel.portlet.LiferayPortletResponse;
+import com.liferay.portal.kernel.portlet.PortletURLFactoryUtil;
+import com.liferay.portal.kernel.service.GroupLocalServiceUtil;
+import com.liferay.portal.kernel.service.ServiceContext;
+import com.liferay.portal.kernel.service.UserNotificationEventLocalServiceUtil;
+import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.HtmlUtil;
+import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.StringUtil;
-import com.liferay.portal.model.Group;
-import com.liferay.portal.model.User;
-import com.liferay.portal.model.UserNotificationEvent;
-import com.liferay.portal.service.ServiceContext;
-import com.liferay.portal.service.UserNotificationEventLocalServiceUtil;
-import com.liferay.portal.theme.ThemeDisplay;
-import com.liferay.portal.util.PortalUtil;
-import com.liferay.portlet.PortletURLFactoryUtil;
-import com.liferay.portlet.announcements.model.AnnouncementsEntry;
-import com.liferay.portlet.announcements.service.AnnouncementsEntryLocalServiceUtil;
 import com.liferay.so.announcements.util.PortletKeys;
 
 import javax.portlet.PortletRequest;
@@ -109,16 +109,31 @@ public class SOAnnouncementsUserNotificationHandler
 			return null;
 		}
 
-		ThemeDisplay themeDisplay = serviceContext.getThemeDisplay();
+		Group group = null;
 
-		User user = themeDisplay.getUser();
+		String entryClassName = announcementEntry.getClassName();
 
-		Group group = user.getGroup();
+		if (entryClassName.equals(Group.class.getName())) {
+			group = GroupLocalServiceUtil.getGroup(
+				announcementEntry.getClassPK());
+		}
+		else {
+			ThemeDisplay themeDisplay = serviceContext.getThemeDisplay();
+
+			User user = themeDisplay.getUser();
+
+			group = user.getGroup();
+		}
+
+		PortletURL portletURL = null;
 
 		long portletPlid = PortalUtil.getPlidFromPortletId(
 			group.getGroupId(), true, PortletKeys.SO_ANNOUNCEMENTS);
 
-		PortletURL portletURL = null;
+		if (portletPlid == 0) {
+			portletPlid = PortalUtil.getPlidFromPortletId(
+				group.getGroupId(), false, PortletKeys.SO_ANNOUNCEMENTS);
+		}
 
 		if (portletPlid != 0) {
 			portletURL = PortletURLFactoryUtil.create(
@@ -127,13 +142,13 @@ public class SOAnnouncementsUserNotificationHandler
 				PortletRequest.RENDER_PHASE);
 		}
 		else {
-			LiferayPortletResponse liferayPortletResponse =
-				serviceContext.getLiferayPortletResponse();
+			long defaultPublicPlid = group.getDefaultPublicPlid();
 
-			portletURL = liferayPortletResponse.createRenderURL(
-				PortletKeys.SO_ANNOUNCEMENTS);
+			portletURL = PortletURLFactoryUtil.create(
+				serviceContext.getLiferayPortletRequest(),
+				PortletKeys.SO_ANNOUNCEMENTS, defaultPublicPlid,
+				PortletRequest.RENDER_PHASE);
 
-			portletURL.setParameter("mvcPath", "/view.jsp");
 			portletURL.setWindowState(WindowState.MAXIMIZED);
 		}
 

@@ -17,8 +17,8 @@ package com.liferay.microblogs.service;
 import aQute.bnd.annotation.ProviderType;
 
 import com.liferay.portal.kernel.bean.PortletBeanLocatorUtil;
+import com.liferay.portal.kernel.service.InvokableService;
 import com.liferay.portal.kernel.util.ReferenceRegistry;
-import com.liferay.portal.service.InvokableService;
 
 /**
  * Provides the remote service utility for MicroblogsEntry. This utility wraps
@@ -44,7 +44,7 @@ public class MicroblogsEntryServiceUtil {
 	public static com.liferay.microblogs.model.MicroblogsEntry addMicroblogsEntry(
 		long userId, java.lang.String content, int type,
 		long parentMicroblogsEntryId, int socialRelationType,
-		com.liferay.portal.service.ServiceContext serviceContext)
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		return getService()
 				   .addMicroblogsEntry(userId, content, type,
@@ -55,15 +55,6 @@ public class MicroblogsEntryServiceUtil {
 		long microblogsEntryId)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		return getService().deleteMicroblogsEntry(microblogsEntryId);
-	}
-
-	/**
-	* Returns the Spring bean ID for this bean.
-	*
-	* @return the Spring bean ID for this bean
-	*/
-	public static java.lang.String getBeanIdentifier() {
-		return getService().getBeanIdentifier();
 	}
 
 	public static java.util.List<com.liferay.microblogs.model.MicroblogsEntry> getMicroblogsEntries(
@@ -92,6 +83,15 @@ public class MicroblogsEntryServiceUtil {
 		long microblogsEntryId)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		return getService().getMicroblogsEntry(microblogsEntryId);
+	}
+
+	/**
+	* Returns the OSGi service identifier.
+	*
+	* @return the OSGi service identifier
+	*/
+	public static java.lang.String getOSGiServiceIdentifier() {
+		return getService().getOSGiServiceIdentifier();
 	}
 
 	public static java.util.List<com.liferay.microblogs.model.MicroblogsEntry> getUserMicroblogsEntries(
@@ -127,19 +127,10 @@ public class MicroblogsEntryServiceUtil {
 		return getService().invokeMethod(name, parameterTypes, arguments);
 	}
 
-	/**
-	* Sets the Spring bean ID for this bean.
-	*
-	* @param beanIdentifier the Spring bean ID for this bean
-	*/
-	public static void setBeanIdentifier(java.lang.String beanIdentifier) {
-		getService().setBeanIdentifier(beanIdentifier);
-	}
-
 	public static com.liferay.microblogs.model.MicroblogsEntry updateMicroblogsEntry(
 		long microblogsEntryId, java.lang.String content,
 		int socialRelationType,
-		com.liferay.portal.service.ServiceContext serviceContext)
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		return getService()
 				   .updateMicroblogsEntry(microblogsEntryId, content,
@@ -167,13 +158,6 @@ public class MicroblogsEntryServiceUtil {
 		}
 
 		return _service;
-	}
-
-	/**
-	 * @deprecated As of 6.2.0
-	 */
-	@Deprecated
-	public void setService(MicroblogsEntryService service) {
 	}
 
 	private static MicroblogsEntryService _service;

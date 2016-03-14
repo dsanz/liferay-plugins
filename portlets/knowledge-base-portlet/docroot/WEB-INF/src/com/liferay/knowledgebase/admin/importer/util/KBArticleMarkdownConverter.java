@@ -14,7 +14,8 @@
 
 package com.liferay.knowledgebase.admin.importer.util;
 
-import com.liferay.knowledgebase.KBArticleImportException;
+import com.liferay.document.library.kernel.util.DLUtil;
+import com.liferay.knowledgebase.exception.KBArticleImportException;
 import com.liferay.knowledgebase.model.KBArticle;
 import com.liferay.markdown.converter.MarkdownConverter;
 import com.liferay.markdown.converter.factory.MarkdownConverterFactoryUtil;
@@ -29,7 +30,6 @@ import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.zip.ZipReader;
-import com.liferay.portlet.documentlibrary.util.DLUtil;
 
 import java.io.IOException;
 
@@ -65,7 +65,7 @@ public class KBArticleMarkdownConverter {
 
 		if (Validator.isNull(heading)) {
 			throw new KBArticleImportException(
-				"Unable to extract heading from converted HTML: " + html);
+				"Unable to extract title heading from file: " + fileEntryName);
 		}
 
 		_urlTitle = getUrlTitle(heading);

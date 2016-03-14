@@ -16,7 +16,9 @@ package com.liferay.mail.model;
 
 import aQute.bnd.annotation.ProviderType;
 
-import com.liferay.portal.model.PersistedModel;
+import com.liferay.portal.kernel.annotation.ImplementationClassName;
+import com.liferay.portal.kernel.model.PersistedModel;
+import com.liferay.portal.kernel.util.Accessor;
 
 /**
  * The extended model interface for the Message service. Represents a row in the &quot;Mail_Message&quot; database table, with each column mapped to a property of this class.
@@ -27,6 +29,7 @@ import com.liferay.portal.model.PersistedModel;
  * @see com.liferay.mail.model.impl.MessageModelImpl
  * @generated
  */
+@ImplementationClassName("com.liferay.mail.model.impl.MessageImpl")
 @ProviderType
 public interface Message extends MessageModel, PersistedModel {
 	/*
@@ -34,6 +37,23 @@ public interface Message extends MessageModel, PersistedModel {
 	 *
 	 * Never modify this interface directly. Add methods to {@link com.liferay.mail.model.impl.MessageImpl} and rerun ServiceBuilder to automatically copy the method declarations to this interface.
 	 */
+	public static final Accessor<Message, Long> MESSAGE_ID_ACCESSOR = new Accessor<Message, Long>() {
+			@Override
+			public Long get(Message message) {
+				return message.getMessageId();
+			}
+
+			@Override
+			public Class<Long> getAttributeClass() {
+				return Long.class;
+			}
+
+			@Override
+			public Class<Message> getTypeClass() {
+				return Message.class;
+			}
+		};
+
 	public long getGroupId()
 		throws com.liferay.portal.kernel.exception.PortalException;
 

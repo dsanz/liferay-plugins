@@ -27,13 +27,12 @@ import com.liferay.portal.kernel.dao.orm.SQLQuery;
 import com.liferay.portal.kernel.dao.orm.Session;
 import com.liferay.portal.kernel.dao.orm.Type;
 import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.portal.kernel.model.BaseModel;
+import com.liferay.portal.kernel.service.persistence.UserFinderUtil;
+import com.liferay.portal.kernel.service.persistence.UserUtil;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.Validator;
-import com.liferay.portal.model.BaseModel;
-import com.liferay.portal.service.persistence.UserFinderUtil;
-import com.liferay.portal.service.persistence.UserUtil;
-import com.liferay.portal.service.persistence.impl.BasePersistenceImpl;
-import com.liferay.portal.util.comparator.UserLastNameComparator;
+import com.liferay.portal.kernel.util.comparator.UserLastNameComparator;
 import com.liferay.util.dao.orm.CustomSQLUtil;
 
 import java.util.ArrayList;
@@ -44,7 +43,7 @@ import java.util.List;
  * @author Brian Wing Shun Chan
  */
 public class EntryFinderImpl
-	extends BasePersistenceImpl<Entry> implements EntryFinder {
+	extends EntryFinderBaseImpl implements EntryFinder {
 
 	public static final String COUNT_BY_U_FN_EA =
 		EntryFinder.class.getName() + ".countByU_FN_EA";

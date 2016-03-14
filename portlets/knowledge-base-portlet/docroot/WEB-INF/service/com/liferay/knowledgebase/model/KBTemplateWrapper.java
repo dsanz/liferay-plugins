@@ -16,9 +16,15 @@ package com.liferay.knowledgebase.model;
 
 import aQute.bnd.annotation.ProviderType;
 
-import com.liferay.portal.kernel.lar.StagedModelType;
+import com.liferay.expando.kernel.model.ExpandoBridge;
+
+import com.liferay.exportimport.kernel.lar.StagedModelType;
+
+import com.liferay.portal.kernel.model.ModelWrapper;
+import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.util.Validator;
-import com.liferay.portal.model.ModelWrapper;
+
+import java.io.Serializable;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -63,6 +69,7 @@ public class KBTemplateWrapper implements KBTemplate, ModelWrapper<KBTemplate> {
 		attributes.put("modifiedDate", getModifiedDate());
 		attributes.put("title", getTitle());
 		attributes.put("content", getContent());
+		attributes.put("lastPublishDate", getLastPublishDate());
 
 		return attributes;
 	}
@@ -128,6 +135,12 @@ public class KBTemplateWrapper implements KBTemplate, ModelWrapper<KBTemplate> {
 		if (content != null) {
 			setContent(content);
 		}
+
+		Date lastPublishDate = (Date)attributes.get("lastPublishDate");
+
+		if (lastPublishDate != null) {
+			setLastPublishDate(lastPublishDate);
+		}
 	}
 
 	@Override
@@ -166,12 +179,12 @@ public class KBTemplateWrapper implements KBTemplate, ModelWrapper<KBTemplate> {
 	* @return the create date of this k b template
 	*/
 	@Override
-	public java.util.Date getCreateDate() {
+	public Date getCreateDate() {
 		return _kbTemplate.getCreateDate();
 	}
 
 	@Override
-	public com.liferay.portlet.expando.model.ExpandoBridge getExpandoBridge() {
+	public ExpandoBridge getExpandoBridge() {
 		return _kbTemplate.getExpandoBridge();
 	}
 
@@ -196,12 +209,22 @@ public class KBTemplateWrapper implements KBTemplate, ModelWrapper<KBTemplate> {
 	}
 
 	/**
+	* Returns the last publish date of this k b template.
+	*
+	* @return the last publish date of this k b template
+	*/
+	@Override
+	public Date getLastPublishDate() {
+		return _kbTemplate.getLastPublishDate();
+	}
+
+	/**
 	* Returns the modified date of this k b template.
 	*
 	* @return the modified date of this k b template
 	*/
 	@Override
-	public java.util.Date getModifiedDate() {
+	public Date getModifiedDate() {
 		return _kbTemplate.getModifiedDate();
 	}
 
@@ -216,7 +239,7 @@ public class KBTemplateWrapper implements KBTemplate, ModelWrapper<KBTemplate> {
 	}
 
 	@Override
-	public java.io.Serializable getPrimaryKeyObj() {
+	public Serializable getPrimaryKeyObj() {
 		return _kbTemplate.getPrimaryKeyObj();
 	}
 
@@ -326,25 +349,23 @@ public class KBTemplateWrapper implements KBTemplate, ModelWrapper<KBTemplate> {
 	* @param createDate the create date of this k b template
 	*/
 	@Override
-	public void setCreateDate(java.util.Date createDate) {
+	public void setCreateDate(Date createDate) {
 		_kbTemplate.setCreateDate(createDate);
 	}
 
 	@Override
 	public void setExpandoBridgeAttributes(
-		com.liferay.portal.model.BaseModel<?> baseModel) {
+		com.liferay.portal.kernel.model.BaseModel<?> baseModel) {
 		_kbTemplate.setExpandoBridgeAttributes(baseModel);
 	}
 
 	@Override
-	public void setExpandoBridgeAttributes(
-		com.liferay.portlet.expando.model.ExpandoBridge expandoBridge) {
+	public void setExpandoBridgeAttributes(ExpandoBridge expandoBridge) {
 		_kbTemplate.setExpandoBridgeAttributes(expandoBridge);
 	}
 
 	@Override
-	public void setExpandoBridgeAttributes(
-		com.liferay.portal.service.ServiceContext serviceContext) {
+	public void setExpandoBridgeAttributes(ServiceContext serviceContext) {
 		_kbTemplate.setExpandoBridgeAttributes(serviceContext);
 	}
 
@@ -369,12 +390,22 @@ public class KBTemplateWrapper implements KBTemplate, ModelWrapper<KBTemplate> {
 	}
 
 	/**
+	* Sets the last publish date of this k b template.
+	*
+	* @param lastPublishDate the last publish date of this k b template
+	*/
+	@Override
+	public void setLastPublishDate(Date lastPublishDate) {
+		_kbTemplate.setLastPublishDate(lastPublishDate);
+	}
+
+	/**
 	* Sets the modified date of this k b template.
 	*
 	* @param modifiedDate the modified date of this k b template
 	*/
 	@Override
-	public void setModifiedDate(java.util.Date modifiedDate) {
+	public void setModifiedDate(Date modifiedDate) {
 		_kbTemplate.setModifiedDate(modifiedDate);
 	}
 
@@ -394,7 +425,7 @@ public class KBTemplateWrapper implements KBTemplate, ModelWrapper<KBTemplate> {
 	}
 
 	@Override
-	public void setPrimaryKeyObj(java.io.Serializable primaryKeyObj) {
+	public void setPrimaryKeyObj(Serializable primaryKeyObj) {
 		_kbTemplate.setPrimaryKeyObj(primaryKeyObj);
 	}
 
@@ -449,7 +480,7 @@ public class KBTemplateWrapper implements KBTemplate, ModelWrapper<KBTemplate> {
 	}
 
 	@Override
-	public com.liferay.portal.model.CacheModel<com.liferay.knowledgebase.model.KBTemplate> toCacheModel() {
+	public com.liferay.portal.kernel.model.CacheModel<com.liferay.knowledgebase.model.KBTemplate> toCacheModel() {
 		return _kbTemplate.toCacheModel();
 	}
 
@@ -495,14 +526,6 @@ public class KBTemplateWrapper implements KBTemplate, ModelWrapper<KBTemplate> {
 	@Override
 	public StagedModelType getStagedModelType() {
 		return _kbTemplate.getStagedModelType();
-	}
-
-	/**
-	 * @deprecated As of 6.1.0, replaced by {@link #getWrappedModel}
-	 */
-	@Deprecated
-	public KBTemplate getWrappedKBTemplate() {
-		return _kbTemplate;
 	}
 
 	@Override

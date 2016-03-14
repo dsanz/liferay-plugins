@@ -16,8 +16,13 @@ package com.liferay.pushnotifications.model;
 
 import aQute.bnd.annotation.ProviderType;
 
+import com.liferay.expando.kernel.model.ExpandoBridge;
+
+import com.liferay.portal.kernel.model.ModelWrapper;
+import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.util.Validator;
-import com.liferay.portal.model.ModelWrapper;
+
+import java.io.Serializable;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -115,12 +120,12 @@ public class PushNotificationsDeviceWrapper implements PushNotificationsDevice,
 	* @return the create date of this push notifications device
 	*/
 	@Override
-	public java.util.Date getCreateDate() {
+	public Date getCreateDate() {
 		return _pushNotificationsDevice.getCreateDate();
 	}
 
 	@Override
-	public com.liferay.portlet.expando.model.ExpandoBridge getExpandoBridge() {
+	public ExpandoBridge getExpandoBridge() {
 		return _pushNotificationsDevice.getExpandoBridge();
 	}
 
@@ -145,7 +150,7 @@ public class PushNotificationsDeviceWrapper implements PushNotificationsDevice,
 	}
 
 	@Override
-	public java.io.Serializable getPrimaryKeyObj() {
+	public Serializable getPrimaryKeyObj() {
 		return _pushNotificationsDevice.getPrimaryKeyObj();
 	}
 
@@ -225,25 +230,23 @@ public class PushNotificationsDeviceWrapper implements PushNotificationsDevice,
 	* @param createDate the create date of this push notifications device
 	*/
 	@Override
-	public void setCreateDate(java.util.Date createDate) {
+	public void setCreateDate(Date createDate) {
 		_pushNotificationsDevice.setCreateDate(createDate);
 	}
 
 	@Override
 	public void setExpandoBridgeAttributes(
-		com.liferay.portal.model.BaseModel<?> baseModel) {
+		com.liferay.portal.kernel.model.BaseModel<?> baseModel) {
 		_pushNotificationsDevice.setExpandoBridgeAttributes(baseModel);
 	}
 
 	@Override
-	public void setExpandoBridgeAttributes(
-		com.liferay.portlet.expando.model.ExpandoBridge expandoBridge) {
+	public void setExpandoBridgeAttributes(ExpandoBridge expandoBridge) {
 		_pushNotificationsDevice.setExpandoBridgeAttributes(expandoBridge);
 	}
 
 	@Override
-	public void setExpandoBridgeAttributes(
-		com.liferay.portal.service.ServiceContext serviceContext) {
+	public void setExpandoBridgeAttributes(ServiceContext serviceContext) {
 		_pushNotificationsDevice.setExpandoBridgeAttributes(serviceContext);
 	}
 
@@ -273,7 +276,7 @@ public class PushNotificationsDeviceWrapper implements PushNotificationsDevice,
 	}
 
 	@Override
-	public void setPrimaryKeyObj(java.io.Serializable primaryKeyObj) {
+	public void setPrimaryKeyObj(Serializable primaryKeyObj) {
 		_pushNotificationsDevice.setPrimaryKeyObj(primaryKeyObj);
 	}
 
@@ -318,7 +321,7 @@ public class PushNotificationsDeviceWrapper implements PushNotificationsDevice,
 	}
 
 	@Override
-	public com.liferay.portal.model.CacheModel<com.liferay.pushnotifications.model.PushNotificationsDevice> toCacheModel() {
+	public com.liferay.portal.kernel.model.CacheModel<com.liferay.pushnotifications.model.PushNotificationsDevice> toCacheModel() {
 		return _pushNotificationsDevice.toCacheModel();
 	}
 
@@ -360,14 +363,6 @@ public class PushNotificationsDeviceWrapper implements PushNotificationsDevice,
 		}
 
 		return false;
-	}
-
-	/**
-	 * @deprecated As of 6.1.0, replaced by {@link #getWrappedModel}
-	 */
-	@Deprecated
-	public PushNotificationsDevice getWrappedPushNotificationsDevice() {
-		return _pushNotificationsDevice;
 	}
 
 	@Override

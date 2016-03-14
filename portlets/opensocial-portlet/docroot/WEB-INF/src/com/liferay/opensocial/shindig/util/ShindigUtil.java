@@ -16,35 +16,35 @@ package com.liferay.opensocial.shindig.util;
 
 import com.google.inject.Inject;
 
-import com.liferay.opensocial.GadgetURLException;
+import com.liferay.document.library.kernel.model.DLFolderConstants;
+import com.liferay.document.library.kernel.service.DLAppServiceUtil;
+import com.liferay.opensocial.exception.GadgetURLException;
 import com.liferay.opensocial.model.impl.GadgetImpl;
 import com.liferay.opensocial.service.GadgetLocalServiceUtil;
 import com.liferay.opensocial.service.OAuthConsumerLocalServiceUtil;
 import com.liferay.opensocial.util.PortletPropsValues;
 import com.liferay.portal.kernel.concurrent.ConcurrentHashSet;
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.model.Group;
+import com.liferay.portal.kernel.model.Layout;
+import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.repository.model.FileEntry;
 import com.liferay.portal.kernel.repository.model.Folder;
+import com.liferay.portal.kernel.security.permission.ActionKeys;
+import com.liferay.portal.kernel.service.ServiceContext;
+import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.AutoResetThreadLocal;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.HttpUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
+import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.portal.kernel.uuid.PortalUUIDUtil;
-import com.liferay.portal.model.Group;
-import com.liferay.portal.model.Layout;
-import com.liferay.portal.model.User;
-import com.liferay.portal.security.permission.ActionKeys;
-import com.liferay.portal.service.ServiceContext;
-import com.liferay.portal.theme.ThemeDisplay;
-import com.liferay.portal.util.PortalUtil;
-import com.liferay.portlet.documentlibrary.model.DLFolderConstants;
-import com.liferay.portlet.documentlibrary.service.DLAppServiceUtil;
 
 import java.io.File;
 
@@ -226,7 +226,8 @@ public class ShindigUtil {
 			serviceContext.setGroupPermissions(
 				new String[] {
 					ActionKeys.ADD_DOCUMENT, ActionKeys.DELETE,
-					ActionKeys.UPDATE, ActionKeys.VIEW});
+					ActionKeys.UPDATE, ActionKeys.VIEW
+				});
 			serviceContext.setGuestPermissions(new String[] {ActionKeys.VIEW});
 			serviceContext.setScopeGroupId(repositoryId);
 
@@ -470,7 +471,7 @@ public class ShindigUtil {
 	private static ContainerConfig _containerConfig;
 
 	private static AutoResetThreadLocal<String> _host =
-		new AutoResetThreadLocal<String>(
+		new AutoResetThreadLocal<>(
 			ShindigUtil.class + "._host", StringPool.BLANK);
 	private static Set<String> _ignoreGadgetSpecCache =
 		new ConcurrentHashSet<>();
@@ -479,7 +480,7 @@ public class ShindigUtil {
 	private static Processor _processor;
 
 	private static AutoResetThreadLocal<String> _scheme =
-		new AutoResetThreadLocal<String>(
+		new AutoResetThreadLocal<>(
 			ShindigUtil.class + "._scheme", StringPool.BLANK);
 
 }

@@ -14,9 +14,11 @@
 
 package com.liferay.tasks.service;
 
+import aQute.bnd.annotation.ProviderType;
+
 import com.liferay.portal.kernel.bean.PortletBeanLocatorUtil;
+import com.liferay.portal.kernel.service.InvokableLocalService;
 import com.liferay.portal.kernel.util.ReferenceRegistry;
-import com.liferay.portal.service.InvokableLocalService;
 
 /**
  * Provides the local service utility for TasksEntry. This utility wraps
@@ -32,6 +34,7 @@ import com.liferay.portal.service.InvokableLocalService;
  * @see com.liferay.tasks.service.impl.TasksEntryLocalServiceImpl
  * @generated
  */
+@ProviderType
 public class TasksEntryLocalServiceUtil {
 	/*
 	 * NOTE FOR DEVELOPERS:
@@ -54,7 +57,7 @@ public class TasksEntryLocalServiceUtil {
 		long userId, java.lang.String title, int priority, long assigneeUserId,
 		int dueDateMonth, int dueDateDay, int dueDateYear, int dueDateHour,
 		int dueDateMinute, boolean addDueDate,
-		com.liferay.portal.service.ServiceContext serviceContext)
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		return getService()
 				   .addTasksEntry(userId, title, priority, assigneeUserId,
@@ -76,8 +79,8 @@ public class TasksEntryLocalServiceUtil {
 	/**
 	* @throws PortalException
 	*/
-	public static com.liferay.portal.model.PersistedModel deletePersistedModel(
-		com.liferay.portal.model.PersistedModel persistedModel)
+	public static com.liferay.portal.kernel.model.PersistedModel deletePersistedModel(
+		com.liferay.portal.kernel.model.PersistedModel persistedModel)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		return getService().deletePersistedModel(persistedModel);
 	}
@@ -163,10 +166,10 @@ public class TasksEntryLocalServiceUtil {
 	}
 
 	/**
-	* Returns the number of rows that match the dynamic query.
+	* Returns the number of rows matching the dynamic query.
 	*
 	* @param dynamicQuery the dynamic query
-	* @return the number of rows that match the dynamic query
+	* @return the number of rows matching the dynamic query
 	*/
 	public static long dynamicQueryCount(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery) {
@@ -174,11 +177,11 @@ public class TasksEntryLocalServiceUtil {
 	}
 
 	/**
-	* Returns the number of rows that match the dynamic query.
+	* Returns the number of rows matching the dynamic query.
 	*
 	* @param dynamicQuery the dynamic query
 	* @param projection the projection to apply to the query
-	* @return the number of rows that match the dynamic query
+	* @return the number of rows matching the dynamic query
 	*/
 	public static long dynamicQueryCount(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery,
@@ -202,15 +205,6 @@ public class TasksEntryLocalServiceUtil {
 
 	public static int getAssigneeTasksEntriesCount(long assigneeUserId) {
 		return getService().getAssigneeTasksEntriesCount(assigneeUserId);
-	}
-
-	/**
-	* Returns the Spring bean ID for this bean.
-	*
-	* @return the Spring bean ID for this bean
-	*/
-	public static java.lang.String getBeanIdentifier() {
-		return getService().getBeanIdentifier();
 	}
 
 	public static java.util.List<com.liferay.tasks.model.TasksEntry> getGroupAssigneeTasksEntries(
@@ -248,7 +242,20 @@ public class TasksEntryLocalServiceUtil {
 		return getService().getGroupUserTasksEntriesCount(groupId, userId);
 	}
 
-	public static com.liferay.portal.model.PersistedModel getPersistedModel(
+	public static com.liferay.portal.kernel.dao.orm.IndexableActionableDynamicQuery getIndexableActionableDynamicQuery() {
+		return getService().getIndexableActionableDynamicQuery();
+	}
+
+	/**
+	* Returns the OSGi service identifier.
+	*
+	* @return the OSGi service identifier
+	*/
+	public static java.lang.String getOSGiServiceIdentifier() {
+		return getService().getOSGiServiceIdentifier();
+	}
+
+	public static com.liferay.portal.kernel.model.PersistedModel getPersistedModel(
 		java.io.Serializable primaryKeyObj)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		return getService().getPersistedModel(primaryKeyObj);
@@ -342,15 +349,6 @@ public class TasksEntryLocalServiceUtil {
 		return getService().invokeMethod(name, parameterTypes, arguments);
 	}
 
-	/**
-	* Sets the Spring bean ID for this bean.
-	*
-	* @param beanIdentifier the Spring bean ID for this bean
-	*/
-	public static void setBeanIdentifier(java.lang.String beanIdentifier) {
-		getService().setBeanIdentifier(beanIdentifier);
-	}
-
 	public static void updateAsset(long userId,
 		com.liferay.tasks.model.TasksEntry tasksEntry, long[] assetCategoryIds,
 		java.lang.String[] assetTagNames)
@@ -375,7 +373,7 @@ public class TasksEntryLocalServiceUtil {
 		long assigneeUserId, long resolverUserId, int dueDateMonth,
 		int dueDateDay, int dueDateYear, int dueDateHour, int dueDateMinute,
 		boolean addDueDate, int status,
-		com.liferay.portal.service.ServiceContext serviceContext)
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		return getService()
 				   .updateTasksEntry(tasksEntryId, title, priority,
@@ -386,7 +384,7 @@ public class TasksEntryLocalServiceUtil {
 
 	public static com.liferay.tasks.model.TasksEntry updateTasksEntryStatus(
 		long tasksEntryId, long resolverUserId, int status,
-		com.liferay.portal.service.ServiceContext serviceContext)
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		return getService()
 				   .updateTasksEntryStatus(tasksEntryId, resolverUserId,
@@ -414,13 +412,6 @@ public class TasksEntryLocalServiceUtil {
 		}
 
 		return _service;
-	}
-
-	/**
-	 * @deprecated As of 6.2.0
-	 */
-	@Deprecated
-	public void setService(TasksEntryLocalService service) {
 	}
 
 	private static TasksEntryLocalService _service;

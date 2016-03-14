@@ -14,23 +14,23 @@
 
 package com.liferay.opensocial.shindig.service;
 
+import com.liferay.document.library.kernel.model.DLFolder;
+import com.liferay.document.library.kernel.model.DLFolderConstants;
+import com.liferay.document.library.kernel.service.DLAppLocalServiceUtil;
+import com.liferay.document.library.kernel.service.DLAppServiceUtil;
 import com.liferay.opensocial.shindig.util.SerializerUtil;
 import com.liferay.opensocial.shindig.util.ShindigUtil;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.json.JSONException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.model.Group;
+import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.repository.model.Folder;
+import com.liferay.portal.kernel.service.ServiceContext;
+import com.liferay.portal.kernel.service.UserLocalServiceUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
-import com.liferay.portal.model.Group;
-import com.liferay.portal.model.User;
-import com.liferay.portal.service.ServiceContext;
-import com.liferay.portal.service.UserLocalServiceUtil;
-import com.liferay.portlet.documentlibrary.model.DLFolder;
-import com.liferay.portlet.documentlibrary.model.DLFolderConstants;
-import com.liferay.portlet.documentlibrary.service.DLAppLocalServiceUtil;
-import com.liferay.portlet.documentlibrary.service.DLAppServiceUtil;
-import com.liferay.portlet.social.model.SocialRelationConstants;
+import com.liferay.social.kernel.model.SocialRelationConstants;
 
 import java.util.ArrayList;
 import java.util.List;

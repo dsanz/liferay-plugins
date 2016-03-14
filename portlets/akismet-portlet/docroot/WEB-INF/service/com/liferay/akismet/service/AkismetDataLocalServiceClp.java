@@ -14,12 +14,15 @@
 
 package com.liferay.akismet.service;
 
-import com.liferay.portal.service.InvokableLocalService;
+import aQute.bnd.annotation.ProviderType;
+
+import com.liferay.portal.kernel.service.InvokableLocalService;
 
 /**
  * @author Brian Wing Shun Chan
  * @generated
  */
+@ProviderType
 public class AkismetDataLocalServiceClp implements AkismetDataLocalService {
 	public AkismetDataLocalServiceClp(
 		InvokableLocalService invokableLocalService) {
@@ -56,7 +59,7 @@ public class AkismetDataLocalServiceClp implements AkismetDataLocalService {
 		_methodName6 = "deletePersistedModel";
 
 		_methodParameterTypes6 = new String[] {
-				"com.liferay.portal.model.PersistedModel"
+				"com.liferay.portal.kernel.model.PersistedModel"
 			};
 
 		_methodName7 = "dynamicQuery";
@@ -119,17 +122,17 @@ public class AkismetDataLocalServiceClp implements AkismetDataLocalService {
 
 		_methodParameterTypes18 = new String[] {  };
 
-		_methodName19 = "getBeanIdentifier";
+		_methodName19 = "getIndexableActionableDynamicQuery";
 
 		_methodParameterTypes19 = new String[] {  };
 
-		_methodName20 = "getPersistedModel";
+		_methodName20 = "getOSGiServiceIdentifier";
 
-		_methodParameterTypes20 = new String[] { "java.io.Serializable" };
+		_methodParameterTypes20 = new String[] {  };
 
-		_methodName22 = "setBeanIdentifier";
+		_methodName21 = "getPersistedModel";
 
-		_methodParameterTypes22 = new String[] { "java.lang.String" };
+		_methodParameterTypes21 = new String[] { "java.io.Serializable" };
 
 		_methodName23 = "updateAkismetData";
 
@@ -295,8 +298,8 @@ public class AkismetDataLocalServiceClp implements AkismetDataLocalService {
 	}
 
 	@Override
-	public com.liferay.portal.model.PersistedModel deletePersistedModel(
-		com.liferay.portal.model.PersistedModel persistedModel)
+	public com.liferay.portal.kernel.model.PersistedModel deletePersistedModel(
+		com.liferay.portal.kernel.model.PersistedModel persistedModel)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		Object returnObj = null;
 
@@ -321,7 +324,7 @@ public class AkismetDataLocalServiceClp implements AkismetDataLocalService {
 			}
 		}
 
-		return (com.liferay.portal.model.PersistedModel)ClpSerializer.translateOutput(returnObj);
+		return (com.liferay.portal.kernel.model.PersistedModel)ClpSerializer.translateOutput(returnObj);
 	}
 
 	@Override
@@ -647,7 +650,7 @@ public class AkismetDataLocalServiceClp implements AkismetDataLocalService {
 	}
 
 	@Override
-	public java.lang.String getBeanIdentifier() {
+	public com.liferay.portal.kernel.dao.orm.IndexableActionableDynamicQuery getIndexableActionableDynamicQuery() {
 		Object returnObj = null;
 
 		try {
@@ -666,18 +669,41 @@ public class AkismetDataLocalServiceClp implements AkismetDataLocalService {
 			}
 		}
 
+		return (com.liferay.portal.kernel.dao.orm.IndexableActionableDynamicQuery)ClpSerializer.translateOutput(returnObj);
+	}
+
+	@Override
+	public java.lang.String getOSGiServiceIdentifier() {
+		Object returnObj = null;
+
+		try {
+			returnObj = _invokableLocalService.invokeMethod(_methodName20,
+					_methodParameterTypes20, new Object[] {  });
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
 		return (java.lang.String)ClpSerializer.translateOutput(returnObj);
 	}
 
 	@Override
-	public com.liferay.portal.model.PersistedModel getPersistedModel(
+	public com.liferay.portal.kernel.model.PersistedModel getPersistedModel(
 		java.io.Serializable primaryKeyObj)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName20,
-					_methodParameterTypes20,
+			returnObj = _invokableLocalService.invokeMethod(_methodName21,
+					_methodParameterTypes21,
 					new Object[] { ClpSerializer.translateInput(primaryKeyObj) });
 		}
 		catch (Throwable t) {
@@ -696,7 +722,7 @@ public class AkismetDataLocalServiceClp implements AkismetDataLocalService {
 			}
 		}
 
-		return (com.liferay.portal.model.PersistedModel)ClpSerializer.translateOutput(returnObj);
+		return (com.liferay.portal.kernel.model.PersistedModel)ClpSerializer.translateOutput(returnObj);
 	}
 
 	@Override
@@ -704,26 +730,6 @@ public class AkismetDataLocalServiceClp implements AkismetDataLocalService {
 		java.lang.String[] parameterTypes, java.lang.Object[] arguments)
 		throws java.lang.Throwable {
 		throw new UnsupportedOperationException();
-	}
-
-	@Override
-	public void setBeanIdentifier(java.lang.String beanIdentifier) {
-		try {
-			_invokableLocalService.invokeMethod(_methodName22,
-				_methodParameterTypes22,
-				new Object[] { ClpSerializer.translateInput(beanIdentifier) });
-		}
-		catch (Throwable t) {
-			t = ClpSerializer.translateThrowable(t);
-
-			if (t instanceof RuntimeException) {
-				throw (RuntimeException)t;
-			}
-			else {
-				throw new RuntimeException(t.getClass().getName() +
-					" is not a valid exception");
-			}
-		}
 	}
 
 	@Override
@@ -838,8 +844,8 @@ public class AkismetDataLocalServiceClp implements AkismetDataLocalService {
 	private String[] _methodParameterTypes19;
 	private String _methodName20;
 	private String[] _methodParameterTypes20;
-	private String _methodName22;
-	private String[] _methodParameterTypes22;
+	private String _methodName21;
+	private String[] _methodParameterTypes21;
 	private String _methodName23;
 	private String[] _methodParameterTypes23;
 	private String _methodName24;

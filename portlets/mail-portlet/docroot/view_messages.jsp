@@ -64,14 +64,14 @@ MailManager mailManager = MailManager.getInstance(request);
 			</aui:nav-item>
 
 			<aui:nav-bar-search cssClass="form-search pull-right search-messages">
-				<liferay-ui:input-search id="keywords" placeholder='<%= LanguageUtil.get(locale, "keywords") %>' title='<%= LanguageUtil.get(locale, "search-messages") %>' />
+				<liferay-ui:input-search id="keywords" placeholder='<%= LanguageUtil.get(request, "keywords") %>' title='<%= LanguageUtil.get(request, "search-messages") %>' />
 			</aui:nav-bar-search>
 		</aui:nav>
 	</aui:nav-bar>
 
 	<c:choose>
 		<c:when test="<%= messagesDisplay.getMessageCount() == 0 %>">
-			<aui:layout>
+			<div class="alert alert-info">
 				<c:choose>
 					<c:when test="<%= Validator.isNull(keywords) %>">
 						<liferay-ui:message key="there-are-no-message-in-this-folder" />
@@ -80,7 +80,7 @@ MailManager mailManager = MailManager.getInstance(request);
 						<liferay-ui:message key="no-messages-matched-your-search" />
 					</c:otherwise>
 				</c:choose>
-			</aui:layout>
+			</div>
 		</c:when>
 		<c:otherwise>
 			<div class="table-container">

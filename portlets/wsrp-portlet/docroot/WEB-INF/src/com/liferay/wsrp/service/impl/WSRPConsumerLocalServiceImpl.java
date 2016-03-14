@@ -14,10 +14,14 @@
 
 package com.liferay.wsrp.service.impl;
 
-import com.liferay.counter.service.CounterLocalServiceUtil;
+import com.liferay.counter.kernel.service.CounterLocalServiceUtil;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.portal.kernel.model.Company;
+import com.liferay.portal.kernel.model.SystemEventConstants;
+import com.liferay.portal.kernel.service.CompanyLocalServiceUtil;
+import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.systemevent.SystemEvent;
 import com.liferay.portal.kernel.transaction.Propagation;
 import com.liferay.portal.kernel.transaction.Transactional;
@@ -25,13 +29,9 @@ import com.liferay.portal.kernel.util.ListUtil;
 import com.liferay.portal.kernel.util.ReleaseInfo;
 import com.liferay.portal.kernel.util.UnicodeProperties;
 import com.liferay.portal.kernel.util.Validator;
-import com.liferay.portal.model.Company;
-import com.liferay.portal.model.SystemEventConstants;
-import com.liferay.portal.service.CompanyLocalServiceUtil;
-import com.liferay.portal.service.ServiceContext;
-import com.liferay.wsrp.NoSuchConsumerException;
-import com.liferay.wsrp.WSRPConsumerNameException;
-import com.liferay.wsrp.WSRPConsumerWSDLException;
+import com.liferay.wsrp.exception.NoSuchConsumerException;
+import com.liferay.wsrp.exception.WSRPConsumerNameException;
+import com.liferay.wsrp.exception.WSRPConsumerWSDLException;
 import com.liferay.wsrp.model.WSRPConsumer;
 import com.liferay.wsrp.model.WSRPConsumerPortlet;
 import com.liferay.wsrp.service.base.WSRPConsumerLocalServiceBaseImpl;

@@ -14,16 +14,16 @@
 
 package com.liferay.opensocial.admin.lar;
 
+import com.liferay.exportimport.kernel.lar.BaseStagedModelDataHandler;
+import com.liferay.exportimport.kernel.lar.ExportImportPathUtil;
+import com.liferay.exportimport.kernel.lar.PortletDataContext;
 import com.liferay.opensocial.model.Gadget;
 import com.liferay.opensocial.service.GadgetLocalServiceUtil;
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.lar.BaseStagedModelDataHandler;
-import com.liferay.portal.kernel.lar.ExportImportPathUtil;
-import com.liferay.portal.kernel.lar.PortletDataContext;
+import com.liferay.portal.kernel.model.Group;
+import com.liferay.portal.kernel.service.GroupLocalServiceUtil;
+import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.xml.Element;
-import com.liferay.portal.model.Group;
-import com.liferay.portal.service.GroupLocalServiceUtil;
-import com.liferay.portal.service.ServiceContext;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,6 +37,11 @@ public class GadgetStagedModelDataHandler
 	public static final String[] CLASS_NAMES = {Gadget.class.getName()};
 
 	@Override
+	public void deleteStagedModel(Gadget gadget) {
+		GadgetLocalServiceUtil.deleteGadget(gadget);
+	}
+
+	@Override
 	public void deleteStagedModel(
 			String uuid, long groupId, String className, String extraData)
 		throws PortalException {
@@ -47,7 +52,7 @@ public class GadgetStagedModelDataHandler
 			uuid, group.getCompanyId());
 
 		if (gadget != null) {
-			GadgetLocalServiceUtil.deleteGadget(gadget);
+			deleteStagedModel(gadget);
 		}
 	}
 

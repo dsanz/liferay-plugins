@@ -14,11 +14,14 @@
 
 package com.liferay.opensocial.model.impl;
 
+import aQute.bnd.annotation.ProviderType;
+
 import com.liferay.opensocial.model.OAuthConsumer;
 
+import com.liferay.portal.kernel.model.CacheModel;
+import com.liferay.portal.kernel.util.HashUtil;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringPool;
-import com.liferay.portal.model.CacheModel;
 
 import java.io.Externalizable;
 import java.io.IOException;
@@ -34,8 +37,33 @@ import java.util.Date;
  * @see OAuthConsumer
  * @generated
  */
+@ProviderType
 public class OAuthConsumerCacheModel implements CacheModel<OAuthConsumer>,
 	Externalizable {
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+
+		if (!(obj instanceof OAuthConsumerCacheModel)) {
+			return false;
+		}
+
+		OAuthConsumerCacheModel oAuthConsumerCacheModel = (OAuthConsumerCacheModel)obj;
+
+		if (oAuthConsumerId == oAuthConsumerCacheModel.oAuthConsumerId) {
+			return true;
+		}
+
+		return false;
+	}
+
+	@Override
+	public int hashCode() {
+		return HashUtil.hash(0, oAuthConsumerId);
+	}
+
 	@Override
 	public String toString() {
 		StringBundler sb = new StringBundler(19);
@@ -127,6 +155,7 @@ public class OAuthConsumerCacheModel implements CacheModel<OAuthConsumer>,
 	@Override
 	public void readExternal(ObjectInput objectInput) throws IOException {
 		oAuthConsumerId = objectInput.readLong();
+
 		companyId = objectInput.readLong();
 		createDate = objectInput.readLong();
 		modifiedDate = objectInput.readLong();
@@ -141,6 +170,7 @@ public class OAuthConsumerCacheModel implements CacheModel<OAuthConsumer>,
 	public void writeExternal(ObjectOutput objectOutput)
 		throws IOException {
 		objectOutput.writeLong(oAuthConsumerId);
+
 		objectOutput.writeLong(companyId);
 		objectOutput.writeLong(createDate);
 		objectOutput.writeLong(modifiedDate);

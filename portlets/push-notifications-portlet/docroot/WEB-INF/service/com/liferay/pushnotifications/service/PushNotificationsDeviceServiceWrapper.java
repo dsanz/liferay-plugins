@@ -16,7 +16,7 @@ package com.liferay.pushnotifications.service;
 
 import aQute.bnd.annotation.ProviderType;
 
-import com.liferay.portal.service.ServiceWrapper;
+import com.liferay.portal.kernel.service.ServiceWrapper;
 
 /**
  * Provides a wrapper for {@link PushNotificationsDeviceService}.
@@ -50,13 +50,13 @@ public class PushNotificationsDeviceServiceWrapper
 	}
 
 	/**
-	* Returns the Spring bean ID for this bean.
+	* Returns the OSGi service identifier.
 	*
-	* @return the Spring bean ID for this bean
+	* @return the OSGi service identifier
 	*/
 	@Override
-	public java.lang.String getBeanIdentifier() {
-		return _pushNotificationsDeviceService.getBeanIdentifier();
+	public java.lang.String getOSGiServiceIdentifier() {
+		return _pushNotificationsDeviceService.getOSGiServiceIdentifier();
 	}
 
 	@Override
@@ -79,33 +79,6 @@ public class PushNotificationsDeviceServiceWrapper
 	public void sendPushNotification(long[] toUserIds, java.lang.String payload)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		_pushNotificationsDeviceService.sendPushNotification(toUserIds, payload);
-	}
-
-	/**
-	* Sets the Spring bean ID for this bean.
-	*
-	* @param beanIdentifier the Spring bean ID for this bean
-	*/
-	@Override
-	public void setBeanIdentifier(java.lang.String beanIdentifier) {
-		_pushNotificationsDeviceService.setBeanIdentifier(beanIdentifier);
-	}
-
-	/**
-	 * @deprecated As of 6.1.0, replaced by {@link #getWrappedService}
-	 */
-	@Deprecated
-	public PushNotificationsDeviceService getWrappedPushNotificationsDeviceService() {
-		return _pushNotificationsDeviceService;
-	}
-
-	/**
-	 * @deprecated As of 6.1.0, replaced by {@link #setWrappedService}
-	 */
-	@Deprecated
-	public void setWrappedPushNotificationsDeviceService(
-		PushNotificationsDeviceService pushNotificationsDeviceService) {
-		_pushNotificationsDeviceService = pushNotificationsDeviceService;
 	}
 
 	@Override

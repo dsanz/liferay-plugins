@@ -14,29 +14,38 @@
 
 package com.liferay.sync.servlet;
 
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.util.StringPool;
 
+import java.io.IOException;
 import java.io.InputStream;
 
 /**
  * @author Dennis Ju
  */
-public class DownloadServletInputStream {
+public class DownloadServletInputStream extends InputStream {
 
 	public DownloadServletInputStream(InputStream inputStream, long size) {
-		this(inputStream, StringPool.BLANK, size);
+		this(inputStream, StringPool.BLANK, StringPool.BLANK, size);
 	}
 
 	public DownloadServletInputStream(
-		InputStream inputStream, String mimeType, long size) {
+		InputStream inputStream, String fileName, String mimeType, long size) {
 
 		_inputStream = inputStream;
+		_fileName = fileName;
 		_mimeType = mimeType;
 		_size = size;
 	}
 
-	public InputStream getInputStream() {
-		return _inputStream;
+	@Override
+	public void close() throws IOException {
+		_inputStream.close();
+	}
+
+	public String getFileName() {
+		return _fileName;
 	}
 
 	public String getMimeType() {
@@ -47,6 +56,30 @@ public class DownloadServletInputStream {
 		return _size;
 	}
 
+	@Override
+	public int read() throws IOException {
+		return _inputStream.read();
+	}
+
+	@Override
+	public int read(byte[] b, int off, int len) throws IOException {
+
+		// SYNC-1550
+
+		try {
+			return _inputStream.read(b, off, len);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new IOException(e);
+		}
+	}
+
+	private static Log _log = LogFactoryUtil.getLog(
+		DownloadServletInputStream.class);
+
+	private String _fileName;
 	private InputStream _inputStream;
 	private String _mimeType;
 	private long _size;

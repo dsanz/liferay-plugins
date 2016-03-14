@@ -16,8 +16,13 @@ package com.liferay.microblogs.model;
 
 import aQute.bnd.annotation.ProviderType;
 
+import com.liferay.expando.kernel.model.ExpandoBridge;
+
+import com.liferay.portal.kernel.model.ModelWrapper;
+import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.util.Validator;
-import com.liferay.portal.model.ModelWrapper;
+
+import java.io.Serializable;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -188,7 +193,7 @@ public class MicroblogsEntryWrapper implements MicroblogsEntry,
 	* @return the create date of this microblogs entry
 	*/
 	@Override
-	public java.util.Date getCreateDate() {
+	public Date getCreateDate() {
 		return _microblogsEntry.getCreateDate();
 	}
 
@@ -213,7 +218,7 @@ public class MicroblogsEntryWrapper implements MicroblogsEntry,
 	}
 
 	@Override
-	public com.liferay.portlet.expando.model.ExpandoBridge getExpandoBridge() {
+	public ExpandoBridge getExpandoBridge() {
 		return _microblogsEntry.getExpandoBridge();
 	}
 
@@ -233,7 +238,7 @@ public class MicroblogsEntryWrapper implements MicroblogsEntry,
 	* @return the modified date of this microblogs entry
 	*/
 	@Override
-	public java.util.Date getModifiedDate() {
+	public Date getModifiedDate() {
 		return _microblogsEntry.getModifiedDate();
 	}
 
@@ -264,7 +269,7 @@ public class MicroblogsEntryWrapper implements MicroblogsEntry,
 	}
 
 	@Override
-	public java.io.Serializable getPrimaryKeyObj() {
+	public Serializable getPrimaryKeyObj() {
 		return _microblogsEntry.getPrimaryKeyObj();
 	}
 
@@ -374,7 +379,7 @@ public class MicroblogsEntryWrapper implements MicroblogsEntry,
 	* @param createDate the create date of this microblogs entry
 	*/
 	@Override
-	public void setCreateDate(java.util.Date createDate) {
+	public void setCreateDate(Date createDate) {
 		_microblogsEntry.setCreateDate(createDate);
 	}
 
@@ -400,19 +405,17 @@ public class MicroblogsEntryWrapper implements MicroblogsEntry,
 
 	@Override
 	public void setExpandoBridgeAttributes(
-		com.liferay.portal.model.BaseModel<?> baseModel) {
+		com.liferay.portal.kernel.model.BaseModel<?> baseModel) {
 		_microblogsEntry.setExpandoBridgeAttributes(baseModel);
 	}
 
 	@Override
-	public void setExpandoBridgeAttributes(
-		com.liferay.portlet.expando.model.ExpandoBridge expandoBridge) {
+	public void setExpandoBridgeAttributes(ExpandoBridge expandoBridge) {
 		_microblogsEntry.setExpandoBridgeAttributes(expandoBridge);
 	}
 
 	@Override
-	public void setExpandoBridgeAttributes(
-		com.liferay.portal.service.ServiceContext serviceContext) {
+	public void setExpandoBridgeAttributes(ServiceContext serviceContext) {
 		_microblogsEntry.setExpandoBridgeAttributes(serviceContext);
 	}
 
@@ -432,7 +435,7 @@ public class MicroblogsEntryWrapper implements MicroblogsEntry,
 	* @param modifiedDate the modified date of this microblogs entry
 	*/
 	@Override
-	public void setModifiedDate(java.util.Date modifiedDate) {
+	public void setModifiedDate(Date modifiedDate) {
 		_microblogsEntry.setModifiedDate(modifiedDate);
 	}
 
@@ -462,7 +465,7 @@ public class MicroblogsEntryWrapper implements MicroblogsEntry,
 	}
 
 	@Override
-	public void setPrimaryKeyObj(java.io.Serializable primaryKeyObj) {
+	public void setPrimaryKeyObj(Serializable primaryKeyObj) {
 		_microblogsEntry.setPrimaryKeyObj(primaryKeyObj);
 	}
 
@@ -517,7 +520,7 @@ public class MicroblogsEntryWrapper implements MicroblogsEntry,
 	}
 
 	@Override
-	public com.liferay.portal.model.CacheModel<com.liferay.microblogs.model.MicroblogsEntry> toCacheModel() {
+	public com.liferay.portal.kernel.model.CacheModel<com.liferay.microblogs.model.MicroblogsEntry> toCacheModel() {
 		return _microblogsEntry.toCacheModel();
 	}
 
@@ -559,14 +562,6 @@ public class MicroblogsEntryWrapper implements MicroblogsEntry,
 		}
 
 		return false;
-	}
-
-	/**
-	 * @deprecated As of 6.1.0, replaced by {@link #getWrappedModel}
-	 */
-	@Deprecated
-	public MicroblogsEntry getWrappedMicroblogsEntry() {
-		return _microblogsEntry;
 	}
 
 	@Override

@@ -19,7 +19,7 @@
 <%
 KBArticle kbArticle = (KBArticle)request.getAttribute(WebKeys.KNOWLEDGE_BASE_KB_ARTICLE);
 
-if (enableKBArticleViewCountIncrement && !kbArticle.isDraft() && !kbArticle.isPending()) {
+if (enableKBArticleViewCountIncrement && kbArticle.isApproved()) {
 	KBArticle latestKBArticle = KBArticleLocalServiceUtil.getLatestKBArticle(kbArticle.getResourcePrimKey(), WorkflowConstants.STATUS_APPROVED);
 
 	KBArticleLocalServiceUtil.updateViewCount(themeDisplay.getUserId(), kbArticle.getResourcePrimKey(), latestKBArticle.getViewCount() + 1);
@@ -79,6 +79,10 @@ request.setAttribute("article_icons.jsp-kb_article", kbArticle);
 	</c:if>
 
 	<liferay-util:include page="/admin/article_ratings.jsp" servletContext="<%= application %>" />
+
+	<c:if test="<%= showKBArticleAttachments %>">
+		<liferay-util:include page="/admin/article_attachments.jsp" servletContext="<%= application %>" />
+	</c:if>
 
 	<c:if test="<%= !rootPortletId.equals(PortletKeys.KNOWLEDGE_BASE_ARTICLE) %>">
 		<liferay-util:include page="/admin/article_siblings.jsp" servletContext="<%= application %>" />

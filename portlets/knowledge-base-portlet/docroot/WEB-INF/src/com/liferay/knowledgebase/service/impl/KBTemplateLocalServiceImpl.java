@@ -14,10 +14,10 @@
 
 package com.liferay.knowledgebase.service.impl;
 
-import com.liferay.knowledgebase.KBTemplateContentException;
-import com.liferay.knowledgebase.KBTemplateTitleException;
-import com.liferay.knowledgebase.NoSuchTemplateException;
 import com.liferay.knowledgebase.admin.social.AdminActivityKeys;
+import com.liferay.knowledgebase.exception.KBTemplateContentException;
+import com.liferay.knowledgebase.exception.KBTemplateTitleException;
+import com.liferay.knowledgebase.exception.NoSuchTemplateException;
 import com.liferay.knowledgebase.model.KBTemplate;
 import com.liferay.knowledgebase.service.base.KBTemplateLocalServiceBaseImpl;
 import com.liferay.knowledgebase.util.KnowledgeBaseUtil;
@@ -33,15 +33,15 @@ import com.liferay.portal.kernel.dao.orm.RestrictionsFactoryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.json.JSONFactoryUtil;
 import com.liferay.portal.kernel.json.JSONObject;
+import com.liferay.portal.kernel.model.ResourceConstants;
+import com.liferay.portal.kernel.model.SystemEventConstants;
+import com.liferay.portal.kernel.model.User;
+import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.systemevent.SystemEvent;
 import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Validator;
-import com.liferay.portal.model.ResourceConstants;
-import com.liferay.portal.model.SystemEventConstants;
-import com.liferay.portal.model.User;
-import com.liferay.portal.service.ServiceContext;
 
 import java.util.Date;
 import java.util.HashMap;

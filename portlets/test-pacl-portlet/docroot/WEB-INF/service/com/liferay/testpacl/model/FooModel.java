@@ -14,13 +14,16 @@
 
 package com.liferay.testpacl.model;
 
-import com.liferay.portal.kernel.bean.AutoEscape;
-import com.liferay.portal.model.BaseModel;
-import com.liferay.portal.model.CacheModel;
-import com.liferay.portal.model.GroupedModel;
-import com.liferay.portal.service.ServiceContext;
+import aQute.bnd.annotation.ProviderType;
 
-import com.liferay.portlet.expando.model.ExpandoBridge;
+import com.liferay.expando.kernel.model.ExpandoBridge;
+
+import com.liferay.portal.kernel.bean.AutoEscape;
+import com.liferay.portal.kernel.model.BaseModel;
+import com.liferay.portal.kernel.model.CacheModel;
+import com.liferay.portal.kernel.model.GroupedModel;
+import com.liferay.portal.kernel.model.ShardedModel;
+import com.liferay.portal.kernel.service.ServiceContext;
 
 import java.io.Serializable;
 
@@ -39,7 +42,8 @@ import java.util.Date;
  * @see com.liferay.testpacl.model.impl.FooModelImpl
  * @generated
  */
-public interface FooModel extends BaseModel<Foo>, GroupedModel {
+@ProviderType
+public interface FooModel extends BaseModel<Foo>, GroupedModel, ShardedModel {
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
@@ -303,19 +307,19 @@ public interface FooModel extends BaseModel<Foo>, GroupedModel {
 	public Object clone();
 
 	@Override
-	public int compareTo(Foo foo);
+	public int compareTo(com.liferay.testpacl.model.Foo foo);
 
 	@Override
 	public int hashCode();
 
 	@Override
-	public CacheModel<Foo> toCacheModel();
+	public CacheModel<com.liferay.testpacl.model.Foo> toCacheModel();
 
 	@Override
-	public Foo toEscapedModel();
+	public com.liferay.testpacl.model.Foo toEscapedModel();
 
 	@Override
-	public Foo toUnescapedModel();
+	public com.liferay.testpacl.model.Foo toUnescapedModel();
 
 	@Override
 	public String toString();

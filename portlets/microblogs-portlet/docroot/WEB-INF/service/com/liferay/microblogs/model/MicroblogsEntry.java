@@ -16,7 +16,9 @@ package com.liferay.microblogs.model;
 
 import aQute.bnd.annotation.ProviderType;
 
-import com.liferay.portal.model.PersistedModel;
+import com.liferay.portal.kernel.annotation.ImplementationClassName;
+import com.liferay.portal.kernel.model.PersistedModel;
+import com.liferay.portal.kernel.util.Accessor;
 
 /**
  * The extended model interface for the MicroblogsEntry service. Represents a row in the &quot;MicroblogsEntry&quot; database table, with each column mapped to a property of this class.
@@ -27,6 +29,7 @@ import com.liferay.portal.model.PersistedModel;
  * @see com.liferay.microblogs.model.impl.MicroblogsEntryModelImpl
  * @generated
  */
+@ImplementationClassName("com.liferay.microblogs.model.impl.MicroblogsEntryImpl")
 @ProviderType
 public interface MicroblogsEntry extends MicroblogsEntryModel, PersistedModel {
 	/*
@@ -34,6 +37,24 @@ public interface MicroblogsEntry extends MicroblogsEntryModel, PersistedModel {
 	 *
 	 * Never modify this interface directly. Add methods to {@link com.liferay.microblogs.model.impl.MicroblogsEntryImpl} and rerun ServiceBuilder to automatically copy the method declarations to this interface.
 	 */
+	public static final Accessor<MicroblogsEntry, Long> MICROBLOGS_ENTRY_ID_ACCESSOR =
+		new Accessor<MicroblogsEntry, Long>() {
+			@Override
+			public Long get(MicroblogsEntry microblogsEntry) {
+				return microblogsEntry.getMicroblogsEntryId();
+			}
+
+			@Override
+			public Class<Long> getAttributeClass() {
+				return Long.class;
+			}
+
+			@Override
+			public Class<MicroblogsEntry> getTypeClass() {
+				return MicroblogsEntry.class;
+			}
+		};
+
 	public long fetchParentMicroblogsEntryUserId();
 
 	public long getParentMicroblogsEntryUserId()

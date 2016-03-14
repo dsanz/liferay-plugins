@@ -16,7 +16,7 @@ package com.liferay.socialcoding.service;
 
 import aQute.bnd.annotation.ProviderType;
 
-import com.liferay.portal.service.InvokableLocalService;
+import com.liferay.portal.kernel.service.InvokableLocalService;
 
 /**
  * @author Brian Wing Shun Chan
@@ -51,7 +51,7 @@ public class JIRAChangeItemLocalServiceClp implements JIRAChangeItemLocalService
 		_methodName4 = "deletePersistedModel";
 
 		_methodParameterTypes4 = new String[] {
-				"com.liferay.portal.model.PersistedModel"
+				"com.liferay.portal.kernel.model.PersistedModel"
 			};
 
 		_methodName5 = "dynamicQuery";
@@ -98,7 +98,7 @@ public class JIRAChangeItemLocalServiceClp implements JIRAChangeItemLocalService
 
 		_methodParameterTypes12 = new String[] {  };
 
-		_methodName13 = "getBeanIdentifier";
+		_methodName13 = "getIndexableActionableDynamicQuery";
 
 		_methodParameterTypes13 = new String[] {  };
 
@@ -118,13 +118,13 @@ public class JIRAChangeItemLocalServiceClp implements JIRAChangeItemLocalService
 
 		_methodParameterTypes17 = new String[] {  };
 
-		_methodName18 = "getPersistedModel";
+		_methodName18 = "getOSGiServiceIdentifier";
 
-		_methodParameterTypes18 = new String[] { "java.io.Serializable" };
+		_methodParameterTypes18 = new String[] {  };
 
-		_methodName20 = "setBeanIdentifier";
+		_methodName19 = "getPersistedModel";
 
-		_methodParameterTypes20 = new String[] { "java.lang.String" };
+		_methodParameterTypes19 = new String[] { "java.io.Serializable" };
 
 		_methodName21 = "updateJIRAChangeItem";
 
@@ -237,8 +237,8 @@ public class JIRAChangeItemLocalServiceClp implements JIRAChangeItemLocalService
 	}
 
 	@Override
-	public com.liferay.portal.model.PersistedModel deletePersistedModel(
-		com.liferay.portal.model.PersistedModel persistedModel)
+	public com.liferay.portal.kernel.model.PersistedModel deletePersistedModel(
+		com.liferay.portal.kernel.model.PersistedModel persistedModel)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		Object returnObj = null;
 
@@ -263,7 +263,7 @@ public class JIRAChangeItemLocalServiceClp implements JIRAChangeItemLocalService
 			}
 		}
 
-		return (com.liferay.portal.model.PersistedModel)ClpSerializer.translateOutput(returnObj);
+		return (com.liferay.portal.kernel.model.PersistedModel)ClpSerializer.translateOutput(returnObj);
 	}
 
 	@Override
@@ -484,7 +484,7 @@ public class JIRAChangeItemLocalServiceClp implements JIRAChangeItemLocalService
 	}
 
 	@Override
-	public java.lang.String getBeanIdentifier() {
+	public com.liferay.portal.kernel.dao.orm.IndexableActionableDynamicQuery getIndexableActionableDynamicQuery() {
 		Object returnObj = null;
 
 		try {
@@ -503,7 +503,7 @@ public class JIRAChangeItemLocalServiceClp implements JIRAChangeItemLocalService
 			}
 		}
 
-		return (java.lang.String)ClpSerializer.translateOutput(returnObj);
+		return (com.liferay.portal.kernel.dao.orm.IndexableActionableDynamicQuery)ClpSerializer.translateOutput(returnObj);
 	}
 
 	@Override
@@ -607,14 +607,37 @@ public class JIRAChangeItemLocalServiceClp implements JIRAChangeItemLocalService
 	}
 
 	@Override
-	public com.liferay.portal.model.PersistedModel getPersistedModel(
+	public java.lang.String getOSGiServiceIdentifier() {
+		Object returnObj = null;
+
+		try {
+			returnObj = _invokableLocalService.invokeMethod(_methodName18,
+					_methodParameterTypes18, new Object[] {  });
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return (java.lang.String)ClpSerializer.translateOutput(returnObj);
+	}
+
+	@Override
+	public com.liferay.portal.kernel.model.PersistedModel getPersistedModel(
 		java.io.Serializable primaryKeyObj)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName18,
-					_methodParameterTypes18,
+			returnObj = _invokableLocalService.invokeMethod(_methodName19,
+					_methodParameterTypes19,
 					new Object[] { ClpSerializer.translateInput(primaryKeyObj) });
 		}
 		catch (Throwable t) {
@@ -633,7 +656,7 @@ public class JIRAChangeItemLocalServiceClp implements JIRAChangeItemLocalService
 			}
 		}
 
-		return (com.liferay.portal.model.PersistedModel)ClpSerializer.translateOutput(returnObj);
+		return (com.liferay.portal.kernel.model.PersistedModel)ClpSerializer.translateOutput(returnObj);
 	}
 
 	@Override
@@ -641,26 +664,6 @@ public class JIRAChangeItemLocalServiceClp implements JIRAChangeItemLocalService
 		java.lang.String[] parameterTypes, java.lang.Object[] arguments)
 		throws java.lang.Throwable {
 		throw new UnsupportedOperationException();
-	}
-
-	@Override
-	public void setBeanIdentifier(java.lang.String beanIdentifier) {
-		try {
-			_invokableLocalService.invokeMethod(_methodName20,
-				_methodParameterTypes20,
-				new Object[] { ClpSerializer.translateInput(beanIdentifier) });
-		}
-		catch (Throwable t) {
-			t = ClpSerializer.translateThrowable(t);
-
-			if (t instanceof RuntimeException) {
-				throw (RuntimeException)t;
-			}
-			else {
-				throw new RuntimeException(t.getClass().getName() +
-					" is not a valid exception");
-			}
-		}
 	}
 
 	@Override
@@ -727,8 +730,8 @@ public class JIRAChangeItemLocalServiceClp implements JIRAChangeItemLocalService
 	private String[] _methodParameterTypes17;
 	private String _methodName18;
 	private String[] _methodParameterTypes18;
-	private String _methodName20;
-	private String[] _methodParameterTypes20;
+	private String _methodName19;
+	private String[] _methodParameterTypes19;
 	private String _methodName21;
 	private String[] _methodParameterTypes21;
 }

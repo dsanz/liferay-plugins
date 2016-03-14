@@ -24,7 +24,8 @@
 	<aui:input name="subscriptionIds" type="hidden" />
 
 	<liferay-ui:error exception="<%= NoSuchSubscriptionException.class %>" message="the-subscription-could-not-be-found" />
-	<liferay-ui:error exception="<%= PrincipalException.class %>" message="you-do-not-have-the-required-permissions" />
+
+	<liferay-ui:error-principal />
 
 	<aui:fieldset>
 		<liferay-portlet:renderURL varImpl="iteratorURL" />
@@ -45,7 +46,7 @@
 			%>
 
 			<liferay-ui:search-container-row
-				className="com.liferay.portal.model.Subscription"
+				className="com.liferay.portal.kernel.model.Subscription"
 				escapedModel="<%= true %>"
 				keyProperty="subscriptionId"
 				modelVar="subscription"

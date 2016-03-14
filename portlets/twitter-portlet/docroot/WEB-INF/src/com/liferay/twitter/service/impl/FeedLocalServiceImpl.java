@@ -15,7 +15,6 @@
 package com.liferay.twitter.service.impl;
 
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
-import com.liferay.portal.kernel.dao.shard.ShardUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.json.JSONArray;
@@ -23,15 +22,15 @@ import com.liferay.portal.kernel.json.JSONFactoryUtil;
 import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.model.Contact;
+import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.kernel.util.OrderByComparator;
+import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.workflow.WorkflowConstants;
-import com.liferay.portal.model.Contact;
-import com.liferay.portal.model.User;
-import com.liferay.portal.util.PortalUtil;
-import com.liferay.portlet.social.service.SocialActivityLocalServiceUtil;
-import com.liferay.twitter.FeedTwitterScreenNameException;
+import com.liferay.social.kernel.service.SocialActivityLocalServiceUtil;
+import com.liferay.twitter.exception.FeedTwitterScreenNameException;
 import com.liferay.twitter.model.Feed;
 import com.liferay.twitter.service.base.FeedLocalServiceBaseImpl;
 import com.liferay.twitter.social.TwitterActivityKeys;
@@ -63,30 +62,23 @@ public class FeedLocalServiceImpl extends FeedLocalServiceBaseImpl {
 	}
 
 	public void updateFeeds(long companyId) {
-		ShardUtil.pushCompanyService(companyId);
+		LinkedHashMap<String, Object> userParams = new LinkedHashMap<>();
 
-		try {
-			LinkedHashMap<String, Object> userParams = new LinkedHashMap<>();
+		userParams.put("contactTwitterSn", Boolean.TRUE);
 
-			userParams.put("contactTwitterSn", Boolean.TRUE);
+		List<User> users = userLocalService.search(
+			companyId, null, WorkflowConstants.STATUS_APPROVED, userParams,
+			QueryUtil.ALL_POS, QueryUtil.ALL_POS, (OrderByComparator)null);
 
-			List<User> users = userLocalService.search(
-				companyId, null, WorkflowConstants.STATUS_APPROVED, userParams,
-				QueryUtil.ALL_POS, QueryUtil.ALL_POS, (OrderByComparator)null);
-
-			for (User user : users) {
-				try {
-					updateFeed(user);
-				}
-				catch (Exception e) {
-					if (_log.isWarnEnabled()) {
-						_log.warn(e, e);
-					}
+		for (User user : users) {
+			try {
+				updateFeed(user);
+			}
+			catch (Exception e) {
+				if (_log.isWarnEnabled()) {
+					_log.warn(e, e);
 				}
 			}
-		}
-		finally {
-			ShardUtil.popCompanyService();
 		}
 	}
 

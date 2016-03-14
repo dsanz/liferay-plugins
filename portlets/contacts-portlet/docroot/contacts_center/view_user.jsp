@@ -41,7 +41,7 @@ request.setAttribute("view_user.jsp-user", user2);
 <c:if test="<%= user2 != null %>">
 	<div class="contacts-profile <%= (user.getUserId() == user2.getUserId()) ? "my-profile" : StringPool.BLANK %>" id="<portlet:namespace />contactsProfile">
 		<c:if test="<%= (displayStyle == ContactsConstants.DISPLAY_STYLE_BASIC) || (displayStyle == ContactsConstants.DISPLAY_STYLE_FULL) %>">
-			<aui:layout cssClass="social-relations">
+			<div class="social-relations">
 
 				<%
 				boolean connection = SocialRelationLocalServiceUtil.hasRelation(themeDisplay.getUserId(), user2.getUserId(), SocialRelationConstants.TYPE_BI_CONNECTION);
@@ -52,7 +52,7 @@ request.setAttribute("view_user.jsp-user", user2);
 				<c:if test="<%= connection || follower || following %>">
 					<div class="lfr-asset-metadata">
 						<c:if test="<%= connection %>">
-							<span class="lfr-asset-icon lfr-asset-connection<%= (following || follower) ? StringPool.BLANK : " last" %>">
+							<span class="lfr-asset-connection<%= (following || follower) ? StringPool.BLANK : " last" %> lfr-asset-icon">
 								<i class="icon-user"></i>
 
 								<liferay-ui:message key="connection" />
@@ -60,7 +60,7 @@ request.setAttribute("view_user.jsp-user", user2);
 						</c:if>
 
 						<c:if test="<%= following %>">
-							<span class="lfr-asset-icon lfr-asset-following<%= follower ? StringPool.BLANK : " last" %>">
+							<span class="lfr-asset-following<%= follower ? StringPool.BLANK : " last" %> lfr-asset-icon">
 								<i class="icon-user"></i>
 
 								<liferay-ui:message key="following" />
@@ -77,7 +77,7 @@ request.setAttribute("view_user.jsp-user", user2);
 					</div>
 				</c:if>
 
-				<aui:layout cssClass="contacts-action">
+				<div class="contacts-action">
 					<c:choose>
 						<c:when test="<%= portletId.equals(PortletKeys.CONTACTS_CENTER) || portletId.equals(PortletKeys.MEMBERS) %>">
 
@@ -129,8 +129,8 @@ request.setAttribute("view_user.jsp-user", user2);
 							<liferay-util:include page="/contacts_center/user_toolbar.jsp" servletContext="<%= application %>" />
 						</c:otherwise>
 					</c:choose>
-				</aui:layout>
-			</aui:layout>
+				</div>
+			</div>
 
 			<div class="field-group lfr-detail-info" data-sectionId="details" data-title="<%= LanguageUtil.get(request, "details") %>">
 				<i class="icon-edit"></i>
@@ -161,9 +161,9 @@ request.setAttribute("view_user.jsp-user", user2);
 
 		<c:if test="<%= ((displayStyle == ContactsConstants.DISPLAY_STYLE_DETAIL) || (displayStyle == ContactsConstants.DISPLAY_STYLE_FULL) || ((themeDisplay.getUserId() == user2.getUserId()) && showCompleteYourProfile)) && UserPermissionUtil.contains(permissionChecker, user2.getUserId(), ActionKeys.VIEW) %>">
 			<div class="user-information" id="<portlet:namespace />userInformation">
-				<aui:layout>
+				<aui:row>
 					<c:if test="<%= showUsersInformation %>">
-						<aui:column columnWidth="<%= showSites ? 80 : 100 %>" cssClass="user-information-column-1">
+						<aui:col cssClass="user-information-column-1" width="<%= showSites ? 80 : 100 %>">
 							<div class="user-information-title">
 								<liferay-ui:message key="about" />
 							</div>
@@ -201,11 +201,11 @@ request.setAttribute("view_user.jsp-user", user2);
 							}
 							%>
 
-						</aui:column>
+						</aui:col>
 					</c:if>
 
 					<c:if test="<%= showSites || showTags %>">
-						<aui:column columnWidth="<%= showUsersInformation ? 20 : 100 %>" cssClass="user-information-column-2">
+						<aui:col cssClass="user-information-column-2" width="<%= showUsersInformation ? 20 : 100 %>">
 							<c:if test="<%= showSites %>">
 
 								<%
@@ -216,10 +216,10 @@ request.setAttribute("view_user.jsp-user", user2);
 								Group group = themeDisplay.getScopeGroup();
 
 								if (group.isUser()) {
-									groupParams.put("usersGroups", new Long(group.getClassPK()));
+									groupParams.put("usersGroups", Long.valueOf(group.getClassPK()));
 								}
 								else {
-									groupParams.put("usersGroups", new Long(themeDisplay.getUserId()));
+									groupParams.put("usersGroups", Long.valueOf(themeDisplay.getUserId()));
 								}
 
 								groupParams.put("active", Boolean.TRUE);
@@ -314,9 +314,9 @@ request.setAttribute("view_user.jsp-user", user2);
 									</c:otherwise>
 								</c:choose>
 							</c:if>
-						</aui:column>
+						</aui:col>
 					</c:if>
-				</aui:layout>
+				</aui:row>
 			</div>
 
 			<c:if test="<%= showRecentActivity && UserPermissionUtil.contains(permissionChecker, user2.getUserId(), ActionKeys.VIEW) %>">
@@ -364,7 +364,7 @@ request.setAttribute("view_user.jsp-user", user2);
 					uri = Liferay.Util.addParams('<portlet:namespace />extension=' + node.getAttribute('data-extension'), uri) || uri;
 				}
 
-				var dialog = Liferay.Util.Window.getWindow(
+				Liferay.Util.Window.getWindow(
 					{
 						dialog: {
 							align: {
@@ -382,7 +382,7 @@ request.setAttribute("view_user.jsp-user", user2);
 						title: node.getAttribute('data-title'),
 						uri: uri
 					}
-				)
+				);
 			};
 	</aui:script>
 </c:if>

@@ -16,7 +16,7 @@ package com.liferay.knowledgebase.service;
 
 import aQute.bnd.annotation.ProviderType;
 
-import com.liferay.portal.service.InvokableLocalService;
+import com.liferay.portal.kernel.service.InvokableLocalService;
 
 /**
  * @author Brian Wing Shun Chan
@@ -37,7 +37,8 @@ public class KBFolderLocalServiceClp implements KBFolderLocalService {
 
 		_methodParameterTypes1 = new String[] {
 				"long", "long", "long", "long", "java.lang.String",
-				"java.lang.String", "com.liferay.portal.service.ServiceContext"
+				"java.lang.String",
+				"com.liferay.portal.kernel.service.ServiceContext"
 			};
 
 		_methodName2 = "createKBFolder";
@@ -57,7 +58,7 @@ public class KBFolderLocalServiceClp implements KBFolderLocalService {
 		_methodName5 = "deletePersistedModel";
 
 		_methodParameterTypes5 = new String[] {
-				"com.liferay.portal.model.PersistedModel"
+				"com.liferay.portal.kernel.model.PersistedModel"
 			};
 
 		_methodName6 = "dynamicQuery";
@@ -118,15 +119,15 @@ public class KBFolderLocalServiceClp implements KBFolderLocalService {
 
 		_methodParameterTypes16 = new String[] {  };
 
-		_methodName17 = "getBeanIdentifier";
+		_methodName17 = "getExportActionableDynamicQuery";
 
-		_methodParameterTypes17 = new String[] {  };
-
-		_methodName18 = "getExportActionableDynamicQuery";
-
-		_methodParameterTypes18 = new String[] {
-				"com.liferay.portal.kernel.lar.PortletDataContext"
+		_methodParameterTypes17 = new String[] {
+				"com.liferay.exportimport.kernel.lar.PortletDataContext"
 			};
+
+		_methodName18 = "getIndexableActionableDynamicQuery";
+
+		_methodParameterTypes18 = new String[] {  };
 
 		_methodName19 = "getKBFolder";
 
@@ -169,17 +170,17 @@ public class KBFolderLocalServiceClp implements KBFolderLocalService {
 
 		_methodParameterTypes27 = new String[] { "long", "long" };
 
-		_methodName28 = "getPersistedModel";
+		_methodName28 = "getOSGiServiceIdentifier";
 
-		_methodParameterTypes28 = new String[] { "java.io.Serializable" };
+		_methodParameterTypes28 = new String[] {  };
 
-		_methodName30 = "moveKBFolder";
+		_methodName29 = "getPersistedModel";
 
-		_methodParameterTypes30 = new String[] { "long", "long" };
+		_methodParameterTypes29 = new String[] { "java.io.Serializable" };
 
-		_methodName31 = "setBeanIdentifier";
+		_methodName31 = "moveKBFolder";
 
-		_methodParameterTypes31 = new String[] { "java.lang.String" };
+		_methodParameterTypes31 = new String[] { "long", "long" };
 
 		_methodName32 = "updateKBFolder";
 
@@ -224,7 +225,7 @@ public class KBFolderLocalServiceClp implements KBFolderLocalService {
 		long groupId, long parentResourceClassNameId,
 		long parentResourcePrimKey, java.lang.String name,
 		java.lang.String description,
-		com.liferay.portal.service.ServiceContext serviceContext)
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		Object returnObj = null;
 
@@ -345,8 +346,8 @@ public class KBFolderLocalServiceClp implements KBFolderLocalService {
 	}
 
 	@Override
-	public com.liferay.portal.model.PersistedModel deletePersistedModel(
-		com.liferay.portal.model.PersistedModel persistedModel)
+	public com.liferay.portal.kernel.model.PersistedModel deletePersistedModel(
+		com.liferay.portal.kernel.model.PersistedModel persistedModel)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		Object returnObj = null;
 
@@ -371,7 +372,7 @@ public class KBFolderLocalServiceClp implements KBFolderLocalService {
 			}
 		}
 
-		return (com.liferay.portal.model.PersistedModel)ClpSerializer.translateOutput(returnObj);
+		return (com.liferay.portal.kernel.model.PersistedModel)ClpSerializer.translateOutput(returnObj);
 	}
 
 	@Override
@@ -683,36 +684,13 @@ public class KBFolderLocalServiceClp implements KBFolderLocalService {
 	}
 
 	@Override
-	public java.lang.String getBeanIdentifier() {
+	public com.liferay.portal.kernel.dao.orm.ExportActionableDynamicQuery getExportActionableDynamicQuery(
+		com.liferay.exportimport.kernel.lar.PortletDataContext portletDataContext) {
 		Object returnObj = null;
 
 		try {
 			returnObj = _invokableLocalService.invokeMethod(_methodName17,
-					_methodParameterTypes17, new Object[] {  });
-		}
-		catch (Throwable t) {
-			t = ClpSerializer.translateThrowable(t);
-
-			if (t instanceof RuntimeException) {
-				throw (RuntimeException)t;
-			}
-			else {
-				throw new RuntimeException(t.getClass().getName() +
-					" is not a valid exception");
-			}
-		}
-
-		return (java.lang.String)ClpSerializer.translateOutput(returnObj);
-	}
-
-	@Override
-	public com.liferay.portal.kernel.dao.orm.ExportActionableDynamicQuery getExportActionableDynamicQuery(
-		com.liferay.portal.kernel.lar.PortletDataContext portletDataContext) {
-		Object returnObj = null;
-
-		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName18,
-					_methodParameterTypes18,
+					_methodParameterTypes17,
 					new Object[] {
 						ClpSerializer.translateInput(portletDataContext)
 					});
@@ -730,6 +708,29 @@ public class KBFolderLocalServiceClp implements KBFolderLocalService {
 		}
 
 		return (com.liferay.portal.kernel.dao.orm.ExportActionableDynamicQuery)ClpSerializer.translateOutput(returnObj);
+	}
+
+	@Override
+	public com.liferay.portal.kernel.dao.orm.IndexableActionableDynamicQuery getIndexableActionableDynamicQuery() {
+		Object returnObj = null;
+
+		try {
+			returnObj = _invokableLocalService.invokeMethod(_methodName18,
+					_methodParameterTypes18, new Object[] {  });
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return (com.liferay.portal.kernel.dao.orm.IndexableActionableDynamicQuery)ClpSerializer.translateOutput(returnObj);
 	}
 
 	@Override
@@ -994,14 +995,37 @@ public class KBFolderLocalServiceClp implements KBFolderLocalService {
 	}
 
 	@Override
-	public com.liferay.portal.model.PersistedModel getPersistedModel(
+	public java.lang.String getOSGiServiceIdentifier() {
+		Object returnObj = null;
+
+		try {
+			returnObj = _invokableLocalService.invokeMethod(_methodName28,
+					_methodParameterTypes28, new Object[] {  });
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return (java.lang.String)ClpSerializer.translateOutput(returnObj);
+	}
+
+	@Override
+	public com.liferay.portal.kernel.model.PersistedModel getPersistedModel(
 		java.io.Serializable primaryKeyObj)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName28,
-					_methodParameterTypes28,
+			returnObj = _invokableLocalService.invokeMethod(_methodName29,
+					_methodParameterTypes29,
 					new Object[] { ClpSerializer.translateInput(primaryKeyObj) });
 		}
 		catch (Throwable t) {
@@ -1020,7 +1044,7 @@ public class KBFolderLocalServiceClp implements KBFolderLocalService {
 			}
 		}
 
-		return (com.liferay.portal.model.PersistedModel)ClpSerializer.translateOutput(returnObj);
+		return (com.liferay.portal.kernel.model.PersistedModel)ClpSerializer.translateOutput(returnObj);
 	}
 
 	@Override
@@ -1034,8 +1058,8 @@ public class KBFolderLocalServiceClp implements KBFolderLocalService {
 	public void moveKBFolder(long kbFolderId, long parentKBFolderId)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		try {
-			_invokableLocalService.invokeMethod(_methodName30,
-				_methodParameterTypes30,
+			_invokableLocalService.invokeMethod(_methodName31,
+				_methodParameterTypes31,
 				new Object[] { kbFolderId, parentKBFolderId });
 		}
 		catch (Throwable t) {
@@ -1044,26 +1068,6 @@ public class KBFolderLocalServiceClp implements KBFolderLocalService {
 			if (t instanceof com.liferay.portal.kernel.exception.PortalException) {
 				throw (com.liferay.portal.kernel.exception.PortalException)t;
 			}
-
-			if (t instanceof RuntimeException) {
-				throw (RuntimeException)t;
-			}
-			else {
-				throw new RuntimeException(t.getClass().getName() +
-					" is not a valid exception");
-			}
-		}
-	}
-
-	@Override
-	public void setBeanIdentifier(java.lang.String beanIdentifier) {
-		try {
-			_invokableLocalService.invokeMethod(_methodName31,
-				_methodParameterTypes31,
-				new Object[] { ClpSerializer.translateInput(beanIdentifier) });
-		}
-		catch (Throwable t) {
-			t = ClpSerializer.translateThrowable(t);
 
 			if (t instanceof RuntimeException) {
 				throw (RuntimeException)t;
@@ -1200,8 +1204,8 @@ public class KBFolderLocalServiceClp implements KBFolderLocalService {
 	private String[] _methodParameterTypes27;
 	private String _methodName28;
 	private String[] _methodParameterTypes28;
-	private String _methodName30;
-	private String[] _methodParameterTypes30;
+	private String _methodName29;
+	private String[] _methodParameterTypes29;
 	private String _methodName31;
 	private String[] _methodParameterTypes31;
 	private String _methodName32;

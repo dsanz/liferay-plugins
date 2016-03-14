@@ -14,12 +14,15 @@
 
 package com.liferay.opensocial.service;
 
-import com.liferay.portal.service.InvokableService;
+import aQute.bnd.annotation.ProviderType;
+
+import com.liferay.portal.kernel.service.InvokableService;
 
 /**
  * @author Brian Wing Shun Chan
  * @generated
  */
+@ProviderType
 public class GadgetServiceClp implements GadgetService {
 	public GadgetServiceClp(InvokableService invokableService) {
 		_invokableService = invokableService;
@@ -28,35 +31,31 @@ public class GadgetServiceClp implements GadgetService {
 
 		_methodParameterTypes0 = new String[] {
 				"long", "java.lang.String", "java.lang.String",
-				"com.liferay.portal.service.ServiceContext"
+				"com.liferay.portal.kernel.service.ServiceContext"
 			};
 
 		_methodName1 = "deleteGadget";
 
 		_methodParameterTypes1 = new String[] {
-				"long", "com.liferay.portal.service.ServiceContext"
+				"long", "com.liferay.portal.kernel.service.ServiceContext"
 			};
 
-		_methodName2 = "getBeanIdentifier";
+		_methodName2 = "getOSGiServiceIdentifier";
 
 		_methodParameterTypes2 = new String[] {  };
 
-		_methodName4 = "setBeanIdentifier";
+		_methodName4 = "updateGadget";
 
-		_methodParameterTypes4 = new String[] { "java.lang.String" };
-
-		_methodName5 = "updateGadget";
-
-		_methodParameterTypes5 = new String[] {
+		_methodParameterTypes4 = new String[] {
 				"long", "java.lang.String",
-				"com.liferay.portal.service.ServiceContext"
+				"com.liferay.portal.kernel.service.ServiceContext"
 			};
 	}
 
 	@Override
 	public com.liferay.opensocial.model.Gadget addGadget(long companyId,
 		java.lang.String url, java.lang.String portletCategoryNames,
-		com.liferay.portal.service.ServiceContext serviceContext)
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		Object returnObj = null;
 
@@ -94,7 +93,7 @@ public class GadgetServiceClp implements GadgetService {
 
 	@Override
 	public void deleteGadget(long gadgetId,
-		com.liferay.portal.service.ServiceContext serviceContext)
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		try {
 			_invokableService.invokeMethod(_methodName1,
@@ -123,7 +122,7 @@ public class GadgetServiceClp implements GadgetService {
 	}
 
 	@Override
-	public java.lang.String getBeanIdentifier() {
+	public java.lang.String getOSGiServiceIdentifier() {
 		Object returnObj = null;
 
 		try {
@@ -153,33 +152,13 @@ public class GadgetServiceClp implements GadgetService {
 	}
 
 	@Override
-	public void setBeanIdentifier(java.lang.String beanIdentifier) {
+	public void updateGadget(long gadgetId,
+		java.lang.String portletCategoryNames,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException {
 		try {
 			_invokableService.invokeMethod(_methodName4,
 				_methodParameterTypes4,
-				new Object[] { ClpSerializer.translateInput(beanIdentifier) });
-		}
-		catch (Throwable t) {
-			t = ClpSerializer.translateThrowable(t);
-
-			if (t instanceof RuntimeException) {
-				throw (RuntimeException)t;
-			}
-			else {
-				throw new RuntimeException(t.getClass().getName() +
-					" is not a valid exception");
-			}
-		}
-	}
-
-	@Override
-	public void updateGadget(long gadgetId,
-		java.lang.String portletCategoryNames,
-		com.liferay.portal.service.ServiceContext serviceContext)
-		throws com.liferay.portal.kernel.exception.PortalException {
-		try {
-			_invokableService.invokeMethod(_methodName5,
-				_methodParameterTypes5,
 				new Object[] {
 					gadgetId,
 					
@@ -214,6 +193,4 @@ public class GadgetServiceClp implements GadgetService {
 	private String[] _methodParameterTypes2;
 	private String _methodName4;
 	private String[] _methodParameterTypes4;
-	private String _methodName5;
-	private String[] _methodParameterTypes5;
 }

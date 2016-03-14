@@ -14,11 +14,14 @@
 
 package com.liferay.opensocial.model.impl;
 
+import aQute.bnd.annotation.ProviderType;
+
 import com.liferay.opensocial.model.Gadget;
 
+import com.liferay.portal.kernel.model.CacheModel;
+import com.liferay.portal.kernel.util.HashUtil;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringPool;
-import com.liferay.portal.model.CacheModel;
 
 import java.io.Externalizable;
 import java.io.IOException;
@@ -34,10 +37,35 @@ import java.util.Date;
  * @see Gadget
  * @generated
  */
+@ProviderType
 public class GadgetCacheModel implements CacheModel<Gadget>, Externalizable {
 	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+
+		if (!(obj instanceof GadgetCacheModel)) {
+			return false;
+		}
+
+		GadgetCacheModel gadgetCacheModel = (GadgetCacheModel)obj;
+
+		if (gadgetId == gadgetCacheModel.gadgetId) {
+			return true;
+		}
+
+		return false;
+	}
+
+	@Override
+	public int hashCode() {
+		return HashUtil.hash(0, gadgetId);
+	}
+
+	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(17);
+		StringBundler sb = new StringBundler(19);
 
 		sb.append("{uuid=");
 		sb.append(uuid);
@@ -55,6 +83,8 @@ public class GadgetCacheModel implements CacheModel<Gadget>, Externalizable {
 		sb.append(url);
 		sb.append(", portletCategoryNames=");
 		sb.append(portletCategoryNames);
+		sb.append(", lastPublishDate=");
+		sb.append(lastPublishDate);
 		sb.append("}");
 
 		return sb.toString();
@@ -109,6 +139,13 @@ public class GadgetCacheModel implements CacheModel<Gadget>, Externalizable {
 			gadgetImpl.setPortletCategoryNames(portletCategoryNames);
 		}
 
+		if (lastPublishDate == Long.MIN_VALUE) {
+			gadgetImpl.setLastPublishDate(null);
+		}
+		else {
+			gadgetImpl.setLastPublishDate(new Date(lastPublishDate));
+		}
+
 		gadgetImpl.resetOriginalValues();
 
 		return gadgetImpl;
@@ -117,13 +154,16 @@ public class GadgetCacheModel implements CacheModel<Gadget>, Externalizable {
 	@Override
 	public void readExternal(ObjectInput objectInput) throws IOException {
 		uuid = objectInput.readUTF();
+
 		gadgetId = objectInput.readLong();
+
 		companyId = objectInput.readLong();
 		createDate = objectInput.readLong();
 		modifiedDate = objectInput.readLong();
 		name = objectInput.readUTF();
 		url = objectInput.readUTF();
 		portletCategoryNames = objectInput.readUTF();
+		lastPublishDate = objectInput.readLong();
 	}
 
 	@Override
@@ -137,6 +177,7 @@ public class GadgetCacheModel implements CacheModel<Gadget>, Externalizable {
 		}
 
 		objectOutput.writeLong(gadgetId);
+
 		objectOutput.writeLong(companyId);
 		objectOutput.writeLong(createDate);
 		objectOutput.writeLong(modifiedDate);
@@ -161,6 +202,8 @@ public class GadgetCacheModel implements CacheModel<Gadget>, Externalizable {
 		else {
 			objectOutput.writeUTF(portletCategoryNames);
 		}
+
+		objectOutput.writeLong(lastPublishDate);
 	}
 
 	public String uuid;
@@ -171,4 +214,5 @@ public class GadgetCacheModel implements CacheModel<Gadget>, Externalizable {
 	public String name;
 	public String url;
 	public String portletCategoryNames;
+	public long lastPublishDate;
 }

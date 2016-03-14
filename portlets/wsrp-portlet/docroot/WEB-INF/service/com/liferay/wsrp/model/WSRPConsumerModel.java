@@ -14,13 +14,16 @@
 
 package com.liferay.wsrp.model;
 
-import com.liferay.portal.kernel.bean.AutoEscape;
-import com.liferay.portal.model.BaseModel;
-import com.liferay.portal.model.CacheModel;
-import com.liferay.portal.model.StagedModel;
-import com.liferay.portal.service.ServiceContext;
+import aQute.bnd.annotation.ProviderType;
 
-import com.liferay.portlet.expando.model.ExpandoBridge;
+import com.liferay.expando.kernel.model.ExpandoBridge;
+
+import com.liferay.portal.kernel.bean.AutoEscape;
+import com.liferay.portal.kernel.model.BaseModel;
+import com.liferay.portal.kernel.model.CacheModel;
+import com.liferay.portal.kernel.model.ShardedModel;
+import com.liferay.portal.kernel.model.StagedModel;
+import com.liferay.portal.kernel.service.ServiceContext;
 
 import java.io.Serializable;
 
@@ -39,7 +42,9 @@ import java.util.Date;
  * @see com.liferay.wsrp.model.impl.WSRPConsumerModelImpl
  * @generated
  */
-public interface WSRPConsumerModel extends BaseModel<WSRPConsumer>, StagedModel {
+@ProviderType
+public interface WSRPConsumerModel extends BaseModel<WSRPConsumer>, ShardedModel,
+	StagedModel {
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
@@ -260,6 +265,20 @@ public interface WSRPConsumerModel extends BaseModel<WSRPConsumer>, StagedModel 
 	 */
 	public void setMarkupCharacterSets(String markupCharacterSets);
 
+	/**
+	 * Returns the last publish date of this w s r p consumer.
+	 *
+	 * @return the last publish date of this w s r p consumer
+	 */
+	public Date getLastPublishDate();
+
+	/**
+	 * Sets the last publish date of this w s r p consumer.
+	 *
+	 * @param lastPublishDate the last publish date of this w s r p consumer
+	 */
+	public void setLastPublishDate(Date lastPublishDate);
+
 	@Override
 	public boolean isNew();
 
@@ -297,19 +316,19 @@ public interface WSRPConsumerModel extends BaseModel<WSRPConsumer>, StagedModel 
 	public Object clone();
 
 	@Override
-	public int compareTo(WSRPConsumer wsrpConsumer);
+	public int compareTo(com.liferay.wsrp.model.WSRPConsumer wsrpConsumer);
 
 	@Override
 	public int hashCode();
 
 	@Override
-	public CacheModel<WSRPConsumer> toCacheModel();
+	public CacheModel<com.liferay.wsrp.model.WSRPConsumer> toCacheModel();
 
 	@Override
-	public WSRPConsumer toEscapedModel();
+	public com.liferay.wsrp.model.WSRPConsumer toEscapedModel();
 
 	@Override
-	public WSRPConsumer toUnescapedModel();
+	public com.liferay.wsrp.model.WSRPConsumer toUnescapedModel();
 
 	@Override
 	public String toString();

@@ -16,9 +16,15 @@ package com.liferay.knowledgebase.model;
 
 import aQute.bnd.annotation.ProviderType;
 
-import com.liferay.portal.kernel.lar.StagedModelType;
+import com.liferay.expando.kernel.model.ExpandoBridge;
+
+import com.liferay.exportimport.kernel.lar.StagedModelType;
+
+import com.liferay.portal.kernel.model.ModelWrapper;
+import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.util.Validator;
-import com.liferay.portal.model.ModelWrapper;
+
+import java.io.Serializable;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -78,6 +84,7 @@ public class KBArticleWrapper implements KBArticle, ModelWrapper<KBArticle> {
 		attributes.put("latest", getLatest());
 		attributes.put("main", getMain());
 		attributes.put("sourceURL", getSourceURL());
+		attributes.put("lastPublishDate", getLastPublishDate());
 		attributes.put("status", getStatus());
 		attributes.put("statusByUserId", getStatusByUserId());
 		attributes.put("statusByUserName", getStatusByUserName());
@@ -234,6 +241,12 @@ public class KBArticleWrapper implements KBArticle, ModelWrapper<KBArticle> {
 			setSourceURL(sourceURL);
 		}
 
+		Date lastPublishDate = (Date)attributes.get("lastPublishDate");
+
+		if (lastPublishDate != null) {
+			setLastPublishDate(lastPublishDate);
+		}
+
 		Integer status = (Integer)attributes.get("status");
 
 		if (status != null) {
@@ -273,15 +286,6 @@ public class KBArticleWrapper implements KBArticle, ModelWrapper<KBArticle> {
 	public java.util.List<java.lang.Long> getAncestorResourcePrimaryKeys()
 		throws com.liferay.portal.kernel.exception.PortalException {
 		return _kbArticle.getAncestorResourcePrimaryKeys();
-	}
-
-	/**
-	* @deprecated As of 6.1.0, replaced by {@link #isApproved()}
-	*/
-	@Deprecated
-	@Override
-	public boolean getApproved() {
-		return _kbArticle.getApproved();
 	}
 
 	@Override
@@ -332,7 +336,7 @@ public class KBArticleWrapper implements KBArticle, ModelWrapper<KBArticle> {
 	* @return the create date of this k b article
 	*/
 	@Override
-	public java.util.Date getCreateDate() {
+	public Date getCreateDate() {
 		return _kbArticle.getCreateDate();
 	}
 
@@ -347,7 +351,7 @@ public class KBArticleWrapper implements KBArticle, ModelWrapper<KBArticle> {
 	}
 
 	@Override
-	public com.liferay.portlet.expando.model.ExpandoBridge getExpandoBridge() {
+	public ExpandoBridge getExpandoBridge() {
 		return _kbArticle.getExpandoBridge();
 	}
 
@@ -382,6 +386,16 @@ public class KBArticleWrapper implements KBArticle, ModelWrapper<KBArticle> {
 	}
 
 	/**
+	* Returns the last publish date of this k b article.
+	*
+	* @return the last publish date of this k b article
+	*/
+	@Override
+	public Date getLastPublishDate() {
+		return _kbArticle.getLastPublishDate();
+	}
+
+	/**
 	* Returns the latest of this k b article.
 	*
 	* @return the latest of this k b article
@@ -407,7 +421,7 @@ public class KBArticleWrapper implements KBArticle, ModelWrapper<KBArticle> {
 	* @return the modified date of this k b article
 	*/
 	@Override
-	public java.util.Date getModifiedDate() {
+	public Date getModifiedDate() {
 		return _kbArticle.getModifiedDate();
 	}
 
@@ -454,7 +468,7 @@ public class KBArticleWrapper implements KBArticle, ModelWrapper<KBArticle> {
 	}
 
 	@Override
-	public java.io.Serializable getPrimaryKeyObj() {
+	public Serializable getPrimaryKeyObj() {
 		return _kbArticle.getPrimaryKeyObj();
 	}
 
@@ -554,7 +568,7 @@ public class KBArticleWrapper implements KBArticle, ModelWrapper<KBArticle> {
 	* @return the status date of this k b article
 	*/
 	@Override
-	public java.util.Date getStatusDate() {
+	public Date getStatusDate() {
 		return _kbArticle.getStatusDate();
 	}
 
@@ -809,7 +823,7 @@ public class KBArticleWrapper implements KBArticle, ModelWrapper<KBArticle> {
 	* @param createDate the create date of this k b article
 	*/
 	@Override
-	public void setCreateDate(java.util.Date createDate) {
+	public void setCreateDate(Date createDate) {
 		_kbArticle.setCreateDate(createDate);
 	}
 
@@ -825,19 +839,17 @@ public class KBArticleWrapper implements KBArticle, ModelWrapper<KBArticle> {
 
 	@Override
 	public void setExpandoBridgeAttributes(
-		com.liferay.portal.model.BaseModel<?> baseModel) {
+		com.liferay.portal.kernel.model.BaseModel<?> baseModel) {
 		_kbArticle.setExpandoBridgeAttributes(baseModel);
 	}
 
 	@Override
-	public void setExpandoBridgeAttributes(
-		com.liferay.portlet.expando.model.ExpandoBridge expandoBridge) {
+	public void setExpandoBridgeAttributes(ExpandoBridge expandoBridge) {
 		_kbArticle.setExpandoBridgeAttributes(expandoBridge);
 	}
 
 	@Override
-	public void setExpandoBridgeAttributes(
-		com.liferay.portal.service.ServiceContext serviceContext) {
+	public void setExpandoBridgeAttributes(ServiceContext serviceContext) {
 		_kbArticle.setExpandoBridgeAttributes(serviceContext);
 	}
 
@@ -872,6 +884,16 @@ public class KBArticleWrapper implements KBArticle, ModelWrapper<KBArticle> {
 	}
 
 	/**
+	* Sets the last publish date of this k b article.
+	*
+	* @param lastPublishDate the last publish date of this k b article
+	*/
+	@Override
+	public void setLastPublishDate(Date lastPublishDate) {
+		_kbArticle.setLastPublishDate(lastPublishDate);
+	}
+
+	/**
 	* Sets whether this k b article is latest.
 	*
 	* @param latest the latest of this k b article
@@ -897,7 +919,7 @@ public class KBArticleWrapper implements KBArticle, ModelWrapper<KBArticle> {
 	* @param modifiedDate the modified date of this k b article
 	*/
 	@Override
-	public void setModifiedDate(java.util.Date modifiedDate) {
+	public void setModifiedDate(Date modifiedDate) {
 		_kbArticle.setModifiedDate(modifiedDate);
 	}
 
@@ -937,7 +959,7 @@ public class KBArticleWrapper implements KBArticle, ModelWrapper<KBArticle> {
 	}
 
 	@Override
-	public void setPrimaryKeyObj(java.io.Serializable primaryKeyObj) {
+	public void setPrimaryKeyObj(Serializable primaryKeyObj) {
 		_kbArticle.setPrimaryKeyObj(primaryKeyObj);
 	}
 
@@ -1037,7 +1059,7 @@ public class KBArticleWrapper implements KBArticle, ModelWrapper<KBArticle> {
 	* @param statusDate the status date of this k b article
 	*/
 	@Override
-	public void setStatusDate(java.util.Date statusDate) {
+	public void setStatusDate(Date statusDate) {
 		_kbArticle.setStatusDate(statusDate);
 	}
 
@@ -1122,7 +1144,7 @@ public class KBArticleWrapper implements KBArticle, ModelWrapper<KBArticle> {
 	}
 
 	@Override
-	public com.liferay.portal.model.CacheModel<com.liferay.knowledgebase.model.KBArticle> toCacheModel() {
+	public com.liferay.portal.kernel.model.CacheModel<com.liferay.knowledgebase.model.KBArticle> toCacheModel() {
 		return _kbArticle.toCacheModel();
 	}
 
@@ -1168,14 +1190,6 @@ public class KBArticleWrapper implements KBArticle, ModelWrapper<KBArticle> {
 	@Override
 	public StagedModelType getStagedModelType() {
 		return _kbArticle.getStagedModelType();
-	}
-
-	/**
-	 * @deprecated As of 6.1.0, replaced by {@link #getWrappedModel}
-	 */
-	@Deprecated
-	public KBArticle getWrappedKBArticle() {
-		return _kbArticle;
 	}
 
 	@Override

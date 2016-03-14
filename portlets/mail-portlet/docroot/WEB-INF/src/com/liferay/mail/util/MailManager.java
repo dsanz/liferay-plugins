@@ -14,7 +14,8 @@
 
 package com.liferay.mail.util;
 
-import com.liferay.mail.MailException;
+import com.liferay.document.library.kernel.exception.FileSizeException;
+import com.liferay.mail.exception.MailException;
 import com.liferay.mail.mailbox.Mailbox;
 import com.liferay.mail.mailbox.MailboxFactoryUtil;
 import com.liferay.mail.mailbox.PasswordRetriever;
@@ -37,13 +38,12 @@ import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.messaging.DestinationNames;
 import com.liferay.portal.kernel.messaging.MessageBusUtil;
+import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.util.HtmlUtil;
 import com.liferay.portal.kernel.util.JavaConstants;
+import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.Validator;
-import com.liferay.portal.model.User;
-import com.liferay.portal.util.PortalUtil;
-import com.liferay.portlet.documentlibrary.FileSizeException;
 
 import java.io.IOException;
 

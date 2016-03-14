@@ -16,8 +16,13 @@ package com.liferay.mail.model;
 
 import aQute.bnd.annotation.ProviderType;
 
+import com.liferay.expando.kernel.model.ExpandoBridge;
+
+import com.liferay.portal.kernel.model.ModelWrapper;
+import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.util.Validator;
-import com.liferay.portal.model.ModelWrapper;
+
+import java.io.Serializable;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -275,12 +280,12 @@ public class MessageWrapper implements Message, ModelWrapper<Message> {
 	* @return the create date of this message
 	*/
 	@Override
-	public java.util.Date getCreateDate() {
+	public Date getCreateDate() {
 		return _message.getCreateDate();
 	}
 
 	@Override
-	public com.liferay.portlet.expando.model.ExpandoBridge getExpandoBridge() {
+	public ExpandoBridge getExpandoBridge() {
 		return _message.getExpandoBridge();
 	}
 
@@ -326,7 +331,7 @@ public class MessageWrapper implements Message, ModelWrapper<Message> {
 	* @return the modified date of this message
 	*/
 	@Override
-	public java.util.Date getModifiedDate() {
+	public Date getModifiedDate() {
 		return _message.getModifiedDate();
 	}
 
@@ -351,7 +356,7 @@ public class MessageWrapper implements Message, ModelWrapper<Message> {
 	}
 
 	@Override
-	public java.io.Serializable getPrimaryKeyObj() {
+	public Serializable getPrimaryKeyObj() {
 		return _message.getPrimaryKeyObj();
 	}
 
@@ -381,7 +386,7 @@ public class MessageWrapper implements Message, ModelWrapper<Message> {
 	* @return the sent date of this message
 	*/
 	@Override
-	public java.util.Date getSentDate() {
+	public Date getSentDate() {
 		return _message.getSentDate();
 	}
 
@@ -551,25 +556,23 @@ public class MessageWrapper implements Message, ModelWrapper<Message> {
 	* @param createDate the create date of this message
 	*/
 	@Override
-	public void setCreateDate(java.util.Date createDate) {
+	public void setCreateDate(Date createDate) {
 		_message.setCreateDate(createDate);
 	}
 
 	@Override
 	public void setExpandoBridgeAttributes(
-		com.liferay.portal.model.BaseModel<?> baseModel) {
+		com.liferay.portal.kernel.model.BaseModel<?> baseModel) {
 		_message.setExpandoBridgeAttributes(baseModel);
 	}
 
 	@Override
-	public void setExpandoBridgeAttributes(
-		com.liferay.portlet.expando.model.ExpandoBridge expandoBridge) {
+	public void setExpandoBridgeAttributes(ExpandoBridge expandoBridge) {
 		_message.setExpandoBridgeAttributes(expandoBridge);
 	}
 
 	@Override
-	public void setExpandoBridgeAttributes(
-		com.liferay.portal.service.ServiceContext serviceContext) {
+	public void setExpandoBridgeAttributes(ServiceContext serviceContext) {
 		_message.setExpandoBridgeAttributes(serviceContext);
 	}
 
@@ -609,7 +612,7 @@ public class MessageWrapper implements Message, ModelWrapper<Message> {
 	* @param modifiedDate the modified date of this message
 	*/
 	@Override
-	public void setModifiedDate(java.util.Date modifiedDate) {
+	public void setModifiedDate(Date modifiedDate) {
 		_message.setModifiedDate(modifiedDate);
 	}
 
@@ -639,7 +642,7 @@ public class MessageWrapper implements Message, ModelWrapper<Message> {
 	}
 
 	@Override
-	public void setPrimaryKeyObj(java.io.Serializable primaryKeyObj) {
+	public void setPrimaryKeyObj(Serializable primaryKeyObj) {
 		_message.setPrimaryKeyObj(primaryKeyObj);
 	}
 
@@ -669,7 +672,7 @@ public class MessageWrapper implements Message, ModelWrapper<Message> {
 	* @param sentDate the sent date of this message
 	*/
 	@Override
-	public void setSentDate(java.util.Date sentDate) {
+	public void setSentDate(Date sentDate) {
 		_message.setSentDate(sentDate);
 	}
 
@@ -734,7 +737,7 @@ public class MessageWrapper implements Message, ModelWrapper<Message> {
 	}
 
 	@Override
-	public com.liferay.portal.model.CacheModel<com.liferay.mail.model.Message> toCacheModel() {
+	public com.liferay.portal.kernel.model.CacheModel<com.liferay.mail.model.Message> toCacheModel() {
 		return _message.toCacheModel();
 	}
 
@@ -775,14 +778,6 @@ public class MessageWrapper implements Message, ModelWrapper<Message> {
 		}
 
 		return false;
-	}
-
-	/**
-	 * @deprecated As of 6.1.0, replaced by {@link #getWrappedModel}
-	 */
-	@Deprecated
-	public Message getWrappedMessage() {
-		return _message;
 	}
 
 	@Override

@@ -14,8 +14,15 @@
 
 package com.liferay.so.model;
 
+import aQute.bnd.annotation.ProviderType;
+
+import com.liferay.expando.kernel.model.ExpandoBridge;
+
+import com.liferay.portal.kernel.model.ModelWrapper;
+import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.util.Validator;
-import com.liferay.portal.model.ModelWrapper;
+
+import java.io.Serializable;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -29,6 +36,7 @@ import java.util.Map;
  * @see FavoriteSite
  * @generated
  */
+@ProviderType
 public class FavoriteSiteWrapper implements FavoriteSite,
 	ModelWrapper<FavoriteSite> {
 	public FavoriteSiteWrapper(FavoriteSite favoriteSite) {
@@ -105,7 +113,7 @@ public class FavoriteSiteWrapper implements FavoriteSite,
 	}
 
 	@Override
-	public com.liferay.portlet.expando.model.ExpandoBridge getExpandoBridge() {
+	public ExpandoBridge getExpandoBridge() {
 		return _favoriteSite.getExpandoBridge();
 	}
 
@@ -140,7 +148,7 @@ public class FavoriteSiteWrapper implements FavoriteSite,
 	}
 
 	@Override
-	public java.io.Serializable getPrimaryKeyObj() {
+	public Serializable getPrimaryKeyObj() {
 		return _favoriteSite.getPrimaryKeyObj();
 	}
 
@@ -206,19 +214,17 @@ public class FavoriteSiteWrapper implements FavoriteSite,
 
 	@Override
 	public void setExpandoBridgeAttributes(
-		com.liferay.portal.model.BaseModel<?> baseModel) {
+		com.liferay.portal.kernel.model.BaseModel<?> baseModel) {
 		_favoriteSite.setExpandoBridgeAttributes(baseModel);
 	}
 
 	@Override
-	public void setExpandoBridgeAttributes(
-		com.liferay.portlet.expando.model.ExpandoBridge expandoBridge) {
+	public void setExpandoBridgeAttributes(ExpandoBridge expandoBridge) {
 		_favoriteSite.setExpandoBridgeAttributes(expandoBridge);
 	}
 
 	@Override
-	public void setExpandoBridgeAttributes(
-		com.liferay.portal.service.ServiceContext serviceContext) {
+	public void setExpandoBridgeAttributes(ServiceContext serviceContext) {
 		_favoriteSite.setExpandoBridgeAttributes(serviceContext);
 	}
 
@@ -258,7 +264,7 @@ public class FavoriteSiteWrapper implements FavoriteSite,
 	}
 
 	@Override
-	public void setPrimaryKeyObj(java.io.Serializable primaryKeyObj) {
+	public void setPrimaryKeyObj(Serializable primaryKeyObj) {
 		_favoriteSite.setPrimaryKeyObj(primaryKeyObj);
 	}
 
@@ -283,7 +289,7 @@ public class FavoriteSiteWrapper implements FavoriteSite,
 	}
 
 	@Override
-	public com.liferay.portal.model.CacheModel<com.liferay.so.model.FavoriteSite> toCacheModel() {
+	public com.liferay.portal.kernel.model.CacheModel<com.liferay.so.model.FavoriteSite> toCacheModel() {
 		return _favoriteSite.toCacheModel();
 	}
 
@@ -326,14 +332,6 @@ public class FavoriteSiteWrapper implements FavoriteSite,
 		return false;
 	}
 
-	/**
-	 * @deprecated As of 6.1.0, replaced by {@link #getWrappedModel}
-	 */
-	@Deprecated
-	public FavoriteSite getWrappedFavoriteSite() {
-		return _favoriteSite;
-	}
-
 	@Override
 	public FavoriteSite getWrappedModel() {
 		return _favoriteSite;
@@ -354,5 +352,5 @@ public class FavoriteSiteWrapper implements FavoriteSite,
 		_favoriteSite.resetOriginalValues();
 	}
 
-	private FavoriteSite _favoriteSite;
+	private final FavoriteSite _favoriteSite;
 }

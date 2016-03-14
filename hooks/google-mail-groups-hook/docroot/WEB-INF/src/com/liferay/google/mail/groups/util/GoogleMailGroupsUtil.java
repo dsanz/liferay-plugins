@@ -18,6 +18,10 @@ import com.google.api.services.admin.directory.model.Member;
 import com.google.api.services.admin.directory.model.Members;
 import com.google.api.services.groupssettings.model.Groups;
 
+import com.liferay.expando.kernel.model.ExpandoBridge;
+import com.liferay.expando.kernel.model.ExpandoTableConstants;
+import com.liferay.expando.kernel.model.ExpandoValue;
+import com.liferay.expando.kernel.service.ExpandoValueLocalServiceUtil;
 import com.liferay.google.apps.connector.util.GoogleDirectoryUtil;
 import com.liferay.google.apps.connector.util.GoogleGroupssettingsUtil;
 import com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery;
@@ -25,25 +29,20 @@ import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.model.Company;
+import com.liferay.portal.kernel.model.Group;
+import com.liferay.portal.kernel.model.Role;
+import com.liferay.portal.kernel.model.User;
+import com.liferay.portal.kernel.service.CompanyLocalServiceUtil;
+import com.liferay.portal.kernel.service.GroupLocalServiceUtil;
+import com.liferay.portal.kernel.service.RoleLocalServiceUtil;
+import com.liferay.portal.kernel.service.UserLocalServiceUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.workflow.WorkflowConstants;
-import com.liferay.portal.model.Company;
-import com.liferay.portal.model.Group;
-import com.liferay.portal.model.Role;
-import com.liferay.portal.model.User;
-import com.liferay.portal.service.CompanyLocalServiceUtil;
-import com.liferay.portal.service.GroupLocalServiceUtil;
-import com.liferay.portal.service.RoleLocalServiceUtil;
-import com.liferay.portal.service.UserLocalServiceUtil;
-import com.liferay.portal.service.persistence.GroupActionableDynamicQuery;
-import com.liferay.portlet.expando.model.ExpandoBridge;
-import com.liferay.portlet.expando.model.ExpandoTableConstants;
-import com.liferay.portlet.expando.model.ExpandoValue;
-import com.liferay.portlet.expando.service.ExpandoValueLocalServiceUtil;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -161,111 +160,116 @@ public class GoogleMailGroupsUtil {
 
 	public static void syncGroups() throws Exception {
 		ActionableDynamicQuery actionableDynamicQuery =
-			new GroupActionableDynamicQuery() {
+			GroupLocalServiceUtil.getActionableDynamicQuery();
 
-			@Override
-			protected void performAction(Object object) throws PortalException {
-				Group group = (Group)object;
+		actionableDynamicQuery.setPerformActionMethod(
+			new ActionableDynamicQuery.PerformActionMethod<Group>() {
 
-				if (!isSync(group)) {
-					return;
-				}
-
-				List<String> groupMemberEmailAddresses = new ArrayList<>();
-				Members members = null;
-
-				String groupEmailAddress = getGroupEmailAddress(group);
-
-				if (GoogleDirectoryUtil.getGroup(groupEmailAddress) == null) {
-					try {
-						GoogleDirectoryUtil.addGroup(
-							group.getDescriptiveName(), groupEmailAddress);
-					}
-					catch (Exception e) {
-						_log.error(
-							"Unable to add Google group for " +
-								group.getDescriptiveName(),
-							e);
-
+				@Override
+				public void performAction(Group group) throws PortalException {
+					if (!isSync(group)) {
 						return;
 					}
+
+					List<String> groupMemberEmailAddresses = new ArrayList<>();
+					Members members = null;
+
+					String groupEmailAddress = getGroupEmailAddress(group);
+
+					if (GoogleDirectoryUtil.getGroup(
+							groupEmailAddress) == null) {
+
+						try {
+							GoogleDirectoryUtil.addGroup(
+								group.getDescriptiveName(), groupEmailAddress);
+						}
+						catch (Exception e) {
+							_log.error(
+								"Unable to add Google group for " +
+									group.getDescriptiveName(),
+								e);
+
+							return;
+						}
+					}
+					else {
+						members = GoogleDirectoryUtil.getGroupMembers(
+							groupEmailAddress);
+					}
+
+					if ((members != null) && (members.getMembers() != null)) {
+						for (Member member : members.getMembers()) {
+							groupMemberEmailAddresses.add(member.getEmail());
+						}
+					}
+
+					List<String> emailAddresses = new ArrayList<>();
+
+					LinkedHashMap<String, Object> userParams =
+						new LinkedHashMap<>();
+
+					userParams.put("inherit", Boolean.TRUE);
+					userParams.put(
+						"usersGroups", Long.valueOf(group.getGroupId()));
+
+					List<User> users = UserLocalServiceUtil.search(
+						group.getCompanyId(), null,
+						WorkflowConstants.STATUS_APPROVED, userParams,
+						QueryUtil.ALL_POS, QueryUtil.ALL_POS,
+						(OrderByComparator)null);
+
+					for (User user : users) {
+						emailAddresses.add(getUserEmailAddress(user));
+					}
+
+					for (String groupMemberEmailAddress :
+							groupMemberEmailAddresses) {
+
+						if (emailAddresses.contains(groupMemberEmailAddress)) {
+							continue;
+						}
+
+						try {
+							GoogleDirectoryUtil.deleteGroupMember(
+								groupEmailAddress, groupMemberEmailAddress);
+						}
+						catch (Exception e) {
+							StringBundler sb = new StringBundler(4);
+
+							sb.append("Unable to delete ");
+							sb.append(groupMemberEmailAddress);
+							sb.append(" from Google group ");
+							sb.append(groupEmailAddress);
+
+							_log.error(sb.toString(), e);
+						}
+					}
+
+					for (String emailAddress : emailAddresses) {
+						if (groupMemberEmailAddresses.contains(emailAddress)) {
+							continue;
+						}
+
+						try {
+							GoogleDirectoryUtil.addGroupMember(
+								groupEmailAddress, emailAddress);
+						}
+						catch (Exception e) {
+							StringBundler sb = new StringBundler(4);
+
+							sb.append("Unable to add ");
+							sb.append(emailAddress);
+							sb.append(" to Google group ");
+							sb.append(groupEmailAddress);
+
+							_log.error(sb.toString(), e);
+						}
+					}
+
+					checkLargeGroup(group);
 				}
-				else {
-					members = GoogleDirectoryUtil.getGroupMembers(
-						groupEmailAddress);
-				}
 
-				if ((members != null) && (members.getMembers() != null)) {
-					for (Member member : members.getMembers()) {
-						groupMemberEmailAddresses.add(member.getEmail());
-					}
-				}
-
-				List<String> emailAddresses = new ArrayList<>();
-
-				LinkedHashMap<String, Object> userParams =
-					new LinkedHashMap<>();
-
-				userParams.put("inherit", Boolean.TRUE);
-				userParams.put("usersGroups", new Long(group.getGroupId()));
-
-				List<User> users = UserLocalServiceUtil.search(
-					group.getCompanyId(), null,
-					WorkflowConstants.STATUS_APPROVED, userParams,
-					QueryUtil.ALL_POS, QueryUtil.ALL_POS,
-					(OrderByComparator)null);
-
-				for (User user : users) {
-					emailAddresses.add(getUserEmailAddress(user));
-				}
-
-				for (String groupMemberEmailAddress :
-						groupMemberEmailAddresses) {
-
-					if (emailAddresses.contains(groupMemberEmailAddress)) {
-						continue;
-					}
-
-					try {
-						GoogleDirectoryUtil.deleteGroupMember(
-							groupEmailAddress, groupMemberEmailAddress);
-					}
-					catch (Exception e) {
-						StringBundler sb = new StringBundler(4);
-
-						sb.append("Unable to delete ");
-						sb.append(groupMemberEmailAddress);
-						sb.append(" from Google group ");
-						sb.append(groupEmailAddress);
-
-						_log.error(sb.toString(), e);
-					}
-				}
-
-				for (String emailAddress : emailAddresses) {
-					if (groupMemberEmailAddresses.contains(emailAddress)) {
-						continue;
-					}
-
-					try {
-						GoogleDirectoryUtil.addGroupMember(
-							groupEmailAddress, emailAddress);
-					}
-					catch (Exception e) {
-						StringBundler sb = new StringBundler(4);
-
-						sb.append("Unable to add ");
-						sb.append(emailAddress);
-						sb.append(" to Google group ");
-						sb.append(groupEmailAddress);
-
-						_log.error(sb.toString(), e);
-					}
-				}
-
-				checkLargeGroup(group);
-			}
-		};
+			});
 
 		actionableDynamicQuery.performActions();
 	}

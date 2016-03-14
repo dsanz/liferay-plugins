@@ -16,16 +16,34 @@ package com.liferay.knowledgebase.service;
 
 import aQute.bnd.annotation.ProviderType;
 
+import com.liferay.exportimport.kernel.lar.PortletDataContext;
+
+import com.liferay.knowledgebase.model.KBComment;
+
+import com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery;
+import com.liferay.portal.kernel.dao.orm.DynamicQuery;
+import com.liferay.portal.kernel.dao.orm.ExportActionableDynamicQuery;
+import com.liferay.portal.kernel.dao.orm.IndexableActionableDynamicQuery;
+import com.liferay.portal.kernel.dao.orm.Projection;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.portal.kernel.model.PersistedModel;
+import com.liferay.portal.kernel.model.SystemEventConstants;
+import com.liferay.portal.kernel.search.Indexable;
 import com.liferay.portal.kernel.search.IndexableType;
+import com.liferay.portal.kernel.service.BaseLocalService;
+import com.liferay.portal.kernel.service.InvokableLocalService;
+import com.liferay.portal.kernel.service.PersistedModelLocalService;
+import com.liferay.portal.kernel.service.ServiceContext;
+import com.liferay.portal.kernel.systemevent.SystemEvent;
 import com.liferay.portal.kernel.transaction.Isolation;
 import com.liferay.portal.kernel.transaction.Propagation;
 import com.liferay.portal.kernel.transaction.Transactional;
-import com.liferay.portal.model.SystemEventConstants;
-import com.liferay.portal.service.BaseLocalService;
-import com.liferay.portal.service.InvokableLocalService;
-import com.liferay.portal.service.PersistedModelLocalService;
+import com.liferay.portal.kernel.util.OrderByComparator;
+
+import java.io.Serializable;
+
+import java.util.List;
 
 /**
  * Provides the local service interface for KBComment. Methods of this
@@ -56,19 +74,16 @@ public interface KBCommentLocalService extends BaseLocalService,
 	* @param kbComment the k b comment
 	* @return the k b comment that was added
 	*/
-	@com.liferay.portal.kernel.search.Indexable(type = IndexableType.REINDEX)
-	public com.liferay.knowledgebase.model.KBComment addKBComment(
-		com.liferay.knowledgebase.model.KBComment kbComment);
+	@Indexable(type = IndexableType.REINDEX)
+	public KBComment addKBComment(KBComment kbComment);
 
-	public com.liferay.knowledgebase.model.KBComment addKBComment(long userId,
-		long classNameId, long classPK, java.lang.String content,
-		com.liferay.portal.service.ServiceContext serviceContext)
-		throws com.liferay.portal.kernel.exception.PortalException;
+	public KBComment addKBComment(long userId, long classNameId, long classPK,
+		java.lang.String content, ServiceContext serviceContext)
+		throws PortalException;
 
-	public com.liferay.knowledgebase.model.KBComment addKBComment(long userId,
-		long classNameId, long classPK, java.lang.String content,
-		int userRating, com.liferay.portal.service.ServiceContext serviceContext)
-		throws com.liferay.portal.kernel.exception.PortalException;
+	public KBComment addKBComment(long userId, long classNameId, long classPK,
+		java.lang.String content, int userRating, ServiceContext serviceContext)
+		throws PortalException;
 
 	/**
 	* Creates a new k b comment with the primary key. Does not add the k b comment to the database.
@@ -76,8 +91,7 @@ public interface KBCommentLocalService extends BaseLocalService,
 	* @param kbCommentId the primary key for the new k b comment
 	* @return the new k b comment
 	*/
-	public com.liferay.knowledgebase.model.KBComment createKBComment(
-		long kbCommentId);
+	public KBComment createKBComment(long kbCommentId);
 
 	/**
 	* Deletes the k b comment from the database. Also notifies the appropriate model listeners.
@@ -86,11 +100,10 @@ public interface KBCommentLocalService extends BaseLocalService,
 	* @return the k b comment that was removed
 	* @throws PortalException
 	*/
-	@com.liferay.portal.kernel.search.Indexable(type = IndexableType.DELETE)
-	@com.liferay.portal.kernel.systemevent.SystemEvent(type = SystemEventConstants.TYPE_DELETE)
-	public com.liferay.knowledgebase.model.KBComment deleteKBComment(
-		com.liferay.knowledgebase.model.KBComment kbComment)
-		throws com.liferay.portal.kernel.exception.PortalException;
+	@Indexable(type = IndexableType.DELETE)
+	@SystemEvent(type = SystemEventConstants.TYPE_DELETE)
+	public KBComment deleteKBComment(KBComment kbComment)
+		throws PortalException;
 
 	/**
 	* Deletes the k b comment with the primary key from the database. Also notifies the appropriate model listeners.
@@ -99,23 +112,21 @@ public interface KBCommentLocalService extends BaseLocalService,
 	* @return the k b comment that was removed
 	* @throws PortalException if a k b comment with the primary key could not be found
 	*/
-	@com.liferay.portal.kernel.search.Indexable(type = IndexableType.DELETE)
-	public com.liferay.knowledgebase.model.KBComment deleteKBComment(
-		long kbCommentId)
-		throws com.liferay.portal.kernel.exception.PortalException;
+	@Indexable(type = IndexableType.DELETE)
+	public KBComment deleteKBComment(long kbCommentId)
+		throws PortalException;
 
 	public void deleteKBComments(java.lang.String className, long classPK)
-		throws com.liferay.portal.kernel.exception.PortalException;
+		throws PortalException;
 
 	/**
 	* @throws PortalException
 	*/
 	@Override
-	public com.liferay.portal.model.PersistedModel deletePersistedModel(
-		com.liferay.portal.model.PersistedModel persistedModel)
-		throws com.liferay.portal.kernel.exception.PortalException;
+	public PersistedModel deletePersistedModel(PersistedModel persistedModel)
+		throws PortalException;
 
-	public com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery();
+	public DynamicQuery dynamicQuery();
 
 	/**
 	* Performs a dynamic query on the database and returns the matching rows.
@@ -123,8 +134,7 @@ public interface KBCommentLocalService extends BaseLocalService,
 	* @param dynamicQuery the dynamic query
 	* @return the matching rows
 	*/
-	public <T> java.util.List<T> dynamicQuery(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery);
+	public <T> List<T> dynamicQuery(DynamicQuery dynamicQuery);
 
 	/**
 	* Performs a dynamic query on the database and returns a range of the matching rows.
@@ -138,8 +148,7 @@ public interface KBCommentLocalService extends BaseLocalService,
 	* @param end the upper bound of the range of model instances (not inclusive)
 	* @return the range of matching rows
 	*/
-	public <T> java.util.List<T> dynamicQuery(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
+	public <T> List<T> dynamicQuery(DynamicQuery dynamicQuery, int start,
 		int end);
 
 	/**
@@ -155,10 +164,8 @@ public interface KBCommentLocalService extends BaseLocalService,
 	* @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
 	* @return the ordered range of matching rows
 	*/
-	public <T> java.util.List<T> dynamicQuery(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
-		int end,
-		com.liferay.portal.kernel.util.OrderByComparator<T> orderByComparator);
+	public <T> List<T> dynamicQuery(DynamicQuery dynamicQuery, int start,
+		int end, OrderByComparator<T> orderByComparator);
 
 	/**
 	* Returns the number of rows matching the dynamic query.
@@ -166,8 +173,7 @@ public interface KBCommentLocalService extends BaseLocalService,
 	* @param dynamicQuery the dynamic query
 	* @return the number of rows matching the dynamic query
 	*/
-	public long dynamicQueryCount(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery);
+	public long dynamicQueryCount(DynamicQuery dynamicQuery);
 
 	/**
 	* Returns the number of rows matching the dynamic query.
@@ -176,13 +182,11 @@ public interface KBCommentLocalService extends BaseLocalService,
 	* @param projection the projection to apply to the query
 	* @return the number of rows matching the dynamic query
 	*/
-	public long dynamicQueryCount(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery,
-		com.liferay.portal.kernel.dao.orm.Projection projection);
+	public long dynamicQueryCount(DynamicQuery dynamicQuery,
+		Projection projection);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public com.liferay.knowledgebase.model.KBComment fetchKBComment(
-		long kbCommentId);
+	public KBComment fetchKBComment(long kbCommentId);
 
 	/**
 	* Returns the k b comment matching the UUID and group.
@@ -192,22 +196,18 @@ public interface KBCommentLocalService extends BaseLocalService,
 	* @return the matching k b comment, or <code>null</code> if a matching k b comment could not be found
 	*/
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public com.liferay.knowledgebase.model.KBComment fetchKBCommentByUuidAndGroupId(
-		java.lang.String uuid, long groupId);
+	public KBComment fetchKBCommentByUuidAndGroupId(java.lang.String uuid,
+		long groupId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery getActionableDynamicQuery();
-
-	/**
-	* Returns the Spring bean ID for this bean.
-	*
-	* @return the Spring bean ID for this bean
-	*/
-	public java.lang.String getBeanIdentifier();
+	public ActionableDynamicQuery getActionableDynamicQuery();
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public com.liferay.portal.kernel.dao.orm.ExportActionableDynamicQuery getExportActionableDynamicQuery(
-		com.liferay.portal.kernel.lar.PortletDataContext portletDataContext);
+	public ExportActionableDynamicQuery getExportActionableDynamicQuery(
+		PortletDataContext portletDataContext);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public IndexableActionableDynamicQuery getIndexableActionableDynamicQuery();
 
 	/**
 	* Returns the k b comment with the primary key.
@@ -217,14 +217,11 @@ public interface KBCommentLocalService extends BaseLocalService,
 	* @throws PortalException if a k b comment with the primary key could not be found
 	*/
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public com.liferay.knowledgebase.model.KBComment getKBComment(
-		long kbCommentId)
-		throws com.liferay.portal.kernel.exception.PortalException;
+	public KBComment getKBComment(long kbCommentId) throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public com.liferay.knowledgebase.model.KBComment getKBComment(long userId,
-		java.lang.String className, long classPK)
-		throws com.liferay.portal.kernel.exception.PortalException;
+	public KBComment getKBComment(long userId, java.lang.String className,
+		long classPK) throws PortalException;
 
 	/**
 	* Returns the k b comment matching the UUID and group.
@@ -235,27 +232,24 @@ public interface KBCommentLocalService extends BaseLocalService,
 	* @throws PortalException if a matching k b comment could not be found
 	*/
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public com.liferay.knowledgebase.model.KBComment getKBCommentByUuidAndGroupId(
-		java.lang.String uuid, long groupId)
-		throws com.liferay.portal.kernel.exception.PortalException;
+	public KBComment getKBCommentByUuidAndGroupId(java.lang.String uuid,
+		long groupId) throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public java.util.List<com.liferay.knowledgebase.model.KBComment> getKBComments(
-		java.lang.String className, long classPK, int start, int end,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator);
+	public List<KBComment> getKBComments(java.lang.String className,
+		long classPK, int start, int end, OrderByComparator orderByComparator);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public java.util.List<com.liferay.knowledgebase.model.KBComment> getKBComments(
-		java.lang.String className, long classPK, int[] status, int start,
+	public List<KBComment> getKBComments(java.lang.String className,
+		long classPK, int[] status, int start, int end);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<KBComment> getKBComments(java.lang.String className,
+		long classPK, int status, int start, int end);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<KBComment> getKBComments(long groupId, int status, int start,
 		int end);
-
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public java.util.List<com.liferay.knowledgebase.model.KBComment> getKBComments(
-		java.lang.String className, long classPK, int status, int start, int end);
-
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public java.util.List<com.liferay.knowledgebase.model.KBComment> getKBComments(
-		long groupId, int status, int start, int end);
 
 	/**
 	* Returns a range of all the k b comments.
@@ -269,14 +263,12 @@ public interface KBCommentLocalService extends BaseLocalService,
 	* @return the range of k b comments
 	*/
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public java.util.List<com.liferay.knowledgebase.model.KBComment> getKBComments(
-		int start, int end);
+	public List<KBComment> getKBComments(int start, int end);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public java.util.List<com.liferay.knowledgebase.model.KBComment> getKBComments(
-		long userId, java.lang.String className, long classPK, int start,
-		int end,
-		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.knowledgebase.model.KBComment> orderByComparator);
+	public List<KBComment> getKBComments(long userId,
+		java.lang.String className, long classPK, int start, int end,
+		OrderByComparator<KBComment> orderByComparator);
 
 	/**
 	* Returns all the k b comments matching the UUID and company.
@@ -286,7 +278,7 @@ public interface KBCommentLocalService extends BaseLocalService,
 	* @return the matching k b comments, or an empty list if no matches were found
 	*/
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public java.util.List<com.liferay.knowledgebase.model.KBComment> getKBCommentsByUuidAndCompanyId(
+	public List<KBComment> getKBCommentsByUuidAndCompanyId(
 		java.lang.String uuid, long companyId);
 
 	/**
@@ -300,9 +292,9 @@ public interface KBCommentLocalService extends BaseLocalService,
 	* @return the range of matching k b comments, or an empty list if no matches were found
 	*/
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public java.util.List<com.liferay.knowledgebase.model.KBComment> getKBCommentsByUuidAndCompanyId(
+	public List<KBComment> getKBCommentsByUuidAndCompanyId(
 		java.lang.String uuid, long companyId, int start, int end,
-		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.knowledgebase.model.KBComment> orderByComparator);
+		OrderByComparator<KBComment> orderByComparator);
 
 	/**
 	* Returns the number of k b comments.
@@ -330,11 +322,17 @@ public interface KBCommentLocalService extends BaseLocalService,
 	public int getKBCommentsCount(long userId, java.lang.String className,
 		long classPK);
 
+	/**
+	* Returns the OSGi service identifier.
+	*
+	* @return the OSGi service identifier
+	*/
+	public java.lang.String getOSGiServiceIdentifier();
+
 	@Override
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public com.liferay.portal.model.PersistedModel getPersistedModel(
-		java.io.Serializable primaryKeyObj)
-		throws com.liferay.portal.kernel.exception.PortalException;
+	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
+		throws PortalException;
 
 	@Override
 	public java.lang.Object invokeMethod(java.lang.String name,
@@ -342,36 +340,22 @@ public interface KBCommentLocalService extends BaseLocalService,
 		throws java.lang.Throwable;
 
 	/**
-	* Sets the Spring bean ID for this bean.
-	*
-	* @param beanIdentifier the Spring bean ID for this bean
-	*/
-	public void setBeanIdentifier(java.lang.String beanIdentifier);
-
-	/**
 	* Updates the k b comment in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
 	*
 	* @param kbComment the k b comment
 	* @return the k b comment that was updated
 	*/
-	@com.liferay.portal.kernel.search.Indexable(type = IndexableType.REINDEX)
-	public com.liferay.knowledgebase.model.KBComment updateKBComment(
-		com.liferay.knowledgebase.model.KBComment kbComment);
+	@Indexable(type = IndexableType.REINDEX)
+	public KBComment updateKBComment(KBComment kbComment);
 
-	public com.liferay.knowledgebase.model.KBComment updateKBComment(
-		long kbCommentId, long classNameId, long classPK,
-		java.lang.String content, int status,
-		com.liferay.portal.service.ServiceContext serviceContext)
-		throws com.liferay.portal.kernel.exception.PortalException;
+	public KBComment updateKBComment(long kbCommentId, long classNameId,
+		long classPK, java.lang.String content, int status,
+		ServiceContext serviceContext) throws PortalException;
 
-	public com.liferay.knowledgebase.model.KBComment updateKBComment(
-		long kbCommentId, long classNameId, long classPK,
-		java.lang.String content, int userRating, int status,
-		com.liferay.portal.service.ServiceContext serviceContext)
-		throws com.liferay.portal.kernel.exception.PortalException;
+	public KBComment updateKBComment(long kbCommentId, long classNameId,
+		long classPK, java.lang.String content, int userRating, int status,
+		ServiceContext serviceContext) throws PortalException;
 
-	public com.liferay.knowledgebase.model.KBComment updateStatus(long userId,
-		long kbCommentId, int status,
-		com.liferay.portal.service.ServiceContext serviceContext)
-		throws com.liferay.portal.kernel.exception.PortalException;
+	public KBComment updateStatus(long userId, long kbCommentId, int status,
+		ServiceContext serviceContext) throws PortalException;
 }

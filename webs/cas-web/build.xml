@@ -6,4 +6,30 @@
 	<property name="original.war.file" value="cas-web.war" />
 
 	<import file="../build-common-web.xml" />
+
+	<target name="merge">
+
+		<!-- Merge -->
+
+		<merge
+			module.dir="${basedir}"
+		/>
+
+		<!-- Fix backingMap parameters -->
+
+		<replace file="tmp/WEB-INF/deployerConfigContext.xml">
+			<replacetoken><![CDATA[<entry key="uid" value="uid" />]]></replacetoken>
+			<replacevalue><![CDATA[<entry key="uid"><list><value>uid</value></list></entry>]]></replacevalue>
+		</replace>
+
+		<replace file="tmp/WEB-INF/deployerConfigContext.xml">
+			<replacetoken><![CDATA[<entry key="eduPersonAffiliation" value="eduPersonAffiliation" />]]></replacetoken>
+			<replacevalue><![CDATA[<entry key="eduPersonAffiliation"><list><value>eduPersonAffiliation</value></list></entry>]]></replacevalue>
+		</replace>
+
+		<replace file="tmp/WEB-INF/deployerConfigContext.xml">
+			<replacetoken><![CDATA[<entry key="groupMembership" value="groupMembership" />]]></replacetoken>
+			<replacevalue><![CDATA[<entry key="groupMembership"><list><value>groupMembership</value></list></entry>]]></replacevalue>
+		</replace>
+	</target>
 </project>

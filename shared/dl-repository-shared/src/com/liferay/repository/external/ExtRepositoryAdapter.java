@@ -14,16 +14,27 @@
 
 package com.liferay.repository.external;
 
-import com.liferay.portal.NoSuchRepositoryEntryException;
+import com.liferay.document.library.kernel.exception.NoSuchFileEntryException;
+import com.liferay.document.library.kernel.exception.NoSuchFileVersionException;
+import com.liferay.document.library.kernel.exception.NoSuchFolderException;
+import com.liferay.document.library.kernel.model.DLFileEntryTypeConstants;
+import com.liferay.document.library.kernel.model.DLFolder;
+import com.liferay.document.library.kernel.service.DLFolderLocalServiceUtil;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
+import com.liferay.portal.kernel.exception.NoSuchRepositoryEntryException;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.language.LanguageUtil;
+import com.liferay.portal.kernel.lock.Lock;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.model.CompanyConstants;
+import com.liferay.portal.kernel.model.RepositoryEntry;
+import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.repository.BaseRepositoryImpl;
 import com.liferay.portal.kernel.repository.RepositoryException;
 import com.liferay.portal.kernel.repository.model.FileEntry;
+import com.liferay.portal.kernel.repository.model.FileShortcut;
 import com.liferay.portal.kernel.repository.model.FileVersion;
 import com.liferay.portal.kernel.repository.model.Folder;
 import com.liferay.portal.kernel.search.Document;
@@ -35,6 +46,8 @@ import com.liferay.portal.kernel.search.Query;
 import com.liferay.portal.kernel.search.QueryConfig;
 import com.liferay.portal.kernel.search.SearchContext;
 import com.liferay.portal.kernel.search.SearchException;
+import com.liferay.portal.kernel.security.auth.PrincipalThreadLocal;
+import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.ListUtil;
@@ -45,18 +58,6 @@ import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.Time;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.workflow.WorkflowConstants;
-import com.liferay.portal.model.CompanyConstants;
-import com.liferay.portal.model.Lock;
-import com.liferay.portal.model.RepositoryEntry;
-import com.liferay.portal.model.User;
-import com.liferay.portal.security.auth.PrincipalThreadLocal;
-import com.liferay.portal.service.ServiceContext;
-import com.liferay.portlet.documentlibrary.NoSuchFileEntryException;
-import com.liferay.portlet.documentlibrary.NoSuchFileVersionException;
-import com.liferay.portlet.documentlibrary.NoSuchFolderException;
-import com.liferay.portlet.documentlibrary.model.DLFileEntryTypeConstants;
-import com.liferay.portlet.documentlibrary.model.DLFolder;
-import com.liferay.portlet.documentlibrary.service.DLFolderLocalServiceUtil;
 import com.liferay.repository.external.model.ExtRepositoryFileEntryAdapter;
 import com.liferay.repository.external.model.ExtRepositoryFileVersionAdapter;
 import com.liferay.repository.external.model.ExtRepositoryFolderAdapter;
@@ -103,6 +104,14 @@ public class ExtRepositoryAdapter extends BaseRepositoryImpl {
 
 		return _toExtRepositoryObjectAdapter(
 			ExtRepositoryObjectAdapterType.FILE, extRepositoryFileEntry);
+	}
+
+	@Override
+	public FileShortcut addFileShortcut(
+		long userId, long folderId, long toFileEntryId,
+		ServiceContext serviceContext) {
+
+		throw new UnsupportedOperationException();
 	}
 
 	@Override
@@ -232,6 +241,16 @@ public class ExtRepositoryAdapter extends BaseRepositoryImpl {
 	}
 
 	@Override
+	public void deleteFileShortcut(long fileShortcutId) {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public void deleteFileShortcuts(long toFileEntryId) {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
 	public void deleteFolder(long folderId) throws PortalException {
 		String extRepositoryFolderKey = getExtRepositoryObjectKey(folderId);
 
@@ -275,6 +294,15 @@ public class ExtRepositoryAdapter extends BaseRepositoryImpl {
 
 		return _toExtRepositoryFileVersionAdapters(
 			extRepositoryFileEntryAdapter, extRepositoryFileVersions);
+	}
+
+	@Override
+	public List<FileEntry> getFileEntries(
+			long folderId, int status, int start, int end,
+			OrderByComparator<FileEntry> obc)
+		throws PortalException {
+
+		return getFileEntries(folderId, start, end, obc);
 	}
 
 	@Override
@@ -342,6 +370,13 @@ public class ExtRepositoryAdapter extends BaseRepositoryImpl {
 	}
 
 	@Override
+	public int getFileEntriesCount(long folderId, int status)
+		throws PortalException {
+
+		return getFileEntriesCount(folderId);
+	}
+
+	@Override
 	public int getFileEntriesCount(long folderId, long fileEntryTypeId)
 		throws PortalException {
 
@@ -406,6 +441,11 @@ public class ExtRepositoryAdapter extends BaseRepositoryImpl {
 
 		return _toExtRepositoryObjectAdapter(
 			ExtRepositoryObjectAdapterType.FILE, extRepositoryFileEntry);
+	}
+
+	@Override
+	public FileShortcut getFileShortcut(long fileShortcutId) {
+		throw new UnsupportedOperationException();
 	}
 
 	@Override
@@ -552,8 +592,8 @@ public class ExtRepositoryAdapter extends BaseRepositoryImpl {
 			return _extRepository.getExtRepositoryObjectsCount(
 				ExtRepositoryObjectType.OBJECT, extRepositoryFolderKey);
 		}
-		catch (PortalException e) {
-			throw new SystemException(e);
+		catch (PortalException pe) {
+			throw new SystemException(pe);
 		}
 	}
 
@@ -1012,6 +1052,21 @@ public class ExtRepositoryAdapter extends BaseRepositoryImpl {
 	}
 
 	@Override
+	public FileShortcut updateFileShortcut(
+		long userId, long fileShortcutId, long folderId, long toFileEntryId,
+		ServiceContext serviceContext) {
+
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public void updateFileShortcuts(
+		long oldToFileEntryId, long newToFileEntryId) {
+
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
 	public ExtRepositoryFolderAdapter updateFolder(
 			long folderId, String name, String description,
 			ServiceContext serviceContext)
@@ -1100,7 +1155,19 @@ public class ExtRepositoryAdapter extends BaseRepositoryImpl {
 
 		dlAppHelperLocalService.checkAssetEntry(
 			PrincipalThreadLocal.getUserId(), extRepositoryFileEntryAdapter,
-			extRepositoryFileEntryAdapter.getFileVersion() );
+			extRepositoryFileEntryAdapter.getFileVersion());
+	}
+
+	private User _fetchDefaultUser() {
+		try {
+			return userLocalService.getDefaultUser(getCompanyId());
+		}
+		catch (PortalException pe) {
+			_log.error(
+				"Unable to get default user for company " + getCompanyId(), pe);
+
+			return null;
+		}
 	}
 
 	private <T extends ExtRepositoryObjectAdapter<?>> List<T> _filterByMimeType(
@@ -1155,7 +1222,7 @@ public class ExtRepositoryAdapter extends BaseRepositoryImpl {
 	private String _getLogin() {
 		String login = PrincipalThreadLocal.getName();
 
-		if (Validator.isNull(login)) {
+		if (Validator.isNull(login) || _isDefaultUser(login)) {
 			return PropsUtil.get(PropsKeys.DL_REPOSITORY_GUEST_USERNAME);
 		}
 
@@ -1190,7 +1257,7 @@ public class ExtRepositoryAdapter extends BaseRepositoryImpl {
 	private String _getPassword() {
 		String login = PrincipalThreadLocal.getName();
 
-		if (Validator.isNull(login)) {
+		if (Validator.isNull(login) || _isDefaultUser(login)) {
 			return PropsUtil.get(PropsKeys.DL_REPOSITORY_GUEST_PASSWORD);
 		}
 
@@ -1203,6 +1270,18 @@ public class ExtRepositoryAdapter extends BaseRepositoryImpl {
 		return repositoryEntryLocalService.getRepositoryEntry(
 			rootMountFolder.getUserId(), getGroupId(), getRepositoryId(),
 			_extRepository.getRootFolderKey());
+	}
+
+	private boolean _isDefaultUser(String login) {
+		User defaultUser = _fetchDefaultUser();
+
+		if ((defaultUser != null) &&
+			login.equals(defaultUser.getScreenName())) {
+
+			return true;
+		}
+
+		return false;
 	}
 
 	private <T, V extends T> List<T> _subList(

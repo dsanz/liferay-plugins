@@ -199,7 +199,7 @@ taskListURL.setParameter("tabs2", tabs2);
 							</div>
 
 							<c:if test="<%= tasksEntry.getDueDate() != null %>">
-								<div class="due-date <%= (DateUtil.compareTo(new Date(), tasksEntry.getDueDate(), true) >= 0) ? "past-due" : StringPool.BLANK %>">
+								<div class="due-date <%= (DateUtil.compareTo(new Date(), tasksEntry.getDueDate()) >= 0) ? "past-due" : StringPool.BLANK %>">
 									<%= dateFormatDateTime.format(tasksEntry.getDueDate()) %>
 								</div>
 							</c:if>
@@ -254,7 +254,6 @@ taskListURL.setParameter("tabs2", tabs2);
 					</div>
 				</div>
 			</c:if>
-
 		</liferay-ui:search-container-column-text>
 	</liferay-ui:search-container-row>
 

@@ -14,7 +14,6 @@
 
 package com.liferay.chat.service.persistence.impl;
 
-import com.liferay.chat.model.Status;
 import com.liferay.chat.service.persistence.StatusFinder;
 import com.liferay.portal.kernel.dao.orm.QueryPos;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
@@ -22,14 +21,13 @@ import com.liferay.portal.kernel.dao.orm.SQLQuery;
 import com.liferay.portal.kernel.dao.orm.Session;
 import com.liferay.portal.kernel.dao.orm.Type;
 import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.portal.kernel.model.User;
+import com.liferay.portal.kernel.security.auth.CompanyThreadLocal;
+import com.liferay.portal.kernel.service.ClassNameLocalServiceUtil;
+import com.liferay.portal.kernel.service.persistence.UserUtil;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.StringUtil;
-import com.liferay.portal.model.User;
-import com.liferay.portal.security.auth.CompanyThreadLocal;
-import com.liferay.portal.service.ClassNameLocalServiceUtil;
-import com.liferay.portal.service.persistence.UserUtil;
-import com.liferay.portal.service.persistence.impl.BasePersistenceImpl;
 import com.liferay.util.dao.orm.CustomSQLUtil;
 
 import java.util.ArrayList;
@@ -40,7 +38,7 @@ import java.util.List;
  * @author Tibor Lipusz
  */
 public class StatusFinderImpl
-	extends BasePersistenceImpl<Status> implements StatusFinder {
+	extends StatusFinderBaseImpl implements StatusFinder {
 
 	public static final String FIND_BY_MODIFIED_DATE =
 		StatusFinder.class.getName() + ".findByModifiedDate";

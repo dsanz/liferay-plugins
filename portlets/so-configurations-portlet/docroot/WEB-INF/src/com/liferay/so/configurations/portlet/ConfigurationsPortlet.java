@@ -19,25 +19,24 @@ package com.liferay.so.configurations.portlet;
 
 import com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery;
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.model.LayoutConstants;
+import com.liferay.portal.kernel.model.ResourceConstants;
+import com.liferay.portal.kernel.model.Role;
+import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCPortlet;
+import com.liferay.portal.kernel.security.permission.ActionKeys;
+import com.liferay.portal.kernel.service.GroupLocalServiceUtil;
+import com.liferay.portal.kernel.service.PortletPreferencesLocalServiceUtil;
+import com.liferay.portal.kernel.service.ResourcePermissionLocalServiceUtil;
+import com.liferay.portal.kernel.service.RoleLocalServiceUtil;
+import com.liferay.portal.kernel.service.UserLocalServiceUtil;
 import com.liferay.portal.kernel.servlet.SessionErrors;
+import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.PropertiesParamUtil;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.UnicodeProperties;
 import com.liferay.portal.kernel.util.WebKeys;
-import com.liferay.portal.model.LayoutConstants;
-import com.liferay.portal.model.ResourceConstants;
-import com.liferay.portal.model.Role;
-import com.liferay.portal.model.User;
-import com.liferay.portal.security.permission.ActionKeys;
-import com.liferay.portal.service.GroupLocalServiceUtil;
-import com.liferay.portal.service.PortletPreferencesLocalServiceUtil;
-import com.liferay.portal.service.ResourcePermissionLocalServiceUtil;
-import com.liferay.portal.service.RoleLocalServiceUtil;
-import com.liferay.portal.service.UserLocalServiceUtil;
-import com.liferay.portal.service.persistence.UserActionableDynamicQuery;
-import com.liferay.portal.theme.ThemeDisplay;
 import com.liferay.so.configurations.util.PortletKeys;
 import com.liferay.so.util.RoleConstants;
 
@@ -65,21 +64,21 @@ public class ConfigurationsPortlet extends MVCPortlet {
 			themeDisplay.getCompanyId(), RoleConstants.SOCIAL_OFFICE_USER);
 
 		ActionableDynamicQuery actionableDynamicQuery =
-			new UserActionableDynamicQuery() {
-
-			@Override
-			protected void performAction(Object object) throws PortalException {
-				User user = (User)object;
-
-				if (!user.isDefaultUser()) {
-					UserLocalServiceUtil.addRoleUsers(
-						role.getRoleId(), new long[] {user.getUserId()});
-				}
-			}
-
-		};
+			UserLocalServiceUtil.getActionableDynamicQuery();
 
 		actionableDynamicQuery.setCompanyId(themeDisplay.getCompanyId());
+		actionableDynamicQuery.setPerformActionMethod(
+			new ActionableDynamicQuery.PerformActionMethod<User>() {
+
+				@Override
+				public void performAction(User user) throws PortalException {
+					if (!user.isDefaultUser()) {
+						UserLocalServiceUtil.addRoleUsers(
+							role.getRoleId(), new long[] {user.getUserId()});
+					}
+				}
+
+			});
 
 		actionableDynamicQuery.performActions();
 	}

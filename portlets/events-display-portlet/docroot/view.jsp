@@ -30,7 +30,7 @@ if (regularSite) {
 	groupIds.add(group.getGroupId());
 }
 else if (group.isUser() && themeDisplay.isSignedIn()) {
-	for (Group mySite : user.getMySites()) {
+	for (Group mySite : user.getMySiteGroups()) {
 		groupIds.add(mySite.getGroupId());
 	}
 }
@@ -92,11 +92,7 @@ for (CalendarBooking calendarBooking : calendarBookings) {
 	long startTime = calendarBooking.getStartTime();
 
 	if (calendarBooking.isAllDay()) {
-		startTime -= timeZone.getRawOffset();
-
-		if (timeZone.inDaylightTime(new Date(startTime))) {
-			startTime -= timeZone.getDSTSavings();
-		}
+		startTime -= timeZone.getOffset(startTime);
 	}
 
 	startTimeJCalendar.setTimeInMillis(startTime);

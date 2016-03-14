@@ -14,12 +14,15 @@
 
 package com.liferay.tasks.service;
 
-import com.liferay.portal.service.InvokableService;
+import aQute.bnd.annotation.ProviderType;
+
+import com.liferay.portal.kernel.service.InvokableService;
 
 /**
  * @author Ryan Park
  * @generated
  */
+@ProviderType
 public class TasksEntryServiceClp implements TasksEntryService {
 	public TasksEntryServiceClp(InvokableService invokableService) {
 		_invokableService = invokableService;
@@ -28,10 +31,11 @@ public class TasksEntryServiceClp implements TasksEntryService {
 
 		_methodParameterTypes0 = new String[] {
 				"java.lang.String", "int", "long", "int", "int", "int", "int",
-				"int", "boolean", "com.liferay.portal.service.ServiceContext"
+				"int", "boolean",
+				"com.liferay.portal.kernel.service.ServiceContext"
 			};
 
-		_methodName1 = "getBeanIdentifier";
+		_methodName1 = "getOSGiServiceIdentifier";
 
 		_methodParameterTypes1 = new String[] {  };
 
@@ -39,16 +43,12 @@ public class TasksEntryServiceClp implements TasksEntryService {
 
 		_methodParameterTypes2 = new String[] { "long" };
 
-		_methodName4 = "setBeanIdentifier";
+		_methodName4 = "updateTasksEntry";
 
-		_methodParameterTypes4 = new String[] { "java.lang.String" };
-
-		_methodName5 = "updateTasksEntry";
-
-		_methodParameterTypes5 = new String[] {
+		_methodParameterTypes4 = new String[] {
 				"long", "java.lang.String", "int", "long", "long", "int", "int",
 				"int", "int", "int", "boolean", "int",
-				"com.liferay.portal.service.ServiceContext"
+				"com.liferay.portal.kernel.service.ServiceContext"
 			};
 	}
 
@@ -57,7 +57,7 @@ public class TasksEntryServiceClp implements TasksEntryService {
 		java.lang.String title, int priority, long assigneeUserId,
 		int dueDateMonth, int dueDateDay, int dueDateYear, int dueDateHour,
 		int dueDateMinute, boolean neverDue,
-		com.liferay.portal.service.ServiceContext serviceContext)
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		Object returnObj = null;
 
@@ -106,7 +106,7 @@ public class TasksEntryServiceClp implements TasksEntryService {
 	}
 
 	@Override
-	public java.lang.String getBeanIdentifier() {
+	public java.lang.String getOSGiServiceIdentifier() {
 		Object returnObj = null;
 
 		try {
@@ -164,38 +164,18 @@ public class TasksEntryServiceClp implements TasksEntryService {
 	}
 
 	@Override
-	public void setBeanIdentifier(java.lang.String beanIdentifier) {
-		try {
-			_invokableService.invokeMethod(_methodName4,
-				_methodParameterTypes4,
-				new Object[] { ClpSerializer.translateInput(beanIdentifier) });
-		}
-		catch (Throwable t) {
-			t = ClpSerializer.translateThrowable(t);
-
-			if (t instanceof RuntimeException) {
-				throw (RuntimeException)t;
-			}
-			else {
-				throw new RuntimeException(t.getClass().getName() +
-					" is not a valid exception");
-			}
-		}
-	}
-
-	@Override
 	public com.liferay.tasks.model.TasksEntry updateTasksEntry(
 		long tasksEntryId, java.lang.String title, int priority,
 		long assigneeUserId, long resolverUserId, int dueDateMonth,
 		int dueDateDay, int dueDateYear, int dueDateHour, int dueDateMinute,
 		boolean neverDue, int status,
-		com.liferay.portal.service.ServiceContext serviceContext)
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableService.invokeMethod(_methodName5,
-					_methodParameterTypes5,
+			returnObj = _invokableService.invokeMethod(_methodName4,
+					_methodParameterTypes4,
 					new Object[] {
 						tasksEntryId,
 						
@@ -252,6 +232,4 @@ public class TasksEntryServiceClp implements TasksEntryService {
 	private String[] _methodParameterTypes2;
 	private String _methodName4;
 	private String[] _methodParameterTypes4;
-	private String _methodName5;
-	private String[] _methodParameterTypes5;
 }

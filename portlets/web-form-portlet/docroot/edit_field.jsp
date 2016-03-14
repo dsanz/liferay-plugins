@@ -48,7 +48,7 @@ boolean ignoreRequestValue = (index != formFieldsIndex);
 				<span class="field-label"><liferay-ui:message key="paragraph" /></span>
 			</c:when>
 			<c:when test="<%= Validator.isNotNull(fieldLabel) %>">
-				<span class="field-label"><%= fieldLabel %></span>
+				<span class="field-label"><%= HtmlUtil.escape(fieldLabel) %></span>
 			</c:when>
 			<c:otherwise>
 				<liferay-ui:message key="new-item" />
@@ -70,7 +70,7 @@ boolean ignoreRequestValue = (index != formFieldsIndex);
 					<liferay-ui:message key="name" />
 				</dt>
 				<dd>
-					<%= fieldLabel %>
+					<%= HtmlUtil.escape(fieldLabel) %>
 				</dd>
 		</c:otherwise>
 	</c:choose>
@@ -121,7 +121,7 @@ boolean ignoreRequestValue = (index != formFieldsIndex);
 					<liferay-ui:message key="options" />
 				</dt>
 				<dd>
-					<%= fieldOptions %>
+					<%= HtmlUtil.escape(fieldOptions) %>
 				</dd>
 		</c:when>
 	</c:choose>
@@ -137,7 +137,7 @@ boolean ignoreRequestValue = (index != formFieldsIndex);
 					<liferay-ui:message key="paragraph" />
 				</dt>
 				<dd>
-					<%= fieldParagraph %>
+					<%= HtmlUtil.escape(fieldParagraph) %>
 				</dd>
 		</c:when>
 	</c:choose>
@@ -151,16 +151,17 @@ boolean ignoreRequestValue = (index != formFieldsIndex);
 					<aui:a cssClass="validation-link" href="javascript:;"><liferay-ui:message key="validation" /> &raquo;</aui:a>
 
 					<div class='validation-input <%= Validator.isNull(fieldValidationScript) ? "hide" : "" %>'>
-						<aui:column columnWidth="50">
+						<aui:col width="<%= 50 %>">
 							<aui:input cols="80" cssClass="validation-script" ignoreRequestValue="<%= ignoreRequestValue %>" label="validation-script" name='<%= "fieldValidationScript" + index %>' style="width: 95%" type="textarea" value="<%= fieldValidationScript %>" wrap="off" />
 
 							<aui:input cols="80" ignoreRequestValue="<%= ignoreRequestValue %>" label="validation-error-message" name='<%= "fieldValidationErrorMessage" + index %>' size="80" value="<%= fieldValidationErrorMessage %>" wrapperCssClass="lfr-input-text-container" />
-						</aui:column>
-						<aui:column columnWidth="50">
+						</aui:col>
+
+						<aui:col width="<%= 50 %>">
 							<div class="syntax-help">
 								<liferay-util:include page="/script_help.jsp" servletContext="<%= application %>" />
 							</div>
-						</aui:column>
+						</aui:col>
 					</div>
 				</div>
 			</c:when>

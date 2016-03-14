@@ -14,9 +14,11 @@
 
 package com.liferay.testtransaction.service;
 
+import aQute.bnd.annotation.ProviderType;
+
 import com.liferay.portal.kernel.bean.PortletBeanLocatorUtil;
+import com.liferay.portal.kernel.service.InvokableLocalService;
 import com.liferay.portal.kernel.util.ReferenceRegistry;
-import com.liferay.portal.service.InvokableLocalService;
 
 /**
  * Provides the local service utility for Bar. This utility wraps
@@ -32,6 +34,7 @@ import com.liferay.portal.service.InvokableLocalService;
  * @see com.liferay.testtransaction.service.impl.BarLocalServiceImpl
  * @generated
  */
+@ProviderType
 public class BarLocalServiceUtil {
 	/*
 	 * NOTE FOR DEVELOPERS:
@@ -109,8 +112,8 @@ public class BarLocalServiceUtil {
 	/**
 	* @throws PortalException
 	*/
-	public static com.liferay.portal.model.PersistedModel deletePersistedModel(
-		com.liferay.portal.model.PersistedModel persistedModel)
+	public static com.liferay.portal.kernel.model.PersistedModel deletePersistedModel(
+		com.liferay.portal.kernel.model.PersistedModel persistedModel)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		return getService().deletePersistedModel(persistedModel);
 	}
@@ -170,10 +173,10 @@ public class BarLocalServiceUtil {
 	}
 
 	/**
-	* Returns the number of rows that match the dynamic query.
+	* Returns the number of rows matching the dynamic query.
 	*
 	* @param dynamicQuery the dynamic query
-	* @return the number of rows that match the dynamic query
+	* @return the number of rows matching the dynamic query
 	*/
 	public static long dynamicQueryCount(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery) {
@@ -181,11 +184,11 @@ public class BarLocalServiceUtil {
 	}
 
 	/**
-	* Returns the number of rows that match the dynamic query.
+	* Returns the number of rows matching the dynamic query.
 	*
 	* @param dynamicQuery the dynamic query
 	* @param projection the projection to apply to the query
-	* @return the number of rows that match the dynamic query
+	* @return the number of rows matching the dynamic query
 	*/
 	public static long dynamicQueryCount(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery,
@@ -244,16 +247,20 @@ public class BarLocalServiceUtil {
 		return getService().getBarsCount();
 	}
 
-	/**
-	* Returns the Spring bean ID for this bean.
-	*
-	* @return the Spring bean ID for this bean
-	*/
-	public static java.lang.String getBeanIdentifier() {
-		return getService().getBeanIdentifier();
+	public static com.liferay.portal.kernel.dao.orm.IndexableActionableDynamicQuery getIndexableActionableDynamicQuery() {
+		return getService().getIndexableActionableDynamicQuery();
 	}
 
-	public static com.liferay.portal.model.PersistedModel getPersistedModel(
+	/**
+	* Returns the OSGi service identifier.
+	*
+	* @return the OSGi service identifier
+	*/
+	public static java.lang.String getOSGiServiceIdentifier() {
+		return getService().getOSGiServiceIdentifier();
+	}
+
+	public static com.liferay.portal.kernel.model.PersistedModel getPersistedModel(
 		java.io.Serializable primaryKeyObj)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		return getService().getPersistedModel(primaryKeyObj);
@@ -271,15 +278,6 @@ public class BarLocalServiceUtil {
 		java.lang.String[] parameterTypes, java.lang.Object[] arguments)
 		throws java.lang.Throwable {
 		return getService().invokeMethod(name, parameterTypes, arguments);
-	}
-
-	/**
-	* Sets the Spring bean ID for this bean.
-	*
-	* @param beanIdentifier the Spring bean ID for this bean
-	*/
-	public static void setBeanIdentifier(java.lang.String beanIdentifier) {
-		getService().setBeanIdentifier(beanIdentifier);
 	}
 
 	public static void testAddClassNameAndBar_Success(java.lang.String text) {
@@ -318,13 +316,6 @@ public class BarLocalServiceUtil {
 		}
 
 		return _service;
-	}
-
-	/**
-	 * @deprecated As of 6.2.0
-	 */
-	@Deprecated
-	public void setService(BarLocalService service) {
 	}
 
 	private static BarLocalService _service;

@@ -16,16 +16,16 @@ package com.liferay.sync.model.impl;
 
 import aQute.bnd.annotation.ProviderType;
 
+import com.liferay.expando.kernel.model.ExpandoBridge;
+import com.liferay.expando.kernel.util.ExpandoBridgeFactoryUtil;
+
 import com.liferay.portal.kernel.bean.AutoEscapeBeanHandler;
+import com.liferay.portal.kernel.model.CacheModel;
+import com.liferay.portal.kernel.model.impl.BaseModelImpl;
+import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.ProxyUtil;
 import com.liferay.portal.kernel.util.StringBundler;
-import com.liferay.portal.model.CacheModel;
-import com.liferay.portal.model.impl.BaseModelImpl;
-import com.liferay.portal.service.ServiceContext;
-
-import com.liferay.portlet.expando.model.ExpandoBridge;
-import com.liferay.portlet.expando.util.ExpandoBridgeFactoryUtil;
 
 import com.liferay.sync.model.SyncDLFileVersionDiff;
 import com.liferay.sync.model.SyncDLFileVersionDiffModel;
@@ -69,6 +69,18 @@ public class SyncDLFileVersionDiffModelImpl extends BaseModelImpl<SyncDLFileVers
 			{ "size_", Types.BIGINT },
 			{ "expirationDate", Types.TIMESTAMP }
 		};
+	public static final Map<String, Integer> TABLE_COLUMNS_MAP = new HashMap<String, Integer>();
+
+	static {
+		TABLE_COLUMNS_MAP.put("syncDLFileVersionDiffId", Types.BIGINT);
+		TABLE_COLUMNS_MAP.put("fileEntryId", Types.BIGINT);
+		TABLE_COLUMNS_MAP.put("sourceFileVersionId", Types.BIGINT);
+		TABLE_COLUMNS_MAP.put("targetFileVersionId", Types.BIGINT);
+		TABLE_COLUMNS_MAP.put("dataFileEntryId", Types.BIGINT);
+		TABLE_COLUMNS_MAP.put("size_", Types.BIGINT);
+		TABLE_COLUMNS_MAP.put("expirationDate", Types.TIMESTAMP);
+	}
+
 	public static final String TABLE_SQL_CREATE = "create table SyncDLFileVersionDiff (syncDLFileVersionDiffId LONG not null primary key,fileEntryId LONG,sourceFileVersionId LONG,targetFileVersionId LONG,dataFileEntryId LONG,size_ LONG,expirationDate DATE null)";
 	public static final String TABLE_SQL_DROP = "drop table SyncDLFileVersionDiff";
 	public static final String ORDER_BY_JPQL = " ORDER BY syncDLFileVersionDiff.syncDLFileVersionDiffId ASC";

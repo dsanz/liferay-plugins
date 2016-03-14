@@ -23,7 +23,7 @@
 	%>
 
 	<liferay-util:html-top>
-		<link href="<%= PortalUtil.getStaticResourceURL(request, PortalUtil.getPathContext(request) + "/css/main.css", portlet.getTimestamp()) %>" rel="stylesheet" type="text/css" />
+		<link data-senna-track="permanent" href="<%= PortalUtil.getStaticResourceURL(request, PortalUtil.getPathContext(request) + "/css/main.css", portlet.getTimestamp()) %>" rel="stylesheet" type="text/css" />
 	</liferay-util:html-top>
 
 	<liferay-util:html-bottom>
@@ -68,21 +68,21 @@
 			<div class="chat-tabs-container">
 				<ul class="chat-tabs">
 					<li class="buddy-list loading <%= openPanelId.equals("buddylist") ? "selected" : "" %>">
-						<div class="panel-trigger" panelId="buddylist">
+						<div class="chat-panel-trigger" panelId="buddylist" tabindex="0">
 							<span class="trigger-name"><%= LanguageUtil.format(request, "online-friends-x", "(" + buddiesCount + ")", false) %></span>
 						</div>
 
 						<div class="chat-panel">
-							<div class="panel-window">
-								<div class="minimize panel-button"></div>
+							<div class="chat-panel-window">
+								<div class="chat-panel-button minimize"></div>
 
-								<div class="panel-title">
+								<div class="chat-panel-title">
 									<%= LanguageUtil.format(request, "online-friends-x", "(" + buddiesCount + ")", false) %>
 								</div>
 
 								<aui:input cssClass="search-buddies" label="" name="searchBuddies" placeholder="search" />
 
-								<div class="panel-content">
+								<div class="chat-panel-content">
 									<ul class="lfr-component online-users">
 
 										<%
@@ -100,8 +100,8 @@
 											Group group = GroupLocalServiceUtil.fetchGroup(groupId);
 										%>
 
-											<li class="active user" data-displayURL="<%= group.getDisplayURL(themeDisplay, false) %>" data-groupId="<%= groupId %>" data-userId="<%= userId %>">
-												<img alt="" src="<%= UserConstants.getPortraitURL(themeDisplay.getPathImage(), male, portraitId, userUuid) %>" />
+											<li class="active user" data-displayURL="<%= group.getDisplayURL(themeDisplay, false) %>" data-groupId="<%= groupId %>" data-userId="<%= userId %>" tabindex="0">
+												<img alt="<%= HtmlUtil.escape(ContactConstants.getFullName(firstName, middleName, lastName)) %>" src="<%= UserConstants.getPortraitURL(themeDisplay.getPathImage(), male, portraitId, userUuid) %>" />
 
 												<div class="name">
 													<%= HtmlUtil.escape(ContactConstants.getFullName(firstName, middleName, lastName)) %>
@@ -120,15 +120,15 @@
 						</div>
 					</li>
 					<li class="chat-settings <%= openPanelId.equals("settings") ? "selected" : "" %>">
-						<div class="panel-trigger" panelId="settings">
+						<div class="chat-panel-trigger" panelId="settings" tabindex="0">
 							<span class="trigger-name"><liferay-ui:message key="settings" /></span>
 						</div>
 
 						<div class="chat-panel">
-							<div class="panel-window">
-								<div class="minimize panel-button"></div>
+							<div class="chat-panel-window">
+								<div class="chat-panel-button minimize"></div>
 
-								<div class="panel-title"><liferay-ui:message key="settings" /></div>
+								<div class="chat-panel-title"><liferay-ui:message key="settings" /></div>
 
 								<ul class="lfr-component settings">
 									<li>

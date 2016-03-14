@@ -17,8 +17,8 @@ package com.liferay.sync.service;
 import aQute.bnd.annotation.ProviderType;
 
 import com.liferay.portal.kernel.bean.PortletBeanLocatorUtil;
+import com.liferay.portal.kernel.service.InvokableLocalService;
 import com.liferay.portal.kernel.util.ReferenceRegistry;
-import com.liferay.portal.service.InvokableLocalService;
 
 /**
  * Provides the local service utility for SyncDLObject. This utility wraps
@@ -44,18 +44,18 @@ public class SyncDLObjectLocalServiceUtil {
 	public static com.liferay.sync.model.SyncDLObject addSyncDLObject(
 		long companyId, long userId, java.lang.String userName,
 		long modifiedTime, long repositoryId, long parentFolderId,
-		java.lang.String name, java.lang.String extension,
-		java.lang.String mimeType, java.lang.String description,
-		java.lang.String changeLog, java.lang.String extraSettings,
-		java.lang.String version, long versionId, long size,
-		java.lang.String checksum, java.lang.String event,
-		java.util.Date lockExpirationDate, long lockUserId,
-		java.lang.String lockUserName, java.lang.String type, long typePK,
-		java.lang.String typeUuid)
+		java.lang.String treePath, java.lang.String name,
+		java.lang.String extension, java.lang.String mimeType,
+		java.lang.String description, java.lang.String changeLog,
+		java.lang.String extraSettings, java.lang.String version,
+		long versionId, long size, java.lang.String checksum,
+		java.lang.String event, java.util.Date lockExpirationDate,
+		long lockUserId, java.lang.String lockUserName, java.lang.String type,
+		long typePK, java.lang.String typeUuid)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		return getService()
 				   .addSyncDLObject(companyId, userId, userName, modifiedTime,
-			repositoryId, parentFolderId, name, extension, mimeType,
+			repositoryId, parentFolderId, treePath, name, extension, mimeType,
 			description, changeLog, extraSettings, version, versionId, size,
 			checksum, event, lockExpirationDate, lockUserId, lockUserName,
 			type, typePK, typeUuid);
@@ -86,8 +86,8 @@ public class SyncDLObjectLocalServiceUtil {
 	/**
 	* @throws PortalException
 	*/
-	public static com.liferay.portal.model.PersistedModel deletePersistedModel(
-		com.liferay.portal.model.PersistedModel persistedModel)
+	public static com.liferay.portal.kernel.model.PersistedModel deletePersistedModel(
+		com.liferay.portal.kernel.model.PersistedModel persistedModel)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		return getService().deletePersistedModel(persistedModel);
 	}
@@ -213,20 +213,24 @@ public class SyncDLObjectLocalServiceUtil {
 		return getService().getActionableDynamicQuery();
 	}
 
-	/**
-	* Returns the Spring bean ID for this bean.
-	*
-	* @return the Spring bean ID for this bean
-	*/
-	public static java.lang.String getBeanIdentifier() {
-		return getService().getBeanIdentifier();
+	public static com.liferay.portal.kernel.dao.orm.IndexableActionableDynamicQuery getIndexableActionableDynamicQuery() {
+		return getService().getIndexableActionableDynamicQuery();
 	}
 
 	public static long getLatestModifiedTime() {
 		return getService().getLatestModifiedTime();
 	}
 
-	public static com.liferay.portal.model.PersistedModel getPersistedModel(
+	/**
+	* Returns the OSGi service identifier.
+	*
+	* @return the OSGi service identifier
+	*/
+	public static java.lang.String getOSGiServiceIdentifier() {
+		return getService().getOSGiServiceIdentifier();
+	}
+
+	public static com.liferay.portal.kernel.model.PersistedModel getPersistedModel(
 		java.io.Serializable primaryKeyObj)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		return getService().getPersistedModel(primaryKeyObj);
@@ -243,6 +247,11 @@ public class SyncDLObjectLocalServiceUtil {
 		long syncDLObjectId)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		return getService().getSyncDLObject(syncDLObjectId);
+	}
+
+	public static java.util.List<com.liferay.sync.model.SyncDLObject> getSyncDLObjects(
+		long repositoryId, long parentFolderId) {
+		return getService().getSyncDLObjects(repositoryId, parentFolderId);
 	}
 
 	/**
@@ -276,13 +285,22 @@ public class SyncDLObjectLocalServiceUtil {
 		return getService().invokeMethod(name, parameterTypes, arguments);
 	}
 
-	/**
-	* Sets the Spring bean ID for this bean.
-	*
-	* @param beanIdentifier the Spring bean ID for this bean
-	*/
-	public static void setBeanIdentifier(java.lang.String beanIdentifier) {
-		getService().setBeanIdentifier(beanIdentifier);
+	public static void moveSyncDLObjects(
+		com.liferay.sync.model.SyncDLObject parentSyncDLObject)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		getService().moveSyncDLObjects(parentSyncDLObject);
+	}
+
+	public static void restoreSyncDLObjects(
+		com.liferay.sync.model.SyncDLObject parentSyncDLObject)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		getService().restoreSyncDLObjects(parentSyncDLObject);
+	}
+
+	public static void trashSyncDLObjects(
+		com.liferay.sync.model.SyncDLObject parentSyncDLObject)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		getService().trashSyncDLObjects(parentSyncDLObject);
 	}
 
 	/**
@@ -317,13 +335,6 @@ public class SyncDLObjectLocalServiceUtil {
 		}
 
 		return _service;
-	}
-
-	/**
-	 * @deprecated As of 6.2.0
-	 */
-	@Deprecated
-	public void setService(SyncDLObjectLocalService service) {
 	}
 
 	private static SyncDLObjectLocalService _service;

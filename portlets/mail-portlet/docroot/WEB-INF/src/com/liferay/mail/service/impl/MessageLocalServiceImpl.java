@@ -14,7 +14,7 @@
 
 package com.liferay.mail.service.impl;
 
-import com.liferay.mail.NoSuchMessageException;
+import com.liferay.mail.exception.NoSuchMessageException;
 import com.liferay.mail.model.Attachment;
 import com.liferay.mail.model.Folder;
 import com.liferay.mail.model.Message;
@@ -27,12 +27,12 @@ import com.liferay.portal.kernel.dao.orm.DynamicQueryFactoryUtil;
 import com.liferay.portal.kernel.dao.orm.OrderFactoryUtil;
 import com.liferay.portal.kernel.dao.orm.RestrictionsFactoryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.search.Indexer;
 import com.liferay.portal.kernel.search.IndexerRegistryUtil;
 import com.liferay.portal.kernel.util.CharPool;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Validator;
-import com.liferay.portal.model.User;
 
 import java.util.Date;
 import java.util.List;
@@ -82,7 +82,8 @@ public class MessageLocalServiceImpl extends MessageLocalServiceBaseImpl {
 
 		// Indexer
 
-		Indexer indexer = IndexerRegistryUtil.getIndexer(Message.class);
+		Indexer<Message> indexer = IndexerRegistryUtil.getIndexer(
+			Message.class);
 
 		indexer.reindex(message);
 
@@ -110,7 +111,8 @@ public class MessageLocalServiceImpl extends MessageLocalServiceBaseImpl {
 
 		// Indexer
 
-		Indexer indexer = IndexerRegistryUtil.getIndexer(Message.class);
+		Indexer<Message> indexer = IndexerRegistryUtil.getIndexer(
+			Message.class);
 
 		indexer.delete(message);
 
@@ -183,7 +185,7 @@ public class MessageLocalServiceImpl extends MessageLocalServiceBaseImpl {
 
 		dynamicQuery.add(RestrictionsFactoryUtil.eq("folderId", folderId));
 		dynamicQuery.add(
-			RestrictionsFactoryUtil.gt("remoteMessageId", new Long(0)));
+			RestrictionsFactoryUtil.gt("remoteMessageId", Long.valueOf(0)));
 
 		if (oldest) {
 			dynamicQuery.addOrder(OrderFactoryUtil.asc("remoteMessageId"));
@@ -310,7 +312,8 @@ public class MessageLocalServiceImpl extends MessageLocalServiceBaseImpl {
 
 		// Indexer
 
-		Indexer indexer = IndexerRegistryUtil.getIndexer(Message.class);
+		Indexer<Message> indexer = IndexerRegistryUtil.getIndexer(
+			Message.class);
 
 		indexer.reindex(message);
 

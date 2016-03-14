@@ -14,16 +14,18 @@
 
 package com.liferay.contacts.service;
 
+import aQute.bnd.annotation.ProviderType;
+
 import com.liferay.contacts.model.EntryClp;
 
 import com.liferay.portal.kernel.io.unsync.UnsyncByteArrayInputStream;
 import com.liferay.portal.kernel.io.unsync.UnsyncByteArrayOutputStream;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.model.BaseModel;
 import com.liferay.portal.kernel.util.ClassLoaderObjectInputStream;
 import com.liferay.portal.kernel.util.PropsUtil;
 import com.liferay.portal.kernel.util.Validator;
-import com.liferay.portal.model.BaseModel;
 
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -36,6 +38,7 @@ import java.util.List;
 /**
  * @author Brian Wing Shun Chan
  */
+@ProviderType
 public class ClpSerializer {
 	public static String getServletContextName() {
 		if (Validator.isNotNull(_servletContextName)) {
@@ -263,29 +266,32 @@ public class ClpSerializer {
 		String className = clazz.getName();
 
 		if (className.equals(
-					"com.liferay.contacts.DuplicateEntryEmailAddressException")) {
-			return new com.liferay.contacts.DuplicateEntryEmailAddressException(throwable.getMessage(),
-				throwable.getCause());
-		}
-
-		if (className.equals("com.liferay.contacts.EntryEmailAddressException")) {
-			return new com.liferay.contacts.EntryEmailAddressException(throwable.getMessage(),
-				throwable.getCause());
-		}
-
-		if (className.equals("com.liferay.contacts.EntryFullNameException")) {
-			return new com.liferay.contacts.EntryFullNameException(throwable.getMessage(),
+					"com.liferay.contacts.exception.DuplicateEntryEmailAddressException")) {
+			return new com.liferay.contacts.exception.DuplicateEntryEmailAddressException(throwable.getMessage(),
 				throwable.getCause());
 		}
 
 		if (className.equals(
-					"com.liferay.contacts.RequiredEntryEmailAddressException")) {
-			return new com.liferay.contacts.RequiredEntryEmailAddressException(throwable.getMessage(),
+					"com.liferay.contacts.exception.EntryEmailAddressException")) {
+			return new com.liferay.contacts.exception.EntryEmailAddressException(throwable.getMessage(),
 				throwable.getCause());
 		}
 
-		if (className.equals("com.liferay.contacts.NoSuchEntryException")) {
-			return new com.liferay.contacts.NoSuchEntryException(throwable.getMessage(),
+		if (className.equals(
+					"com.liferay.contacts.exception.EntryFullNameException")) {
+			return new com.liferay.contacts.exception.EntryFullNameException(throwable.getMessage(),
+				throwable.getCause());
+		}
+
+		if (className.equals(
+					"com.liferay.contacts.exception.RequiredEntryEmailAddressException")) {
+			return new com.liferay.contacts.exception.RequiredEntryEmailAddressException(throwable.getMessage(),
+				throwable.getCause());
+		}
+
+		if (className.equals(
+					"com.liferay.contacts.exception.NoSuchEntryException")) {
+			return new com.liferay.contacts.exception.NoSuchEntryException(throwable.getMessage(),
 				throwable.getCause());
 		}
 

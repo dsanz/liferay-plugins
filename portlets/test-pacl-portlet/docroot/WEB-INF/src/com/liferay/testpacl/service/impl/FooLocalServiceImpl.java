@@ -18,15 +18,17 @@ import com.liferay.chat.model.Entry;
 import com.liferay.chat.model.Status;
 import com.liferay.chat.service.EntryLocalServiceUtil;
 import com.liferay.chat.service.StatusLocalServiceUtil;
+import com.liferay.portal.kernel.bean.BeanReference;
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.model.Company;
+import com.liferay.portal.kernel.model.Group;
+import com.liferay.portal.kernel.model.User;
+import com.liferay.portal.kernel.service.PortalService;
+import com.liferay.portal.kernel.service.PortalServiceUtil;
+import com.liferay.portal.kernel.service.persistence.CompanyUtil;
+import com.liferay.portal.kernel.service.persistence.GroupUtil;
+import com.liferay.portal.kernel.service.persistence.UserUtil;
 import com.liferay.portal.kernel.util.ReleaseInfo;
-import com.liferay.portal.model.Company;
-import com.liferay.portal.model.Group;
-import com.liferay.portal.model.User;
-import com.liferay.portal.service.PortalServiceUtil;
-import com.liferay.portal.service.persistence.CompanyUtil;
-import com.liferay.portal.service.persistence.GroupUtil;
-import com.liferay.portal.service.persistence.UserUtil;
 import com.liferay.testpacl.service.base.FooLocalServiceBaseImpl;
 
 import java.util.List;
@@ -138,5 +140,8 @@ public class FooLocalServiceImpl extends FooLocalServiceBaseImpl {
 
 		return UserUtil.findByPrimaryKey(userId);
 	}
+
+	@BeanReference(type = PortalService.class)
+	protected PortalService portalService;
 
 }

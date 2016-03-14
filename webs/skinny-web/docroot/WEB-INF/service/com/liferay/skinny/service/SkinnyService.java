@@ -19,12 +19,17 @@ import aQute.bnd.annotation.ProviderType;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.jsonwebservice.JSONWebService;
+import com.liferay.portal.kernel.security.access.control.AccessControlled;
+import com.liferay.portal.kernel.service.BaseService;
+import com.liferay.portal.kernel.service.InvokableService;
 import com.liferay.portal.kernel.transaction.Isolation;
 import com.liferay.portal.kernel.transaction.Propagation;
 import com.liferay.portal.kernel.transaction.Transactional;
-import com.liferay.portal.security.ac.AccessControlled;
-import com.liferay.portal.service.BaseService;
-import com.liferay.portal.service.InvokableService;
+
+import com.liferay.skinny.model.SkinnyDDLRecord;
+import com.liferay.skinny.model.SkinnyJournalArticle;
+
+import java.util.List;
 
 /**
  * Provides the remote service interface for Skinny. Methods of this
@@ -50,32 +55,25 @@ public interface SkinnyService extends BaseService, InvokableService {
 	 */
 
 	/**
-	* Returns the Spring bean ID for this bean.
+	* Returns the OSGi service identifier.
 	*
-	* @return the Spring bean ID for this bean
+	* @return the OSGi service identifier
 	*/
-	public java.lang.String getBeanIdentifier();
+	public java.lang.String getOSGiServiceIdentifier();
 
-	@com.liferay.portal.security.ac.AccessControlled(guestAccessEnabled = true)
+	@AccessControlled(guestAccessEnabled = true)
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public java.util.List<com.liferay.skinny.model.SkinnyDDLRecord> getSkinnyDDLRecords(
-		long ddlRecordSetId) throws java.lang.Exception;
+	public List<SkinnyDDLRecord> getSkinnyDDLRecords(long ddlRecordSetId)
+		throws java.lang.Exception;
 
-	@com.liferay.portal.security.ac.AccessControlled(guestAccessEnabled = true)
+	@AccessControlled(guestAccessEnabled = true)
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public java.util.List<com.liferay.skinny.model.SkinnyJournalArticle> getSkinnyJournalArticles(
-		long companyId, java.lang.String groupName, long ddmStructureId,
-		java.lang.String locale) throws java.lang.Exception;
+	public List<SkinnyJournalArticle> getSkinnyJournalArticles(long companyId,
+		java.lang.String groupName, long ddmStructureId, java.lang.String locale)
+		throws java.lang.Exception;
 
 	@Override
 	public java.lang.Object invokeMethod(java.lang.String name,
 		java.lang.String[] parameterTypes, java.lang.Object[] arguments)
 		throws java.lang.Throwable;
-
-	/**
-	* Sets the Spring bean ID for this bean.
-	*
-	* @param beanIdentifier the Spring bean ID for this bean
-	*/
-	public void setBeanIdentifier(java.lang.String beanIdentifier);
 }

@@ -14,9 +14,17 @@
 
 package com.liferay.sampleservicebuilder.model;
 
-import com.liferay.portal.kernel.lar.StagedModelType;
+import aQute.bnd.annotation.ProviderType;
+
+import com.liferay.expando.kernel.model.ExpandoBridge;
+
+import com.liferay.exportimport.kernel.lar.StagedModelType;
+
+import com.liferay.portal.kernel.model.ModelWrapper;
+import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.util.Validator;
-import com.liferay.portal.model.ModelWrapper;
+
+import java.io.Serializable;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -31,6 +39,7 @@ import java.util.Map;
  * @see Foo
  * @generated
  */
+@ProviderType
 public class FooWrapper implements Foo, ModelWrapper<Foo> {
 	public FooWrapper(Foo foo) {
 		_foo = foo;
@@ -174,12 +183,12 @@ public class FooWrapper implements Foo, ModelWrapper<Foo> {
 	* @return the create date of this foo
 	*/
 	@Override
-	public java.util.Date getCreateDate() {
+	public Date getCreateDate() {
 		return _foo.getCreateDate();
 	}
 
 	@Override
-	public com.liferay.portlet.expando.model.ExpandoBridge getExpandoBridge() {
+	public ExpandoBridge getExpandoBridge() {
 		return _foo.getExpandoBridge();
 	}
 
@@ -219,7 +228,7 @@ public class FooWrapper implements Foo, ModelWrapper<Foo> {
 	* @return the field4 of this foo
 	*/
 	@Override
-	public java.util.Date getField4() {
+	public Date getField4() {
 		return _foo.getField4();
 	}
 
@@ -259,7 +268,7 @@ public class FooWrapper implements Foo, ModelWrapper<Foo> {
 	* @return the modified date of this foo
 	*/
 	@Override
-	public java.util.Date getModifiedDate() {
+	public Date getModifiedDate() {
 		return _foo.getModifiedDate();
 	}
 
@@ -274,7 +283,7 @@ public class FooWrapper implements Foo, ModelWrapper<Foo> {
 	}
 
 	@Override
-	public java.io.Serializable getPrimaryKeyObj() {
+	public Serializable getPrimaryKeyObj() {
 		return _foo.getPrimaryKeyObj();
 	}
 
@@ -374,25 +383,23 @@ public class FooWrapper implements Foo, ModelWrapper<Foo> {
 	* @param createDate the create date of this foo
 	*/
 	@Override
-	public void setCreateDate(java.util.Date createDate) {
+	public void setCreateDate(Date createDate) {
 		_foo.setCreateDate(createDate);
 	}
 
 	@Override
 	public void setExpandoBridgeAttributes(
-		com.liferay.portal.model.BaseModel<?> baseModel) {
+		com.liferay.portal.kernel.model.BaseModel<?> baseModel) {
 		_foo.setExpandoBridgeAttributes(baseModel);
 	}
 
 	@Override
-	public void setExpandoBridgeAttributes(
-		com.liferay.portlet.expando.model.ExpandoBridge expandoBridge) {
+	public void setExpandoBridgeAttributes(ExpandoBridge expandoBridge) {
 		_foo.setExpandoBridgeAttributes(expandoBridge);
 	}
 
 	@Override
-	public void setExpandoBridgeAttributes(
-		com.liferay.portal.service.ServiceContext serviceContext) {
+	public void setExpandoBridgeAttributes(ServiceContext serviceContext) {
 		_foo.setExpandoBridgeAttributes(serviceContext);
 	}
 
@@ -432,7 +439,7 @@ public class FooWrapper implements Foo, ModelWrapper<Foo> {
 	* @param field4 the field4 of this foo
 	*/
 	@Override
-	public void setField4(java.util.Date field4) {
+	public void setField4(Date field4) {
 		_foo.setField4(field4);
 	}
 
@@ -472,7 +479,7 @@ public class FooWrapper implements Foo, ModelWrapper<Foo> {
 	* @param modifiedDate the modified date of this foo
 	*/
 	@Override
-	public void setModifiedDate(java.util.Date modifiedDate) {
+	public void setModifiedDate(Date modifiedDate) {
 		_foo.setModifiedDate(modifiedDate);
 	}
 
@@ -492,7 +499,7 @@ public class FooWrapper implements Foo, ModelWrapper<Foo> {
 	}
 
 	@Override
-	public void setPrimaryKeyObj(java.io.Serializable primaryKeyObj) {
+	public void setPrimaryKeyObj(Serializable primaryKeyObj) {
 		_foo.setPrimaryKeyObj(primaryKeyObj);
 	}
 
@@ -537,7 +544,7 @@ public class FooWrapper implements Foo, ModelWrapper<Foo> {
 	}
 
 	@Override
-	public com.liferay.portal.model.CacheModel<com.liferay.sampleservicebuilder.model.Foo> toCacheModel() {
+	public com.liferay.portal.kernel.model.CacheModel<com.liferay.sampleservicebuilder.model.Foo> toCacheModel() {
 		return _foo.toCacheModel();
 	}
 
@@ -585,14 +592,6 @@ public class FooWrapper implements Foo, ModelWrapper<Foo> {
 		return _foo.getStagedModelType();
 	}
 
-	/**
-	 * @deprecated As of 6.1.0, replaced by {@link #getWrappedModel}
-	 */
-	@Deprecated
-	public Foo getWrappedFoo() {
-		return _foo;
-	}
-
 	@Override
 	public Foo getWrappedModel() {
 		return _foo;
@@ -613,5 +612,5 @@ public class FooWrapper implements Foo, ModelWrapper<Foo> {
 		_foo.resetOriginalValues();
 	}
 
-	private Foo _foo;
+	private final Foo _foo;
 }

@@ -18,16 +18,16 @@ import aQute.bnd.annotation.ProviderType;
 
 import com.liferay.portal.kernel.bean.PortletBeanLocatorUtil;
 import com.liferay.portal.kernel.dao.orm.DynamicQuery;
+import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.ReferenceRegistry;
-import com.liferay.portal.service.ServiceContext;
 
 import com.liferay.socialcoding.model.JIRAProject;
 
 import java.util.List;
 
 /**
- * The persistence utility for the j i r a project service. This utility wraps {@link JIRAProjectPersistenceImpl} and provides direct access to the database for CRUD operations. This utility should only be used by the service layer, as it must operate within a transaction. Never access this utility in a JSP, controller, model, or other front-end class.
+ * The persistence utility for the j i r a project service. This utility wraps {@link com.liferay.socialcoding.service.persistence.impl.JIRAProjectPersistenceImpl} and provides direct access to the database for CRUD operations. This utility should only be used by the service layer, as it must operate within a transaction. Never access this utility in a JSP, controller, model, or other front-end class.
  *
  * <p>
  * Caching information and settings can be found in <code>portal.properties</code>
@@ -35,7 +35,7 @@ import java.util.List;
  *
  * @author Brian Wing Shun Chan
  * @see JIRAProjectPersistence
- * @see JIRAProjectPersistenceImpl
+ * @see com.liferay.socialcoding.service.persistence.impl.JIRAProjectPersistenceImpl
  * @generated
  */
 @ProviderType
@@ -47,28 +47,28 @@ public class JIRAProjectUtil {
 	 */
 
 	/**
-	 * @see com.liferay.portal.service.persistence.BasePersistence#clearCache()
+	 * @see com.liferay.portal.kernel.service.persistence.BasePersistence#clearCache()
 	 */
 	public static void clearCache() {
 		getPersistence().clearCache();
 	}
 
 	/**
-	 * @see com.liferay.portal.service.persistence.BasePersistence#clearCache(com.liferay.portal.model.BaseModel)
+	 * @see com.liferay.portal.kernel.service.persistence.BasePersistence#clearCache(com.liferay.portal.kernel.model.BaseModel)
 	 */
 	public static void clearCache(JIRAProject jiraProject) {
 		getPersistence().clearCache(jiraProject);
 	}
 
 	/**
-	 * @see com.liferay.portal.service.persistence.BasePersistence#countWithDynamicQuery(DynamicQuery)
+	 * @see com.liferay.portal.kernel.service.persistence.BasePersistence#countWithDynamicQuery(DynamicQuery)
 	 */
 	public static long countWithDynamicQuery(DynamicQuery dynamicQuery) {
 		return getPersistence().countWithDynamicQuery(dynamicQuery);
 	}
 
 	/**
-	 * @see com.liferay.portal.service.persistence.BasePersistence#findWithDynamicQuery(DynamicQuery)
+	 * @see com.liferay.portal.kernel.service.persistence.BasePersistence#findWithDynamicQuery(DynamicQuery)
 	 */
 	public static List<JIRAProject> findWithDynamicQuery(
 		DynamicQuery dynamicQuery) {
@@ -76,7 +76,7 @@ public class JIRAProjectUtil {
 	}
 
 	/**
-	 * @see com.liferay.portal.service.persistence.BasePersistence#findWithDynamicQuery(DynamicQuery, int, int)
+	 * @see com.liferay.portal.kernel.service.persistence.BasePersistence#findWithDynamicQuery(DynamicQuery, int, int)
 	 */
 	public static List<JIRAProject> findWithDynamicQuery(
 		DynamicQuery dynamicQuery, int start, int end) {
@@ -84,7 +84,7 @@ public class JIRAProjectUtil {
 	}
 
 	/**
-	 * @see com.liferay.portal.service.persistence.BasePersistence#findWithDynamicQuery(DynamicQuery, int, int, OrderByComparator)
+	 * @see com.liferay.portal.kernel.service.persistence.BasePersistence#findWithDynamicQuery(DynamicQuery, int, int, OrderByComparator)
 	 */
 	public static List<JIRAProject> findWithDynamicQuery(
 		DynamicQuery dynamicQuery, int start, int end,
@@ -95,14 +95,14 @@ public class JIRAProjectUtil {
 	}
 
 	/**
-	 * @see com.liferay.portal.service.persistence.BasePersistence#update(com.liferay.portal.model.BaseModel)
+	 * @see com.liferay.portal.kernel.service.persistence.BasePersistence#update(com.liferay.portal.kernel.model.BaseModel)
 	 */
 	public static JIRAProject update(JIRAProject jiraProject) {
 		return getPersistence().update(jiraProject);
 	}
 
 	/**
-	 * @see com.liferay.portal.service.persistence.BasePersistence#update(com.liferay.portal.model.BaseModel, ServiceContext)
+	 * @see com.liferay.portal.kernel.service.persistence.BasePersistence#update(com.liferay.portal.kernel.model.BaseModel, ServiceContext)
 	 */
 	public static JIRAProject update(JIRAProject jiraProject,
 		ServiceContext serviceContext) {
@@ -110,15 +110,14 @@ public class JIRAProjectUtil {
 	}
 
 	/**
-	* Returns the j i r a project where key = &#63; or throws a {@link com.liferay.socialcoding.NoSuchJIRAProjectException} if it could not be found.
+	* Returns the j i r a project where key = &#63; or throws a {@link NoSuchJIRAProjectException} if it could not be found.
 	*
 	* @param key the key
 	* @return the matching j i r a project
-	* @throws com.liferay.socialcoding.NoSuchJIRAProjectException if a matching j i r a project could not be found
+	* @throws NoSuchJIRAProjectException if a matching j i r a project could not be found
 	*/
-	public static com.liferay.socialcoding.model.JIRAProject findByKey(
-		java.lang.String key)
-		throws com.liferay.socialcoding.NoSuchJIRAProjectException {
+	public static JIRAProject findByKey(java.lang.String key)
+		throws com.liferay.socialcoding.exception.NoSuchJIRAProjectException {
 		return getPersistence().findByKey(key);
 	}
 
@@ -128,8 +127,7 @@ public class JIRAProjectUtil {
 	* @param key the key
 	* @return the matching j i r a project, or <code>null</code> if a matching j i r a project could not be found
 	*/
-	public static com.liferay.socialcoding.model.JIRAProject fetchByKey(
-		java.lang.String key) {
+	public static JIRAProject fetchByKey(java.lang.String key) {
 		return getPersistence().fetchByKey(key);
 	}
 
@@ -137,11 +135,11 @@ public class JIRAProjectUtil {
 	* Returns the j i r a project where key = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
 	*
 	* @param key the key
-	* @param retrieveFromCache whether to use the finder cache
+	* @param retrieveFromCache whether to retrieve from the finder cache
 	* @return the matching j i r a project, or <code>null</code> if a matching j i r a project could not be found
 	*/
-	public static com.liferay.socialcoding.model.JIRAProject fetchByKey(
-		java.lang.String key, boolean retrieveFromCache) {
+	public static JIRAProject fetchByKey(java.lang.String key,
+		boolean retrieveFromCache) {
 		return getPersistence().fetchByKey(key, retrieveFromCache);
 	}
 
@@ -151,9 +149,8 @@ public class JIRAProjectUtil {
 	* @param key the key
 	* @return the j i r a project that was removed
 	*/
-	public static com.liferay.socialcoding.model.JIRAProject removeByKey(
-		java.lang.String key)
-		throws com.liferay.socialcoding.NoSuchJIRAProjectException {
+	public static JIRAProject removeByKey(java.lang.String key)
+		throws com.liferay.socialcoding.exception.NoSuchJIRAProjectException {
 		return getPersistence().removeByKey(key);
 	}
 
@@ -172,8 +169,7 @@ public class JIRAProjectUtil {
 	*
 	* @param jiraProject the j i r a project
 	*/
-	public static void cacheResult(
-		com.liferay.socialcoding.model.JIRAProject jiraProject) {
+	public static void cacheResult(JIRAProject jiraProject) {
 		getPersistence().cacheResult(jiraProject);
 	}
 
@@ -182,8 +178,7 @@ public class JIRAProjectUtil {
 	*
 	* @param jiraProjects the j i r a projects
 	*/
-	public static void cacheResult(
-		java.util.List<com.liferay.socialcoding.model.JIRAProject> jiraProjects) {
+	public static void cacheResult(List<JIRAProject> jiraProjects) {
 		getPersistence().cacheResult(jiraProjects);
 	}
 
@@ -193,8 +188,7 @@ public class JIRAProjectUtil {
 	* @param jiraProjectId the primary key for the new j i r a project
 	* @return the new j i r a project
 	*/
-	public static com.liferay.socialcoding.model.JIRAProject create(
-		long jiraProjectId) {
+	public static JIRAProject create(long jiraProjectId) {
 		return getPersistence().create(jiraProjectId);
 	}
 
@@ -203,29 +197,26 @@ public class JIRAProjectUtil {
 	*
 	* @param jiraProjectId the primary key of the j i r a project
 	* @return the j i r a project that was removed
-	* @throws com.liferay.socialcoding.NoSuchJIRAProjectException if a j i r a project with the primary key could not be found
+	* @throws NoSuchJIRAProjectException if a j i r a project with the primary key could not be found
 	*/
-	public static com.liferay.socialcoding.model.JIRAProject remove(
-		long jiraProjectId)
-		throws com.liferay.socialcoding.NoSuchJIRAProjectException {
+	public static JIRAProject remove(long jiraProjectId)
+		throws com.liferay.socialcoding.exception.NoSuchJIRAProjectException {
 		return getPersistence().remove(jiraProjectId);
 	}
 
-	public static com.liferay.socialcoding.model.JIRAProject updateImpl(
-		com.liferay.socialcoding.model.JIRAProject jiraProject) {
+	public static JIRAProject updateImpl(JIRAProject jiraProject) {
 		return getPersistence().updateImpl(jiraProject);
 	}
 
 	/**
-	* Returns the j i r a project with the primary key or throws a {@link com.liferay.socialcoding.NoSuchJIRAProjectException} if it could not be found.
+	* Returns the j i r a project with the primary key or throws a {@link NoSuchJIRAProjectException} if it could not be found.
 	*
 	* @param jiraProjectId the primary key of the j i r a project
 	* @return the j i r a project
-	* @throws com.liferay.socialcoding.NoSuchJIRAProjectException if a j i r a project with the primary key could not be found
+	* @throws NoSuchJIRAProjectException if a j i r a project with the primary key could not be found
 	*/
-	public static com.liferay.socialcoding.model.JIRAProject findByPrimaryKey(
-		long jiraProjectId)
-		throws com.liferay.socialcoding.NoSuchJIRAProjectException {
+	public static JIRAProject findByPrimaryKey(long jiraProjectId)
+		throws com.liferay.socialcoding.exception.NoSuchJIRAProjectException {
 		return getPersistence().findByPrimaryKey(jiraProjectId);
 	}
 
@@ -235,12 +226,11 @@ public class JIRAProjectUtil {
 	* @param jiraProjectId the primary key of the j i r a project
 	* @return the j i r a project, or <code>null</code> if a j i r a project with the primary key could not be found
 	*/
-	public static com.liferay.socialcoding.model.JIRAProject fetchByPrimaryKey(
-		long jiraProjectId) {
+	public static JIRAProject fetchByPrimaryKey(long jiraProjectId) {
 		return getPersistence().fetchByPrimaryKey(jiraProjectId);
 	}
 
-	public static java.util.Map<java.io.Serializable, com.liferay.socialcoding.model.JIRAProject> fetchByPrimaryKeys(
+	public static java.util.Map<java.io.Serializable, JIRAProject> fetchByPrimaryKeys(
 		java.util.Set<java.io.Serializable> primaryKeys) {
 		return getPersistence().fetchByPrimaryKeys(primaryKeys);
 	}
@@ -250,7 +240,7 @@ public class JIRAProjectUtil {
 	*
 	* @return the j i r a projects
 	*/
-	public static java.util.List<com.liferay.socialcoding.model.JIRAProject> findAll() {
+	public static List<JIRAProject> findAll() {
 		return getPersistence().findAll();
 	}
 
@@ -258,15 +248,14 @@ public class JIRAProjectUtil {
 	* Returns a range of all the j i r a projects.
 	*
 	* <p>
-	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link com.liferay.socialcoding.model.impl.JIRAProjectModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link JIRAProjectModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	* </p>
 	*
 	* @param start the lower bound of the range of j i r a projects
 	* @param end the upper bound of the range of j i r a projects (not inclusive)
 	* @return the range of j i r a projects
 	*/
-	public static java.util.List<com.liferay.socialcoding.model.JIRAProject> findAll(
-		int start, int end) {
+	public static List<JIRAProject> findAll(int start, int end) {
 		return getPersistence().findAll(start, end);
 	}
 
@@ -274,7 +263,7 @@ public class JIRAProjectUtil {
 	* Returns an ordered range of all the j i r a projects.
 	*
 	* <p>
-	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link com.liferay.socialcoding.model.impl.JIRAProjectModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link JIRAProjectModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	* </p>
 	*
 	* @param start the lower bound of the range of j i r a projects
@@ -282,10 +271,29 @@ public class JIRAProjectUtil {
 	* @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
 	* @return the ordered range of j i r a projects
 	*/
-	public static java.util.List<com.liferay.socialcoding.model.JIRAProject> findAll(
-		int start, int end,
-		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.socialcoding.model.JIRAProject> orderByComparator) {
+	public static List<JIRAProject> findAll(int start, int end,
+		OrderByComparator<JIRAProject> orderByComparator) {
 		return getPersistence().findAll(start, end, orderByComparator);
+	}
+
+	/**
+	* Returns an ordered range of all the j i r a projects.
+	*
+	* <p>
+	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link JIRAProjectModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	* </p>
+	*
+	* @param start the lower bound of the range of j i r a projects
+	* @param end the upper bound of the range of j i r a projects (not inclusive)
+	* @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	* @param retrieveFromCache whether to retrieve from the finder cache
+	* @return the ordered range of j i r a projects
+	*/
+	public static List<JIRAProject> findAll(int start, int end,
+		OrderByComparator<JIRAProject> orderByComparator,
+		boolean retrieveFromCache) {
+		return getPersistence()
+				   .findAll(start, end, orderByComparator, retrieveFromCache);
 	}
 
 	/**
@@ -304,6 +312,10 @@ public class JIRAProjectUtil {
 		return getPersistence().countAll();
 	}
 
+	public static java.util.Set<java.lang.String> getBadColumnNames() {
+		return getPersistence().getBadColumnNames();
+	}
+
 	public static JIRAProjectPersistence getPersistence() {
 		if (_persistence == null) {
 			_persistence = (JIRAProjectPersistence)PortletBeanLocatorUtil.locate(com.liferay.socialcoding.service.ClpSerializer.getServletContextName(),
@@ -314,13 +326,6 @@ public class JIRAProjectUtil {
 		}
 
 		return _persistence;
-	}
-
-	/**
-	 * @deprecated As of 6.2.0
-	 */
-	@Deprecated
-	public void setPersistence(JIRAProjectPersistence persistence) {
 	}
 
 	private static JIRAProjectPersistence _persistence;

@@ -14,14 +14,14 @@
 
 package com.liferay.wsrp.admin.lar;
 
+import com.liferay.exportimport.kernel.lar.BaseStagedModelDataHandler;
+import com.liferay.exportimport.kernel.lar.ExportImportPathUtil;
+import com.liferay.exportimport.kernel.lar.PortletDataContext;
+import com.liferay.exportimport.kernel.lar.StagedModelModifiedDateComparator;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.lar.BaseStagedModelDataHandler;
-import com.liferay.portal.kernel.lar.ExportImportPathUtil;
-import com.liferay.portal.kernel.lar.PortletDataContext;
-import com.liferay.portal.kernel.lar.StagedModelModifiedDateComparator;
+import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.xml.Element;
-import com.liferay.portal.service.ServiceContext;
 import com.liferay.wsrp.model.WSRPProducer;
 import com.liferay.wsrp.service.WSRPProducerLocalServiceUtil;
 
@@ -44,8 +44,15 @@ public class WSRPProducerStagedModelDataHandler
 			uuid, groupId);
 
 		if (wsrpProducer != null) {
-			WSRPProducerLocalServiceUtil.deleteWSRPProducer(wsrpProducer);
+			deleteStagedModel(wsrpProducer);
 		}
+	}
+
+	@Override
+	public void deleteStagedModel(WSRPProducer wsrpProducer)
+		throws PortalException {
+
+		WSRPProducerLocalServiceUtil.deleteWSRPProducer(wsrpProducer);
 	}
 
 	@Override

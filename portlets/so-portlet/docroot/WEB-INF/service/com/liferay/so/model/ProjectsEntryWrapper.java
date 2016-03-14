@@ -14,8 +14,15 @@
 
 package com.liferay.so.model;
 
+import aQute.bnd.annotation.ProviderType;
+
+import com.liferay.expando.kernel.model.ExpandoBridge;
+
+import com.liferay.portal.kernel.model.ModelWrapper;
+import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.util.Validator;
-import com.liferay.portal.model.ModelWrapper;
+
+import java.io.Serializable;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -30,6 +37,7 @@ import java.util.Map;
  * @see ProjectsEntry
  * @generated
  */
+@ProviderType
 public class ProjectsEntryWrapper implements ProjectsEntry,
 	ModelWrapper<ProjectsEntry> {
 	public ProjectsEntryWrapper(ProjectsEntry projectsEntry) {
@@ -160,7 +168,7 @@ public class ProjectsEntryWrapper implements ProjectsEntry,
 	* @return the create date of this projects entry
 	*/
 	@Override
-	public java.util.Date getCreateDate() {
+	public Date getCreateDate() {
 		return _projectsEntry.getCreateDate();
 	}
 
@@ -190,12 +198,12 @@ public class ProjectsEntryWrapper implements ProjectsEntry,
 	* @return the end date of this projects entry
 	*/
 	@Override
-	public java.util.Date getEndDate() {
+	public Date getEndDate() {
 		return _projectsEntry.getEndDate();
 	}
 
 	@Override
-	public com.liferay.portlet.expando.model.ExpandoBridge getExpandoBridge() {
+	public ExpandoBridge getExpandoBridge() {
 		return _projectsEntry.getExpandoBridge();
 	}
 
@@ -205,7 +213,7 @@ public class ProjectsEntryWrapper implements ProjectsEntry,
 	* @return the modified date of this projects entry
 	*/
 	@Override
-	public java.util.Date getModifiedDate() {
+	public Date getModifiedDate() {
 		return _projectsEntry.getModifiedDate();
 	}
 
@@ -220,7 +228,7 @@ public class ProjectsEntryWrapper implements ProjectsEntry,
 	}
 
 	@Override
-	public java.io.Serializable getPrimaryKeyObj() {
+	public Serializable getPrimaryKeyObj() {
 		return _projectsEntry.getPrimaryKeyObj();
 	}
 
@@ -240,7 +248,7 @@ public class ProjectsEntryWrapper implements ProjectsEntry,
 	* @return the start date of this projects entry
 	*/
 	@Override
-	public java.util.Date getStartDate() {
+	public Date getStartDate() {
 		return _projectsEntry.getStartDate();
 	}
 
@@ -330,7 +338,7 @@ public class ProjectsEntryWrapper implements ProjectsEntry,
 	* @param createDate the create date of this projects entry
 	*/
 	@Override
-	public void setCreateDate(java.util.Date createDate) {
+	public void setCreateDate(Date createDate) {
 		_projectsEntry.setCreateDate(createDate);
 	}
 
@@ -360,25 +368,23 @@ public class ProjectsEntryWrapper implements ProjectsEntry,
 	* @param endDate the end date of this projects entry
 	*/
 	@Override
-	public void setEndDate(java.util.Date endDate) {
+	public void setEndDate(Date endDate) {
 		_projectsEntry.setEndDate(endDate);
 	}
 
 	@Override
 	public void setExpandoBridgeAttributes(
-		com.liferay.portal.model.BaseModel<?> baseModel) {
+		com.liferay.portal.kernel.model.BaseModel<?> baseModel) {
 		_projectsEntry.setExpandoBridgeAttributes(baseModel);
 	}
 
 	@Override
-	public void setExpandoBridgeAttributes(
-		com.liferay.portlet.expando.model.ExpandoBridge expandoBridge) {
+	public void setExpandoBridgeAttributes(ExpandoBridge expandoBridge) {
 		_projectsEntry.setExpandoBridgeAttributes(expandoBridge);
 	}
 
 	@Override
-	public void setExpandoBridgeAttributes(
-		com.liferay.portal.service.ServiceContext serviceContext) {
+	public void setExpandoBridgeAttributes(ServiceContext serviceContext) {
 		_projectsEntry.setExpandoBridgeAttributes(serviceContext);
 	}
 
@@ -388,7 +394,7 @@ public class ProjectsEntryWrapper implements ProjectsEntry,
 	* @param modifiedDate the modified date of this projects entry
 	*/
 	@Override
-	public void setModifiedDate(java.util.Date modifiedDate) {
+	public void setModifiedDate(Date modifiedDate) {
 		_projectsEntry.setModifiedDate(modifiedDate);
 	}
 
@@ -408,7 +414,7 @@ public class ProjectsEntryWrapper implements ProjectsEntry,
 	}
 
 	@Override
-	public void setPrimaryKeyObj(java.io.Serializable primaryKeyObj) {
+	public void setPrimaryKeyObj(Serializable primaryKeyObj) {
 		_projectsEntry.setPrimaryKeyObj(primaryKeyObj);
 	}
 
@@ -428,7 +434,7 @@ public class ProjectsEntryWrapper implements ProjectsEntry,
 	* @param startDate the start date of this projects entry
 	*/
 	@Override
-	public void setStartDate(java.util.Date startDate) {
+	public void setStartDate(Date startDate) {
 		_projectsEntry.setStartDate(startDate);
 	}
 
@@ -473,7 +479,7 @@ public class ProjectsEntryWrapper implements ProjectsEntry,
 	}
 
 	@Override
-	public com.liferay.portal.model.CacheModel<com.liferay.so.model.ProjectsEntry> toCacheModel() {
+	public com.liferay.portal.kernel.model.CacheModel<com.liferay.so.model.ProjectsEntry> toCacheModel() {
 		return _projectsEntry.toCacheModel();
 	}
 
@@ -516,14 +522,6 @@ public class ProjectsEntryWrapper implements ProjectsEntry,
 		return false;
 	}
 
-	/**
-	 * @deprecated As of 6.1.0, replaced by {@link #getWrappedModel}
-	 */
-	@Deprecated
-	public ProjectsEntry getWrappedProjectsEntry() {
-		return _projectsEntry;
-	}
-
 	@Override
 	public ProjectsEntry getWrappedModel() {
 		return _projectsEntry;
@@ -544,5 +542,5 @@ public class ProjectsEntryWrapper implements ProjectsEntry,
 		_projectsEntry.resetOriginalValues();
 	}
 
-	private ProjectsEntry _projectsEntry;
+	private final ProjectsEntry _projectsEntry;
 }

@@ -14,8 +14,15 @@
 
 package com.liferay.twitter.model;
 
+import aQute.bnd.annotation.ProviderType;
+
+import com.liferay.expando.kernel.model.ExpandoBridge;
+
+import com.liferay.portal.kernel.model.ModelWrapper;
+import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.util.Validator;
-import com.liferay.portal.model.ModelWrapper;
+
+import java.io.Serializable;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -30,6 +37,7 @@ import java.util.Map;
  * @see Feed
  * @generated
  */
+@ProviderType
 public class FeedWrapper implements Feed, ModelWrapper<Feed> {
 	public FeedWrapper(Feed feed) {
 		_feed = feed;
@@ -145,12 +153,12 @@ public class FeedWrapper implements Feed, ModelWrapper<Feed> {
 	* @return the create date of this feed
 	*/
 	@Override
-	public java.util.Date getCreateDate() {
+	public Date getCreateDate() {
 		return _feed.getCreateDate();
 	}
 
 	@Override
-	public com.liferay.portlet.expando.model.ExpandoBridge getExpandoBridge() {
+	public ExpandoBridge getExpandoBridge() {
 		return _feed.getExpandoBridge();
 	}
 
@@ -180,7 +188,7 @@ public class FeedWrapper implements Feed, ModelWrapper<Feed> {
 	* @return the modified date of this feed
 	*/
 	@Override
-	public java.util.Date getModifiedDate() {
+	public Date getModifiedDate() {
 		return _feed.getModifiedDate();
 	}
 
@@ -195,7 +203,7 @@ public class FeedWrapper implements Feed, ModelWrapper<Feed> {
 	}
 
 	@Override
-	public java.io.Serializable getPrimaryKeyObj() {
+	public Serializable getPrimaryKeyObj() {
 		return _feed.getPrimaryKeyObj();
 	}
 
@@ -305,25 +313,23 @@ public class FeedWrapper implements Feed, ModelWrapper<Feed> {
 	* @param createDate the create date of this feed
 	*/
 	@Override
-	public void setCreateDate(java.util.Date createDate) {
+	public void setCreateDate(Date createDate) {
 		_feed.setCreateDate(createDate);
 	}
 
 	@Override
 	public void setExpandoBridgeAttributes(
-		com.liferay.portal.model.BaseModel<?> baseModel) {
+		com.liferay.portal.kernel.model.BaseModel<?> baseModel) {
 		_feed.setExpandoBridgeAttributes(baseModel);
 	}
 
 	@Override
-	public void setExpandoBridgeAttributes(
-		com.liferay.portlet.expando.model.ExpandoBridge expandoBridge) {
+	public void setExpandoBridgeAttributes(ExpandoBridge expandoBridge) {
 		_feed.setExpandoBridgeAttributes(expandoBridge);
 	}
 
 	@Override
-	public void setExpandoBridgeAttributes(
-		com.liferay.portal.service.ServiceContext serviceContext) {
+	public void setExpandoBridgeAttributes(ServiceContext serviceContext) {
 		_feed.setExpandoBridgeAttributes(serviceContext);
 	}
 
@@ -353,7 +359,7 @@ public class FeedWrapper implements Feed, ModelWrapper<Feed> {
 	* @param modifiedDate the modified date of this feed
 	*/
 	@Override
-	public void setModifiedDate(java.util.Date modifiedDate) {
+	public void setModifiedDate(Date modifiedDate) {
 		_feed.setModifiedDate(modifiedDate);
 	}
 
@@ -373,7 +379,7 @@ public class FeedWrapper implements Feed, ModelWrapper<Feed> {
 	}
 
 	@Override
-	public void setPrimaryKeyObj(java.io.Serializable primaryKeyObj) {
+	public void setPrimaryKeyObj(Serializable primaryKeyObj) {
 		_feed.setPrimaryKeyObj(primaryKeyObj);
 	}
 
@@ -438,7 +444,7 @@ public class FeedWrapper implements Feed, ModelWrapper<Feed> {
 	}
 
 	@Override
-	public com.liferay.portal.model.CacheModel<com.liferay.twitter.model.Feed> toCacheModel() {
+	public com.liferay.portal.kernel.model.CacheModel<com.liferay.twitter.model.Feed> toCacheModel() {
 		return _feed.toCacheModel();
 	}
 
@@ -481,14 +487,6 @@ public class FeedWrapper implements Feed, ModelWrapper<Feed> {
 		return false;
 	}
 
-	/**
-	 * @deprecated As of 6.1.0, replaced by {@link #getWrappedModel}
-	 */
-	@Deprecated
-	public Feed getWrappedFeed() {
-		return _feed;
-	}
-
 	@Override
 	public Feed getWrappedModel() {
 		return _feed;
@@ -509,5 +507,5 @@ public class FeedWrapper implements Feed, ModelWrapper<Feed> {
 		_feed.resetOriginalValues();
 	}
 
-	private Feed _feed;
+	private final Feed _feed;
 }

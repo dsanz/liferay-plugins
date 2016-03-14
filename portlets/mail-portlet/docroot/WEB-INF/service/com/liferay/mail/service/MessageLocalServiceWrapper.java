@@ -16,7 +16,7 @@ package com.liferay.mail.service;
 
 import aQute.bnd.annotation.ProviderType;
 
-import com.liferay.portal.service.ServiceWrapper;
+import com.liferay.portal.kernel.service.ServiceWrapper;
 
 /**
  * Provides a wrapper for {@link MessageLocalService}.
@@ -105,8 +105,8 @@ public class MessageLocalServiceWrapper implements MessageLocalService,
 	* @throws PortalException
 	*/
 	@Override
-	public com.liferay.portal.model.PersistedModel deletePersistedModel(
-		com.liferay.portal.model.PersistedModel persistedModel)
+	public com.liferay.portal.kernel.model.PersistedModel deletePersistedModel(
+		com.liferay.portal.kernel.model.PersistedModel persistedModel)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		return _messageLocalService.deletePersistedModel(persistedModel);
 	}
@@ -210,16 +210,6 @@ public class MessageLocalServiceWrapper implements MessageLocalService,
 		return _messageLocalService.getActionableDynamicQuery();
 	}
 
-	/**
-	* Returns the Spring bean ID for this bean.
-	*
-	* @return the Spring bean ID for this bean
-	*/
-	@Override
-	public java.lang.String getBeanIdentifier() {
-		return _messageLocalService.getBeanIdentifier();
-	}
-
 	@Override
 	public java.util.List<com.liferay.mail.model.Message> getCompanyMessages(
 		long companyId, int start, int end) {
@@ -245,6 +235,11 @@ public class MessageLocalServiceWrapper implements MessageLocalService,
 	@Override
 	public int getFolderUnreadMessagesCount(long folderId) {
 		return _messageLocalService.getFolderUnreadMessagesCount(folderId);
+	}
+
+	@Override
+	public com.liferay.portal.kernel.dao.orm.IndexableActionableDynamicQuery getIndexableActionableDynamicQuery() {
+		return _messageLocalService.getIndexableActionableDynamicQuery();
 	}
 
 	@Override
@@ -294,8 +289,18 @@ public class MessageLocalServiceWrapper implements MessageLocalService,
 		return _messageLocalService.getMessagesCount();
 	}
 
+	/**
+	* Returns the OSGi service identifier.
+	*
+	* @return the OSGi service identifier
+	*/
 	@Override
-	public com.liferay.portal.model.PersistedModel getPersistedModel(
+	public java.lang.String getOSGiServiceIdentifier() {
+		return _messageLocalService.getOSGiServiceIdentifier();
+	}
+
+	@Override
+	public com.liferay.portal.kernel.model.PersistedModel getPersistedModel(
 		java.io.Serializable primaryKeyObj)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		return _messageLocalService.getPersistedModel(primaryKeyObj);
@@ -322,16 +327,6 @@ public class MessageLocalServiceWrapper implements MessageLocalService,
 		java.lang.String orderByField, java.lang.String orderByType) {
 		return _messageLocalService.populateMessages(messages, folderId,
 			keywords, pageNumber, messagesPerPage, orderByField, orderByType);
-	}
-
-	/**
-	* Sets the Spring bean ID for this bean.
-	*
-	* @param beanIdentifier the Spring bean ID for this bean
-	*/
-	@Override
-	public void setBeanIdentifier(java.lang.String beanIdentifier) {
-		_messageLocalService.setBeanIdentifier(beanIdentifier);
 	}
 
 	@Override
@@ -369,23 +364,6 @@ public class MessageLocalServiceWrapper implements MessageLocalService,
 		throws com.liferay.portal.kernel.exception.PortalException {
 		return _messageLocalService.updateMessage(messageId, folderId, sender,
 			to, cc, bcc, sentDate, subject, body, flags, remoteMessageId);
-	}
-
-	/**
-	 * @deprecated As of 6.1.0, replaced by {@link #getWrappedService}
-	 */
-	@Deprecated
-	public MessageLocalService getWrappedMessageLocalService() {
-		return _messageLocalService;
-	}
-
-	/**
-	 * @deprecated As of 6.1.0, replaced by {@link #setWrappedService}
-	 */
-	@Deprecated
-	public void setWrappedMessageLocalService(
-		MessageLocalService messageLocalService) {
-		_messageLocalService = messageLocalService;
 	}
 
 	@Override

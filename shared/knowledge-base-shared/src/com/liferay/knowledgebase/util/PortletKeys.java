@@ -14,13 +14,13 @@
 
 package com.liferay.knowledgebase.util;
 
-import com.liferay.portal.model.PortletConstants;
+import com.liferay.portal.kernel.model.PortletConstants;
 
 /**
  * @author Brian Wing Shun Chan
  * @author Peter Shin
  */
-public class PortletKeys extends com.liferay.portal.util.PortletKeys {
+public class PortletKeys extends com.liferay.portal.kernel.util.PortletKeys {
 
 	public static final String KNOWLEDGE_BASE_ADMIN =
 		"1_WAR_knowledgebaseportlet";

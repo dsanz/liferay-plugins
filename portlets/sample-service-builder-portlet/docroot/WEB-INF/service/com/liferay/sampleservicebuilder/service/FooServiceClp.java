@@ -14,17 +14,20 @@
 
 package com.liferay.sampleservicebuilder.service;
 
-import com.liferay.portal.service.InvokableService;
+import aQute.bnd.annotation.ProviderType;
+
+import com.liferay.portal.kernel.service.InvokableService;
 
 /**
  * @author Brian Wing Shun Chan
  * @generated
  */
+@ProviderType
 public class FooServiceClp implements FooService {
 	public FooServiceClp(InvokableService invokableService) {
 		_invokableService = invokableService;
 
-		_methodName0 = "getBeanIdentifier";
+		_methodName0 = "getOSGiServiceIdentifier";
 
 		_methodParameterTypes0 = new String[] {  };
 
@@ -35,14 +38,10 @@ public class FooServiceClp implements FooService {
 		_methodName2 = "getUserSitesGroups";
 
 		_methodParameterTypes2 = new String[] {  };
-
-		_methodName4 = "setBeanIdentifier";
-
-		_methodParameterTypes4 = new String[] { "java.lang.String" };
 	}
 
 	@Override
-	public java.lang.String getBeanIdentifier() {
+	public java.lang.String getOSGiServiceIdentifier() {
 		Object returnObj = null;
 
 		try {
@@ -65,7 +64,7 @@ public class FooServiceClp implements FooService {
 	}
 
 	@Override
-	public com.liferay.portal.model.User getUser(long userId)
+	public com.liferay.portal.kernel.model.User getUser(long userId)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		Object returnObj = null;
 
@@ -89,11 +88,11 @@ public class FooServiceClp implements FooService {
 			}
 		}
 
-		return (com.liferay.portal.model.User)ClpSerializer.translateOutput(returnObj);
+		return (com.liferay.portal.kernel.model.User)ClpSerializer.translateOutput(returnObj);
 	}
 
 	@Override
-	public java.util.List<com.liferay.portal.model.Group> getUserSitesGroups()
+	public java.util.List<com.liferay.portal.kernel.model.Group> getUserSitesGroups()
 		throws com.liferay.portal.kernel.exception.PortalException {
 		Object returnObj = null;
 
@@ -117,7 +116,7 @@ public class FooServiceClp implements FooService {
 			}
 		}
 
-		return (java.util.List<com.liferay.portal.model.Group>)ClpSerializer.translateOutput(returnObj);
+		return (java.util.List<com.liferay.portal.kernel.model.Group>)ClpSerializer.translateOutput(returnObj);
 	}
 
 	@Override
@@ -127,26 +126,6 @@ public class FooServiceClp implements FooService {
 		throw new UnsupportedOperationException();
 	}
 
-	@Override
-	public void setBeanIdentifier(java.lang.String beanIdentifier) {
-		try {
-			_invokableService.invokeMethod(_methodName4,
-				_methodParameterTypes4,
-				new Object[] { ClpSerializer.translateInput(beanIdentifier) });
-		}
-		catch (Throwable t) {
-			t = ClpSerializer.translateThrowable(t);
-
-			if (t instanceof RuntimeException) {
-				throw (RuntimeException)t;
-			}
-			else {
-				throw new RuntimeException(t.getClass().getName() +
-					" is not a valid exception");
-			}
-		}
-	}
-
 	private InvokableService _invokableService;
 	private String _methodName0;
 	private String[] _methodParameterTypes0;
@@ -154,6 +133,4 @@ public class FooServiceClp implements FooService {
 	private String[] _methodParameterTypes1;
 	private String _methodName2;
 	private String[] _methodParameterTypes2;
-	private String _methodName4;
-	private String[] _methodParameterTypes4;
 }

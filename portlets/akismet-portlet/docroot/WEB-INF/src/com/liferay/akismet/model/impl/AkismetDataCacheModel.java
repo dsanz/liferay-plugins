@@ -14,11 +14,14 @@
 
 package com.liferay.akismet.model.impl;
 
+import aQute.bnd.annotation.ProviderType;
+
 import com.liferay.akismet.model.AkismetData;
 
+import com.liferay.portal.kernel.model.CacheModel;
+import com.liferay.portal.kernel.util.HashUtil;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringPool;
-import com.liferay.portal.model.CacheModel;
 
 import java.io.Externalizable;
 import java.io.IOException;
@@ -34,8 +37,33 @@ import java.util.Date;
  * @see AkismetData
  * @generated
  */
+@ProviderType
 public class AkismetDataCacheModel implements CacheModel<AkismetData>,
 	Externalizable {
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+
+		if (!(obj instanceof AkismetDataCacheModel)) {
+			return false;
+		}
+
+		AkismetDataCacheModel akismetDataCacheModel = (AkismetDataCacheModel)obj;
+
+		if (akismetDataId == akismetDataCacheModel.akismetDataId) {
+			return true;
+		}
+
+		return false;
+	}
+
+	@Override
+	public int hashCode() {
+		return HashUtil.hash(0, akismetDataId);
+	}
+
 	@Override
 	public String toString() {
 		StringBundler sb = new StringBundler(21);
@@ -132,7 +160,9 @@ public class AkismetDataCacheModel implements CacheModel<AkismetData>,
 	public void readExternal(ObjectInput objectInput) throws IOException {
 		akismetDataId = objectInput.readLong();
 		modifiedDate = objectInput.readLong();
+
 		classNameId = objectInput.readLong();
+
 		classPK = objectInput.readLong();
 		type = objectInput.readUTF();
 		permalink = objectInput.readUTF();
@@ -147,7 +177,9 @@ public class AkismetDataCacheModel implements CacheModel<AkismetData>,
 		throws IOException {
 		objectOutput.writeLong(akismetDataId);
 		objectOutput.writeLong(modifiedDate);
+
 		objectOutput.writeLong(classNameId);
+
 		objectOutput.writeLong(classPK);
 
 		if (type == null) {

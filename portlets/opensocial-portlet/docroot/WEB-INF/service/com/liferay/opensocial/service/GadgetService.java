@@ -14,14 +14,19 @@
 
 package com.liferay.opensocial.service;
 
+import aQute.bnd.annotation.ProviderType;
+
+import com.liferay.opensocial.model.Gadget;
+
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.jsonwebservice.JSONWebService;
+import com.liferay.portal.kernel.security.access.control.AccessControlled;
+import com.liferay.portal.kernel.service.BaseService;
+import com.liferay.portal.kernel.service.InvokableService;
+import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.transaction.Isolation;
 import com.liferay.portal.kernel.transaction.Transactional;
-import com.liferay.portal.security.ac.AccessControlled;
-import com.liferay.portal.service.BaseService;
-import com.liferay.portal.service.InvokableService;
 
 /**
  * Provides the remote service interface for Gadget. Methods of this
@@ -36,6 +41,7 @@ import com.liferay.portal.service.InvokableService;
  */
 @AccessControlled
 @JSONWebService
+@ProviderType
 @Transactional(isolation = Isolation.PORTAL, rollbackFor =  {
 	PortalException.class, SystemException.class})
 public interface GadgetService extends BaseService, InvokableService {
@@ -44,36 +50,26 @@ public interface GadgetService extends BaseService, InvokableService {
 	 *
 	 * Never modify or reference this interface directly. Always use {@link GadgetServiceUtil} to access the gadget remote service. Add custom service methods to {@link com.liferay.opensocial.service.impl.GadgetServiceImpl} and rerun ServiceBuilder to automatically copy the method declarations to this interface.
 	 */
-	public com.liferay.opensocial.model.Gadget addGadget(long companyId,
-		java.lang.String url, java.lang.String portletCategoryNames,
-		com.liferay.portal.service.ServiceContext serviceContext)
-		throws com.liferay.portal.kernel.exception.PortalException;
+	public Gadget addGadget(long companyId, java.lang.String url,
+		java.lang.String portletCategoryNames, ServiceContext serviceContext)
+		throws PortalException;
 
-	public void deleteGadget(long gadgetId,
-		com.liferay.portal.service.ServiceContext serviceContext)
-		throws com.liferay.portal.kernel.exception.PortalException;
+	public void deleteGadget(long gadgetId, ServiceContext serviceContext)
+		throws PortalException;
 
 	/**
-	* Returns the Spring bean ID for this bean.
+	* Returns the OSGi service identifier.
 	*
-	* @return the Spring bean ID for this bean
+	* @return the OSGi service identifier
 	*/
-	public java.lang.String getBeanIdentifier();
+	public java.lang.String getOSGiServiceIdentifier();
 
 	@Override
 	public java.lang.Object invokeMethod(java.lang.String name,
 		java.lang.String[] parameterTypes, java.lang.Object[] arguments)
 		throws java.lang.Throwable;
 
-	/**
-	* Sets the Spring bean ID for this bean.
-	*
-	* @param beanIdentifier the Spring bean ID for this bean
-	*/
-	public void setBeanIdentifier(java.lang.String beanIdentifier);
-
 	public void updateGadget(long gadgetId,
-		java.lang.String portletCategoryNames,
-		com.liferay.portal.service.ServiceContext serviceContext)
-		throws com.liferay.portal.kernel.exception.PortalException;
+		java.lang.String portletCategoryNames, ServiceContext serviceContext)
+		throws PortalException;
 }

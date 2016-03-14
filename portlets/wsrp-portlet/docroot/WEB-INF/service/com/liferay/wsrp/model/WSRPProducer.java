@@ -14,7 +14,11 @@
 
 package com.liferay.wsrp.model;
 
-import com.liferay.portal.model.PersistedModel;
+import aQute.bnd.annotation.ProviderType;
+
+import com.liferay.portal.kernel.annotation.ImplementationClassName;
+import com.liferay.portal.kernel.model.PersistedModel;
+import com.liferay.portal.kernel.util.Accessor;
 
 /**
  * The extended model interface for the WSRPProducer service. Represents a row in the &quot;WSRP_WSRPProducer&quot; database table, with each column mapped to a property of this class.
@@ -25,11 +29,30 @@ import com.liferay.portal.model.PersistedModel;
  * @see com.liferay.wsrp.model.impl.WSRPProducerModelImpl
  * @generated
  */
+@ImplementationClassName("com.liferay.wsrp.model.impl.WSRPProducerImpl")
+@ProviderType
 public interface WSRPProducer extends WSRPProducerModel, PersistedModel {
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify this interface directly. Add methods to {@link com.liferay.wsrp.model.impl.WSRPProducerImpl} and rerun ServiceBuilder to automatically copy the method declarations to this interface.
 	 */
+	public static final Accessor<WSRPProducer, Long> WSRP_PRODUCER_ID_ACCESSOR = new Accessor<WSRPProducer, Long>() {
+			@Override
+			public Long get(WSRPProducer wsrpProducer) {
+				return wsrpProducer.getWsrpProducerId();
+			}
+
+			@Override
+			public Class<Long> getAttributeClass() {
+				return Long.class;
+			}
+
+			@Override
+			public Class<WSRPProducer> getTypeClass() {
+				return WSRPProducer.class;
+			}
+		};
+
 	public java.lang.String getURL(java.lang.String portalURL);
 }

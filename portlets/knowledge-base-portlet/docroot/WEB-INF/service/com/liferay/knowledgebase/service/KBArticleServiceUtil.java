@@ -17,8 +17,8 @@ package com.liferay.knowledgebase.service;
 import aQute.bnd.annotation.ProviderType;
 
 import com.liferay.portal.kernel.bean.PortletBeanLocatorUtil;
+import com.liferay.portal.kernel.service.InvokableService;
 import com.liferay.portal.kernel.util.ReferenceRegistry;
-import com.liferay.portal.service.InvokableService;
 
 /**
  * Provides the remote service utility for KBArticle. This utility wraps
@@ -47,7 +47,7 @@ public class KBArticleServiceUtil {
 		java.lang.String urlTitle, java.lang.String content,
 		java.lang.String description, java.lang.String sourceURL,
 		java.lang.String[] sections, java.lang.String[] selectedFileNames,
-		com.liferay.portal.service.ServiceContext serviceContext)
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		return getService()
 				   .addKBArticle(portletId, parentResourceClassNameId,
@@ -58,7 +58,7 @@ public class KBArticleServiceUtil {
 	public static int addKBArticlesMarkdown(long groupId,
 		long parentKBFolderId, java.lang.String fileName,
 		boolean prioritizeByNumericalPrefix, java.io.InputStream inputStream,
-		com.liferay.portal.service.ServiceContext serviceContext)
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		return getService()
 				   .addKBArticlesMarkdown(groupId, parentKBFolderId, fileName,
@@ -99,15 +99,6 @@ public class KBArticleServiceUtil {
 		return getService().fetchLatestKBArticle(resourcePrimKey, status);
 	}
 
-	/**
-	* Returns the Spring bean ID for this bean.
-	*
-	* @return the Spring bean ID for this bean
-	*/
-	public static java.lang.String getBeanIdentifier() {
-		return getService().getBeanIdentifier();
-	}
-
 	public static java.util.List<com.liferay.knowledgebase.model.KBArticle> getGroupKBArticles(
 		long groupId, int status, int start, int end,
 		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.knowledgebase.model.KBArticle> orderByComparator) {
@@ -123,7 +114,7 @@ public class KBArticleServiceUtil {
 	public static java.lang.String getGroupKBArticlesRSS(int status,
 		int rssDelta, java.lang.String rssDisplayStyle,
 		java.lang.String rssFormat,
-		com.liferay.portal.theme.ThemeDisplay themeDisplay)
+		com.liferay.portal.kernel.theme.ThemeDisplay themeDisplay)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		return getService()
 				   .getGroupKBArticlesRSS(status, rssDelta, rssDisplayStyle,
@@ -145,10 +136,11 @@ public class KBArticleServiceUtil {
 	}
 
 	/**
-	* @deprecated As of 7.0.0, replaced by
-	{@link #getKBArticleAndAllDescendantKBArticles(long, long,
-	int, com.liferay.portal.kernel.util.OrderByComparator)}
+	* @deprecated As of 7.0.0, replaced by {@link
+	#getKBArticleAndAllDescendantKBArticles(long, long, int,
+	OrderByComparator)}
 	*/
+	@Deprecated
 	public static java.util.List<com.liferay.knowledgebase.model.KBArticle> getKBArticleAndAllDescendants(
 		long groupId, long resourcePrimKey, int status,
 		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.knowledgebase.model.KBArticle> orderByComparator) {
@@ -160,7 +152,7 @@ public class KBArticleServiceUtil {
 	public static java.lang.String getKBArticleRSS(long resourcePrimKey,
 		int status, int rssDelta, java.lang.String rssDisplayStyle,
 		java.lang.String rssFormat,
-		com.liferay.portal.theme.ThemeDisplay themeDisplay)
+		com.liferay.portal.kernel.theme.ThemeDisplay themeDisplay)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		return getService()
 				   .getKBArticleRSS(resourcePrimKey, status, rssDelta,
@@ -235,6 +227,15 @@ public class KBArticleServiceUtil {
 		return getService().getLatestKBArticle(resourcePrimKey, status);
 	}
 
+	/**
+	* Returns the OSGi service identifier.
+	*
+	* @return the OSGi service identifier
+	*/
+	public static java.lang.String getOSGiServiceIdentifier() {
+		return getService().getOSGiServiceIdentifier();
+	}
+
 	public static java.util.List<com.liferay.knowledgebase.model.KBArticle> getSectionsKBArticles(
 		long groupId, java.lang.String[] sections, int status, int start,
 		int end,
@@ -252,8 +253,9 @@ public class KBArticleServiceUtil {
 	/**
 	* @deprecated As of 7.0.0, replaced by {@link #getKBArticles(long, long,
 	int, int, int,
-	com.liferay.portal.kernel.util.OrderByComparator)}
+	OrderByComparator)}
 	*/
+	@Deprecated
 	public static java.util.List<com.liferay.knowledgebase.model.KBArticle> getSiblingKBArticles(
 		long groupId, long parentResourcePrimKey, int status, int start,
 		int end,
@@ -267,6 +269,7 @@ public class KBArticleServiceUtil {
 	* @deprecated As of 7.0.0, replaced by {@link #getKBArticlesCount(long,
 	long, int)}
 	*/
+	@Deprecated
 	public static int getSiblingKBArticlesCount(long groupId,
 		long parentResourcePrimKey, int status) {
 		return getService()
@@ -295,13 +298,12 @@ public class KBArticleServiceUtil {
 			parentResourcePrimKey, priority);
 	}
 
-	/**
-	* Sets the Spring bean ID for this bean.
-	*
-	* @param beanIdentifier the Spring bean ID for this bean
-	*/
-	public static void setBeanIdentifier(java.lang.String beanIdentifier) {
-		getService().setBeanIdentifier(beanIdentifier);
+	public static com.liferay.knowledgebase.model.KBArticle revertKBArticle(
+		long resourcePrimKey, int version,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		return getService()
+				   .revertKBArticle(resourcePrimKey, version, serviceContext);
 	}
 
 	public static void subscribeGroupKBArticles(long groupId,
@@ -331,7 +333,7 @@ public class KBArticleServiceUtil {
 		java.lang.String description, java.lang.String sourceURL,
 		java.lang.String[] sections, java.lang.String[] selectedFileNames,
 		long[] removeFileEntryIds,
-		com.liferay.portal.service.ServiceContext serviceContext)
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		return getService()
 				   .updateKBArticle(resourcePrimKey, title, content,
@@ -367,13 +369,6 @@ public class KBArticleServiceUtil {
 		}
 
 		return _service;
-	}
-
-	/**
-	 * @deprecated As of 6.2.0
-	 */
-	@Deprecated
-	public void setService(KBArticleService service) {
 	}
 
 	private static KBArticleService _service;

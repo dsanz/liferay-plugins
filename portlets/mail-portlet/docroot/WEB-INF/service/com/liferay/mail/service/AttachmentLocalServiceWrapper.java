@@ -16,7 +16,7 @@ package com.liferay.mail.service;
 
 import aQute.bnd.annotation.ProviderType;
 
-import com.liferay.portal.service.ServiceWrapper;
+import com.liferay.portal.kernel.service.ServiceWrapper;
 
 /**
  * Provides a wrapper for {@link AttachmentLocalService}.
@@ -100,8 +100,8 @@ public class AttachmentLocalServiceWrapper implements AttachmentLocalService,
 	* @throws PortalException
 	*/
 	@Override
-	public com.liferay.portal.model.PersistedModel deletePersistedModel(
-		com.liferay.portal.model.PersistedModel persistedModel)
+	public com.liferay.portal.kernel.model.PersistedModel deletePersistedModel(
+		com.liferay.portal.kernel.model.PersistedModel persistedModel)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		return _attachmentLocalService.deletePersistedModel(persistedModel);
 	}
@@ -247,20 +247,15 @@ public class AttachmentLocalServiceWrapper implements AttachmentLocalService,
 		return _attachmentLocalService.getAttachmentsCount();
 	}
 
-	/**
-	* Returns the Spring bean ID for this bean.
-	*
-	* @return the Spring bean ID for this bean
-	*/
-	@Override
-	public java.lang.String getBeanIdentifier() {
-		return _attachmentLocalService.getBeanIdentifier();
-	}
-
 	@Override
 	public java.io.File getFile(long attachmentId)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		return _attachmentLocalService.getFile(attachmentId);
+	}
+
+	@Override
+	public com.liferay.portal.kernel.dao.orm.IndexableActionableDynamicQuery getIndexableActionableDynamicQuery() {
+		return _attachmentLocalService.getIndexableActionableDynamicQuery();
 	}
 
 	@Override
@@ -269,8 +264,18 @@ public class AttachmentLocalServiceWrapper implements AttachmentLocalService,
 		return _attachmentLocalService.getInputStream(attachmentId);
 	}
 
+	/**
+	* Returns the OSGi service identifier.
+	*
+	* @return the OSGi service identifier
+	*/
 	@Override
-	public com.liferay.portal.model.PersistedModel getPersistedModel(
+	public java.lang.String getOSGiServiceIdentifier() {
+		return _attachmentLocalService.getOSGiServiceIdentifier();
+	}
+
+	@Override
+	public com.liferay.portal.kernel.model.PersistedModel getPersistedModel(
 		java.io.Serializable primaryKeyObj)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		return _attachmentLocalService.getPersistedModel(primaryKeyObj);
@@ -285,16 +290,6 @@ public class AttachmentLocalServiceWrapper implements AttachmentLocalService,
 	}
 
 	/**
-	* Sets the Spring bean ID for this bean.
-	*
-	* @param beanIdentifier the Spring bean ID for this bean
-	*/
-	@Override
-	public void setBeanIdentifier(java.lang.String beanIdentifier) {
-		_attachmentLocalService.setBeanIdentifier(beanIdentifier);
-	}
-
-	/**
 	* Updates the attachment in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
 	*
 	* @param attachment the attachment
@@ -304,23 +299,6 @@ public class AttachmentLocalServiceWrapper implements AttachmentLocalService,
 	public com.liferay.mail.model.Attachment updateAttachment(
 		com.liferay.mail.model.Attachment attachment) {
 		return _attachmentLocalService.updateAttachment(attachment);
-	}
-
-	/**
-	 * @deprecated As of 6.1.0, replaced by {@link #getWrappedService}
-	 */
-	@Deprecated
-	public AttachmentLocalService getWrappedAttachmentLocalService() {
-		return _attachmentLocalService;
-	}
-
-	/**
-	 * @deprecated As of 6.1.0, replaced by {@link #setWrappedService}
-	 */
-	@Deprecated
-	public void setWrappedAttachmentLocalService(
-		AttachmentLocalService attachmentLocalService) {
-		_attachmentLocalService = attachmentLocalService;
 	}
 
 	@Override

@@ -17,8 +17,8 @@ package com.liferay.pushnotifications.service;
 import aQute.bnd.annotation.ProviderType;
 
 import com.liferay.portal.kernel.bean.PortletBeanLocatorUtil;
+import com.liferay.portal.kernel.service.InvokableLocalService;
 import com.liferay.portal.kernel.util.ReferenceRegistry;
-import com.liferay.portal.service.InvokableLocalService;
 
 /**
  * Provides the local service utility for PushNotificationsDevice. This utility wraps
@@ -73,8 +73,8 @@ public class PushNotificationsDeviceLocalServiceUtil {
 	/**
 	* @throws PortalException
 	*/
-	public static com.liferay.portal.model.PersistedModel deletePersistedModel(
-		com.liferay.portal.model.PersistedModel persistedModel)
+	public static com.liferay.portal.kernel.model.PersistedModel deletePersistedModel(
+		com.liferay.portal.kernel.model.PersistedModel persistedModel)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		return getService().deletePersistedModel(persistedModel);
 	}
@@ -199,16 +199,20 @@ public class PushNotificationsDeviceLocalServiceUtil {
 		return getService().getActionableDynamicQuery();
 	}
 
-	/**
-	* Returns the Spring bean ID for this bean.
-	*
-	* @return the Spring bean ID for this bean
-	*/
-	public static java.lang.String getBeanIdentifier() {
-		return getService().getBeanIdentifier();
+	public static com.liferay.portal.kernel.dao.orm.IndexableActionableDynamicQuery getIndexableActionableDynamicQuery() {
+		return getService().getIndexableActionableDynamicQuery();
 	}
 
-	public static com.liferay.portal.model.PersistedModel getPersistedModel(
+	/**
+	* Returns the OSGi service identifier.
+	*
+	* @return the OSGi service identifier
+	*/
+	public static java.lang.String getOSGiServiceIdentifier() {
+		return getService().getOSGiServiceIdentifier();
+	}
+
+	public static com.liferay.portal.kernel.model.PersistedModel getPersistedModel(
 		java.io.Serializable primaryKeyObj)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		return getService().getPersistedModel(primaryKeyObj);
@@ -243,6 +247,13 @@ public class PushNotificationsDeviceLocalServiceUtil {
 		return getService().getPushNotificationsDevices(start, end);
 	}
 
+	public static java.util.List<com.liferay.pushnotifications.model.PushNotificationsDevice> getPushNotificationsDevices(
+		int start, int end,
+		com.liferay.portal.kernel.util.OrderByComparator orderByComparator) {
+		return getService()
+				   .getPushNotificationsDevices(start, end, orderByComparator);
+	}
+
 	/**
 	* Returns the number of push notifications devices.
 	*
@@ -269,19 +280,20 @@ public class PushNotificationsDeviceLocalServiceUtil {
 		getService().sendPushNotification(platform, tokens, payloadJSONObject);
 	}
 
+	public static void sendPushNotification(java.lang.String platform,
+		java.util.List<java.lang.String> tokens,
+		com.liferay.portal.kernel.json.JSONObject payloadJSONObject,
+		java.util.Map<java.lang.String, java.lang.Object> configuration)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		getService()
+			.sendPushNotification(platform, tokens, payloadJSONObject,
+			configuration);
+	}
+
 	public static void sendPushNotification(long[] toUserIds,
 		com.liferay.portal.kernel.json.JSONObject payloadJSONObject)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		getService().sendPushNotification(toUserIds, payloadJSONObject);
-	}
-
-	/**
-	* Sets the Spring bean ID for this bean.
-	*
-	* @param beanIdentifier the Spring bean ID for this bean
-	*/
-	public static void setBeanIdentifier(java.lang.String beanIdentifier) {
-		getService().setBeanIdentifier(beanIdentifier);
 	}
 
 	/**
@@ -294,6 +306,12 @@ public class PushNotificationsDeviceLocalServiceUtil {
 		com.liferay.pushnotifications.model.PushNotificationsDevice pushNotificationsDevice) {
 		return getService()
 				   .updatePushNotificationsDevice(pushNotificationsDevice);
+	}
+
+	public static void updateToken(java.lang.String oldToken,
+		java.lang.String newToken)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		getService().updateToken(oldToken, newToken);
 	}
 
 	public static void clearService() {
@@ -317,13 +335,6 @@ public class PushNotificationsDeviceLocalServiceUtil {
 		}
 
 		return _service;
-	}
-
-	/**
-	 * @deprecated As of 6.2.0
-	 */
-	@Deprecated
-	public void setService(PushNotificationsDeviceLocalService service) {
 	}
 
 	private static PushNotificationsDeviceLocalService _service;

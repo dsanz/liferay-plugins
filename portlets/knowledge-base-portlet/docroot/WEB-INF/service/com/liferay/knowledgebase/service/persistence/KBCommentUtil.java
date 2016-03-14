@@ -20,9 +20,9 @@ import com.liferay.knowledgebase.model.KBComment;
 
 import com.liferay.portal.kernel.bean.PortletBeanLocatorUtil;
 import com.liferay.portal.kernel.dao.orm.DynamicQuery;
+import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.ReferenceRegistry;
-import com.liferay.portal.service.ServiceContext;
 
 import java.util.List;
 
@@ -47,28 +47,28 @@ public class KBCommentUtil {
 	 */
 
 	/**
-	 * @see com.liferay.portal.service.persistence.BasePersistence#clearCache()
+	 * @see com.liferay.portal.kernel.service.persistence.BasePersistence#clearCache()
 	 */
 	public static void clearCache() {
 		getPersistence().clearCache();
 	}
 
 	/**
-	 * @see com.liferay.portal.service.persistence.BasePersistence#clearCache(com.liferay.portal.model.BaseModel)
+	 * @see com.liferay.portal.kernel.service.persistence.BasePersistence#clearCache(com.liferay.portal.kernel.model.BaseModel)
 	 */
 	public static void clearCache(KBComment kbComment) {
 		getPersistence().clearCache(kbComment);
 	}
 
 	/**
-	 * @see com.liferay.portal.service.persistence.BasePersistence#countWithDynamicQuery(DynamicQuery)
+	 * @see com.liferay.portal.kernel.service.persistence.BasePersistence#countWithDynamicQuery(DynamicQuery)
 	 */
 	public static long countWithDynamicQuery(DynamicQuery dynamicQuery) {
 		return getPersistence().countWithDynamicQuery(dynamicQuery);
 	}
 
 	/**
-	 * @see com.liferay.portal.service.persistence.BasePersistence#findWithDynamicQuery(DynamicQuery)
+	 * @see com.liferay.portal.kernel.service.persistence.BasePersistence#findWithDynamicQuery(DynamicQuery)
 	 */
 	public static List<KBComment> findWithDynamicQuery(
 		DynamicQuery dynamicQuery) {
@@ -76,7 +76,7 @@ public class KBCommentUtil {
 	}
 
 	/**
-	 * @see com.liferay.portal.service.persistence.BasePersistence#findWithDynamicQuery(DynamicQuery, int, int)
+	 * @see com.liferay.portal.kernel.service.persistence.BasePersistence#findWithDynamicQuery(DynamicQuery, int, int)
 	 */
 	public static List<KBComment> findWithDynamicQuery(
 		DynamicQuery dynamicQuery, int start, int end) {
@@ -84,7 +84,7 @@ public class KBCommentUtil {
 	}
 
 	/**
-	 * @see com.liferay.portal.service.persistence.BasePersistence#findWithDynamicQuery(DynamicQuery, int, int, OrderByComparator)
+	 * @see com.liferay.portal.kernel.service.persistence.BasePersistence#findWithDynamicQuery(DynamicQuery, int, int, OrderByComparator)
 	 */
 	public static List<KBComment> findWithDynamicQuery(
 		DynamicQuery dynamicQuery, int start, int end,
@@ -95,14 +95,14 @@ public class KBCommentUtil {
 	}
 
 	/**
-	 * @see com.liferay.portal.service.persistence.BasePersistence#update(com.liferay.portal.model.BaseModel)
+	 * @see com.liferay.portal.kernel.service.persistence.BasePersistence#update(com.liferay.portal.kernel.model.BaseModel)
 	 */
 	public static KBComment update(KBComment kbComment) {
 		return getPersistence().update(kbComment);
 	}
 
 	/**
-	 * @see com.liferay.portal.service.persistence.BasePersistence#update(com.liferay.portal.model.BaseModel, ServiceContext)
+	 * @see com.liferay.portal.kernel.service.persistence.BasePersistence#update(com.liferay.portal.kernel.model.BaseModel, ServiceContext)
 	 */
 	public static KBComment update(KBComment kbComment,
 		ServiceContext serviceContext) {
@@ -115,8 +115,7 @@ public class KBCommentUtil {
 	* @param uuid the uuid
 	* @return the matching k b comments
 	*/
-	public static java.util.List<com.liferay.knowledgebase.model.KBComment> findByUuid(
-		java.lang.String uuid) {
+	public static List<KBComment> findByUuid(java.lang.String uuid) {
 		return getPersistence().findByUuid(uuid);
 	}
 
@@ -124,7 +123,7 @@ public class KBCommentUtil {
 	* Returns a range of all the k b comments where uuid = &#63;.
 	*
 	* <p>
-	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link com.liferay.knowledgebase.model.impl.KBCommentModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link KBCommentModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	* </p>
 	*
 	* @param uuid the uuid
@@ -132,8 +131,8 @@ public class KBCommentUtil {
 	* @param end the upper bound of the range of k b comments (not inclusive)
 	* @return the range of matching k b comments
 	*/
-	public static java.util.List<com.liferay.knowledgebase.model.KBComment> findByUuid(
-		java.lang.String uuid, int start, int end) {
+	public static List<KBComment> findByUuid(java.lang.String uuid, int start,
+		int end) {
 		return getPersistence().findByUuid(uuid, start, end);
 	}
 
@@ -141,7 +140,7 @@ public class KBCommentUtil {
 	* Returns an ordered range of all the k b comments where uuid = &#63;.
 	*
 	* <p>
-	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link com.liferay.knowledgebase.model.impl.KBCommentModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link KBCommentModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	* </p>
 	*
 	* @param uuid the uuid
@@ -150,10 +149,31 @@ public class KBCommentUtil {
 	* @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
 	* @return the ordered range of matching k b comments
 	*/
-	public static java.util.List<com.liferay.knowledgebase.model.KBComment> findByUuid(
-		java.lang.String uuid, int start, int end,
-		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.knowledgebase.model.KBComment> orderByComparator) {
+	public static List<KBComment> findByUuid(java.lang.String uuid, int start,
+		int end, OrderByComparator<KBComment> orderByComparator) {
 		return getPersistence().findByUuid(uuid, start, end, orderByComparator);
+	}
+
+	/**
+	* Returns an ordered range of all the k b comments where uuid = &#63;.
+	*
+	* <p>
+	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link KBCommentModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	* </p>
+	*
+	* @param uuid the uuid
+	* @param start the lower bound of the range of k b comments
+	* @param end the upper bound of the range of k b comments (not inclusive)
+	* @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	* @param retrieveFromCache whether to retrieve from the finder cache
+	* @return the ordered range of matching k b comments
+	*/
+	public static List<KBComment> findByUuid(java.lang.String uuid, int start,
+		int end, OrderByComparator<KBComment> orderByComparator,
+		boolean retrieveFromCache) {
+		return getPersistence()
+				   .findByUuid(uuid, start, end, orderByComparator,
+			retrieveFromCache);
 	}
 
 	/**
@@ -162,12 +182,11 @@ public class KBCommentUtil {
 	* @param uuid the uuid
 	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	* @return the first matching k b comment
-	* @throws com.liferay.knowledgebase.NoSuchCommentException if a matching k b comment could not be found
+	* @throws NoSuchCommentException if a matching k b comment could not be found
 	*/
-	public static com.liferay.knowledgebase.model.KBComment findByUuid_First(
-		java.lang.String uuid,
-		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.knowledgebase.model.KBComment> orderByComparator)
-		throws com.liferay.knowledgebase.NoSuchCommentException {
+	public static KBComment findByUuid_First(java.lang.String uuid,
+		OrderByComparator<KBComment> orderByComparator)
+		throws com.liferay.knowledgebase.exception.NoSuchCommentException {
 		return getPersistence().findByUuid_First(uuid, orderByComparator);
 	}
 
@@ -178,9 +197,8 @@ public class KBCommentUtil {
 	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	* @return the first matching k b comment, or <code>null</code> if a matching k b comment could not be found
 	*/
-	public static com.liferay.knowledgebase.model.KBComment fetchByUuid_First(
-		java.lang.String uuid,
-		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.knowledgebase.model.KBComment> orderByComparator) {
+	public static KBComment fetchByUuid_First(java.lang.String uuid,
+		OrderByComparator<KBComment> orderByComparator) {
 		return getPersistence().fetchByUuid_First(uuid, orderByComparator);
 	}
 
@@ -190,12 +208,11 @@ public class KBCommentUtil {
 	* @param uuid the uuid
 	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	* @return the last matching k b comment
-	* @throws com.liferay.knowledgebase.NoSuchCommentException if a matching k b comment could not be found
+	* @throws NoSuchCommentException if a matching k b comment could not be found
 	*/
-	public static com.liferay.knowledgebase.model.KBComment findByUuid_Last(
-		java.lang.String uuid,
-		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.knowledgebase.model.KBComment> orderByComparator)
-		throws com.liferay.knowledgebase.NoSuchCommentException {
+	public static KBComment findByUuid_Last(java.lang.String uuid,
+		OrderByComparator<KBComment> orderByComparator)
+		throws com.liferay.knowledgebase.exception.NoSuchCommentException {
 		return getPersistence().findByUuid_Last(uuid, orderByComparator);
 	}
 
@@ -206,9 +223,8 @@ public class KBCommentUtil {
 	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	* @return the last matching k b comment, or <code>null</code> if a matching k b comment could not be found
 	*/
-	public static com.liferay.knowledgebase.model.KBComment fetchByUuid_Last(
-		java.lang.String uuid,
-		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.knowledgebase.model.KBComment> orderByComparator) {
+	public static KBComment fetchByUuid_Last(java.lang.String uuid,
+		OrderByComparator<KBComment> orderByComparator) {
 		return getPersistence().fetchByUuid_Last(uuid, orderByComparator);
 	}
 
@@ -219,12 +235,11 @@ public class KBCommentUtil {
 	* @param uuid the uuid
 	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	* @return the previous, current, and next k b comment
-	* @throws com.liferay.knowledgebase.NoSuchCommentException if a k b comment with the primary key could not be found
+	* @throws NoSuchCommentException if a k b comment with the primary key could not be found
 	*/
-	public static com.liferay.knowledgebase.model.KBComment[] findByUuid_PrevAndNext(
-		long kbCommentId, java.lang.String uuid,
-		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.knowledgebase.model.KBComment> orderByComparator)
-		throws com.liferay.knowledgebase.NoSuchCommentException {
+	public static KBComment[] findByUuid_PrevAndNext(long kbCommentId,
+		java.lang.String uuid, OrderByComparator<KBComment> orderByComparator)
+		throws com.liferay.knowledgebase.exception.NoSuchCommentException {
 		return getPersistence()
 				   .findByUuid_PrevAndNext(kbCommentId, uuid, orderByComparator);
 	}
@@ -249,16 +264,15 @@ public class KBCommentUtil {
 	}
 
 	/**
-	* Returns the k b comment where uuid = &#63; and groupId = &#63; or throws a {@link com.liferay.knowledgebase.NoSuchCommentException} if it could not be found.
+	* Returns the k b comment where uuid = &#63; and groupId = &#63; or throws a {@link NoSuchCommentException} if it could not be found.
 	*
 	* @param uuid the uuid
 	* @param groupId the group ID
 	* @return the matching k b comment
-	* @throws com.liferay.knowledgebase.NoSuchCommentException if a matching k b comment could not be found
+	* @throws NoSuchCommentException if a matching k b comment could not be found
 	*/
-	public static com.liferay.knowledgebase.model.KBComment findByUUID_G(
-		java.lang.String uuid, long groupId)
-		throws com.liferay.knowledgebase.NoSuchCommentException {
+	public static KBComment findByUUID_G(java.lang.String uuid, long groupId)
+		throws com.liferay.knowledgebase.exception.NoSuchCommentException {
 		return getPersistence().findByUUID_G(uuid, groupId);
 	}
 
@@ -269,8 +283,7 @@ public class KBCommentUtil {
 	* @param groupId the group ID
 	* @return the matching k b comment, or <code>null</code> if a matching k b comment could not be found
 	*/
-	public static com.liferay.knowledgebase.model.KBComment fetchByUUID_G(
-		java.lang.String uuid, long groupId) {
+	public static KBComment fetchByUUID_G(java.lang.String uuid, long groupId) {
 		return getPersistence().fetchByUUID_G(uuid, groupId);
 	}
 
@@ -279,11 +292,11 @@ public class KBCommentUtil {
 	*
 	* @param uuid the uuid
 	* @param groupId the group ID
-	* @param retrieveFromCache whether to use the finder cache
+	* @param retrieveFromCache whether to retrieve from the finder cache
 	* @return the matching k b comment, or <code>null</code> if a matching k b comment could not be found
 	*/
-	public static com.liferay.knowledgebase.model.KBComment fetchByUUID_G(
-		java.lang.String uuid, long groupId, boolean retrieveFromCache) {
+	public static KBComment fetchByUUID_G(java.lang.String uuid, long groupId,
+		boolean retrieveFromCache) {
 		return getPersistence().fetchByUUID_G(uuid, groupId, retrieveFromCache);
 	}
 
@@ -294,9 +307,8 @@ public class KBCommentUtil {
 	* @param groupId the group ID
 	* @return the k b comment that was removed
 	*/
-	public static com.liferay.knowledgebase.model.KBComment removeByUUID_G(
-		java.lang.String uuid, long groupId)
-		throws com.liferay.knowledgebase.NoSuchCommentException {
+	public static KBComment removeByUUID_G(java.lang.String uuid, long groupId)
+		throws com.liferay.knowledgebase.exception.NoSuchCommentException {
 		return getPersistence().removeByUUID_G(uuid, groupId);
 	}
 
@@ -318,8 +330,8 @@ public class KBCommentUtil {
 	* @param companyId the company ID
 	* @return the matching k b comments
 	*/
-	public static java.util.List<com.liferay.knowledgebase.model.KBComment> findByUuid_C(
-		java.lang.String uuid, long companyId) {
+	public static List<KBComment> findByUuid_C(java.lang.String uuid,
+		long companyId) {
 		return getPersistence().findByUuid_C(uuid, companyId);
 	}
 
@@ -327,7 +339,7 @@ public class KBCommentUtil {
 	* Returns a range of all the k b comments where uuid = &#63; and companyId = &#63;.
 	*
 	* <p>
-	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link com.liferay.knowledgebase.model.impl.KBCommentModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link KBCommentModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	* </p>
 	*
 	* @param uuid the uuid
@@ -336,8 +348,8 @@ public class KBCommentUtil {
 	* @param end the upper bound of the range of k b comments (not inclusive)
 	* @return the range of matching k b comments
 	*/
-	public static java.util.List<com.liferay.knowledgebase.model.KBComment> findByUuid_C(
-		java.lang.String uuid, long companyId, int start, int end) {
+	public static List<KBComment> findByUuid_C(java.lang.String uuid,
+		long companyId, int start, int end) {
 		return getPersistence().findByUuid_C(uuid, companyId, start, end);
 	}
 
@@ -345,7 +357,7 @@ public class KBCommentUtil {
 	* Returns an ordered range of all the k b comments where uuid = &#63; and companyId = &#63;.
 	*
 	* <p>
-	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link com.liferay.knowledgebase.model.impl.KBCommentModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link KBCommentModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	* </p>
 	*
 	* @param uuid the uuid
@@ -355,11 +367,35 @@ public class KBCommentUtil {
 	* @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
 	* @return the ordered range of matching k b comments
 	*/
-	public static java.util.List<com.liferay.knowledgebase.model.KBComment> findByUuid_C(
-		java.lang.String uuid, long companyId, int start, int end,
-		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.knowledgebase.model.KBComment> orderByComparator) {
+	public static List<KBComment> findByUuid_C(java.lang.String uuid,
+		long companyId, int start, int end,
+		OrderByComparator<KBComment> orderByComparator) {
 		return getPersistence()
 				   .findByUuid_C(uuid, companyId, start, end, orderByComparator);
+	}
+
+	/**
+	* Returns an ordered range of all the k b comments where uuid = &#63; and companyId = &#63;.
+	*
+	* <p>
+	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link KBCommentModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	* </p>
+	*
+	* @param uuid the uuid
+	* @param companyId the company ID
+	* @param start the lower bound of the range of k b comments
+	* @param end the upper bound of the range of k b comments (not inclusive)
+	* @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	* @param retrieveFromCache whether to retrieve from the finder cache
+	* @return the ordered range of matching k b comments
+	*/
+	public static List<KBComment> findByUuid_C(java.lang.String uuid,
+		long companyId, int start, int end,
+		OrderByComparator<KBComment> orderByComparator,
+		boolean retrieveFromCache) {
+		return getPersistence()
+				   .findByUuid_C(uuid, companyId, start, end,
+			orderByComparator, retrieveFromCache);
 	}
 
 	/**
@@ -369,12 +405,11 @@ public class KBCommentUtil {
 	* @param companyId the company ID
 	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	* @return the first matching k b comment
-	* @throws com.liferay.knowledgebase.NoSuchCommentException if a matching k b comment could not be found
+	* @throws NoSuchCommentException if a matching k b comment could not be found
 	*/
-	public static com.liferay.knowledgebase.model.KBComment findByUuid_C_First(
-		java.lang.String uuid, long companyId,
-		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.knowledgebase.model.KBComment> orderByComparator)
-		throws com.liferay.knowledgebase.NoSuchCommentException {
+	public static KBComment findByUuid_C_First(java.lang.String uuid,
+		long companyId, OrderByComparator<KBComment> orderByComparator)
+		throws com.liferay.knowledgebase.exception.NoSuchCommentException {
 		return getPersistence()
 				   .findByUuid_C_First(uuid, companyId, orderByComparator);
 	}
@@ -387,9 +422,8 @@ public class KBCommentUtil {
 	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	* @return the first matching k b comment, or <code>null</code> if a matching k b comment could not be found
 	*/
-	public static com.liferay.knowledgebase.model.KBComment fetchByUuid_C_First(
-		java.lang.String uuid, long companyId,
-		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.knowledgebase.model.KBComment> orderByComparator) {
+	public static KBComment fetchByUuid_C_First(java.lang.String uuid,
+		long companyId, OrderByComparator<KBComment> orderByComparator) {
 		return getPersistence()
 				   .fetchByUuid_C_First(uuid, companyId, orderByComparator);
 	}
@@ -401,12 +435,11 @@ public class KBCommentUtil {
 	* @param companyId the company ID
 	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	* @return the last matching k b comment
-	* @throws com.liferay.knowledgebase.NoSuchCommentException if a matching k b comment could not be found
+	* @throws NoSuchCommentException if a matching k b comment could not be found
 	*/
-	public static com.liferay.knowledgebase.model.KBComment findByUuid_C_Last(
-		java.lang.String uuid, long companyId,
-		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.knowledgebase.model.KBComment> orderByComparator)
-		throws com.liferay.knowledgebase.NoSuchCommentException {
+	public static KBComment findByUuid_C_Last(java.lang.String uuid,
+		long companyId, OrderByComparator<KBComment> orderByComparator)
+		throws com.liferay.knowledgebase.exception.NoSuchCommentException {
 		return getPersistence()
 				   .findByUuid_C_Last(uuid, companyId, orderByComparator);
 	}
@@ -419,9 +452,8 @@ public class KBCommentUtil {
 	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	* @return the last matching k b comment, or <code>null</code> if a matching k b comment could not be found
 	*/
-	public static com.liferay.knowledgebase.model.KBComment fetchByUuid_C_Last(
-		java.lang.String uuid, long companyId,
-		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.knowledgebase.model.KBComment> orderByComparator) {
+	public static KBComment fetchByUuid_C_Last(java.lang.String uuid,
+		long companyId, OrderByComparator<KBComment> orderByComparator) {
 		return getPersistence()
 				   .fetchByUuid_C_Last(uuid, companyId, orderByComparator);
 	}
@@ -434,12 +466,12 @@ public class KBCommentUtil {
 	* @param companyId the company ID
 	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	* @return the previous, current, and next k b comment
-	* @throws com.liferay.knowledgebase.NoSuchCommentException if a k b comment with the primary key could not be found
+	* @throws NoSuchCommentException if a k b comment with the primary key could not be found
 	*/
-	public static com.liferay.knowledgebase.model.KBComment[] findByUuid_C_PrevAndNext(
-		long kbCommentId, java.lang.String uuid, long companyId,
-		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.knowledgebase.model.KBComment> orderByComparator)
-		throws com.liferay.knowledgebase.NoSuchCommentException {
+	public static KBComment[] findByUuid_C_PrevAndNext(long kbCommentId,
+		java.lang.String uuid, long companyId,
+		OrderByComparator<KBComment> orderByComparator)
+		throws com.liferay.knowledgebase.exception.NoSuchCommentException {
 		return getPersistence()
 				   .findByUuid_C_PrevAndNext(kbCommentId, uuid, companyId,
 			orderByComparator);
@@ -472,8 +504,7 @@ public class KBCommentUtil {
 	* @param groupId the group ID
 	* @return the matching k b comments
 	*/
-	public static java.util.List<com.liferay.knowledgebase.model.KBComment> findByGroupId(
-		long groupId) {
+	public static List<KBComment> findByGroupId(long groupId) {
 		return getPersistence().findByGroupId(groupId);
 	}
 
@@ -481,7 +512,7 @@ public class KBCommentUtil {
 	* Returns a range of all the k b comments where groupId = &#63;.
 	*
 	* <p>
-	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link com.liferay.knowledgebase.model.impl.KBCommentModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link KBCommentModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	* </p>
 	*
 	* @param groupId the group ID
@@ -489,8 +520,7 @@ public class KBCommentUtil {
 	* @param end the upper bound of the range of k b comments (not inclusive)
 	* @return the range of matching k b comments
 	*/
-	public static java.util.List<com.liferay.knowledgebase.model.KBComment> findByGroupId(
-		long groupId, int start, int end) {
+	public static List<KBComment> findByGroupId(long groupId, int start, int end) {
 		return getPersistence().findByGroupId(groupId, start, end);
 	}
 
@@ -498,7 +528,7 @@ public class KBCommentUtil {
 	* Returns an ordered range of all the k b comments where groupId = &#63;.
 	*
 	* <p>
-	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link com.liferay.knowledgebase.model.impl.KBCommentModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link KBCommentModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	* </p>
 	*
 	* @param groupId the group ID
@@ -507,11 +537,32 @@ public class KBCommentUtil {
 	* @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
 	* @return the ordered range of matching k b comments
 	*/
-	public static java.util.List<com.liferay.knowledgebase.model.KBComment> findByGroupId(
-		long groupId, int start, int end,
-		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.knowledgebase.model.KBComment> orderByComparator) {
+	public static List<KBComment> findByGroupId(long groupId, int start,
+		int end, OrderByComparator<KBComment> orderByComparator) {
 		return getPersistence()
 				   .findByGroupId(groupId, start, end, orderByComparator);
+	}
+
+	/**
+	* Returns an ordered range of all the k b comments where groupId = &#63;.
+	*
+	* <p>
+	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link KBCommentModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	* </p>
+	*
+	* @param groupId the group ID
+	* @param start the lower bound of the range of k b comments
+	* @param end the upper bound of the range of k b comments (not inclusive)
+	* @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	* @param retrieveFromCache whether to retrieve from the finder cache
+	* @return the ordered range of matching k b comments
+	*/
+	public static List<KBComment> findByGroupId(long groupId, int start,
+		int end, OrderByComparator<KBComment> orderByComparator,
+		boolean retrieveFromCache) {
+		return getPersistence()
+				   .findByGroupId(groupId, start, end, orderByComparator,
+			retrieveFromCache);
 	}
 
 	/**
@@ -520,12 +571,11 @@ public class KBCommentUtil {
 	* @param groupId the group ID
 	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	* @return the first matching k b comment
-	* @throws com.liferay.knowledgebase.NoSuchCommentException if a matching k b comment could not be found
+	* @throws NoSuchCommentException if a matching k b comment could not be found
 	*/
-	public static com.liferay.knowledgebase.model.KBComment findByGroupId_First(
-		long groupId,
-		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.knowledgebase.model.KBComment> orderByComparator)
-		throws com.liferay.knowledgebase.NoSuchCommentException {
+	public static KBComment findByGroupId_First(long groupId,
+		OrderByComparator<KBComment> orderByComparator)
+		throws com.liferay.knowledgebase.exception.NoSuchCommentException {
 		return getPersistence().findByGroupId_First(groupId, orderByComparator);
 	}
 
@@ -536,9 +586,8 @@ public class KBCommentUtil {
 	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	* @return the first matching k b comment, or <code>null</code> if a matching k b comment could not be found
 	*/
-	public static com.liferay.knowledgebase.model.KBComment fetchByGroupId_First(
-		long groupId,
-		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.knowledgebase.model.KBComment> orderByComparator) {
+	public static KBComment fetchByGroupId_First(long groupId,
+		OrderByComparator<KBComment> orderByComparator) {
 		return getPersistence().fetchByGroupId_First(groupId, orderByComparator);
 	}
 
@@ -548,12 +597,11 @@ public class KBCommentUtil {
 	* @param groupId the group ID
 	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	* @return the last matching k b comment
-	* @throws com.liferay.knowledgebase.NoSuchCommentException if a matching k b comment could not be found
+	* @throws NoSuchCommentException if a matching k b comment could not be found
 	*/
-	public static com.liferay.knowledgebase.model.KBComment findByGroupId_Last(
-		long groupId,
-		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.knowledgebase.model.KBComment> orderByComparator)
-		throws com.liferay.knowledgebase.NoSuchCommentException {
+	public static KBComment findByGroupId_Last(long groupId,
+		OrderByComparator<KBComment> orderByComparator)
+		throws com.liferay.knowledgebase.exception.NoSuchCommentException {
 		return getPersistence().findByGroupId_Last(groupId, orderByComparator);
 	}
 
@@ -564,9 +612,8 @@ public class KBCommentUtil {
 	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	* @return the last matching k b comment, or <code>null</code> if a matching k b comment could not be found
 	*/
-	public static com.liferay.knowledgebase.model.KBComment fetchByGroupId_Last(
-		long groupId,
-		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.knowledgebase.model.KBComment> orderByComparator) {
+	public static KBComment fetchByGroupId_Last(long groupId,
+		OrderByComparator<KBComment> orderByComparator) {
 		return getPersistence().fetchByGroupId_Last(groupId, orderByComparator);
 	}
 
@@ -577,12 +624,11 @@ public class KBCommentUtil {
 	* @param groupId the group ID
 	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	* @return the previous, current, and next k b comment
-	* @throws com.liferay.knowledgebase.NoSuchCommentException if a k b comment with the primary key could not be found
+	* @throws NoSuchCommentException if a k b comment with the primary key could not be found
 	*/
-	public static com.liferay.knowledgebase.model.KBComment[] findByGroupId_PrevAndNext(
-		long kbCommentId, long groupId,
-		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.knowledgebase.model.KBComment> orderByComparator)
-		throws com.liferay.knowledgebase.NoSuchCommentException {
+	public static KBComment[] findByGroupId_PrevAndNext(long kbCommentId,
+		long groupId, OrderByComparator<KBComment> orderByComparator)
+		throws com.liferay.knowledgebase.exception.NoSuchCommentException {
 		return getPersistence()
 				   .findByGroupId_PrevAndNext(kbCommentId, groupId,
 			orderByComparator);
@@ -614,8 +660,7 @@ public class KBCommentUtil {
 	* @param classNameId the class name ID
 	* @return the matching k b comments
 	*/
-	public static java.util.List<com.liferay.knowledgebase.model.KBComment> findByG_C(
-		long groupId, long classNameId) {
+	public static List<KBComment> findByG_C(long groupId, long classNameId) {
 		return getPersistence().findByG_C(groupId, classNameId);
 	}
 
@@ -623,7 +668,7 @@ public class KBCommentUtil {
 	* Returns a range of all the k b comments where groupId = &#63; and classNameId = &#63;.
 	*
 	* <p>
-	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link com.liferay.knowledgebase.model.impl.KBCommentModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link KBCommentModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	* </p>
 	*
 	* @param groupId the group ID
@@ -632,8 +677,8 @@ public class KBCommentUtil {
 	* @param end the upper bound of the range of k b comments (not inclusive)
 	* @return the range of matching k b comments
 	*/
-	public static java.util.List<com.liferay.knowledgebase.model.KBComment> findByG_C(
-		long groupId, long classNameId, int start, int end) {
+	public static List<KBComment> findByG_C(long groupId, long classNameId,
+		int start, int end) {
 		return getPersistence().findByG_C(groupId, classNameId, start, end);
 	}
 
@@ -641,7 +686,7 @@ public class KBCommentUtil {
 	* Returns an ordered range of all the k b comments where groupId = &#63; and classNameId = &#63;.
 	*
 	* <p>
-	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link com.liferay.knowledgebase.model.impl.KBCommentModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link KBCommentModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	* </p>
 	*
 	* @param groupId the group ID
@@ -651,12 +696,34 @@ public class KBCommentUtil {
 	* @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
 	* @return the ordered range of matching k b comments
 	*/
-	public static java.util.List<com.liferay.knowledgebase.model.KBComment> findByG_C(
-		long groupId, long classNameId, int start, int end,
-		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.knowledgebase.model.KBComment> orderByComparator) {
+	public static List<KBComment> findByG_C(long groupId, long classNameId,
+		int start, int end, OrderByComparator<KBComment> orderByComparator) {
 		return getPersistence()
 				   .findByG_C(groupId, classNameId, start, end,
 			orderByComparator);
+	}
+
+	/**
+	* Returns an ordered range of all the k b comments where groupId = &#63; and classNameId = &#63;.
+	*
+	* <p>
+	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link KBCommentModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	* </p>
+	*
+	* @param groupId the group ID
+	* @param classNameId the class name ID
+	* @param start the lower bound of the range of k b comments
+	* @param end the upper bound of the range of k b comments (not inclusive)
+	* @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	* @param retrieveFromCache whether to retrieve from the finder cache
+	* @return the ordered range of matching k b comments
+	*/
+	public static List<KBComment> findByG_C(long groupId, long classNameId,
+		int start, int end, OrderByComparator<KBComment> orderByComparator,
+		boolean retrieveFromCache) {
+		return getPersistence()
+				   .findByG_C(groupId, classNameId, start, end,
+			orderByComparator, retrieveFromCache);
 	}
 
 	/**
@@ -666,12 +733,11 @@ public class KBCommentUtil {
 	* @param classNameId the class name ID
 	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	* @return the first matching k b comment
-	* @throws com.liferay.knowledgebase.NoSuchCommentException if a matching k b comment could not be found
+	* @throws NoSuchCommentException if a matching k b comment could not be found
 	*/
-	public static com.liferay.knowledgebase.model.KBComment findByG_C_First(
-		long groupId, long classNameId,
-		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.knowledgebase.model.KBComment> orderByComparator)
-		throws com.liferay.knowledgebase.NoSuchCommentException {
+	public static KBComment findByG_C_First(long groupId, long classNameId,
+		OrderByComparator<KBComment> orderByComparator)
+		throws com.liferay.knowledgebase.exception.NoSuchCommentException {
 		return getPersistence()
 				   .findByG_C_First(groupId, classNameId, orderByComparator);
 	}
@@ -684,9 +750,8 @@ public class KBCommentUtil {
 	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	* @return the first matching k b comment, or <code>null</code> if a matching k b comment could not be found
 	*/
-	public static com.liferay.knowledgebase.model.KBComment fetchByG_C_First(
-		long groupId, long classNameId,
-		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.knowledgebase.model.KBComment> orderByComparator) {
+	public static KBComment fetchByG_C_First(long groupId, long classNameId,
+		OrderByComparator<KBComment> orderByComparator) {
 		return getPersistence()
 				   .fetchByG_C_First(groupId, classNameId, orderByComparator);
 	}
@@ -698,12 +763,11 @@ public class KBCommentUtil {
 	* @param classNameId the class name ID
 	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	* @return the last matching k b comment
-	* @throws com.liferay.knowledgebase.NoSuchCommentException if a matching k b comment could not be found
+	* @throws NoSuchCommentException if a matching k b comment could not be found
 	*/
-	public static com.liferay.knowledgebase.model.KBComment findByG_C_Last(
-		long groupId, long classNameId,
-		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.knowledgebase.model.KBComment> orderByComparator)
-		throws com.liferay.knowledgebase.NoSuchCommentException {
+	public static KBComment findByG_C_Last(long groupId, long classNameId,
+		OrderByComparator<KBComment> orderByComparator)
+		throws com.liferay.knowledgebase.exception.NoSuchCommentException {
 		return getPersistence()
 				   .findByG_C_Last(groupId, classNameId, orderByComparator);
 	}
@@ -716,9 +780,8 @@ public class KBCommentUtil {
 	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	* @return the last matching k b comment, or <code>null</code> if a matching k b comment could not be found
 	*/
-	public static com.liferay.knowledgebase.model.KBComment fetchByG_C_Last(
-		long groupId, long classNameId,
-		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.knowledgebase.model.KBComment> orderByComparator) {
+	public static KBComment fetchByG_C_Last(long groupId, long classNameId,
+		OrderByComparator<KBComment> orderByComparator) {
 		return getPersistence()
 				   .fetchByG_C_Last(groupId, classNameId, orderByComparator);
 	}
@@ -731,12 +794,12 @@ public class KBCommentUtil {
 	* @param classNameId the class name ID
 	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	* @return the previous, current, and next k b comment
-	* @throws com.liferay.knowledgebase.NoSuchCommentException if a k b comment with the primary key could not be found
+	* @throws NoSuchCommentException if a k b comment with the primary key could not be found
 	*/
-	public static com.liferay.knowledgebase.model.KBComment[] findByG_C_PrevAndNext(
-		long kbCommentId, long groupId, long classNameId,
-		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.knowledgebase.model.KBComment> orderByComparator)
-		throws com.liferay.knowledgebase.NoSuchCommentException {
+	public static KBComment[] findByG_C_PrevAndNext(long kbCommentId,
+		long groupId, long classNameId,
+		OrderByComparator<KBComment> orderByComparator)
+		throws com.liferay.knowledgebase.exception.NoSuchCommentException {
 		return getPersistence()
 				   .findByG_C_PrevAndNext(kbCommentId, groupId, classNameId,
 			orderByComparator);
@@ -770,8 +833,7 @@ public class KBCommentUtil {
 	* @param status the status
 	* @return the matching k b comments
 	*/
-	public static java.util.List<com.liferay.knowledgebase.model.KBComment> findByG_S(
-		long groupId, int status) {
+	public static List<KBComment> findByG_S(long groupId, int status) {
 		return getPersistence().findByG_S(groupId, status);
 	}
 
@@ -779,7 +841,7 @@ public class KBCommentUtil {
 	* Returns a range of all the k b comments where groupId = &#63; and status = &#63;.
 	*
 	* <p>
-	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link com.liferay.knowledgebase.model.impl.KBCommentModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link KBCommentModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	* </p>
 	*
 	* @param groupId the group ID
@@ -788,8 +850,8 @@ public class KBCommentUtil {
 	* @param end the upper bound of the range of k b comments (not inclusive)
 	* @return the range of matching k b comments
 	*/
-	public static java.util.List<com.liferay.knowledgebase.model.KBComment> findByG_S(
-		long groupId, int status, int start, int end) {
+	public static List<KBComment> findByG_S(long groupId, int status,
+		int start, int end) {
 		return getPersistence().findByG_S(groupId, status, start, end);
 	}
 
@@ -797,7 +859,7 @@ public class KBCommentUtil {
 	* Returns an ordered range of all the k b comments where groupId = &#63; and status = &#63;.
 	*
 	* <p>
-	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link com.liferay.knowledgebase.model.impl.KBCommentModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link KBCommentModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	* </p>
 	*
 	* @param groupId the group ID
@@ -807,11 +869,33 @@ public class KBCommentUtil {
 	* @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
 	* @return the ordered range of matching k b comments
 	*/
-	public static java.util.List<com.liferay.knowledgebase.model.KBComment> findByG_S(
-		long groupId, int status, int start, int end,
-		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.knowledgebase.model.KBComment> orderByComparator) {
+	public static List<KBComment> findByG_S(long groupId, int status,
+		int start, int end, OrderByComparator<KBComment> orderByComparator) {
 		return getPersistence()
 				   .findByG_S(groupId, status, start, end, orderByComparator);
+	}
+
+	/**
+	* Returns an ordered range of all the k b comments where groupId = &#63; and status = &#63;.
+	*
+	* <p>
+	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link KBCommentModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	* </p>
+	*
+	* @param groupId the group ID
+	* @param status the status
+	* @param start the lower bound of the range of k b comments
+	* @param end the upper bound of the range of k b comments (not inclusive)
+	* @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	* @param retrieveFromCache whether to retrieve from the finder cache
+	* @return the ordered range of matching k b comments
+	*/
+	public static List<KBComment> findByG_S(long groupId, int status,
+		int start, int end, OrderByComparator<KBComment> orderByComparator,
+		boolean retrieveFromCache) {
+		return getPersistence()
+				   .findByG_S(groupId, status, start, end, orderByComparator,
+			retrieveFromCache);
 	}
 
 	/**
@@ -821,12 +905,11 @@ public class KBCommentUtil {
 	* @param status the status
 	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	* @return the first matching k b comment
-	* @throws com.liferay.knowledgebase.NoSuchCommentException if a matching k b comment could not be found
+	* @throws NoSuchCommentException if a matching k b comment could not be found
 	*/
-	public static com.liferay.knowledgebase.model.KBComment findByG_S_First(
-		long groupId, int status,
-		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.knowledgebase.model.KBComment> orderByComparator)
-		throws com.liferay.knowledgebase.NoSuchCommentException {
+	public static KBComment findByG_S_First(long groupId, int status,
+		OrderByComparator<KBComment> orderByComparator)
+		throws com.liferay.knowledgebase.exception.NoSuchCommentException {
 		return getPersistence()
 				   .findByG_S_First(groupId, status, orderByComparator);
 	}
@@ -839,9 +922,8 @@ public class KBCommentUtil {
 	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	* @return the first matching k b comment, or <code>null</code> if a matching k b comment could not be found
 	*/
-	public static com.liferay.knowledgebase.model.KBComment fetchByG_S_First(
-		long groupId, int status,
-		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.knowledgebase.model.KBComment> orderByComparator) {
+	public static KBComment fetchByG_S_First(long groupId, int status,
+		OrderByComparator<KBComment> orderByComparator) {
 		return getPersistence()
 				   .fetchByG_S_First(groupId, status, orderByComparator);
 	}
@@ -853,12 +935,11 @@ public class KBCommentUtil {
 	* @param status the status
 	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	* @return the last matching k b comment
-	* @throws com.liferay.knowledgebase.NoSuchCommentException if a matching k b comment could not be found
+	* @throws NoSuchCommentException if a matching k b comment could not be found
 	*/
-	public static com.liferay.knowledgebase.model.KBComment findByG_S_Last(
-		long groupId, int status,
-		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.knowledgebase.model.KBComment> orderByComparator)
-		throws com.liferay.knowledgebase.NoSuchCommentException {
+	public static KBComment findByG_S_Last(long groupId, int status,
+		OrderByComparator<KBComment> orderByComparator)
+		throws com.liferay.knowledgebase.exception.NoSuchCommentException {
 		return getPersistence()
 				   .findByG_S_Last(groupId, status, orderByComparator);
 	}
@@ -871,9 +952,8 @@ public class KBCommentUtil {
 	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	* @return the last matching k b comment, or <code>null</code> if a matching k b comment could not be found
 	*/
-	public static com.liferay.knowledgebase.model.KBComment fetchByG_S_Last(
-		long groupId, int status,
-		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.knowledgebase.model.KBComment> orderByComparator) {
+	public static KBComment fetchByG_S_Last(long groupId, int status,
+		OrderByComparator<KBComment> orderByComparator) {
 		return getPersistence()
 				   .fetchByG_S_Last(groupId, status, orderByComparator);
 	}
@@ -886,12 +966,11 @@ public class KBCommentUtil {
 	* @param status the status
 	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	* @return the previous, current, and next k b comment
-	* @throws com.liferay.knowledgebase.NoSuchCommentException if a k b comment with the primary key could not be found
+	* @throws NoSuchCommentException if a k b comment with the primary key could not be found
 	*/
-	public static com.liferay.knowledgebase.model.KBComment[] findByG_S_PrevAndNext(
-		long kbCommentId, long groupId, int status,
-		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.knowledgebase.model.KBComment> orderByComparator)
-		throws com.liferay.knowledgebase.NoSuchCommentException {
+	public static KBComment[] findByG_S_PrevAndNext(long kbCommentId,
+		long groupId, int status, OrderByComparator<KBComment> orderByComparator)
+		throws com.liferay.knowledgebase.exception.NoSuchCommentException {
 		return getPersistence()
 				   .findByG_S_PrevAndNext(kbCommentId, groupId, status,
 			orderByComparator);
@@ -925,8 +1004,7 @@ public class KBCommentUtil {
 	* @param classPK the class p k
 	* @return the matching k b comments
 	*/
-	public static java.util.List<com.liferay.knowledgebase.model.KBComment> findByC_C(
-		long classNameId, long classPK) {
+	public static List<KBComment> findByC_C(long classNameId, long classPK) {
 		return getPersistence().findByC_C(classNameId, classPK);
 	}
 
@@ -934,7 +1012,7 @@ public class KBCommentUtil {
 	* Returns a range of all the k b comments where classNameId = &#63; and classPK = &#63;.
 	*
 	* <p>
-	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link com.liferay.knowledgebase.model.impl.KBCommentModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link KBCommentModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	* </p>
 	*
 	* @param classNameId the class name ID
@@ -943,8 +1021,8 @@ public class KBCommentUtil {
 	* @param end the upper bound of the range of k b comments (not inclusive)
 	* @return the range of matching k b comments
 	*/
-	public static java.util.List<com.liferay.knowledgebase.model.KBComment> findByC_C(
-		long classNameId, long classPK, int start, int end) {
+	public static List<KBComment> findByC_C(long classNameId, long classPK,
+		int start, int end) {
 		return getPersistence().findByC_C(classNameId, classPK, start, end);
 	}
 
@@ -952,7 +1030,7 @@ public class KBCommentUtil {
 	* Returns an ordered range of all the k b comments where classNameId = &#63; and classPK = &#63;.
 	*
 	* <p>
-	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link com.liferay.knowledgebase.model.impl.KBCommentModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link KBCommentModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	* </p>
 	*
 	* @param classNameId the class name ID
@@ -962,12 +1040,34 @@ public class KBCommentUtil {
 	* @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
 	* @return the ordered range of matching k b comments
 	*/
-	public static java.util.List<com.liferay.knowledgebase.model.KBComment> findByC_C(
-		long classNameId, long classPK, int start, int end,
-		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.knowledgebase.model.KBComment> orderByComparator) {
+	public static List<KBComment> findByC_C(long classNameId, long classPK,
+		int start, int end, OrderByComparator<KBComment> orderByComparator) {
 		return getPersistence()
 				   .findByC_C(classNameId, classPK, start, end,
 			orderByComparator);
+	}
+
+	/**
+	* Returns an ordered range of all the k b comments where classNameId = &#63; and classPK = &#63;.
+	*
+	* <p>
+	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link KBCommentModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	* </p>
+	*
+	* @param classNameId the class name ID
+	* @param classPK the class p k
+	* @param start the lower bound of the range of k b comments
+	* @param end the upper bound of the range of k b comments (not inclusive)
+	* @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	* @param retrieveFromCache whether to retrieve from the finder cache
+	* @return the ordered range of matching k b comments
+	*/
+	public static List<KBComment> findByC_C(long classNameId, long classPK,
+		int start, int end, OrderByComparator<KBComment> orderByComparator,
+		boolean retrieveFromCache) {
+		return getPersistence()
+				   .findByC_C(classNameId, classPK, start, end,
+			orderByComparator, retrieveFromCache);
 	}
 
 	/**
@@ -977,12 +1077,11 @@ public class KBCommentUtil {
 	* @param classPK the class p k
 	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	* @return the first matching k b comment
-	* @throws com.liferay.knowledgebase.NoSuchCommentException if a matching k b comment could not be found
+	* @throws NoSuchCommentException if a matching k b comment could not be found
 	*/
-	public static com.liferay.knowledgebase.model.KBComment findByC_C_First(
-		long classNameId, long classPK,
-		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.knowledgebase.model.KBComment> orderByComparator)
-		throws com.liferay.knowledgebase.NoSuchCommentException {
+	public static KBComment findByC_C_First(long classNameId, long classPK,
+		OrderByComparator<KBComment> orderByComparator)
+		throws com.liferay.knowledgebase.exception.NoSuchCommentException {
 		return getPersistence()
 				   .findByC_C_First(classNameId, classPK, orderByComparator);
 	}
@@ -995,9 +1094,8 @@ public class KBCommentUtil {
 	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	* @return the first matching k b comment, or <code>null</code> if a matching k b comment could not be found
 	*/
-	public static com.liferay.knowledgebase.model.KBComment fetchByC_C_First(
-		long classNameId, long classPK,
-		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.knowledgebase.model.KBComment> orderByComparator) {
+	public static KBComment fetchByC_C_First(long classNameId, long classPK,
+		OrderByComparator<KBComment> orderByComparator) {
 		return getPersistence()
 				   .fetchByC_C_First(classNameId, classPK, orderByComparator);
 	}
@@ -1009,12 +1107,11 @@ public class KBCommentUtil {
 	* @param classPK the class p k
 	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	* @return the last matching k b comment
-	* @throws com.liferay.knowledgebase.NoSuchCommentException if a matching k b comment could not be found
+	* @throws NoSuchCommentException if a matching k b comment could not be found
 	*/
-	public static com.liferay.knowledgebase.model.KBComment findByC_C_Last(
-		long classNameId, long classPK,
-		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.knowledgebase.model.KBComment> orderByComparator)
-		throws com.liferay.knowledgebase.NoSuchCommentException {
+	public static KBComment findByC_C_Last(long classNameId, long classPK,
+		OrderByComparator<KBComment> orderByComparator)
+		throws com.liferay.knowledgebase.exception.NoSuchCommentException {
 		return getPersistence()
 				   .findByC_C_Last(classNameId, classPK, orderByComparator);
 	}
@@ -1027,9 +1124,8 @@ public class KBCommentUtil {
 	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	* @return the last matching k b comment, or <code>null</code> if a matching k b comment could not be found
 	*/
-	public static com.liferay.knowledgebase.model.KBComment fetchByC_C_Last(
-		long classNameId, long classPK,
-		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.knowledgebase.model.KBComment> orderByComparator) {
+	public static KBComment fetchByC_C_Last(long classNameId, long classPK,
+		OrderByComparator<KBComment> orderByComparator) {
 		return getPersistence()
 				   .fetchByC_C_Last(classNameId, classPK, orderByComparator);
 	}
@@ -1042,12 +1138,12 @@ public class KBCommentUtil {
 	* @param classPK the class p k
 	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	* @return the previous, current, and next k b comment
-	* @throws com.liferay.knowledgebase.NoSuchCommentException if a k b comment with the primary key could not be found
+	* @throws NoSuchCommentException if a k b comment with the primary key could not be found
 	*/
-	public static com.liferay.knowledgebase.model.KBComment[] findByC_C_PrevAndNext(
-		long kbCommentId, long classNameId, long classPK,
-		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.knowledgebase.model.KBComment> orderByComparator)
-		throws com.liferay.knowledgebase.NoSuchCommentException {
+	public static KBComment[] findByC_C_PrevAndNext(long kbCommentId,
+		long classNameId, long classPK,
+		OrderByComparator<KBComment> orderByComparator)
+		throws com.liferay.knowledgebase.exception.NoSuchCommentException {
 		return getPersistence()
 				   .findByC_C_PrevAndNext(kbCommentId, classNameId, classPK,
 			orderByComparator);
@@ -1082,8 +1178,8 @@ public class KBCommentUtil {
 	* @param classPK the class p k
 	* @return the matching k b comments
 	*/
-	public static java.util.List<com.liferay.knowledgebase.model.KBComment> findByU_C_C(
-		long userId, long classNameId, long classPK) {
+	public static List<KBComment> findByU_C_C(long userId, long classNameId,
+		long classPK) {
 		return getPersistence().findByU_C_C(userId, classNameId, classPK);
 	}
 
@@ -1091,7 +1187,7 @@ public class KBCommentUtil {
 	* Returns a range of all the k b comments where userId = &#63; and classNameId = &#63; and classPK = &#63;.
 	*
 	* <p>
-	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link com.liferay.knowledgebase.model.impl.KBCommentModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link KBCommentModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	* </p>
 	*
 	* @param userId the user ID
@@ -1101,8 +1197,8 @@ public class KBCommentUtil {
 	* @param end the upper bound of the range of k b comments (not inclusive)
 	* @return the range of matching k b comments
 	*/
-	public static java.util.List<com.liferay.knowledgebase.model.KBComment> findByU_C_C(
-		long userId, long classNameId, long classPK, int start, int end) {
+	public static List<KBComment> findByU_C_C(long userId, long classNameId,
+		long classPK, int start, int end) {
 		return getPersistence()
 				   .findByU_C_C(userId, classNameId, classPK, start, end);
 	}
@@ -1111,7 +1207,7 @@ public class KBCommentUtil {
 	* Returns an ordered range of all the k b comments where userId = &#63; and classNameId = &#63; and classPK = &#63;.
 	*
 	* <p>
-	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link com.liferay.knowledgebase.model.impl.KBCommentModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link KBCommentModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	* </p>
 	*
 	* @param userId the user ID
@@ -1122,12 +1218,37 @@ public class KBCommentUtil {
 	* @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
 	* @return the ordered range of matching k b comments
 	*/
-	public static java.util.List<com.liferay.knowledgebase.model.KBComment> findByU_C_C(
-		long userId, long classNameId, long classPK, int start, int end,
-		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.knowledgebase.model.KBComment> orderByComparator) {
+	public static List<KBComment> findByU_C_C(long userId, long classNameId,
+		long classPK, int start, int end,
+		OrderByComparator<KBComment> orderByComparator) {
 		return getPersistence()
 				   .findByU_C_C(userId, classNameId, classPK, start, end,
 			orderByComparator);
+	}
+
+	/**
+	* Returns an ordered range of all the k b comments where userId = &#63; and classNameId = &#63; and classPK = &#63;.
+	*
+	* <p>
+	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link KBCommentModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	* </p>
+	*
+	* @param userId the user ID
+	* @param classNameId the class name ID
+	* @param classPK the class p k
+	* @param start the lower bound of the range of k b comments
+	* @param end the upper bound of the range of k b comments (not inclusive)
+	* @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	* @param retrieveFromCache whether to retrieve from the finder cache
+	* @return the ordered range of matching k b comments
+	*/
+	public static List<KBComment> findByU_C_C(long userId, long classNameId,
+		long classPK, int start, int end,
+		OrderByComparator<KBComment> orderByComparator,
+		boolean retrieveFromCache) {
+		return getPersistence()
+				   .findByU_C_C(userId, classNameId, classPK, start, end,
+			orderByComparator, retrieveFromCache);
 	}
 
 	/**
@@ -1138,12 +1259,11 @@ public class KBCommentUtil {
 	* @param classPK the class p k
 	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	* @return the first matching k b comment
-	* @throws com.liferay.knowledgebase.NoSuchCommentException if a matching k b comment could not be found
+	* @throws NoSuchCommentException if a matching k b comment could not be found
 	*/
-	public static com.liferay.knowledgebase.model.KBComment findByU_C_C_First(
-		long userId, long classNameId, long classPK,
-		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.knowledgebase.model.KBComment> orderByComparator)
-		throws com.liferay.knowledgebase.NoSuchCommentException {
+	public static KBComment findByU_C_C_First(long userId, long classNameId,
+		long classPK, OrderByComparator<KBComment> orderByComparator)
+		throws com.liferay.knowledgebase.exception.NoSuchCommentException {
 		return getPersistence()
 				   .findByU_C_C_First(userId, classNameId, classPK,
 			orderByComparator);
@@ -1158,9 +1278,8 @@ public class KBCommentUtil {
 	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	* @return the first matching k b comment, or <code>null</code> if a matching k b comment could not be found
 	*/
-	public static com.liferay.knowledgebase.model.KBComment fetchByU_C_C_First(
-		long userId, long classNameId, long classPK,
-		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.knowledgebase.model.KBComment> orderByComparator) {
+	public static KBComment fetchByU_C_C_First(long userId, long classNameId,
+		long classPK, OrderByComparator<KBComment> orderByComparator) {
 		return getPersistence()
 				   .fetchByU_C_C_First(userId, classNameId, classPK,
 			orderByComparator);
@@ -1174,12 +1293,11 @@ public class KBCommentUtil {
 	* @param classPK the class p k
 	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	* @return the last matching k b comment
-	* @throws com.liferay.knowledgebase.NoSuchCommentException if a matching k b comment could not be found
+	* @throws NoSuchCommentException if a matching k b comment could not be found
 	*/
-	public static com.liferay.knowledgebase.model.KBComment findByU_C_C_Last(
-		long userId, long classNameId, long classPK,
-		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.knowledgebase.model.KBComment> orderByComparator)
-		throws com.liferay.knowledgebase.NoSuchCommentException {
+	public static KBComment findByU_C_C_Last(long userId, long classNameId,
+		long classPK, OrderByComparator<KBComment> orderByComparator)
+		throws com.liferay.knowledgebase.exception.NoSuchCommentException {
 		return getPersistence()
 				   .findByU_C_C_Last(userId, classNameId, classPK,
 			orderByComparator);
@@ -1194,9 +1312,8 @@ public class KBCommentUtil {
 	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	* @return the last matching k b comment, or <code>null</code> if a matching k b comment could not be found
 	*/
-	public static com.liferay.knowledgebase.model.KBComment fetchByU_C_C_Last(
-		long userId, long classNameId, long classPK,
-		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.knowledgebase.model.KBComment> orderByComparator) {
+	public static KBComment fetchByU_C_C_Last(long userId, long classNameId,
+		long classPK, OrderByComparator<KBComment> orderByComparator) {
 		return getPersistence()
 				   .fetchByU_C_C_Last(userId, classNameId, classPK,
 			orderByComparator);
@@ -1211,12 +1328,12 @@ public class KBCommentUtil {
 	* @param classPK the class p k
 	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	* @return the previous, current, and next k b comment
-	* @throws com.liferay.knowledgebase.NoSuchCommentException if a k b comment with the primary key could not be found
+	* @throws NoSuchCommentException if a k b comment with the primary key could not be found
 	*/
-	public static com.liferay.knowledgebase.model.KBComment[] findByU_C_C_PrevAndNext(
-		long kbCommentId, long userId, long classNameId, long classPK,
-		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.knowledgebase.model.KBComment> orderByComparator)
-		throws com.liferay.knowledgebase.NoSuchCommentException {
+	public static KBComment[] findByU_C_C_PrevAndNext(long kbCommentId,
+		long userId, long classNameId, long classPK,
+		OrderByComparator<KBComment> orderByComparator)
+		throws com.liferay.knowledgebase.exception.NoSuchCommentException {
 		return getPersistence()
 				   .findByU_C_C_PrevAndNext(kbCommentId, userId, classNameId,
 			classPK, orderByComparator);
@@ -1253,8 +1370,8 @@ public class KBCommentUtil {
 	* @param status the status
 	* @return the matching k b comments
 	*/
-	public static java.util.List<com.liferay.knowledgebase.model.KBComment> findByC_C_S(
-		long classNameId, long classPK, int status) {
+	public static List<KBComment> findByC_C_S(long classNameId, long classPK,
+		int status) {
 		return getPersistence().findByC_C_S(classNameId, classPK, status);
 	}
 
@@ -1262,7 +1379,7 @@ public class KBCommentUtil {
 	* Returns a range of all the k b comments where classNameId = &#63; and classPK = &#63; and status = &#63;.
 	*
 	* <p>
-	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link com.liferay.knowledgebase.model.impl.KBCommentModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link KBCommentModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	* </p>
 	*
 	* @param classNameId the class name ID
@@ -1272,8 +1389,8 @@ public class KBCommentUtil {
 	* @param end the upper bound of the range of k b comments (not inclusive)
 	* @return the range of matching k b comments
 	*/
-	public static java.util.List<com.liferay.knowledgebase.model.KBComment> findByC_C_S(
-		long classNameId, long classPK, int status, int start, int end) {
+	public static List<KBComment> findByC_C_S(long classNameId, long classPK,
+		int status, int start, int end) {
 		return getPersistence()
 				   .findByC_C_S(classNameId, classPK, status, start, end);
 	}
@@ -1282,7 +1399,7 @@ public class KBCommentUtil {
 	* Returns an ordered range of all the k b comments where classNameId = &#63; and classPK = &#63; and status = &#63;.
 	*
 	* <p>
-	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link com.liferay.knowledgebase.model.impl.KBCommentModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link KBCommentModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	* </p>
 	*
 	* @param classNameId the class name ID
@@ -1293,12 +1410,37 @@ public class KBCommentUtil {
 	* @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
 	* @return the ordered range of matching k b comments
 	*/
-	public static java.util.List<com.liferay.knowledgebase.model.KBComment> findByC_C_S(
-		long classNameId, long classPK, int status, int start, int end,
-		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.knowledgebase.model.KBComment> orderByComparator) {
+	public static List<KBComment> findByC_C_S(long classNameId, long classPK,
+		int status, int start, int end,
+		OrderByComparator<KBComment> orderByComparator) {
 		return getPersistence()
 				   .findByC_C_S(classNameId, classPK, status, start, end,
 			orderByComparator);
+	}
+
+	/**
+	* Returns an ordered range of all the k b comments where classNameId = &#63; and classPK = &#63; and status = &#63;.
+	*
+	* <p>
+	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link KBCommentModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	* </p>
+	*
+	* @param classNameId the class name ID
+	* @param classPK the class p k
+	* @param status the status
+	* @param start the lower bound of the range of k b comments
+	* @param end the upper bound of the range of k b comments (not inclusive)
+	* @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	* @param retrieveFromCache whether to retrieve from the finder cache
+	* @return the ordered range of matching k b comments
+	*/
+	public static List<KBComment> findByC_C_S(long classNameId, long classPK,
+		int status, int start, int end,
+		OrderByComparator<KBComment> orderByComparator,
+		boolean retrieveFromCache) {
+		return getPersistence()
+				   .findByC_C_S(classNameId, classPK, status, start, end,
+			orderByComparator, retrieveFromCache);
 	}
 
 	/**
@@ -1309,12 +1451,11 @@ public class KBCommentUtil {
 	* @param status the status
 	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	* @return the first matching k b comment
-	* @throws com.liferay.knowledgebase.NoSuchCommentException if a matching k b comment could not be found
+	* @throws NoSuchCommentException if a matching k b comment could not be found
 	*/
-	public static com.liferay.knowledgebase.model.KBComment findByC_C_S_First(
-		long classNameId, long classPK, int status,
-		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.knowledgebase.model.KBComment> orderByComparator)
-		throws com.liferay.knowledgebase.NoSuchCommentException {
+	public static KBComment findByC_C_S_First(long classNameId, long classPK,
+		int status, OrderByComparator<KBComment> orderByComparator)
+		throws com.liferay.knowledgebase.exception.NoSuchCommentException {
 		return getPersistence()
 				   .findByC_C_S_First(classNameId, classPK, status,
 			orderByComparator);
@@ -1329,9 +1470,8 @@ public class KBCommentUtil {
 	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	* @return the first matching k b comment, or <code>null</code> if a matching k b comment could not be found
 	*/
-	public static com.liferay.knowledgebase.model.KBComment fetchByC_C_S_First(
-		long classNameId, long classPK, int status,
-		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.knowledgebase.model.KBComment> orderByComparator) {
+	public static KBComment fetchByC_C_S_First(long classNameId, long classPK,
+		int status, OrderByComparator<KBComment> orderByComparator) {
 		return getPersistence()
 				   .fetchByC_C_S_First(classNameId, classPK, status,
 			orderByComparator);
@@ -1345,12 +1485,11 @@ public class KBCommentUtil {
 	* @param status the status
 	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	* @return the last matching k b comment
-	* @throws com.liferay.knowledgebase.NoSuchCommentException if a matching k b comment could not be found
+	* @throws NoSuchCommentException if a matching k b comment could not be found
 	*/
-	public static com.liferay.knowledgebase.model.KBComment findByC_C_S_Last(
-		long classNameId, long classPK, int status,
-		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.knowledgebase.model.KBComment> orderByComparator)
-		throws com.liferay.knowledgebase.NoSuchCommentException {
+	public static KBComment findByC_C_S_Last(long classNameId, long classPK,
+		int status, OrderByComparator<KBComment> orderByComparator)
+		throws com.liferay.knowledgebase.exception.NoSuchCommentException {
 		return getPersistence()
 				   .findByC_C_S_Last(classNameId, classPK, status,
 			orderByComparator);
@@ -1365,9 +1504,8 @@ public class KBCommentUtil {
 	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	* @return the last matching k b comment, or <code>null</code> if a matching k b comment could not be found
 	*/
-	public static com.liferay.knowledgebase.model.KBComment fetchByC_C_S_Last(
-		long classNameId, long classPK, int status,
-		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.knowledgebase.model.KBComment> orderByComparator) {
+	public static KBComment fetchByC_C_S_Last(long classNameId, long classPK,
+		int status, OrderByComparator<KBComment> orderByComparator) {
 		return getPersistence()
 				   .fetchByC_C_S_Last(classNameId, classPK, status,
 			orderByComparator);
@@ -1382,12 +1520,12 @@ public class KBCommentUtil {
 	* @param status the status
 	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	* @return the previous, current, and next k b comment
-	* @throws com.liferay.knowledgebase.NoSuchCommentException if a k b comment with the primary key could not be found
+	* @throws NoSuchCommentException if a k b comment with the primary key could not be found
 	*/
-	public static com.liferay.knowledgebase.model.KBComment[] findByC_C_S_PrevAndNext(
-		long kbCommentId, long classNameId, long classPK, int status,
-		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.knowledgebase.model.KBComment> orderByComparator)
-		throws com.liferay.knowledgebase.NoSuchCommentException {
+	public static KBComment[] findByC_C_S_PrevAndNext(long kbCommentId,
+		long classNameId, long classPK, int status,
+		OrderByComparator<KBComment> orderByComparator)
+		throws com.liferay.knowledgebase.exception.NoSuchCommentException {
 		return getPersistence()
 				   .findByC_C_S_PrevAndNext(kbCommentId, classNameId, classPK,
 			status, orderByComparator);
@@ -1397,7 +1535,7 @@ public class KBCommentUtil {
 	* Returns all the k b comments where classNameId = &#63; and classPK = &#63; and status = any &#63;.
 	*
 	* <p>
-	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link com.liferay.knowledgebase.model.impl.KBCommentModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link KBCommentModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	* </p>
 	*
 	* @param classNameId the class name ID
@@ -1405,8 +1543,8 @@ public class KBCommentUtil {
 	* @param statuses the statuses
 	* @return the matching k b comments
 	*/
-	public static java.util.List<com.liferay.knowledgebase.model.KBComment> findByC_C_S(
-		long classNameId, long classPK, int[] statuses) {
+	public static List<KBComment> findByC_C_S(long classNameId, long classPK,
+		int[] statuses) {
 		return getPersistence().findByC_C_S(classNameId, classPK, statuses);
 	}
 
@@ -1414,7 +1552,7 @@ public class KBCommentUtil {
 	* Returns a range of all the k b comments where classNameId = &#63; and classPK = &#63; and status = any &#63;.
 	*
 	* <p>
-	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link com.liferay.knowledgebase.model.impl.KBCommentModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link KBCommentModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	* </p>
 	*
 	* @param classNameId the class name ID
@@ -1424,8 +1562,8 @@ public class KBCommentUtil {
 	* @param end the upper bound of the range of k b comments (not inclusive)
 	* @return the range of matching k b comments
 	*/
-	public static java.util.List<com.liferay.knowledgebase.model.KBComment> findByC_C_S(
-		long classNameId, long classPK, int[] statuses, int start, int end) {
+	public static List<KBComment> findByC_C_S(long classNameId, long classPK,
+		int[] statuses, int start, int end) {
 		return getPersistence()
 				   .findByC_C_S(classNameId, classPK, statuses, start, end);
 	}
@@ -1434,7 +1572,7 @@ public class KBCommentUtil {
 	* Returns an ordered range of all the k b comments where classNameId = &#63; and classPK = &#63; and status = any &#63;.
 	*
 	* <p>
-	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link com.liferay.knowledgebase.model.impl.KBCommentModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link KBCommentModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	* </p>
 	*
 	* @param classNameId the class name ID
@@ -1445,12 +1583,37 @@ public class KBCommentUtil {
 	* @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
 	* @return the ordered range of matching k b comments
 	*/
-	public static java.util.List<com.liferay.knowledgebase.model.KBComment> findByC_C_S(
-		long classNameId, long classPK, int[] statuses, int start, int end,
-		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.knowledgebase.model.KBComment> orderByComparator) {
+	public static List<KBComment> findByC_C_S(long classNameId, long classPK,
+		int[] statuses, int start, int end,
+		OrderByComparator<KBComment> orderByComparator) {
 		return getPersistence()
 				   .findByC_C_S(classNameId, classPK, statuses, start, end,
 			orderByComparator);
+	}
+
+	/**
+	* Returns an ordered range of all the k b comments where classNameId = &#63; and classPK = &#63; and status = &#63;, optionally using the finder cache.
+	*
+	* <p>
+	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link KBCommentModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	* </p>
+	*
+	* @param classNameId the class name ID
+	* @param classPK the class p k
+	* @param status the status
+	* @param start the lower bound of the range of k b comments
+	* @param end the upper bound of the range of k b comments (not inclusive)
+	* @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	* @param retrieveFromCache whether to retrieve from the finder cache
+	* @return the ordered range of matching k b comments
+	*/
+	public static List<KBComment> findByC_C_S(long classNameId, long classPK,
+		int[] statuses, int start, int end,
+		OrderByComparator<KBComment> orderByComparator,
+		boolean retrieveFromCache) {
+		return getPersistence()
+				   .findByC_C_S(classNameId, classPK, statuses, start, end,
+			orderByComparator, retrieveFromCache);
 	}
 
 	/**
@@ -1494,8 +1657,7 @@ public class KBCommentUtil {
 	*
 	* @param kbComment the k b comment
 	*/
-	public static void cacheResult(
-		com.liferay.knowledgebase.model.KBComment kbComment) {
+	public static void cacheResult(KBComment kbComment) {
 		getPersistence().cacheResult(kbComment);
 	}
 
@@ -1504,8 +1666,7 @@ public class KBCommentUtil {
 	*
 	* @param kbComments the k b comments
 	*/
-	public static void cacheResult(
-		java.util.List<com.liferay.knowledgebase.model.KBComment> kbComments) {
+	public static void cacheResult(List<KBComment> kbComments) {
 		getPersistence().cacheResult(kbComments);
 	}
 
@@ -1515,8 +1676,7 @@ public class KBCommentUtil {
 	* @param kbCommentId the primary key for the new k b comment
 	* @return the new k b comment
 	*/
-	public static com.liferay.knowledgebase.model.KBComment create(
-		long kbCommentId) {
+	public static KBComment create(long kbCommentId) {
 		return getPersistence().create(kbCommentId);
 	}
 
@@ -1525,29 +1685,26 @@ public class KBCommentUtil {
 	*
 	* @param kbCommentId the primary key of the k b comment
 	* @return the k b comment that was removed
-	* @throws com.liferay.knowledgebase.NoSuchCommentException if a k b comment with the primary key could not be found
+	* @throws NoSuchCommentException if a k b comment with the primary key could not be found
 	*/
-	public static com.liferay.knowledgebase.model.KBComment remove(
-		long kbCommentId)
-		throws com.liferay.knowledgebase.NoSuchCommentException {
+	public static KBComment remove(long kbCommentId)
+		throws com.liferay.knowledgebase.exception.NoSuchCommentException {
 		return getPersistence().remove(kbCommentId);
 	}
 
-	public static com.liferay.knowledgebase.model.KBComment updateImpl(
-		com.liferay.knowledgebase.model.KBComment kbComment) {
+	public static KBComment updateImpl(KBComment kbComment) {
 		return getPersistence().updateImpl(kbComment);
 	}
 
 	/**
-	* Returns the k b comment with the primary key or throws a {@link com.liferay.knowledgebase.NoSuchCommentException} if it could not be found.
+	* Returns the k b comment with the primary key or throws a {@link NoSuchCommentException} if it could not be found.
 	*
 	* @param kbCommentId the primary key of the k b comment
 	* @return the k b comment
-	* @throws com.liferay.knowledgebase.NoSuchCommentException if a k b comment with the primary key could not be found
+	* @throws NoSuchCommentException if a k b comment with the primary key could not be found
 	*/
-	public static com.liferay.knowledgebase.model.KBComment findByPrimaryKey(
-		long kbCommentId)
-		throws com.liferay.knowledgebase.NoSuchCommentException {
+	public static KBComment findByPrimaryKey(long kbCommentId)
+		throws com.liferay.knowledgebase.exception.NoSuchCommentException {
 		return getPersistence().findByPrimaryKey(kbCommentId);
 	}
 
@@ -1557,12 +1714,11 @@ public class KBCommentUtil {
 	* @param kbCommentId the primary key of the k b comment
 	* @return the k b comment, or <code>null</code> if a k b comment with the primary key could not be found
 	*/
-	public static com.liferay.knowledgebase.model.KBComment fetchByPrimaryKey(
-		long kbCommentId) {
+	public static KBComment fetchByPrimaryKey(long kbCommentId) {
 		return getPersistence().fetchByPrimaryKey(kbCommentId);
 	}
 
-	public static java.util.Map<java.io.Serializable, com.liferay.knowledgebase.model.KBComment> fetchByPrimaryKeys(
+	public static java.util.Map<java.io.Serializable, KBComment> fetchByPrimaryKeys(
 		java.util.Set<java.io.Serializable> primaryKeys) {
 		return getPersistence().fetchByPrimaryKeys(primaryKeys);
 	}
@@ -1572,7 +1728,7 @@ public class KBCommentUtil {
 	*
 	* @return the k b comments
 	*/
-	public static java.util.List<com.liferay.knowledgebase.model.KBComment> findAll() {
+	public static List<KBComment> findAll() {
 		return getPersistence().findAll();
 	}
 
@@ -1580,15 +1736,14 @@ public class KBCommentUtil {
 	* Returns a range of all the k b comments.
 	*
 	* <p>
-	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link com.liferay.knowledgebase.model.impl.KBCommentModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link KBCommentModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	* </p>
 	*
 	* @param start the lower bound of the range of k b comments
 	* @param end the upper bound of the range of k b comments (not inclusive)
 	* @return the range of k b comments
 	*/
-	public static java.util.List<com.liferay.knowledgebase.model.KBComment> findAll(
-		int start, int end) {
+	public static List<KBComment> findAll(int start, int end) {
 		return getPersistence().findAll(start, end);
 	}
 
@@ -1596,7 +1751,7 @@ public class KBCommentUtil {
 	* Returns an ordered range of all the k b comments.
 	*
 	* <p>
-	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link com.liferay.knowledgebase.model.impl.KBCommentModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link KBCommentModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	* </p>
 	*
 	* @param start the lower bound of the range of k b comments
@@ -1604,10 +1759,29 @@ public class KBCommentUtil {
 	* @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
 	* @return the ordered range of k b comments
 	*/
-	public static java.util.List<com.liferay.knowledgebase.model.KBComment> findAll(
-		int start, int end,
-		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.knowledgebase.model.KBComment> orderByComparator) {
+	public static List<KBComment> findAll(int start, int end,
+		OrderByComparator<KBComment> orderByComparator) {
 		return getPersistence().findAll(start, end, orderByComparator);
+	}
+
+	/**
+	* Returns an ordered range of all the k b comments.
+	*
+	* <p>
+	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link KBCommentModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	* </p>
+	*
+	* @param start the lower bound of the range of k b comments
+	* @param end the upper bound of the range of k b comments (not inclusive)
+	* @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	* @param retrieveFromCache whether to retrieve from the finder cache
+	* @return the ordered range of k b comments
+	*/
+	public static List<KBComment> findAll(int start, int end,
+		OrderByComparator<KBComment> orderByComparator,
+		boolean retrieveFromCache) {
+		return getPersistence()
+				   .findAll(start, end, orderByComparator, retrieveFromCache);
 	}
 
 	/**
@@ -1626,6 +1800,10 @@ public class KBCommentUtil {
 		return getPersistence().countAll();
 	}
 
+	public static java.util.Set<java.lang.String> getBadColumnNames() {
+		return getPersistence().getBadColumnNames();
+	}
+
 	public static KBCommentPersistence getPersistence() {
 		if (_persistence == null) {
 			_persistence = (KBCommentPersistence)PortletBeanLocatorUtil.locate(com.liferay.knowledgebase.service.ClpSerializer.getServletContextName(),
@@ -1636,13 +1814,6 @@ public class KBCommentUtil {
 		}
 
 		return _persistence;
-	}
-
-	/**
-	 * @deprecated As of 6.2.0
-	 */
-	@Deprecated
-	public void setPersistence(KBCommentPersistence persistence) {
 	}
 
 	private static KBCommentPersistence _persistence;

@@ -14,12 +14,18 @@
 
 package com.liferay.knowledgebase.portlet;
 
-import com.liferay.knowledgebase.KBArticleContentException;
-import com.liferay.knowledgebase.KBArticlePriorityException;
-import com.liferay.knowledgebase.KBArticleTitleException;
-import com.liferay.knowledgebase.KBCommentContentException;
-import com.liferay.knowledgebase.NoSuchArticleException;
-import com.liferay.knowledgebase.NoSuchCommentException;
+import com.liferay.asset.kernel.exception.AssetCategoryException;
+import com.liferay.asset.kernel.exception.AssetTagException;
+import com.liferay.document.library.kernel.exception.DuplicateFileException;
+import com.liferay.document.library.kernel.exception.FileNameException;
+import com.liferay.document.library.kernel.exception.FileSizeException;
+import com.liferay.document.library.kernel.exception.NoSuchFileException;
+import com.liferay.knowledgebase.exception.KBArticleContentException;
+import com.liferay.knowledgebase.exception.KBArticlePriorityException;
+import com.liferay.knowledgebase.exception.KBArticleTitleException;
+import com.liferay.knowledgebase.exception.KBCommentContentException;
+import com.liferay.knowledgebase.exception.NoSuchArticleException;
+import com.liferay.knowledgebase.exception.NoSuchCommentException;
 import com.liferay.knowledgebase.model.KBArticle;
 import com.liferay.knowledgebase.model.KBArticleConstants;
 import com.liferay.knowledgebase.model.KBComment;
@@ -36,29 +42,25 @@ import com.liferay.portal.kernel.json.JSONFactoryUtil;
 import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.portlet.PortletResponseUtil;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCPortlet;
+import com.liferay.portal.kernel.security.auth.PrincipalException;
+import com.liferay.portal.kernel.service.ServiceContext;
+import com.liferay.portal.kernel.service.ServiceContextFactory;
 import com.liferay.portal.kernel.servlet.SessionMessages;
+import com.liferay.portal.kernel.theme.PortletDisplay;
+import com.liferay.portal.kernel.theme.ThemeDisplay;
+import com.liferay.portal.kernel.upload.LiferayFileItemException;
 import com.liferay.portal.kernel.upload.UploadException;
 import com.liferay.portal.kernel.upload.UploadPortletRequest;
+import com.liferay.portal.kernel.upload.UploadRequestSizeException;
 import com.liferay.portal.kernel.util.Constants;
 import com.liferay.portal.kernel.util.ContentTypes;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.HttpUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
+import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.kernel.util.StreamUtil;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.workflow.WorkflowConstants;
-import com.liferay.portal.security.auth.PrincipalException;
-import com.liferay.portal.service.ServiceContext;
-import com.liferay.portal.service.ServiceContextFactory;
-import com.liferay.portal.theme.PortletDisplay;
-import com.liferay.portal.theme.ThemeDisplay;
-import com.liferay.portal.util.PortalUtil;
-import com.liferay.portlet.asset.AssetCategoryException;
-import com.liferay.portlet.asset.AssetTagException;
-import com.liferay.portlet.documentlibrary.DuplicateFileException;
-import com.liferay.portlet.documentlibrary.FileNameException;
-import com.liferay.portlet.documentlibrary.FileSizeException;
-import com.liferay.portlet.documentlibrary.NoSuchFileException;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -67,10 +69,9 @@ import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
 import javax.portlet.PortletException;
 import javax.portlet.PortletPreferences;
+import javax.portlet.PortletRequest;
 import javax.portlet.ResourceRequest;
 import javax.portlet.ResourceResponse;
-
-import javax.servlet.http.HttpServletRequest;
 
 /**
  * @author Adolfo Pérez
@@ -83,6 +84,8 @@ public abstract class BaseKBPortlet extends MVCPortlet {
 
 		UploadPortletRequest uploadPortletRequest =
 			PortalUtil.getUploadPortletRequest(actionRequest);
+
+		checkExceededSizeLimit(actionRequest);
 
 		ThemeDisplay themeDisplay = (ThemeDisplay)actionRequest.getAttribute(
 			WebKeys.THEME_DISPLAY);
@@ -204,7 +207,7 @@ public abstract class BaseKBPortlet extends MVCPortlet {
 			resourceRequest.getPreferences();
 
 		boolean enableRss = GetterUtil.getBoolean(
-			portletPreferences.getValue("enableRss", null));
+			portletPreferences.getValue("enableRss", null), true);
 
 		if (!PortalUtil.isRSSFeedsEnabled() || !enableRss) {
 			PortalUtil.sendRSSFeedsDisabledError(
@@ -321,6 +324,13 @@ public abstract class BaseKBPortlet extends MVCPortlet {
 				title, urlTitle, content, description, sourceURL, sections,
 				selectedFileNames, serviceContext);
 		}
+		else if (cmd.equals(Constants.REVERT)) {
+			int version = ParamUtil.getInteger(
+				actionRequest, "version", KBArticleConstants.DEFAULT_VERSION);
+
+			kbArticle = KBArticleServiceUtil.revertKBArticle(
+				resourcePrimKey, version, serviceContext);
+		}
 		else if (cmd.equals(Constants.UPDATE)) {
 			kbArticle = KBArticleServiceUtil.updateKBArticle(
 				resourcePrimKey, title, content, description, sourceURL,
@@ -431,18 +441,29 @@ public abstract class BaseKBPortlet extends MVCPortlet {
 		return editURL;
 	}
 
-	protected void checkExceededSizeLimit(HttpServletRequest request)
+	protected void checkExceededSizeLimit(PortletRequest portletRequest)
 		throws PortalException {
 
-		UploadException uploadException = (UploadException)request.getAttribute(
-			WebKeys.UPLOAD_EXCEPTION);
+		UploadException uploadException =
+			(UploadException)portletRequest.getAttribute(
+				WebKeys.UPLOAD_EXCEPTION);
 
 		if (uploadException != null) {
-			if (uploadException.isExceededSizeLimit()) {
-				throw new FileSizeException(uploadException.getCause());
+			Throwable cause = uploadException.getCause();
+
+			if (uploadException.isExceededFileSizeLimit()) {
+				throw new FileSizeException(cause);
 			}
 
-			throw new PortalException(uploadException.getCause());
+			if (uploadException.isExceededLiferayFileItemSizeLimit()) {
+				throw new LiferayFileItemException(cause);
+			}
+
+			if (uploadException.isExceededUploadRequestSizeLimit()) {
+				throw new UploadRequestSizeException(cause);
+			}
+
+			throw new PortalException(cause);
 		}
 	}
 

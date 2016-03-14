@@ -14,8 +14,15 @@
 
 package com.liferay.opensocial.model;
 
+import aQute.bnd.annotation.ProviderType;
+
+import com.liferay.expando.kernel.model.ExpandoBridge;
+
+import com.liferay.portal.kernel.model.ModelWrapper;
+import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.util.Validator;
-import com.liferay.portal.model.ModelWrapper;
+
+import java.io.Serializable;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -30,6 +37,7 @@ import java.util.Map;
  * @see OAuthToken
  * @generated
  */
+@ProviderType
 public class OAuthTokenWrapper implements OAuthToken, ModelWrapper<OAuthToken> {
 	public OAuthTokenWrapper(OAuthToken oAuthToken) {
 		_oAuthToken = oAuthToken;
@@ -190,12 +198,12 @@ public class OAuthTokenWrapper implements OAuthToken, ModelWrapper<OAuthToken> {
 	* @return the create date of this o auth token
 	*/
 	@Override
-	public java.util.Date getCreateDate() {
+	public Date getCreateDate() {
 		return _oAuthToken.getCreateDate();
 	}
 
 	@Override
-	public com.liferay.portlet.expando.model.ExpandoBridge getExpandoBridge() {
+	public ExpandoBridge getExpandoBridge() {
 		return _oAuthToken.getExpandoBridge();
 	}
 
@@ -225,7 +233,7 @@ public class OAuthTokenWrapper implements OAuthToken, ModelWrapper<OAuthToken> {
 	* @return the modified date of this o auth token
 	*/
 	@Override
-	public java.util.Date getModifiedDate() {
+	public Date getModifiedDate() {
 		return _oAuthToken.getModifiedDate();
 	}
 
@@ -260,7 +268,7 @@ public class OAuthTokenWrapper implements OAuthToken, ModelWrapper<OAuthToken> {
 	}
 
 	@Override
-	public java.io.Serializable getPrimaryKeyObj() {
+	public Serializable getPrimaryKeyObj() {
 		return _oAuthToken.getPrimaryKeyObj();
 	}
 
@@ -390,25 +398,23 @@ public class OAuthTokenWrapper implements OAuthToken, ModelWrapper<OAuthToken> {
 	* @param createDate the create date of this o auth token
 	*/
 	@Override
-	public void setCreateDate(java.util.Date createDate) {
+	public void setCreateDate(Date createDate) {
 		_oAuthToken.setCreateDate(createDate);
 	}
 
 	@Override
 	public void setExpandoBridgeAttributes(
-		com.liferay.portal.model.BaseModel<?> baseModel) {
+		com.liferay.portal.kernel.model.BaseModel<?> baseModel) {
 		_oAuthToken.setExpandoBridgeAttributes(baseModel);
 	}
 
 	@Override
-	public void setExpandoBridgeAttributes(
-		com.liferay.portlet.expando.model.ExpandoBridge expandoBridge) {
+	public void setExpandoBridgeAttributes(ExpandoBridge expandoBridge) {
 		_oAuthToken.setExpandoBridgeAttributes(expandoBridge);
 	}
 
 	@Override
-	public void setExpandoBridgeAttributes(
-		com.liferay.portal.service.ServiceContext serviceContext) {
+	public void setExpandoBridgeAttributes(ServiceContext serviceContext) {
 		_oAuthToken.setExpandoBridgeAttributes(serviceContext);
 	}
 
@@ -438,7 +444,7 @@ public class OAuthTokenWrapper implements OAuthToken, ModelWrapper<OAuthToken> {
 	* @param modifiedDate the modified date of this o auth token
 	*/
 	@Override
-	public void setModifiedDate(java.util.Date modifiedDate) {
+	public void setModifiedDate(Date modifiedDate) {
 		_oAuthToken.setModifiedDate(modifiedDate);
 	}
 
@@ -478,7 +484,7 @@ public class OAuthTokenWrapper implements OAuthToken, ModelWrapper<OAuthToken> {
 	}
 
 	@Override
-	public void setPrimaryKeyObj(java.io.Serializable primaryKeyObj) {
+	public void setPrimaryKeyObj(Serializable primaryKeyObj) {
 		_oAuthToken.setPrimaryKeyObj(primaryKeyObj);
 	}
 
@@ -553,7 +559,7 @@ public class OAuthTokenWrapper implements OAuthToken, ModelWrapper<OAuthToken> {
 	}
 
 	@Override
-	public com.liferay.portal.model.CacheModel<com.liferay.opensocial.model.OAuthToken> toCacheModel() {
+	public com.liferay.portal.kernel.model.CacheModel<com.liferay.opensocial.model.OAuthToken> toCacheModel() {
 		return _oAuthToken.toCacheModel();
 	}
 
@@ -596,14 +602,6 @@ public class OAuthTokenWrapper implements OAuthToken, ModelWrapper<OAuthToken> {
 		return false;
 	}
 
-	/**
-	 * @deprecated As of 6.1.0, replaced by {@link #getWrappedModel}
-	 */
-	@Deprecated
-	public OAuthToken getWrappedOAuthToken() {
-		return _oAuthToken;
-	}
-
 	@Override
 	public OAuthToken getWrappedModel() {
 		return _oAuthToken;
@@ -624,5 +622,5 @@ public class OAuthTokenWrapper implements OAuthToken, ModelWrapper<OAuthToken> {
 		_oAuthToken.resetOriginalValues();
 	}
 
-	private OAuthToken _oAuthToken;
+	private final OAuthToken _oAuthToken;
 }

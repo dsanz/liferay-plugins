@@ -16,8 +16,13 @@ package com.liferay.socialcoding.model;
 
 import aQute.bnd.annotation.ProviderType;
 
+import com.liferay.expando.kernel.model.ExpandoBridge;
+
+import com.liferay.portal.kernel.model.ModelWrapper;
+import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.util.Validator;
-import com.liferay.portal.model.ModelWrapper;
+
+import java.io.Serializable;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -86,12 +91,12 @@ public class JIRAProjectWrapper implements JIRAProject,
 	}
 
 	@Override
-	public int compareTo(JIRAProject jiraProject) {
+	public int compareTo(com.liferay.socialcoding.model.JIRAProject jiraProject) {
 		return _jiraProject.compareTo(jiraProject);
 	}
 
 	@Override
-	public com.liferay.portlet.expando.model.ExpandoBridge getExpandoBridge() {
+	public ExpandoBridge getExpandoBridge() {
 		return _jiraProject.getExpandoBridge();
 	}
 
@@ -136,7 +141,7 @@ public class JIRAProjectWrapper implements JIRAProject,
 	}
 
 	@Override
-	public java.io.Serializable getPrimaryKeyObj() {
+	public Serializable getPrimaryKeyObj() {
 		return _jiraProject.getPrimaryKeyObj();
 	}
 
@@ -172,19 +177,17 @@ public class JIRAProjectWrapper implements JIRAProject,
 
 	@Override
 	public void setExpandoBridgeAttributes(
-		com.liferay.portal.model.BaseModel<?> baseModel) {
+		com.liferay.portal.kernel.model.BaseModel<?> baseModel) {
 		_jiraProject.setExpandoBridgeAttributes(baseModel);
 	}
 
 	@Override
-	public void setExpandoBridgeAttributes(
-		com.liferay.portlet.expando.model.ExpandoBridge expandoBridge) {
+	public void setExpandoBridgeAttributes(ExpandoBridge expandoBridge) {
 		_jiraProject.setExpandoBridgeAttributes(expandoBridge);
 	}
 
 	@Override
-	public void setExpandoBridgeAttributes(
-		com.liferay.portal.service.ServiceContext serviceContext) {
+	public void setExpandoBridgeAttributes(ServiceContext serviceContext) {
 		_jiraProject.setExpandoBridgeAttributes(serviceContext);
 	}
 
@@ -234,17 +237,17 @@ public class JIRAProjectWrapper implements JIRAProject,
 	}
 
 	@Override
-	public void setPrimaryKeyObj(java.io.Serializable primaryKeyObj) {
+	public void setPrimaryKeyObj(Serializable primaryKeyObj) {
 		_jiraProject.setPrimaryKeyObj(primaryKeyObj);
 	}
 
 	@Override
-	public com.liferay.portal.model.CacheModel<JIRAProject> toCacheModel() {
+	public com.liferay.portal.kernel.model.CacheModel<com.liferay.socialcoding.model.JIRAProject> toCacheModel() {
 		return _jiraProject.toCacheModel();
 	}
 
 	@Override
-	public JIRAProject toEscapedModel() {
+	public com.liferay.socialcoding.model.JIRAProject toEscapedModel() {
 		return new JIRAProjectWrapper(_jiraProject.toEscapedModel());
 	}
 
@@ -254,7 +257,7 @@ public class JIRAProjectWrapper implements JIRAProject,
 	}
 
 	@Override
-	public JIRAProject toUnescapedModel() {
+	public com.liferay.socialcoding.model.JIRAProject toUnescapedModel() {
 		return new JIRAProjectWrapper(_jiraProject.toUnescapedModel());
 	}
 
@@ -280,14 +283,6 @@ public class JIRAProjectWrapper implements JIRAProject,
 		}
 
 		return false;
-	}
-
-	/**
-	 * @deprecated As of 6.1.0, replaced by {@link #getWrappedModel}
-	 */
-	@Deprecated
-	public JIRAProject getWrappedJIRAProject() {
-		return _jiraProject;
 	}
 
 	@Override

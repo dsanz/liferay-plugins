@@ -16,10 +16,24 @@ package com.liferay.wsrp.consumer.portlet;
 
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.model.Address;
+import com.liferay.portal.kernel.model.Company;
+import com.liferay.portal.kernel.model.EmailAddress;
+import com.liferay.portal.kernel.model.ListType;
+import com.liferay.portal.kernel.model.Phone;
+import com.liferay.portal.kernel.model.User;
+import com.liferay.portal.kernel.model.Website;
 import com.liferay.portal.kernel.portlet.LiferayPortletResponse;
 import com.liferay.portal.kernel.portlet.LiferayPortletURL;
 import com.liferay.portal.kernel.portlet.PortletResponseUtil;
+import com.liferay.portal.kernel.security.auth.AuthTokenUtil;
+import com.liferay.portal.kernel.service.AddressLocalServiceUtil;
+import com.liferay.portal.kernel.service.EmailAddressLocalServiceUtil;
+import com.liferay.portal.kernel.service.ListTypeServiceUtil;
+import com.liferay.portal.kernel.service.PhoneLocalServiceUtil;
+import com.liferay.portal.kernel.service.WebsiteLocalServiceUtil;
 import com.liferay.portal.kernel.servlet.HttpHeaders;
+import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.upload.UploadPortletRequest;
 import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.Base64;
@@ -29,6 +43,7 @@ import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.Http;
 import com.liferay.portal.kernel.util.HttpUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
+import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.kernel.util.StreamUtil;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringPool;
@@ -36,21 +51,6 @@ import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.TransientValue;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.uuid.PortalUUIDUtil;
-import com.liferay.portal.model.Address;
-import com.liferay.portal.model.Company;
-import com.liferay.portal.model.EmailAddress;
-import com.liferay.portal.model.ListType;
-import com.liferay.portal.model.Phone;
-import com.liferay.portal.model.User;
-import com.liferay.portal.model.Website;
-import com.liferay.portal.security.auth.AuthTokenUtil;
-import com.liferay.portal.service.AddressLocalServiceUtil;
-import com.liferay.portal.service.EmailAddressLocalServiceUtil;
-import com.liferay.portal.service.ListTypeServiceUtil;
-import com.liferay.portal.service.PhoneLocalServiceUtil;
-import com.liferay.portal.service.WebsiteLocalServiceUtil;
-import com.liferay.portal.theme.ThemeDisplay;
-import com.liferay.portal.util.PortalUtil;
 import com.liferay.util.Encryptor;
 import com.liferay.wsrp.axis.WSRPHTTPSender;
 import com.liferay.wsrp.model.WSRPConsumer;
@@ -587,7 +587,7 @@ public class ConsumerPortlet extends GenericPortlet {
 
 		Online online = new Online();
 
-		String email = getOnlineEmail(user, "E-mail");
+		String email = getOnlineEmail(user, "email");
 
 		if (email != null) {
 			online.setEmail(email);
@@ -608,7 +608,7 @@ public class ConsumerPortlet extends GenericPortlet {
 		List<EmailAddress> emailAddresses =
 			EmailAddressLocalServiceUtil.getEmailAddresses(
 				user.getCompanyId(),
-				com.liferay.portal.model.Contact.class.getName(),
+				com.liferay.portal.kernel.model.Contact.class.getName(),
 				user.getContactId());
 
 		for (EmailAddress emailAddress : emailAddresses) {
@@ -629,7 +629,7 @@ public class ConsumerPortlet extends GenericPortlet {
 
 		List<Website> websites = WebsiteLocalServiceUtil.getWebsites(
 			user.getCompanyId(),
-			com.liferay.portal.model.Contact.class.getName(),
+			com.liferay.portal.kernel.model.Contact.class.getName(),
 			user.getContactId());
 
 		for (Website website : websites) {
@@ -653,7 +653,7 @@ public class ConsumerPortlet extends GenericPortlet {
 		personName.setMiddle(user.getMiddleName());
 		personName.setNickname(user.getScreenName());
 
-		com.liferay.portal.model.Contact contact = user.getContact();
+		com.liferay.portal.kernel.model.Contact contact = user.getContact();
 
 		try {
 			ListType listType = ListTypeServiceUtil.getListType(
@@ -691,7 +691,7 @@ public class ConsumerPortlet extends GenericPortlet {
 
 		List<Address> addresses = AddressLocalServiceUtil.getAddresses(
 			user.getCompanyId(),
-			com.liferay.portal.model.Contact.class.getName(),
+			com.liferay.portal.kernel.model.Contact.class.getName(),
 			user.getContactId());
 
 		for (Address address : addresses) {
@@ -875,7 +875,7 @@ public class ConsumerPortlet extends GenericPortlet {
 		Telecom telecom = new Telecom();
 
 		TelephoneNum faxTelephoneNum = getTelephoneNum(
-			user, listTypeName + " Fax");
+			user, listTypeName + "-fax");
 
 		if (faxTelephoneNum != null) {
 			telecom.setFax(faxTelephoneNum);
@@ -895,7 +895,7 @@ public class ConsumerPortlet extends GenericPortlet {
 
 		List<Phone> phones = PhoneLocalServiceUtil.getPhones(
 			user.getCompanyId(),
-			com.liferay.portal.model.Contact.class.getName(),
+			com.liferay.portal.kernel.model.Contact.class.getName(),
 			user.getContactId());
 
 		for (Phone phone : phones) {
@@ -923,7 +923,7 @@ public class ConsumerPortlet extends GenericPortlet {
 
 		userProfile.setBdate(bdate);
 
-		Contact businessInfoContact = getContact(user, "Business");
+		Contact businessInfoContact = getContact(user, "business");
 
 		userProfile.setBusinessInfo(businessInfoContact);
 
@@ -931,7 +931,7 @@ public class ConsumerPortlet extends GenericPortlet {
 
 		userProfile.setGender(gender);
 
-		Contact homeInfoContact = getContact(user, "Personal");
+		Contact homeInfoContact = getContact(user, "personal");
 
 		userProfile.setHomeInfo(homeInfoContact);
 
@@ -1137,14 +1137,16 @@ public class ConsumerPortlet extends GenericPortlet {
 
 		String[] modes = {
 			getWSRPMode(PortletMode.EDIT), getWSRPMode(PortletMode.HELP),
-			getWSRPMode(PortletMode.VIEW)};
+			getWSRPMode(PortletMode.VIEW)
+		};
 
 		mimeRequest.setValidNewModes(modes);
 
 		String[] windowStates = {
 			getWSRPWindowState(WindowState.MAXIMIZED),
 			getWSRPWindowState(WindowState.MINIMIZED),
-			getWSRPWindowState(WindowState.NORMAL)};
+			getWSRPWindowState(WindowState.NORMAL)
+		};
 
 		mimeRequest.setValidNewWindowStates(windowStates);
 
@@ -2088,7 +2090,7 @@ public class ConsumerPortlet extends GenericPortlet {
 		"(?:([^&]+)=([^&]*))(?:&amp;|&)?");
 	private static Pattern _rewritePattern = Pattern.compile(
 		"(wsrp_rewrite_)|(?:wsrp_rewrite\\?([^\\s/]+)/wsrp_rewrite)|" +
-		"(?:location\\.href\\s*=\\s*'(/widget/c/portal/layout(?:[^']+))')|" +
-		"(?:href\\s*=\\s*\"(/widget/c/portal/layout(?:[^\"]+))\")");
+			"(?:location\\.href\\s*=\\s*'(/widget/c/portal/layout(?:[^']+))')" +
+				"|(?:href\\s*=\\s*\"(/widget/c/portal/layout(?:[^\"]+))\")");
 
 }

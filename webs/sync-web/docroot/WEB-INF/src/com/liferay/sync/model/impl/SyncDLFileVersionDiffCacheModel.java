@@ -16,9 +16,9 @@ package com.liferay.sync.model.impl;
 
 import aQute.bnd.annotation.ProviderType;
 
+import com.liferay.portal.kernel.model.CacheModel;
 import com.liferay.portal.kernel.util.HashUtil;
 import com.liferay.portal.kernel.util.StringBundler;
-import com.liferay.portal.model.CacheModel;
 
 import com.liferay.sync.model.SyncDLFileVersionDiff;
 
@@ -112,10 +112,15 @@ public class SyncDLFileVersionDiffCacheModel implements CacheModel<SyncDLFileVer
 	@Override
 	public void readExternal(ObjectInput objectInput) throws IOException {
 		syncDLFileVersionDiffId = objectInput.readLong();
+
 		fileEntryId = objectInput.readLong();
+
 		sourceFileVersionId = objectInput.readLong();
+
 		targetFileVersionId = objectInput.readLong();
+
 		dataFileEntryId = objectInput.readLong();
+
 		size = objectInput.readLong();
 		expirationDate = objectInput.readLong();
 	}
@@ -124,10 +129,15 @@ public class SyncDLFileVersionDiffCacheModel implements CacheModel<SyncDLFileVer
 	public void writeExternal(ObjectOutput objectOutput)
 		throws IOException {
 		objectOutput.writeLong(syncDLFileVersionDiffId);
+
 		objectOutput.writeLong(fileEntryId);
+
 		objectOutput.writeLong(sourceFileVersionId);
+
 		objectOutput.writeLong(targetFileVersionId);
+
 		objectOutput.writeLong(dataFileEntryId);
+
 		objectOutput.writeLong(size);
 		objectOutput.writeLong(expirationDate);
 	}

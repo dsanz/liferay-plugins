@@ -14,8 +14,8 @@
 
 package com.liferay.mail.imap;
 
-import com.liferay.mail.MailException;
-import com.liferay.mail.NoSuchMessageException;
+import com.liferay.mail.exception.MailException;
+import com.liferay.mail.exception.NoSuchMessageException;
 import com.liferay.mail.model.Account;
 import com.liferay.mail.model.MailFile;
 import com.liferay.mail.service.AttachmentLocalServiceUtil;
@@ -28,13 +28,13 @@ import com.liferay.mail.util.PortletPropsValues;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.util.ContentTypes;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Validator;
-import com.liferay.portal.model.User;
 import com.liferay.util.mail.InternetAddressUtil;
 
 import java.io.File;

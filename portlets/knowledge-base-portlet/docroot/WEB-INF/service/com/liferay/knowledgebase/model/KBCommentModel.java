@@ -16,14 +16,15 @@ package com.liferay.knowledgebase.model;
 
 import aQute.bnd.annotation.ProviderType;
 
-import com.liferay.portal.kernel.bean.AutoEscape;
-import com.liferay.portal.model.AttachedModel;
-import com.liferay.portal.model.BaseModel;
-import com.liferay.portal.model.CacheModel;
-import com.liferay.portal.model.StagedGroupedModel;
-import com.liferay.portal.service.ServiceContext;
+import com.liferay.expando.kernel.model.ExpandoBridge;
 
-import com.liferay.portlet.expando.model.ExpandoBridge;
+import com.liferay.portal.kernel.bean.AutoEscape;
+import com.liferay.portal.kernel.model.AttachedModel;
+import com.liferay.portal.kernel.model.BaseModel;
+import com.liferay.portal.kernel.model.CacheModel;
+import com.liferay.portal.kernel.model.ShardedModel;
+import com.liferay.portal.kernel.model.StagedGroupedModel;
+import com.liferay.portal.kernel.service.ServiceContext;
 
 import java.io.Serializable;
 
@@ -44,7 +45,7 @@ import java.util.Date;
  */
 @ProviderType
 public interface KBCommentModel extends AttachedModel, BaseModel<KBComment>,
-	StagedGroupedModel {
+	ShardedModel, StagedGroupedModel {
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
@@ -279,6 +280,22 @@ public interface KBCommentModel extends AttachedModel, BaseModel<KBComment>,
 	 * @param userRating the user rating of this k b comment
 	 */
 	public void setUserRating(int userRating);
+
+	/**
+	 * Returns the last publish date of this k b comment.
+	 *
+	 * @return the last publish date of this k b comment
+	 */
+	@Override
+	public Date getLastPublishDate();
+
+	/**
+	 * Sets the last publish date of this k b comment.
+	 *
+	 * @param lastPublishDate the last publish date of this k b comment
+	 */
+	@Override
+	public void setLastPublishDate(Date lastPublishDate);
 
 	/**
 	 * Returns the status of this k b comment.

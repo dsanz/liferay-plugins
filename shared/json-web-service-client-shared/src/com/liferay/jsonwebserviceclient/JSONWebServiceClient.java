@@ -24,6 +24,14 @@ import java.util.Map;
  */
 public interface JSONWebServiceClient {
 
+	public String doDelete(String url, Map<String, String> parameters)
+		throws JSONWebServiceTransportException;
+
+	public String doDelete(
+			String url, Map<String, String> parameters,
+			Map<String, String> headers)
+		throws JSONWebServiceTransportException;
+
 	public String doGet(String url, Map<String, String> parameters)
 		throws JSONWebServiceTransportException;
 
@@ -46,6 +54,14 @@ public interface JSONWebServiceClient {
 	public String doPostAsJSON(
 			String url, String json, Map<String, String> headers)
 		throws JSONWebServiceTransportException;
+
+	public String doPut(String url, Map<String, String> parameters)
+		throws JSONWebServiceTransportException;
+
+	public String doPut(
+		String url, Map<String, String> parameters,
+		Map<String, String> headers)
+	throws JSONWebServiceTransportException;
 
 	public String getHostName();
 

@@ -23,28 +23,28 @@ import com.liferay.portal.kernel.json.JSONFactoryUtil;
 import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.model.Group;
+import com.liferay.portal.kernel.model.GroupConstants;
+import com.liferay.portal.kernel.model.Layout;
+import com.liferay.portal.kernel.model.User;
+import com.liferay.portal.kernel.portlet.PortletURLFactoryUtil;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCPortlet;
+import com.liferay.portal.kernel.security.permission.ActionKeys;
+import com.liferay.portal.kernel.security.permission.PermissionChecker;
+import com.liferay.portal.kernel.security.permission.PermissionCheckerFactoryUtil;
+import com.liferay.portal.kernel.service.GroupLocalServiceUtil;
+import com.liferay.portal.kernel.service.LayoutLocalServiceUtil;
+import com.liferay.portal.kernel.service.ServiceContext;
+import com.liferay.portal.kernel.service.ServiceContextFactory;
+import com.liferay.portal.kernel.service.UserLocalServiceUtil;
+import com.liferay.portal.kernel.service.permission.LayoutPermissionUtil;
+import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
+import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.WebKeys;
-import com.liferay.portal.model.Group;
-import com.liferay.portal.model.GroupConstants;
-import com.liferay.portal.model.Layout;
-import com.liferay.portal.model.User;
-import com.liferay.portal.security.permission.ActionKeys;
-import com.liferay.portal.security.permission.PermissionChecker;
-import com.liferay.portal.security.permission.PermissionCheckerFactoryUtil;
-import com.liferay.portal.service.GroupLocalServiceUtil;
-import com.liferay.portal.service.LayoutLocalServiceUtil;
-import com.liferay.portal.service.ServiceContext;
-import com.liferay.portal.service.ServiceContextFactory;
-import com.liferay.portal.service.UserLocalServiceUtil;
-import com.liferay.portal.service.permission.LayoutPermissionUtil;
-import com.liferay.portal.theme.ThemeDisplay;
-import com.liferay.portal.util.PortalUtil;
-import com.liferay.portlet.PortletURLFactoryUtil;
 import com.liferay.so.invitemembers.util.InviteMembersUtil;
 import com.liferay.so.service.MemberRequestLocalServiceUtil;
 
@@ -249,8 +249,7 @@ public class InviteMembersPortlet extends MVCPortlet {
 			PermissionCheckerFactoryUtil.create(themeDisplay.getDefaultUser());
 
 		if (LayoutPermissionUtil.contains(
-				permissionChecker, themeDisplay.getLayout(),
-				themeDisplay.getControlPanelCategory(), true,
+				permissionChecker, themeDisplay.getLayout(), true,
 				ActionKeys.VIEW) &&
 			LayoutPermissionUtil.contains(
 				permissionChecker, themeDisplay.getLayout(), false,
@@ -263,7 +262,7 @@ public class InviteMembersPortlet extends MVCPortlet {
 			themeDisplay.getCompanyId(), GroupConstants.GUEST);
 
 		PortletURL createAccountURL = PortletURLFactoryUtil.create(
-			request, com.liferay.portal.util.PortletKeys.LOGIN,
+			request, com.liferay.portal.kernel.util.PortletKeys.LOGIN,
 			group.getDefaultPublicPlid(), PortletRequest.RENDER_PHASE);
 
 		createAccountURL.setParameter("struts_action", "/login/create_account");

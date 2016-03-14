@@ -16,7 +16,7 @@ package com.liferay.sync.service;
 
 import aQute.bnd.annotation.ProviderType;
 
-import com.liferay.portal.service.InvokableLocalService;
+import com.liferay.portal.kernel.service.InvokableLocalService;
 
 /**
  * @author Brian Wing Shun Chan
@@ -32,25 +32,22 @@ public class SyncPreferencesLocalServiceClp
 		_methodName0 = "enableOAuth";
 
 		_methodParameterTypes0 = new String[] {
-				"long", "com.liferay.portal.service.ServiceContext"
+				"long", "com.liferay.portal.kernel.service.ServiceContext"
 			};
 
-		_methodName1 = "getBeanIdentifier";
+		_methodName1 = "getOSGiServiceIdentifier";
 
 		_methodParameterTypes1 = new String[] {  };
 
 		_methodName2 = "getPortletPreferences";
 
 		_methodParameterTypes2 = new String[] { "long" };
-
-		_methodName4 = "setBeanIdentifier";
-
-		_methodParameterTypes4 = new String[] { "java.lang.String" };
 	}
 
 	@Override
 	public com.liferay.oauth.model.OAuthApplication enableOAuth(
-		long companyId, com.liferay.portal.service.ServiceContext serviceContext)
+		long companyId,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		Object returnObj = null;
 
@@ -83,7 +80,7 @@ public class SyncPreferencesLocalServiceClp
 	}
 
 	@Override
-	public java.lang.String getBeanIdentifier() {
+	public java.lang.String getOSGiServiceIdentifier() {
 		Object returnObj = null;
 
 		try {
@@ -141,26 +138,6 @@ public class SyncPreferencesLocalServiceClp
 		throw new UnsupportedOperationException();
 	}
 
-	@Override
-	public void setBeanIdentifier(java.lang.String beanIdentifier) {
-		try {
-			_invokableLocalService.invokeMethod(_methodName4,
-				_methodParameterTypes4,
-				new Object[] { ClpSerializer.translateInput(beanIdentifier) });
-		}
-		catch (Throwable t) {
-			t = ClpSerializer.translateThrowable(t);
-
-			if (t instanceof RuntimeException) {
-				throw (RuntimeException)t;
-			}
-			else {
-				throw new RuntimeException(t.getClass().getName() +
-					" is not a valid exception");
-			}
-		}
-	}
-
 	private InvokableLocalService _invokableLocalService;
 	private String _methodName0;
 	private String[] _methodParameterTypes0;
@@ -168,6 +145,4 @@ public class SyncPreferencesLocalServiceClp
 	private String[] _methodParameterTypes1;
 	private String _methodName2;
 	private String[] _methodParameterTypes2;
-	private String _methodName4;
-	private String[] _methodParameterTypes4;
 }

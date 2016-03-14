@@ -14,7 +14,11 @@
 
 package com.liferay.akismet.model;
 
-import com.liferay.portal.model.PersistedModel;
+import aQute.bnd.annotation.ProviderType;
+
+import com.liferay.portal.kernel.annotation.ImplementationClassName;
+import com.liferay.portal.kernel.model.PersistedModel;
+import com.liferay.portal.kernel.util.Accessor;
 
 /**
  * The extended model interface for the AkismetData service. Represents a row in the &quot;Akismet_AkismetData&quot; database table, with each column mapped to a property of this class.
@@ -25,10 +29,28 @@ import com.liferay.portal.model.PersistedModel;
  * @see com.liferay.akismet.model.impl.AkismetDataModelImpl
  * @generated
  */
+@ImplementationClassName("com.liferay.akismet.model.impl.AkismetDataImpl")
+@ProviderType
 public interface AkismetData extends AkismetDataModel, PersistedModel {
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify this interface directly. Add methods to {@link com.liferay.akismet.model.impl.AkismetDataImpl} and rerun ServiceBuilder to automatically copy the method declarations to this interface.
 	 */
+	public static final Accessor<AkismetData, Long> AKISMET_DATA_ID_ACCESSOR = new Accessor<AkismetData, Long>() {
+			@Override
+			public Long get(AkismetData akismetData) {
+				return akismetData.getAkismetDataId();
+			}
+
+			@Override
+			public Class<Long> getAttributeClass() {
+				return Long.class;
+			}
+
+			@Override
+			public Class<AkismetData> getTypeClass() {
+				return AkismetData.class;
+			}
+		};
 }

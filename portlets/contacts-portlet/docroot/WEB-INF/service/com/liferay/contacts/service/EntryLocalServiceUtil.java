@@ -14,9 +14,11 @@
 
 package com.liferay.contacts.service;
 
+import aQute.bnd.annotation.ProviderType;
+
 import com.liferay.portal.kernel.bean.PortletBeanLocatorUtil;
+import com.liferay.portal.kernel.service.InvokableLocalService;
 import com.liferay.portal.kernel.util.ReferenceRegistry;
-import com.liferay.portal.service.InvokableLocalService;
 
 /**
  * Provides the local service utility for Entry. This utility wraps
@@ -32,6 +34,7 @@ import com.liferay.portal.service.InvokableLocalService;
  * @see com.liferay.contacts.service.impl.EntryLocalServiceImpl
  * @generated
  */
+@ProviderType
 public class EntryLocalServiceUtil {
 	/*
 	 * NOTE FOR DEVELOPERS:
@@ -93,8 +96,8 @@ public class EntryLocalServiceUtil {
 	/**
 	* @throws PortalException
 	*/
-	public static com.liferay.portal.model.PersistedModel deletePersistedModel(
-		com.liferay.portal.model.PersistedModel persistedModel)
+	public static com.liferay.portal.kernel.model.PersistedModel deletePersistedModel(
+		com.liferay.portal.kernel.model.PersistedModel persistedModel)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		return getService().deletePersistedModel(persistedModel);
 	}
@@ -154,10 +157,10 @@ public class EntryLocalServiceUtil {
 	}
 
 	/**
-	* Returns the number of rows that match the dynamic query.
+	* Returns the number of rows matching the dynamic query.
 	*
 	* @param dynamicQuery the dynamic query
-	* @return the number of rows that match the dynamic query
+	* @return the number of rows matching the dynamic query
 	*/
 	public static long dynamicQueryCount(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery) {
@@ -165,11 +168,11 @@ public class EntryLocalServiceUtil {
 	}
 
 	/**
-	* Returns the number of rows that match the dynamic query.
+	* Returns the number of rows matching the dynamic query.
 	*
 	* @param dynamicQuery the dynamic query
 	* @param projection the projection to apply to the query
-	* @return the number of rows that match the dynamic query
+	* @return the number of rows matching the dynamic query
 	*/
 	public static long dynamicQueryCount(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery,
@@ -183,15 +186,6 @@ public class EntryLocalServiceUtil {
 
 	public static com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery getActionableDynamicQuery() {
 		return getService().getActionableDynamicQuery();
-	}
-
-	/**
-	* Returns the Spring bean ID for this bean.
-	*
-	* @return the Spring bean ID for this bean
-	*/
-	public static java.lang.String getBeanIdentifier() {
-		return getService().getBeanIdentifier();
 	}
 
 	/**
@@ -240,7 +234,20 @@ public class EntryLocalServiceUtil {
 		return getService().getEntry(entryId);
 	}
 
-	public static com.liferay.portal.model.PersistedModel getPersistedModel(
+	public static com.liferay.portal.kernel.dao.orm.IndexableActionableDynamicQuery getIndexableActionableDynamicQuery() {
+		return getService().getIndexableActionableDynamicQuery();
+	}
+
+	/**
+	* Returns the OSGi service identifier.
+	*
+	* @return the OSGi service identifier
+	*/
+	public static java.lang.String getOSGiServiceIdentifier() {
+		return getService().getOSGiServiceIdentifier();
+	}
+
+	public static com.liferay.portal.kernel.model.PersistedModel getPersistedModel(
 		java.io.Serializable primaryKeyObj)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		return getService().getPersistedModel(primaryKeyObj);
@@ -261,7 +268,7 @@ public class EntryLocalServiceUtil {
 		return getService().searchCount(userId, keywords);
 	}
 
-	public static java.util.List<com.liferay.portal.model.BaseModel<?>> searchUsersAndContacts(
+	public static java.util.List<com.liferay.portal.kernel.model.BaseModel<?>> searchUsersAndContacts(
 		long companyId, long userId, java.lang.String keywords, int start,
 		int end) {
 		return getService()
@@ -273,15 +280,6 @@ public class EntryLocalServiceUtil {
 		java.lang.String keywords) {
 		return getService()
 				   .searchUsersAndContactsCount(companyId, userId, keywords);
-	}
-
-	/**
-	* Sets the Spring bean ID for this bean.
-	*
-	* @param beanIdentifier the Spring bean ID for this bean
-	*/
-	public static void setBeanIdentifier(java.lang.String beanIdentifier) {
-		getService().setBeanIdentifier(beanIdentifier);
 	}
 
 	/**
@@ -324,13 +322,6 @@ public class EntryLocalServiceUtil {
 		}
 
 		return _service;
-	}
-
-	/**
-	 * @deprecated As of 6.2.0
-	 */
-	@Deprecated
-	public void setService(EntryLocalService service) {
 	}
 
 	private static EntryLocalService _service;

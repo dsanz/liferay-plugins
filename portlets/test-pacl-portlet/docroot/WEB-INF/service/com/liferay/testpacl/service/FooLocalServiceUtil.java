@@ -14,9 +14,11 @@
 
 package com.liferay.testpacl.service;
 
+import aQute.bnd.annotation.ProviderType;
+
 import com.liferay.portal.kernel.bean.PortletBeanLocatorUtil;
+import com.liferay.portal.kernel.service.InvokableLocalService;
 import com.liferay.portal.kernel.util.ReferenceRegistry;
-import com.liferay.portal.service.InvokableLocalService;
 
 /**
  * Provides the local service utility for Foo. This utility wraps
@@ -32,6 +34,7 @@ import com.liferay.portal.service.InvokableLocalService;
  * @see com.liferay.testpacl.service.impl.FooLocalServiceImpl
  * @generated
  */
+@ProviderType
 public class FooLocalServiceUtil {
 	/*
 	 * NOTE FOR DEVELOPERS:
@@ -86,8 +89,8 @@ public class FooLocalServiceUtil {
 	/**
 	* @throws PortalException
 	*/
-	public static com.liferay.portal.model.PersistedModel deletePersistedModel(
-		com.liferay.portal.model.PersistedModel persistedModel)
+	public static com.liferay.portal.kernel.model.PersistedModel deletePersistedModel(
+		com.liferay.portal.kernel.model.PersistedModel persistedModel)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		return getService().deletePersistedModel(persistedModel);
 	}
@@ -147,10 +150,10 @@ public class FooLocalServiceUtil {
 	}
 
 	/**
-	* Returns the number of rows that match the dynamic query.
+	* Returns the number of rows matching the dynamic query.
 	*
 	* @param dynamicQuery the dynamic query
-	* @return the number of rows that match the dynamic query
+	* @return the number of rows matching the dynamic query
 	*/
 	public static long dynamicQueryCount(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery) {
@@ -158,11 +161,11 @@ public class FooLocalServiceUtil {
 	}
 
 	/**
-	* Returns the number of rows that match the dynamic query.
+	* Returns the number of rows matching the dynamic query.
 	*
 	* @param dynamicQuery the dynamic query
 	* @param projection the projection to apply to the query
-	* @return the number of rows that match the dynamic query
+	* @return the number of rows matching the dynamic query
 	*/
 	public static long dynamicQueryCount(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery,
@@ -178,22 +181,13 @@ public class FooLocalServiceUtil {
 		return getService().getActionableDynamicQuery();
 	}
 
-	/**
-	* Returns the Spring bean ID for this bean.
-	*
-	* @return the Spring bean ID for this bean
-	*/
-	public static java.lang.String getBeanIdentifier() {
-		return getService().getBeanIdentifier();
-	}
-
-	public static com.liferay.portal.model.Company getCompanyPersistence_FindByPrimaryKey(
+	public static com.liferay.portal.kernel.model.Company getCompanyPersistence_FindByPrimaryKey(
 		long companyId)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		return getService().getCompanyPersistence_FindByPrimaryKey(companyId);
 	}
 
-	public static com.liferay.portal.model.Company getCompanyUtil_FindByPrimaryKey(
+	public static com.liferay.portal.kernel.model.Company getCompanyUtil_FindByPrimaryKey(
 		long companyId)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		return getService().getCompanyUtil_FindByPrimaryKey(companyId);
@@ -247,19 +241,32 @@ public class FooLocalServiceUtil {
 		return getService().getFoosCount();
 	}
 
-	public static com.liferay.portal.model.Group getGroupPersistence_FindByPrimaryKey(
+	public static com.liferay.portal.kernel.model.Group getGroupPersistence_FindByPrimaryKey(
 		long groupId)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		return getService().getGroupPersistence_FindByPrimaryKey(groupId);
 	}
 
-	public static com.liferay.portal.model.Group getGroupUtil_FindByPrimaryKey(
+	public static com.liferay.portal.kernel.model.Group getGroupUtil_FindByPrimaryKey(
 		long groupId)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		return getService().getGroupUtil_FindByPrimaryKey(groupId);
 	}
 
-	public static com.liferay.portal.model.PersistedModel getPersistedModel(
+	public static com.liferay.portal.kernel.dao.orm.IndexableActionableDynamicQuery getIndexableActionableDynamicQuery() {
+		return getService().getIndexableActionableDynamicQuery();
+	}
+
+	/**
+	* Returns the OSGi service identifier.
+	*
+	* @return the OSGi service identifier
+	*/
+	public static java.lang.String getOSGiServiceIdentifier() {
+		return getService().getOSGiServiceIdentifier();
+	}
+
+	public static com.liferay.portal.kernel.model.PersistedModel getPersistedModel(
 		java.io.Serializable primaryKeyObj)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		return getService().getPersistedModel(primaryKeyObj);
@@ -304,12 +311,12 @@ public class FooLocalServiceUtil {
 		return getService().getStatusLocalServiceUtil_GetStatuses(start, end);
 	}
 
-	public static com.liferay.portal.model.User getUserPersistence_FindByPrimaryKey(
+	public static com.liferay.portal.kernel.model.User getUserPersistence_FindByPrimaryKey(
 		long userId) throws com.liferay.portal.kernel.exception.PortalException {
 		return getService().getUserPersistence_FindByPrimaryKey(userId);
 	}
 
-	public static com.liferay.portal.model.User getUserUtil_FindByPrimaryKey(
+	public static com.liferay.portal.kernel.model.User getUserUtil_FindByPrimaryKey(
 		long userId) throws com.liferay.portal.kernel.exception.PortalException {
 		return getService().getUserUtil_FindByPrimaryKey(userId);
 	}
@@ -318,15 +325,6 @@ public class FooLocalServiceUtil {
 		java.lang.String[] parameterTypes, java.lang.Object[] arguments)
 		throws java.lang.Throwable {
 		return getService().invokeMethod(name, parameterTypes, arguments);
-	}
-
-	/**
-	* Sets the Spring bean ID for this bean.
-	*
-	* @param beanIdentifier the Spring bean ID for this bean
-	*/
-	public static void setBeanIdentifier(java.lang.String beanIdentifier) {
-		getService().setBeanIdentifier(beanIdentifier);
 	}
 
 	/**
@@ -361,13 +359,6 @@ public class FooLocalServiceUtil {
 		}
 
 		return _service;
-	}
-
-	/**
-	 * @deprecated As of 6.2.0
-	 */
-	@Deprecated
-	public void setService(FooLocalService service) {
 	}
 
 	private static FooLocalService _service;

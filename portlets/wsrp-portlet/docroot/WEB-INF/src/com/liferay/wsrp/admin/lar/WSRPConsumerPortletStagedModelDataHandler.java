@@ -14,16 +14,16 @@
 
 package com.liferay.wsrp.admin.lar;
 
+import com.liferay.exportimport.kernel.lar.BaseStagedModelDataHandler;
+import com.liferay.exportimport.kernel.lar.ExportImportPathUtil;
+import com.liferay.exportimport.kernel.lar.PortletDataContext;
+import com.liferay.exportimport.kernel.lar.StagedModelDataHandlerUtil;
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.lar.BaseStagedModelDataHandler;
-import com.liferay.portal.kernel.lar.ExportImportPathUtil;
-import com.liferay.portal.kernel.lar.PortletDataContext;
-import com.liferay.portal.kernel.lar.StagedModelDataHandlerUtil;
+import com.liferay.portal.kernel.model.Group;
+import com.liferay.portal.kernel.service.GroupLocalServiceUtil;
+import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.util.MapUtil;
 import com.liferay.portal.kernel.xml.Element;
-import com.liferay.portal.model.Group;
-import com.liferay.portal.service.GroupLocalServiceUtil;
-import com.liferay.portal.service.ServiceContext;
 import com.liferay.wsrp.model.WSRPConsumer;
 import com.liferay.wsrp.model.WSRPConsumerPortlet;
 import com.liferay.wsrp.service.WSRPConsumerLocalServiceUtil;
@@ -55,9 +55,16 @@ public class WSRPConsumerPortletStagedModelDataHandler
 					uuid, group.getCompanyId());
 
 		if (wsrpConsumerPortlet != null) {
-			WSRPConsumerPortletLocalServiceUtil.deleteWSRPConsumerPortlet(
-				wsrpConsumerPortlet);
+			deleteStagedModel(wsrpConsumerPortlet);
 		}
+	}
+
+	@Override
+	public void deleteStagedModel(WSRPConsumerPortlet wsrpConsumerPortlet)
+		throws PortalException {
+
+		WSRPConsumerPortletLocalServiceUtil.deleteWSRPConsumerPortlet(
+			wsrpConsumerPortlet);
 	}
 
 	@Override

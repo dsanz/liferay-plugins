@@ -14,24 +14,24 @@
 
 package com.liferay.knowledgebase.article.portlet;
 
-import com.liferay.knowledgebase.NoSuchArticleException;
-import com.liferay.knowledgebase.NoSuchCommentException;
+import com.liferay.knowledgebase.exception.NoSuchArticleException;
+import com.liferay.knowledgebase.exception.NoSuchCommentException;
 import com.liferay.knowledgebase.model.KBArticle;
 import com.liferay.knowledgebase.portlet.BaseKBPortlet;
 import com.liferay.knowledgebase.service.KBArticleServiceUtil;
 import com.liferay.knowledgebase.service.permission.KBArticlePermission;
 import com.liferay.knowledgebase.util.ActionKeys;
 import com.liferay.knowledgebase.util.WebKeys;
-import com.liferay.portal.NoSuchSubscriptionException;
+import com.liferay.portal.kernel.exception.NoSuchSubscriptionException;
+import com.liferay.portal.kernel.security.auth.PrincipalException;
+import com.liferay.portal.kernel.security.permission.PermissionChecker;
 import com.liferay.portal.kernel.servlet.SessionErrors;
 import com.liferay.portal.kernel.servlet.SessionMessages;
+import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
+import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.kernel.workflow.WorkflowConstants;
-import com.liferay.portal.security.auth.PrincipalException;
-import com.liferay.portal.security.permission.PermissionChecker;
-import com.liferay.portal.theme.ThemeDisplay;
-import com.liferay.portal.util.PortalUtil;
 
 import java.io.IOException;
 
@@ -115,7 +115,7 @@ public class ArticlePortlet extends BaseKBPortlet {
 			SessionErrors.contains(
 				renderRequest, NoSuchSubscriptionException.class.getName()) ||
 			SessionErrors.contains(
-				renderRequest, PrincipalException.class.getName())) {
+				renderRequest, PrincipalException.getNestedClasses())) {
 
 			include(templatePath + "error.jsp", renderRequest, renderResponse);
 		}
@@ -138,7 +138,7 @@ public class ArticlePortlet extends BaseKBPortlet {
 		String mvcPath = ParamUtil.getString(renderRequest, "mvcPath");
 
 		if (((defaultValue == 0) && mvcPath.equals(viewTemplate)) ||
-			mvcPath.equals("/article/select_configuration_article.jsp")) {
+			mvcPath.equals("/article/select_configuration_object.jsp")) {
 
 			return 0;
 		}

@@ -31,6 +31,9 @@ import com.google.api.services.drive.model.ParentReference;
 import com.google.api.services.drive.model.Revision;
 import com.google.api.services.drive.model.RevisionList;
 
+import com.liferay.document.library.kernel.exception.NoSuchFileEntryException;
+import com.liferay.document.library.kernel.exception.NoSuchFolderException;
+import com.liferay.expando.kernel.model.ExpandoBridge;
 import com.liferay.google.drive.repository.model.GoogleDriveFileEntry;
 import com.liferay.google.drive.repository.model.GoogleDriveFileVersion;
 import com.liferay.google.drive.repository.model.GoogleDriveFolder;
@@ -38,9 +41,13 @@ import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.search.Query;
 import com.liferay.portal.kernel.search.SearchContext;
 import com.liferay.portal.kernel.search.SearchException;
+import com.liferay.portal.kernel.security.auth.PrincipalException;
+import com.liferay.portal.kernel.security.auth.PrincipalThreadLocal;
+import com.liferay.portal.kernel.service.UserLocalServiceUtil;
 import com.liferay.portal.kernel.servlet.PortalSessionThreadLocal;
 import com.liferay.portal.kernel.util.AutoResetThreadLocal;
 import com.liferay.portal.kernel.util.GetterUtil;
@@ -51,13 +58,6 @@ import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.TransientValue;
 import com.liferay.portal.kernel.util.UnicodeProperties;
 import com.liferay.portal.kernel.util.Validator;
-import com.liferay.portal.model.User;
-import com.liferay.portal.security.auth.PrincipalException;
-import com.liferay.portal.security.auth.PrincipalThreadLocal;
-import com.liferay.portal.service.UserLocalServiceUtil;
-import com.liferay.portlet.documentlibrary.NoSuchFileEntryException;
-import com.liferay.portlet.documentlibrary.NoSuchFolderException;
-import com.liferay.portlet.expando.model.ExpandoBridge;
 import com.liferay.repository.external.CredentialsProvider;
 import com.liferay.repository.external.ExtRepository;
 import com.liferay.repository.external.ExtRepositoryAdapter;
@@ -672,7 +672,7 @@ public class GoogleDriveRepository
 
 					ExtRepositorySearchResult<GoogleDriveFolder>
 						extRepositorySearchResult =
-							new ExtRepositorySearchResult<GoogleDriveFolder>(
+							new ExtRepositorySearchResult<>(
 								googleDriveFolder, 1.0f, StringPool.BLANK);
 
 					extRepositorySearchResults.add(extRepositorySearchResult);
@@ -683,7 +683,7 @@ public class GoogleDriveRepository
 
 					ExtRepositorySearchResult<GoogleDriveFileEntry>
 						extRepositorySearchResult =
-							new ExtRepositorySearchResult<GoogleDriveFileEntry>(
+							new ExtRepositorySearchResult<>(
 								googleDriveFileEntry, 1.0f, StringPool.BLANK);
 
 					extRepositorySearchResults.add(extRepositorySearchResult);
@@ -986,6 +986,6 @@ public class GoogleDriveRepository
 		GoogleDriveRepository.class);
 
 	private ThreadLocal<GoogleDriveSession> _googleDriveSessionThreadLocal =
-		new AutoResetThreadLocal<GoogleDriveSession>(Drive.class.getName());
+		new AutoResetThreadLocal<>(Drive.class.getName());
 
 }

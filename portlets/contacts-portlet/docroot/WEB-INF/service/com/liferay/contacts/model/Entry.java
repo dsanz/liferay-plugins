@@ -14,7 +14,11 @@
 
 package com.liferay.contacts.model;
 
-import com.liferay.portal.model.PersistedModel;
+import aQute.bnd.annotation.ProviderType;
+
+import com.liferay.portal.kernel.annotation.ImplementationClassName;
+import com.liferay.portal.kernel.model.PersistedModel;
+import com.liferay.portal.kernel.util.Accessor;
 
 /**
  * The extended model interface for the Entry service. Represents a row in the &quot;Contacts_Entry&quot; database table, with each column mapped to a property of this class.
@@ -25,10 +29,28 @@ import com.liferay.portal.model.PersistedModel;
  * @see com.liferay.contacts.model.impl.EntryModelImpl
  * @generated
  */
+@ImplementationClassName("com.liferay.contacts.model.impl.EntryImpl")
+@ProviderType
 public interface Entry extends EntryModel, PersistedModel {
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify this interface directly. Add methods to {@link com.liferay.contacts.model.impl.EntryImpl} and rerun ServiceBuilder to automatically copy the method declarations to this interface.
 	 */
+	public static final Accessor<Entry, Long> ENTRY_ID_ACCESSOR = new Accessor<Entry, Long>() {
+			@Override
+			public Long get(Entry entry) {
+				return entry.getEntryId();
+			}
+
+			@Override
+			public Class<Long> getAttributeClass() {
+				return Long.class;
+			}
+
+			@Override
+			public Class<Entry> getTypeClass() {
+				return Entry.class;
+			}
+		};
 }

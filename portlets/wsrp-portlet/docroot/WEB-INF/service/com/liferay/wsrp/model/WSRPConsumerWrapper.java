@@ -14,9 +14,17 @@
 
 package com.liferay.wsrp.model;
 
-import com.liferay.portal.kernel.lar.StagedModelType;
+import aQute.bnd.annotation.ProviderType;
+
+import com.liferay.expando.kernel.model.ExpandoBridge;
+
+import com.liferay.exportimport.kernel.lar.StagedModelType;
+
+import com.liferay.portal.kernel.model.ModelWrapper;
+import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.util.Validator;
-import com.liferay.portal.model.ModelWrapper;
+
+import java.io.Serializable;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -31,6 +39,7 @@ import java.util.Map;
  * @see WSRPConsumer
  * @generated
  */
+@ProviderType
 public class WSRPConsumerWrapper implements WSRPConsumer,
 	ModelWrapper<WSRPConsumer> {
 	public WSRPConsumerWrapper(WSRPConsumer wsrpConsumer) {
@@ -66,6 +75,7 @@ public class WSRPConsumerWrapper implements WSRPConsumer,
 		attributes.put("forwardCookies", getForwardCookies());
 		attributes.put("forwardHeaders", getForwardHeaders());
 		attributes.put("markupCharacterSets", getMarkupCharacterSets());
+		attributes.put("lastPublishDate", getLastPublishDate());
 
 		return attributes;
 	}
@@ -152,6 +162,12 @@ public class WSRPConsumerWrapper implements WSRPConsumer,
 		if (markupCharacterSets != null) {
 			setMarkupCharacterSets(markupCharacterSets);
 		}
+
+		Date lastPublishDate = (Date)attributes.get("lastPublishDate");
+
+		if (lastPublishDate != null) {
+			setLastPublishDate(lastPublishDate);
+		}
 	}
 
 	@Override
@@ -180,12 +196,12 @@ public class WSRPConsumerWrapper implements WSRPConsumer,
 	* @return the create date of this w s r p consumer
 	*/
 	@Override
-	public java.util.Date getCreateDate() {
+	public Date getCreateDate() {
 		return _wsrpConsumer.getCreateDate();
 	}
 
 	@Override
-	public com.liferay.portlet.expando.model.ExpandoBridge getExpandoBridge() {
+	public ExpandoBridge getExpandoBridge() {
 		return _wsrpConsumer.getExpandoBridge();
 	}
 
@@ -210,6 +226,16 @@ public class WSRPConsumerWrapper implements WSRPConsumer,
 	}
 
 	/**
+	* Returns the last publish date of this w s r p consumer.
+	*
+	* @return the last publish date of this w s r p consumer
+	*/
+	@Override
+	public Date getLastPublishDate() {
+		return _wsrpConsumer.getLastPublishDate();
+	}
+
+	/**
 	* Returns the markup character sets of this w s r p consumer.
 	*
 	* @return the markup character sets of this w s r p consumer
@@ -225,7 +251,7 @@ public class WSRPConsumerWrapper implements WSRPConsumer,
 	* @return the modified date of this w s r p consumer
 	*/
 	@Override
-	public java.util.Date getModifiedDate() {
+	public Date getModifiedDate() {
 		return _wsrpConsumer.getModifiedDate();
 	}
 
@@ -250,7 +276,7 @@ public class WSRPConsumerWrapper implements WSRPConsumer,
 	}
 
 	@Override
-	public java.io.Serializable getPrimaryKeyObj() {
+	public Serializable getPrimaryKeyObj() {
 		return _wsrpConsumer.getPrimaryKeyObj();
 	}
 
@@ -370,25 +396,23 @@ public class WSRPConsumerWrapper implements WSRPConsumer,
 	* @param createDate the create date of this w s r p consumer
 	*/
 	@Override
-	public void setCreateDate(java.util.Date createDate) {
+	public void setCreateDate(Date createDate) {
 		_wsrpConsumer.setCreateDate(createDate);
 	}
 
 	@Override
 	public void setExpandoBridgeAttributes(
-		com.liferay.portal.model.BaseModel<?> baseModel) {
+		com.liferay.portal.kernel.model.BaseModel<?> baseModel) {
 		_wsrpConsumer.setExpandoBridgeAttributes(baseModel);
 	}
 
 	@Override
-	public void setExpandoBridgeAttributes(
-		com.liferay.portlet.expando.model.ExpandoBridge expandoBridge) {
+	public void setExpandoBridgeAttributes(ExpandoBridge expandoBridge) {
 		_wsrpConsumer.setExpandoBridgeAttributes(expandoBridge);
 	}
 
 	@Override
-	public void setExpandoBridgeAttributes(
-		com.liferay.portal.service.ServiceContext serviceContext) {
+	public void setExpandoBridgeAttributes(ServiceContext serviceContext) {
 		_wsrpConsumer.setExpandoBridgeAttributes(serviceContext);
 	}
 
@@ -413,6 +437,16 @@ public class WSRPConsumerWrapper implements WSRPConsumer,
 	}
 
 	/**
+	* Sets the last publish date of this w s r p consumer.
+	*
+	* @param lastPublishDate the last publish date of this w s r p consumer
+	*/
+	@Override
+	public void setLastPublishDate(Date lastPublishDate) {
+		_wsrpConsumer.setLastPublishDate(lastPublishDate);
+	}
+
+	/**
 	* Sets the markup character sets of this w s r p consumer.
 	*
 	* @param markupCharacterSets the markup character sets of this w s r p consumer
@@ -428,7 +462,7 @@ public class WSRPConsumerWrapper implements WSRPConsumer,
 	* @param modifiedDate the modified date of this w s r p consumer
 	*/
 	@Override
-	public void setModifiedDate(java.util.Date modifiedDate) {
+	public void setModifiedDate(Date modifiedDate) {
 		_wsrpConsumer.setModifiedDate(modifiedDate);
 	}
 
@@ -458,7 +492,7 @@ public class WSRPConsumerWrapper implements WSRPConsumer,
 	}
 
 	@Override
-	public void setPrimaryKeyObj(java.io.Serializable primaryKeyObj) {
+	public void setPrimaryKeyObj(Serializable primaryKeyObj) {
 		_wsrpConsumer.setPrimaryKeyObj(primaryKeyObj);
 	}
 
@@ -537,7 +571,7 @@ public class WSRPConsumerWrapper implements WSRPConsumer,
 	}
 
 	@Override
-	public com.liferay.portal.model.CacheModel<com.liferay.wsrp.model.WSRPConsumer> toCacheModel() {
+	public com.liferay.portal.kernel.model.CacheModel<com.liferay.wsrp.model.WSRPConsumer> toCacheModel() {
 		return _wsrpConsumer.toCacheModel();
 	}
 
@@ -585,14 +619,6 @@ public class WSRPConsumerWrapper implements WSRPConsumer,
 		return _wsrpConsumer.getStagedModelType();
 	}
 
-	/**
-	 * @deprecated As of 6.1.0, replaced by {@link #getWrappedModel}
-	 */
-	@Deprecated
-	public WSRPConsumer getWrappedWSRPConsumer() {
-		return _wsrpConsumer;
-	}
-
 	@Override
 	public WSRPConsumer getWrappedModel() {
 		return _wsrpConsumer;
@@ -613,5 +639,5 @@ public class WSRPConsumerWrapper implements WSRPConsumer,
 		_wsrpConsumer.resetOriginalValues();
 	}
 
-	private WSRPConsumer _wsrpConsumer;
+	private final WSRPConsumer _wsrpConsumer;
 }

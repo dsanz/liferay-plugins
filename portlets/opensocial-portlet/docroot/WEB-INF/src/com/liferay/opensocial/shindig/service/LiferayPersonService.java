@@ -18,28 +18,29 @@ import com.liferay.opensocial.shindig.util.ShindigUtil;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.model.Contact;
+import com.liferay.portal.kernel.model.EmailAddress;
+import com.liferay.portal.kernel.model.Group;
+import com.liferay.portal.kernel.model.Organization;
+import com.liferay.portal.kernel.model.User;
+import com.liferay.portal.kernel.service.EmailAddressLocalServiceUtil;
+import com.liferay.portal.kernel.service.GroupLocalServiceUtil;
+import com.liferay.portal.kernel.service.OrganizationLocalServiceUtil;
+import com.liferay.portal.kernel.service.PhoneServiceUtil;
+import com.liferay.portal.kernel.service.UserLocalServiceUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
+import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringPool;
-import com.liferay.portal.model.Contact;
-import com.liferay.portal.model.EmailAddress;
-import com.liferay.portal.model.Group;
-import com.liferay.portal.model.Organization;
-import com.liferay.portal.model.User;
-import com.liferay.portal.service.EmailAddressLocalServiceUtil;
-import com.liferay.portal.service.GroupLocalServiceUtil;
-import com.liferay.portal.service.OrganizationLocalServiceUtil;
-import com.liferay.portal.service.PhoneServiceUtil;
-import com.liferay.portal.service.UserLocalServiceUtil;
-import com.liferay.portal.util.PortalUtil;
-import com.liferay.portal.webserver.WebServerServletTokenUtil;
-import com.liferay.portlet.social.model.SocialRelationConstants;
+import com.liferay.portal.kernel.webserver.WebServerServletTokenUtil;
+import com.liferay.social.kernel.model.SocialRelationConstants;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Set;
+import java.util.TimeZone;
 import java.util.concurrent.Future;
 
 import javax.servlet.http.HttpServletResponse;
@@ -242,10 +243,12 @@ public class LiferayPersonService implements PersonService {
 
 		List<ListField> phoneNumbers = new ArrayList<>();
 
-		List<com.liferay.portal.model.Phone> liferayPhones =
+		List<com.liferay.portal.kernel.model.Phone> liferayPhones =
 			PhoneServiceUtil.getPhones(className, classPK);
 
-		for (com.liferay.portal.model.Phone liferayPhone : liferayPhones) {
+		for (com.liferay.portal.kernel.model.Phone liferayPhone :
+				liferayPhones) {
+
 			ListField phoneNumber = new ListFieldImpl(
 				liferayPhone.getType().getName(), liferayPhone.getNumber());
 
@@ -337,7 +340,10 @@ public class LiferayPersonService implements PersonService {
 		}
 
 		if (fields.contains(Person.Field.UTC_OFFSET.toString())) {
-			person.setUtcOffset(new Long(user.getTimeZone().getRawOffset()));
+			TimeZone timeZone = user.getTimeZone();
+
+			person.setUtcOffset(
+				Long.valueOf(timeZone.getOffset(System.currentTimeMillis())));
 		}
 
 		if (securityToken.getOwnerId().equals(person.getId())) {

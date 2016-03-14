@@ -14,6 +14,7 @@
 
 package com.liferay.knowledgebase.admin.asset;
 
+import com.liferay.asset.kernel.model.BaseJSPAssetRenderer;
 import com.liferay.knowledgebase.model.KBArticle;
 import com.liferay.knowledgebase.service.permission.KBArticlePermission;
 import com.liferay.knowledgebase.util.ActionKeys;
@@ -22,12 +23,11 @@ import com.liferay.knowledgebase.util.PortletKeys;
 import com.liferay.knowledgebase.util.WebKeys;
 import com.liferay.portal.kernel.portlet.LiferayPortletRequest;
 import com.liferay.portal.kernel.portlet.LiferayPortletResponse;
+import com.liferay.portal.kernel.security.permission.PermissionChecker;
+import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.HtmlUtil;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Validator;
-import com.liferay.portal.security.permission.PermissionChecker;
-import com.liferay.portal.theme.ThemeDisplay;
-import com.liferay.portlet.asset.model.BaseAssetRenderer;
 
 import java.util.Locale;
 
@@ -35,13 +35,21 @@ import javax.portlet.PortletRequest;
 import javax.portlet.PortletResponse;
 import javax.portlet.PortletURL;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 /**
  * @author Peter Shin
  */
-public class KBArticleAssetRenderer extends BaseAssetRenderer {
+public class KBArticleAssetRenderer extends BaseJSPAssetRenderer<KBArticle> {
 
 	public KBArticleAssetRenderer(KBArticle kbArticle) {
 		_kbArticle = kbArticle;
+	}
+
+	@Override
+	public KBArticle getAssetObject() {
+		return _kbArticle;
 	}
 
 	@Override
@@ -57,6 +65,21 @@ public class KBArticleAssetRenderer extends BaseAssetRenderer {
 	@Override
 	public long getGroupId() {
 		return _kbArticle.getGroupId();
+	}
+
+	@Override
+	public String getJspPath(HttpServletRequest request, String template) {
+		if (template.equals(TEMPLATE_FULL_CONTENT)) {
+			return "/admin/asset/" + template + ".jsp";
+		}
+		else {
+			return null;
+		}
+	}
+
+	@Override
+	public int getStatus() {
+		return _kbArticle.getStatus();
 	}
 
 	@Override
@@ -138,29 +161,19 @@ public class KBArticleAssetRenderer extends BaseAssetRenderer {
 	}
 
 	@Override
+	public boolean include(
+			HttpServletRequest request, HttpServletResponse response,
+			String template)
+		throws Exception {
+
+		request.setAttribute(WebKeys.KNOWLEDGE_BASE_KB_ARTICLE, _kbArticle);
+
+		return super.include(request, response, template);
+	}
+
+	@Override
 	public boolean isPrintable() {
 		return true;
-	}
-
-	@Override
-	public String render(
-		PortletRequest portletRequest, PortletResponse portletResponse,
-		String template) {
-
-		if (template.equals(TEMPLATE_FULL_CONTENT)) {
-			portletRequest.setAttribute(
-				WebKeys.KNOWLEDGE_BASE_KB_ARTICLE, _kbArticle);
-
-			return "/admin/asset/" + template + ".jsp";
-		}
-		else {
-			return null;
-		}
-	}
-
-	@Override
-	protected String getIconPath(ThemeDisplay themeDisplay) {
-		return themeDisplay.getPathThemeImages() + "/trees/page.png";
 	}
 
 	private KBArticle _kbArticle;

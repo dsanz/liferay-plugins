@@ -14,11 +14,14 @@
 
 package com.liferay.chat.model.impl;
 
+import aQute.bnd.annotation.ProviderType;
+
 import com.liferay.chat.model.Status;
 
+import com.liferay.portal.kernel.model.CacheModel;
+import com.liferay.portal.kernel.util.HashUtil;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringPool;
-import com.liferay.portal.model.CacheModel;
 
 import java.io.Externalizable;
 import java.io.IOException;
@@ -32,7 +35,32 @@ import java.io.ObjectOutput;
  * @see Status
  * @generated
  */
+@ProviderType
 public class StatusCacheModel implements CacheModel<Status>, Externalizable {
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+
+		if (!(obj instanceof StatusCacheModel)) {
+			return false;
+		}
+
+		StatusCacheModel statusCacheModel = (StatusCacheModel)obj;
+
+		if (statusId == statusCacheModel.statusId) {
+			return true;
+		}
+
+		return false;
+	}
+
+	@Override
+	public int hashCode() {
+		return HashUtil.hash(0, statusId);
+	}
+
 	@Override
 	public String toString() {
 		StringBundler sb = new StringBundler(17);
@@ -92,12 +120,17 @@ public class StatusCacheModel implements CacheModel<Status>, Externalizable {
 	@Override
 	public void readExternal(ObjectInput objectInput) throws IOException {
 		statusId = objectInput.readLong();
+
 		userId = objectInput.readLong();
+
 		modifiedDate = objectInput.readLong();
+
 		online = objectInput.readBoolean();
+
 		awake = objectInput.readBoolean();
 		activePanelIds = objectInput.readUTF();
 		message = objectInput.readUTF();
+
 		playSound = objectInput.readBoolean();
 	}
 
@@ -105,9 +138,13 @@ public class StatusCacheModel implements CacheModel<Status>, Externalizable {
 	public void writeExternal(ObjectOutput objectOutput)
 		throws IOException {
 		objectOutput.writeLong(statusId);
+
 		objectOutput.writeLong(userId);
+
 		objectOutput.writeLong(modifiedDate);
+
 		objectOutput.writeBoolean(online);
+
 		objectOutput.writeBoolean(awake);
 
 		if (activePanelIds == null) {

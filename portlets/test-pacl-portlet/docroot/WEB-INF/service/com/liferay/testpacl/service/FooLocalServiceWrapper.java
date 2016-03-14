@@ -14,7 +14,9 @@
 
 package com.liferay.testpacl.service;
 
-import com.liferay.portal.service.ServiceWrapper;
+import aQute.bnd.annotation.ProviderType;
+
+import com.liferay.portal.kernel.service.ServiceWrapper;
 
 /**
  * Provides a wrapper for {@link FooLocalService}.
@@ -23,6 +25,7 @@ import com.liferay.portal.service.ServiceWrapper;
  * @see FooLocalService
  * @generated
  */
+@ProviderType
 public class FooLocalServiceWrapper implements FooLocalService,
 	ServiceWrapper<FooLocalService> {
 	public FooLocalServiceWrapper(FooLocalService fooLocalService) {
@@ -81,8 +84,8 @@ public class FooLocalServiceWrapper implements FooLocalService,
 	* @throws PortalException
 	*/
 	@Override
-	public com.liferay.portal.model.PersistedModel deletePersistedModel(
-		com.liferay.portal.model.PersistedModel persistedModel)
+	public com.liferay.portal.kernel.model.PersistedModel deletePersistedModel(
+		com.liferay.portal.kernel.model.PersistedModel persistedModel)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		return _fooLocalService.deletePersistedModel(persistedModel);
 	}
@@ -146,10 +149,10 @@ public class FooLocalServiceWrapper implements FooLocalService,
 	}
 
 	/**
-	* Returns the number of rows that match the dynamic query.
+	* Returns the number of rows matching the dynamic query.
 	*
 	* @param dynamicQuery the dynamic query
-	* @return the number of rows that match the dynamic query
+	* @return the number of rows matching the dynamic query
 	*/
 	@Override
 	public long dynamicQueryCount(
@@ -158,11 +161,11 @@ public class FooLocalServiceWrapper implements FooLocalService,
 	}
 
 	/**
-	* Returns the number of rows that match the dynamic query.
+	* Returns the number of rows matching the dynamic query.
 	*
 	* @param dynamicQuery the dynamic query
 	* @param projection the projection to apply to the query
-	* @return the number of rows that match the dynamic query
+	* @return the number of rows matching the dynamic query
 	*/
 	@Override
 	public long dynamicQueryCount(
@@ -181,25 +184,15 @@ public class FooLocalServiceWrapper implements FooLocalService,
 		return _fooLocalService.getActionableDynamicQuery();
 	}
 
-	/**
-	* Returns the Spring bean ID for this bean.
-	*
-	* @return the Spring bean ID for this bean
-	*/
 	@Override
-	public java.lang.String getBeanIdentifier() {
-		return _fooLocalService.getBeanIdentifier();
-	}
-
-	@Override
-	public com.liferay.portal.model.Company getCompanyPersistence_FindByPrimaryKey(
+	public com.liferay.portal.kernel.model.Company getCompanyPersistence_FindByPrimaryKey(
 		long companyId)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		return _fooLocalService.getCompanyPersistence_FindByPrimaryKey(companyId);
 	}
 
 	@Override
-	public com.liferay.portal.model.Company getCompanyUtil_FindByPrimaryKey(
+	public com.liferay.portal.kernel.model.Company getCompanyUtil_FindByPrimaryKey(
 		long companyId)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		return _fooLocalService.getCompanyUtil_FindByPrimaryKey(companyId);
@@ -259,21 +252,36 @@ public class FooLocalServiceWrapper implements FooLocalService,
 	}
 
 	@Override
-	public com.liferay.portal.model.Group getGroupPersistence_FindByPrimaryKey(
+	public com.liferay.portal.kernel.model.Group getGroupPersistence_FindByPrimaryKey(
 		long groupId)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		return _fooLocalService.getGroupPersistence_FindByPrimaryKey(groupId);
 	}
 
 	@Override
-	public com.liferay.portal.model.Group getGroupUtil_FindByPrimaryKey(
+	public com.liferay.portal.kernel.model.Group getGroupUtil_FindByPrimaryKey(
 		long groupId)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		return _fooLocalService.getGroupUtil_FindByPrimaryKey(groupId);
 	}
 
 	@Override
-	public com.liferay.portal.model.PersistedModel getPersistedModel(
+	public com.liferay.portal.kernel.dao.orm.IndexableActionableDynamicQuery getIndexableActionableDynamicQuery() {
+		return _fooLocalService.getIndexableActionableDynamicQuery();
+	}
+
+	/**
+	* Returns the OSGi service identifier.
+	*
+	* @return the OSGi service identifier
+	*/
+	@Override
+	public java.lang.String getOSGiServiceIdentifier() {
+		return _fooLocalService.getOSGiServiceIdentifier();
+	}
+
+	@Override
+	public com.liferay.portal.kernel.model.PersistedModel getPersistedModel(
 		java.io.Serializable primaryKeyObj)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		return _fooLocalService.getPersistedModel(primaryKeyObj);
@@ -328,13 +336,13 @@ public class FooLocalServiceWrapper implements FooLocalService,
 	}
 
 	@Override
-	public com.liferay.portal.model.User getUserPersistence_FindByPrimaryKey(
+	public com.liferay.portal.kernel.model.User getUserPersistence_FindByPrimaryKey(
 		long userId) throws com.liferay.portal.kernel.exception.PortalException {
 		return _fooLocalService.getUserPersistence_FindByPrimaryKey(userId);
 	}
 
 	@Override
-	public com.liferay.portal.model.User getUserUtil_FindByPrimaryKey(
+	public com.liferay.portal.kernel.model.User getUserUtil_FindByPrimaryKey(
 		long userId) throws com.liferay.portal.kernel.exception.PortalException {
 		return _fooLocalService.getUserUtil_FindByPrimaryKey(userId);
 	}
@@ -347,16 +355,6 @@ public class FooLocalServiceWrapper implements FooLocalService,
 	}
 
 	/**
-	* Sets the Spring bean ID for this bean.
-	*
-	* @param beanIdentifier the Spring bean ID for this bean
-	*/
-	@Override
-	public void setBeanIdentifier(java.lang.String beanIdentifier) {
-		_fooLocalService.setBeanIdentifier(beanIdentifier);
-	}
-
-	/**
 	* Updates the foo in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
 	*
 	* @param foo the foo
@@ -366,22 +364,6 @@ public class FooLocalServiceWrapper implements FooLocalService,
 	public com.liferay.testpacl.model.Foo updateFoo(
 		com.liferay.testpacl.model.Foo foo) {
 		return _fooLocalService.updateFoo(foo);
-	}
-
-	/**
-	 * @deprecated As of 6.1.0, replaced by {@link #getWrappedService}
-	 */
-	@Deprecated
-	public FooLocalService getWrappedFooLocalService() {
-		return _fooLocalService;
-	}
-
-	/**
-	 * @deprecated As of 6.1.0, replaced by {@link #setWrappedService}
-	 */
-	@Deprecated
-	public void setWrappedFooLocalService(FooLocalService fooLocalService) {
-		_fooLocalService = fooLocalService;
 	}
 
 	@Override

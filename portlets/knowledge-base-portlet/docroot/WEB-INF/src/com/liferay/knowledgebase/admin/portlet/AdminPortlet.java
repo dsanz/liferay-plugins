@@ -14,12 +14,12 @@
 
 package com.liferay.knowledgebase.admin.portlet;
 
-import com.liferay.knowledgebase.KBArticleImportException;
-import com.liferay.knowledgebase.KBTemplateContentException;
-import com.liferay.knowledgebase.KBTemplateTitleException;
-import com.liferay.knowledgebase.NoSuchArticleException;
-import com.liferay.knowledgebase.NoSuchCommentException;
-import com.liferay.knowledgebase.NoSuchTemplateException;
+import com.liferay.knowledgebase.exception.KBArticleImportException;
+import com.liferay.knowledgebase.exception.KBTemplateContentException;
+import com.liferay.knowledgebase.exception.KBTemplateTitleException;
+import com.liferay.knowledgebase.exception.NoSuchArticleException;
+import com.liferay.knowledgebase.exception.NoSuchCommentException;
+import com.liferay.knowledgebase.exception.NoSuchTemplateException;
 import com.liferay.knowledgebase.model.KBArticle;
 import com.liferay.knowledgebase.model.KBArticleConstants;
 import com.liferay.knowledgebase.model.KBFolder;
@@ -31,25 +31,25 @@ import com.liferay.knowledgebase.service.KBFolderServiceUtil;
 import com.liferay.knowledgebase.service.KBTemplateServiceUtil;
 import com.liferay.knowledgebase.util.PortletKeys;
 import com.liferay.knowledgebase.util.WebKeys;
-import com.liferay.portal.NoSuchSubscriptionException;
+import com.liferay.portal.kernel.exception.NoSuchSubscriptionException;
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.portlet.PortletURLFactoryUtil;
+import com.liferay.portal.kernel.security.auth.PrincipalException;
+import com.liferay.portal.kernel.security.permission.ActionKeys;
+import com.liferay.portal.kernel.service.ServiceContext;
+import com.liferay.portal.kernel.service.ServiceContextFactory;
 import com.liferay.portal.kernel.servlet.SessionErrors;
 import com.liferay.portal.kernel.servlet.SessionMessages;
+import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.upload.UploadPortletRequest;
 import com.liferay.portal.kernel.util.Constants;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
+import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.kernel.util.StreamUtil;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.workflow.WorkflowConstants;
-import com.liferay.portal.security.auth.PrincipalException;
-import com.liferay.portal.security.permission.ActionKeys;
-import com.liferay.portal.service.ServiceContext;
-import com.liferay.portal.service.ServiceContextFactory;
-import com.liferay.portal.theme.ThemeDisplay;
-import com.liferay.portal.util.PortalUtil;
-import com.liferay.portlet.PortletURLFactoryUtil;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -133,6 +133,8 @@ public class AdminPortlet extends BaseKBPortlet {
 			UploadPortletRequest uploadPortletRequest =
 				PortalUtil.getUploadPortletRequest(actionRequest);
 
+			checkExceededSizeLimit(actionRequest);
+
 			long parentKBFolderId = ParamUtil.getLong(
 				uploadPortletRequest, "parentKBFolderId",
 				KBFolderConstants.DEFAULT_PARENT_FOLDER_ID);
@@ -156,7 +158,7 @@ public class AdminPortlet extends BaseKBPortlet {
 			int importedKBArticlesCount =
 				KBArticleServiceUtil.addKBArticlesMarkdown(
 					themeDisplay.getScopeGroupId(), parentKBFolderId, fileName,
-				prioritizeByNumericalPrefix, inputStream, serviceContext);
+					prioritizeByNumericalPrefix, inputStream, serviceContext);
 
 			SessionMessages.add(
 				actionRequest, "importedKBArticlesCount",
@@ -385,7 +387,7 @@ public class AdminPortlet extends BaseKBPortlet {
 			SessionErrors.contains(
 				renderRequest, NoSuchTemplateException.class.getName()) ||
 			SessionErrors.contains(
-				renderRequest, PrincipalException.class.getName())) {
+				renderRequest, PrincipalException.getNestedClasses())) {
 
 			include(templatePath + "error.jsp", renderRequest, renderResponse);
 		}

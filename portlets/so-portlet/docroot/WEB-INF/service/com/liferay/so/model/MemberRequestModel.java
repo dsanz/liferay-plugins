@@ -14,13 +14,16 @@
 
 package com.liferay.so.model;
 
-import com.liferay.portal.kernel.bean.AutoEscape;
-import com.liferay.portal.model.BaseModel;
-import com.liferay.portal.model.CacheModel;
-import com.liferay.portal.model.GroupedModel;
-import com.liferay.portal.service.ServiceContext;
+import aQute.bnd.annotation.ProviderType;
 
-import com.liferay.portlet.expando.model.ExpandoBridge;
+import com.liferay.expando.kernel.model.ExpandoBridge;
+
+import com.liferay.portal.kernel.bean.AutoEscape;
+import com.liferay.portal.kernel.model.BaseModel;
+import com.liferay.portal.kernel.model.CacheModel;
+import com.liferay.portal.kernel.model.GroupedModel;
+import com.liferay.portal.kernel.model.ShardedModel;
+import com.liferay.portal.kernel.service.ServiceContext;
 
 import java.io.Serializable;
 
@@ -39,8 +42,9 @@ import java.util.Date;
  * @see com.liferay.so.model.impl.MemberRequestModelImpl
  * @generated
  */
+@ProviderType
 public interface MemberRequestModel extends BaseModel<MemberRequest>,
-	GroupedModel {
+	GroupedModel, ShardedModel {
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
@@ -310,19 +314,19 @@ public interface MemberRequestModel extends BaseModel<MemberRequest>,
 	public Object clone();
 
 	@Override
-	public int compareTo(MemberRequest memberRequest);
+	public int compareTo(com.liferay.so.model.MemberRequest memberRequest);
 
 	@Override
 	public int hashCode();
 
 	@Override
-	public CacheModel<MemberRequest> toCacheModel();
+	public CacheModel<com.liferay.so.model.MemberRequest> toCacheModel();
 
 	@Override
-	public MemberRequest toEscapedModel();
+	public com.liferay.so.model.MemberRequest toEscapedModel();
 
 	@Override
-	public MemberRequest toUnescapedModel();
+	public com.liferay.so.model.MemberRequest toUnescapedModel();
 
 	@Override
 	public String toString();

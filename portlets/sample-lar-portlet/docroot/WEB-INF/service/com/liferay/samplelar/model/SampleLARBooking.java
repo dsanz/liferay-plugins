@@ -14,7 +14,11 @@
 
 package com.liferay.samplelar.model;
 
-import com.liferay.portal.model.PersistedModel;
+import aQute.bnd.annotation.ProviderType;
+
+import com.liferay.portal.kernel.annotation.ImplementationClassName;
+import com.liferay.portal.kernel.model.PersistedModel;
+import com.liferay.portal.kernel.util.Accessor;
 
 /**
  * The extended model interface for the SampleLARBooking service. Represents a row in the &quot;SampleLARBooking&quot; database table, with each column mapped to a property of this class.
@@ -25,10 +29,29 @@ import com.liferay.portal.model.PersistedModel;
  * @see com.liferay.samplelar.model.impl.SampleLARBookingModelImpl
  * @generated
  */
+@ImplementationClassName("com.liferay.samplelar.model.impl.SampleLARBookingImpl")
+@ProviderType
 public interface SampleLARBooking extends SampleLARBookingModel, PersistedModel {
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify this interface directly. Add methods to {@link com.liferay.samplelar.model.impl.SampleLARBookingImpl} and rerun ServiceBuilder to automatically copy the method declarations to this interface.
 	 */
+	public static final Accessor<SampleLARBooking, Long> SAMPLE_L_A_R_BOOKING_ID_ACCESSOR =
+		new Accessor<SampleLARBooking, Long>() {
+			@Override
+			public Long get(SampleLARBooking sampleLARBooking) {
+				return sampleLARBooking.getSampleLARBookingId();
+			}
+
+			@Override
+			public Class<Long> getAttributeClass() {
+				return Long.class;
+			}
+
+			@Override
+			public Class<SampleLARBooking> getTypeClass() {
+				return SampleLARBooking.class;
+			}
+		};
 }

@@ -14,7 +14,9 @@
 
 package com.liferay.sampleservicebuilder.service;
 
-import com.liferay.portal.service.ServiceWrapper;
+import aQute.bnd.annotation.ProviderType;
+
+import com.liferay.portal.kernel.service.ServiceWrapper;
 
 /**
  * Provides a wrapper for {@link FooService}.
@@ -23,32 +25,17 @@ import com.liferay.portal.service.ServiceWrapper;
  * @see FooService
  * @generated
  */
+@ProviderType
 public class FooServiceWrapper implements FooService,
 	ServiceWrapper<FooService> {
 	public FooServiceWrapper(FooService fooService) {
 		_fooService = fooService;
 	}
 
-	/**
-	* Returns the Spring bean ID for this bean.
-	*
-	* @return the Spring bean ID for this bean
-	*/
 	@Override
-	public java.lang.String getBeanIdentifier() {
-		return _fooService.getBeanIdentifier();
-	}
-
-	@Override
-	public com.liferay.portal.model.User getUser(long userId)
+	public com.liferay.portal.kernel.model.User getUser(long userId)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		return _fooService.getUser(userId);
-	}
-
-	@Override
-	public java.util.List<com.liferay.portal.model.Group> getUserSitesGroups()
-		throws com.liferay.portal.kernel.exception.PortalException {
-		return _fooService.getUserSitesGroups();
 	}
 
 	@Override
@@ -59,29 +46,19 @@ public class FooServiceWrapper implements FooService,
 	}
 
 	/**
-	* Sets the Spring bean ID for this bean.
+	* Returns the OSGi service identifier.
 	*
-	* @param beanIdentifier the Spring bean ID for this bean
+	* @return the OSGi service identifier
 	*/
 	@Override
-	public void setBeanIdentifier(java.lang.String beanIdentifier) {
-		_fooService.setBeanIdentifier(beanIdentifier);
+	public java.lang.String getOSGiServiceIdentifier() {
+		return _fooService.getOSGiServiceIdentifier();
 	}
 
-	/**
-	 * @deprecated As of 6.1.0, replaced by {@link #getWrappedService}
-	 */
-	@Deprecated
-	public FooService getWrappedFooService() {
-		return _fooService;
-	}
-
-	/**
-	 * @deprecated As of 6.1.0, replaced by {@link #setWrappedService}
-	 */
-	@Deprecated
-	public void setWrappedFooService(FooService fooService) {
-		_fooService = fooService;
+	@Override
+	public java.util.List<com.liferay.portal.kernel.model.Group> getUserSitesGroups()
+		throws com.liferay.portal.kernel.exception.PortalException {
+		return _fooService.getUserSitesGroups();
 	}
 
 	@Override

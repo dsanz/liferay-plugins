@@ -143,14 +143,14 @@ public class KaleoDefinitionTestCase extends TestCase {
 
 		String error = assertInvalid(inputStream);
 
-		assertEquals("Fork fork2 and join join2 are not paired", error);
+		assertEquals("Fork fork2 and join join1 are not paired", error);
 
 		inputStream = getResource(
 			"/META-INF/definitions/matching-fork-and-join-2.xml");
 
 		error = assertInvalid(inputStream);
 
-		assertEquals("Fork fork2 and join join2 are not paired", error);
+		assertEquals("Fork fork2 and join join1 are not paired", error);
 
 		inputStream = getResource(
 			"/META-INF/definitions/matching-fork-and-join-3.xml");
@@ -303,7 +303,7 @@ public class KaleoDefinitionTestCase extends TestCase {
 
 		InputStream inputStream = getResource(
 			"/META-INF/definitions/" +
-			"single-approver-definition-scripted-assignment.xml");
+				"single-approver-definition-scripted-assignment.xml");
 
 		assertValid(inputStream);
 	}

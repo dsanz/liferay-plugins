@@ -20,30 +20,30 @@ package com.liferay.microblogs.util;
 import com.liferay.microblogs.model.MicroblogsEntry;
 import com.liferay.microblogs.model.MicroblogsEntryConstants;
 import com.liferay.microblogs.service.MicroblogsEntryLocalServiceUtil;
-import com.liferay.portal.NoSuchUserException;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
+import com.liferay.portal.kernel.exception.NoSuchUserException;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.json.JSONArray;
 import com.liferay.portal.kernel.json.JSONFactoryUtil;
 import com.liferay.portal.kernel.json.JSONObject;
+import com.liferay.portal.kernel.model.Group;
+import com.liferay.portal.kernel.model.Subscription;
+import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.notifications.UserNotificationManagerUtil;
 import com.liferay.portal.kernel.portlet.LiferayPortletResponse;
 import com.liferay.portal.kernel.portlet.LiferayWindowState;
+import com.liferay.portal.kernel.portlet.PortletURLFactoryUtil;
+import com.liferay.portal.kernel.service.GroupLocalServiceUtil;
+import com.liferay.portal.kernel.service.ServiceContext;
+import com.liferay.portal.kernel.service.SubscriptionLocalServiceUtil;
+import com.liferay.portal.kernel.service.UserLocalServiceUtil;
+import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.HtmlUtil;
+import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.StringUtil;
-import com.liferay.portal.model.Group;
-import com.liferay.portal.model.Subscription;
-import com.liferay.portal.model.User;
-import com.liferay.portal.service.GroupLocalServiceUtil;
-import com.liferay.portal.service.ServiceContext;
-import com.liferay.portal.service.SubscriptionLocalServiceUtil;
-import com.liferay.portal.service.UserLocalServiceUtil;
-import com.liferay.portal.theme.ThemeDisplay;
-import com.liferay.portal.util.PortalUtil;
-import com.liferay.portal.util.comparator.UserFirstNameComparator;
-import com.liferay.portlet.PortletURLFactoryUtil;
-import com.liferay.portlet.social.model.SocialRelationConstants;
+import com.liferay.portal.kernel.util.comparator.UserFirstNameComparator;
+import com.liferay.social.kernel.model.SocialRelationConstants;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -136,10 +136,10 @@ public class MicroblogsUtil {
 			}
 			else if (hasReplied(rootMicroblogsEntryId, userId) &&
 					 UserNotificationManagerUtil.isDeliver(
-						userId, PortletKeys.MICROBLOGS, 0,
-						MicroblogsEntryConstants.
-							NOTIFICATION_TYPE_REPLY_TO_REPLIED,
-						deliveryType)) {
+						 userId, PortletKeys.MICROBLOGS, 0,
+						 MicroblogsEntryConstants.
+							 NOTIFICATION_TYPE_REPLY_TO_REPLIED,
+						 deliveryType)) {
 
 				return MicroblogsEntryConstants.
 					NOTIFICATION_TYPE_REPLY_TO_REPLIED;
@@ -147,10 +147,10 @@ public class MicroblogsUtil {
 			else if (MicroblogsUtil.isTaggedUser(
 						rootMicroblogsEntryId, true, userId) &&
 					 UserNotificationManagerUtil.isDeliver(
-						userId, PortletKeys.MICROBLOGS, 0,
-						MicroblogsEntryConstants.
-							NOTIFICATION_TYPE_REPLY_TO_TAGGED,
-						deliveryType)) {
+						 userId, PortletKeys.MICROBLOGS, 0,
+						 MicroblogsEntryConstants.
+							 NOTIFICATION_TYPE_REPLY_TO_TAGGED,
+						 deliveryType)) {
 
 				return MicroblogsEntryConstants.
 					NOTIFICATION_TYPE_REPLY_TO_TAGGED;

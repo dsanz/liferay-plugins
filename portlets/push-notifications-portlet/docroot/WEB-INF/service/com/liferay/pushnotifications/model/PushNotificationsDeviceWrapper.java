@@ -16,8 +16,13 @@ package com.liferay.pushnotifications.model;
 
 import aQute.bnd.annotation.ProviderType;
 
+import com.liferay.expando.kernel.model.ExpandoBridge;
+
+import com.liferay.portal.kernel.model.ModelWrapper;
+import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.util.Validator;
-import com.liferay.portal.model.ModelWrapper;
+
+import java.io.Serializable;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -99,8 +104,38 @@ public class PushNotificationsDeviceWrapper implements PushNotificationsDevice,
 	}
 
 	@Override
-	public java.lang.Object clone() {
-		return new PushNotificationsDeviceWrapper((PushNotificationsDevice)_pushNotificationsDevice.clone());
+	public boolean isCachedModel() {
+		return _pushNotificationsDevice.isCachedModel();
+	}
+
+	@Override
+	public boolean isEscapedModel() {
+		return _pushNotificationsDevice.isEscapedModel();
+	}
+
+	@Override
+	public boolean isNew() {
+		return _pushNotificationsDevice.isNew();
+	}
+
+	@Override
+	public ExpandoBridge getExpandoBridge() {
+		return _pushNotificationsDevice.getExpandoBridge();
+	}
+
+	@Override
+	public com.liferay.portal.kernel.model.CacheModel<com.liferay.pushnotifications.model.PushNotificationsDevice> toCacheModel() {
+		return _pushNotificationsDevice.toCacheModel();
+	}
+
+	@Override
+	public com.liferay.pushnotifications.model.PushNotificationsDevice toEscapedModel() {
+		return new PushNotificationsDeviceWrapper(_pushNotificationsDevice.toEscapedModel());
+	}
+
+	@Override
+	public com.liferay.pushnotifications.model.PushNotificationsDevice toUnescapedModel() {
+		return new PushNotificationsDeviceWrapper(_pushNotificationsDevice.toUnescapedModel());
 	}
 
 	@Override
@@ -109,19 +144,19 @@ public class PushNotificationsDeviceWrapper implements PushNotificationsDevice,
 		return _pushNotificationsDevice.compareTo(pushNotificationsDevice);
 	}
 
-	/**
-	* Returns the create date of this push notifications device.
-	*
-	* @return the create date of this push notifications device
-	*/
 	@Override
-	public java.util.Date getCreateDate() {
-		return _pushNotificationsDevice.getCreateDate();
+	public int hashCode() {
+		return _pushNotificationsDevice.hashCode();
 	}
 
 	@Override
-	public com.liferay.portlet.expando.model.ExpandoBridge getExpandoBridge() {
-		return _pushNotificationsDevice.getExpandoBridge();
+	public Serializable getPrimaryKeyObj() {
+		return _pushNotificationsDevice.getPrimaryKeyObj();
+	}
+
+	@Override
+	public java.lang.Object clone() {
+		return new PushNotificationsDeviceWrapper((PushNotificationsDevice)_pushNotificationsDevice.clone());
 	}
 
 	/**
@@ -135,31 +170,6 @@ public class PushNotificationsDeviceWrapper implements PushNotificationsDevice,
 	}
 
 	/**
-	* Returns the primary key of this push notifications device.
-	*
-	* @return the primary key of this push notifications device
-	*/
-	@Override
-	public long getPrimaryKey() {
-		return _pushNotificationsDevice.getPrimaryKey();
-	}
-
-	@Override
-	public java.io.Serializable getPrimaryKeyObj() {
-		return _pushNotificationsDevice.getPrimaryKeyObj();
-	}
-
-	/**
-	* Returns the push notifications device ID of this push notifications device.
-	*
-	* @return the push notifications device ID of this push notifications device
-	*/
-	@Override
-	public long getPushNotificationsDeviceId() {
-		return _pushNotificationsDevice.getPushNotificationsDeviceId();
-	}
-
-	/**
 	* Returns the token of this push notifications device.
 	*
 	* @return the token of this push notifications device
@@ -167,16 +177,6 @@ public class PushNotificationsDeviceWrapper implements PushNotificationsDevice,
 	@Override
 	public java.lang.String getToken() {
 		return _pushNotificationsDevice.getToken();
-	}
-
-	/**
-	* Returns the user ID of this push notifications device.
-	*
-	* @return the user ID of this push notifications device
-	*/
-	@Override
-	public long getUserId() {
-		return _pushNotificationsDevice.getUserId();
 	}
 
 	/**
@@ -190,23 +190,53 @@ public class PushNotificationsDeviceWrapper implements PushNotificationsDevice,
 	}
 
 	@Override
-	public int hashCode() {
-		return _pushNotificationsDevice.hashCode();
+	public java.lang.String toString() {
+		return _pushNotificationsDevice.toString();
 	}
 
 	@Override
-	public boolean isCachedModel() {
-		return _pushNotificationsDevice.isCachedModel();
+	public java.lang.String toXmlString() {
+		return _pushNotificationsDevice.toXmlString();
 	}
 
+	/**
+	* Returns the create date of this push notifications device.
+	*
+	* @return the create date of this push notifications device
+	*/
 	@Override
-	public boolean isEscapedModel() {
-		return _pushNotificationsDevice.isEscapedModel();
+	public Date getCreateDate() {
+		return _pushNotificationsDevice.getCreateDate();
 	}
 
+	/**
+	* Returns the primary key of this push notifications device.
+	*
+	* @return the primary key of this push notifications device
+	*/
 	@Override
-	public boolean isNew() {
-		return _pushNotificationsDevice.isNew();
+	public long getPrimaryKey() {
+		return _pushNotificationsDevice.getPrimaryKey();
+	}
+
+	/**
+	* Returns the push notifications device ID of this push notifications device.
+	*
+	* @return the push notifications device ID of this push notifications device
+	*/
+	@Override
+	public long getPushNotificationsDeviceId() {
+		return _pushNotificationsDevice.getPushNotificationsDeviceId();
+	}
+
+	/**
+	* Returns the user ID of this push notifications device.
+	*
+	* @return the user ID of this push notifications device
+	*/
+	@Override
+	public long getUserId() {
+		return _pushNotificationsDevice.getUserId();
 	}
 
 	@Override
@@ -225,25 +255,23 @@ public class PushNotificationsDeviceWrapper implements PushNotificationsDevice,
 	* @param createDate the create date of this push notifications device
 	*/
 	@Override
-	public void setCreateDate(java.util.Date createDate) {
+	public void setCreateDate(Date createDate) {
 		_pushNotificationsDevice.setCreateDate(createDate);
 	}
 
 	@Override
-	public void setExpandoBridgeAttributes(
-		com.liferay.portal.model.BaseModel<?> baseModel) {
-		_pushNotificationsDevice.setExpandoBridgeAttributes(baseModel);
-	}
-
-	@Override
-	public void setExpandoBridgeAttributes(
-		com.liferay.portlet.expando.model.ExpandoBridge expandoBridge) {
+	public void setExpandoBridgeAttributes(ExpandoBridge expandoBridge) {
 		_pushNotificationsDevice.setExpandoBridgeAttributes(expandoBridge);
 	}
 
 	@Override
 	public void setExpandoBridgeAttributes(
-		com.liferay.portal.service.ServiceContext serviceContext) {
+		com.liferay.portal.kernel.model.BaseModel<?> baseModel) {
+		_pushNotificationsDevice.setExpandoBridgeAttributes(baseModel);
+	}
+
+	@Override
+	public void setExpandoBridgeAttributes(ServiceContext serviceContext) {
 		_pushNotificationsDevice.setExpandoBridgeAttributes(serviceContext);
 	}
 
@@ -273,7 +301,7 @@ public class PushNotificationsDeviceWrapper implements PushNotificationsDevice,
 	}
 
 	@Override
-	public void setPrimaryKeyObj(java.io.Serializable primaryKeyObj) {
+	public void setPrimaryKeyObj(Serializable primaryKeyObj) {
 		_pushNotificationsDevice.setPrimaryKeyObj(primaryKeyObj);
 	}
 
@@ -318,31 +346,6 @@ public class PushNotificationsDeviceWrapper implements PushNotificationsDevice,
 	}
 
 	@Override
-	public com.liferay.portal.model.CacheModel<com.liferay.pushnotifications.model.PushNotificationsDevice> toCacheModel() {
-		return _pushNotificationsDevice.toCacheModel();
-	}
-
-	@Override
-	public com.liferay.pushnotifications.model.PushNotificationsDevice toEscapedModel() {
-		return new PushNotificationsDeviceWrapper(_pushNotificationsDevice.toEscapedModel());
-	}
-
-	@Override
-	public java.lang.String toString() {
-		return _pushNotificationsDevice.toString();
-	}
-
-	@Override
-	public com.liferay.pushnotifications.model.PushNotificationsDevice toUnescapedModel() {
-		return new PushNotificationsDeviceWrapper(_pushNotificationsDevice.toUnescapedModel());
-	}
-
-	@Override
-	public java.lang.String toXmlString() {
-		return _pushNotificationsDevice.toXmlString();
-	}
-
-	@Override
 	public boolean equals(Object obj) {
 		if (this == obj) {
 			return true;
@@ -360,14 +363,6 @@ public class PushNotificationsDeviceWrapper implements PushNotificationsDevice,
 		}
 
 		return false;
-	}
-
-	/**
-	 * @deprecated As of 6.1.0, replaced by {@link #getWrappedModel}
-	 */
-	@Deprecated
-	public PushNotificationsDevice getWrappedPushNotificationsDevice() {
-		return _pushNotificationsDevice;
 	}
 
 	@Override

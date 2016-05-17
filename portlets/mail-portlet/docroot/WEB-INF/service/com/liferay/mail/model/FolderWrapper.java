@@ -16,8 +16,13 @@ package com.liferay.mail.model;
 
 import aQute.bnd.annotation.ProviderType;
 
+import com.liferay.expando.kernel.model.ExpandoBridge;
+
+import com.liferay.portal.kernel.model.ModelWrapper;
+import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.util.Validator;
-import com.liferay.portal.model.ModelWrapper;
+
+import java.io.Serializable;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -131,103 +136,43 @@ public class FolderWrapper implements Folder, ModelWrapper<Folder> {
 	}
 
 	@Override
-	public java.lang.Object clone() {
-		return new FolderWrapper((Folder)_folder.clone());
+	public boolean isCachedModel() {
+		return _folder.isCachedModel();
+	}
+
+	@Override
+	public boolean isEscapedModel() {
+		return _folder.isEscapedModel();
+	}
+
+	@Override
+	public boolean isNew() {
+		return _folder.isNew();
+	}
+
+	@Override
+	public ExpandoBridge getExpandoBridge() {
+		return _folder.getExpandoBridge();
+	}
+
+	@Override
+	public com.liferay.mail.model.Folder toEscapedModel() {
+		return new FolderWrapper(_folder.toEscapedModel());
+	}
+
+	@Override
+	public com.liferay.mail.model.Folder toUnescapedModel() {
+		return new FolderWrapper(_folder.toUnescapedModel());
+	}
+
+	@Override
+	public com.liferay.portal.kernel.model.CacheModel<com.liferay.mail.model.Folder> toCacheModel() {
+		return _folder.toCacheModel();
 	}
 
 	@Override
 	public int compareTo(com.liferay.mail.model.Folder folder) {
 		return _folder.compareTo(folder);
-	}
-
-	/**
-	* Returns the account ID of this folder.
-	*
-	* @return the account ID of this folder
-	*/
-	@Override
-	public long getAccountId() {
-		return _folder.getAccountId();
-	}
-
-	/**
-	* Returns the company ID of this folder.
-	*
-	* @return the company ID of this folder
-	*/
-	@Override
-	public long getCompanyId() {
-		return _folder.getCompanyId();
-	}
-
-	/**
-	* Returns the create date of this folder.
-	*
-	* @return the create date of this folder
-	*/
-	@Override
-	public java.util.Date getCreateDate() {
-		return _folder.getCreateDate();
-	}
-
-	/**
-	* Returns the display name of this folder.
-	*
-	* @return the display name of this folder
-	*/
-	@Override
-	public java.lang.String getDisplayName() {
-		return _folder.getDisplayName();
-	}
-
-	@Override
-	public com.liferay.portlet.expando.model.ExpandoBridge getExpandoBridge() {
-		return _folder.getExpandoBridge();
-	}
-
-	/**
-	* Returns the folder ID of this folder.
-	*
-	* @return the folder ID of this folder
-	*/
-	@Override
-	public long getFolderId() {
-		return _folder.getFolderId();
-	}
-
-	/**
-	* Returns the full name of this folder.
-	*
-	* @return the full name of this folder
-	*/
-	@Override
-	public java.lang.String getFullName() {
-		return _folder.getFullName();
-	}
-
-	/**
-	* Returns the modified date of this folder.
-	*
-	* @return the modified date of this folder
-	*/
-	@Override
-	public java.util.Date getModifiedDate() {
-		return _folder.getModifiedDate();
-	}
-
-	/**
-	* Returns the primary key of this folder.
-	*
-	* @return the primary key of this folder
-	*/
-	@Override
-	public long getPrimaryKey() {
-		return _folder.getPrimaryKey();
-	}
-
-	@Override
-	public java.io.Serializable getPrimaryKeyObj() {
-		return _folder.getPrimaryKeyObj();
 	}
 
 	/**
@@ -240,14 +185,39 @@ public class FolderWrapper implements Folder, ModelWrapper<Folder> {
 		return _folder.getRemoteMessageCount();
 	}
 
+	@Override
+	public int hashCode() {
+		return _folder.hashCode();
+	}
+
+	@Override
+	public Serializable getPrimaryKeyObj() {
+		return _folder.getPrimaryKeyObj();
+	}
+
+	@Override
+	public java.lang.Object clone() {
+		return new FolderWrapper((Folder)_folder.clone());
+	}
+
 	/**
-	* Returns the user ID of this folder.
+	* Returns the display name of this folder.
 	*
-	* @return the user ID of this folder
+	* @return the display name of this folder
 	*/
 	@Override
-	public long getUserId() {
-		return _folder.getUserId();
+	public java.lang.String getDisplayName() {
+		return _folder.getDisplayName();
+	}
+
+	/**
+	* Returns the full name of this folder.
+	*
+	* @return the full name of this folder
+	*/
+	@Override
+	public java.lang.String getFullName() {
+		return _folder.getFullName();
 	}
 
 	/**
@@ -271,23 +241,83 @@ public class FolderWrapper implements Folder, ModelWrapper<Folder> {
 	}
 
 	@Override
-	public int hashCode() {
-		return _folder.hashCode();
+	public java.lang.String toString() {
+		return _folder.toString();
 	}
 
 	@Override
-	public boolean isCachedModel() {
-		return _folder.isCachedModel();
+	public java.lang.String toXmlString() {
+		return _folder.toXmlString();
 	}
 
+	/**
+	* Returns the create date of this folder.
+	*
+	* @return the create date of this folder
+	*/
 	@Override
-	public boolean isEscapedModel() {
-		return _folder.isEscapedModel();
+	public Date getCreateDate() {
+		return _folder.getCreateDate();
 	}
 
+	/**
+	* Returns the modified date of this folder.
+	*
+	* @return the modified date of this folder
+	*/
 	@Override
-	public boolean isNew() {
-		return _folder.isNew();
+	public Date getModifiedDate() {
+		return _folder.getModifiedDate();
+	}
+
+	/**
+	* Returns the account ID of this folder.
+	*
+	* @return the account ID of this folder
+	*/
+	@Override
+	public long getAccountId() {
+		return _folder.getAccountId();
+	}
+
+	/**
+	* Returns the company ID of this folder.
+	*
+	* @return the company ID of this folder
+	*/
+	@Override
+	public long getCompanyId() {
+		return _folder.getCompanyId();
+	}
+
+	/**
+	* Returns the folder ID of this folder.
+	*
+	* @return the folder ID of this folder
+	*/
+	@Override
+	public long getFolderId() {
+		return _folder.getFolderId();
+	}
+
+	/**
+	* Returns the primary key of this folder.
+	*
+	* @return the primary key of this folder
+	*/
+	@Override
+	public long getPrimaryKey() {
+		return _folder.getPrimaryKey();
+	}
+
+	/**
+	* Returns the user ID of this folder.
+	*
+	* @return the user ID of this folder
+	*/
+	@Override
+	public long getUserId() {
+		return _folder.getUserId();
 	}
 
 	@Override
@@ -326,7 +356,7 @@ public class FolderWrapper implements Folder, ModelWrapper<Folder> {
 	* @param createDate the create date of this folder
 	*/
 	@Override
-	public void setCreateDate(java.util.Date createDate) {
+	public void setCreateDate(Date createDate) {
 		_folder.setCreateDate(createDate);
 	}
 
@@ -341,20 +371,18 @@ public class FolderWrapper implements Folder, ModelWrapper<Folder> {
 	}
 
 	@Override
-	public void setExpandoBridgeAttributes(
-		com.liferay.portal.model.BaseModel<?> baseModel) {
-		_folder.setExpandoBridgeAttributes(baseModel);
-	}
-
-	@Override
-	public void setExpandoBridgeAttributes(
-		com.liferay.portlet.expando.model.ExpandoBridge expandoBridge) {
+	public void setExpandoBridgeAttributes(ExpandoBridge expandoBridge) {
 		_folder.setExpandoBridgeAttributes(expandoBridge);
 	}
 
 	@Override
 	public void setExpandoBridgeAttributes(
-		com.liferay.portal.service.ServiceContext serviceContext) {
+		com.liferay.portal.kernel.model.BaseModel<?> baseModel) {
+		_folder.setExpandoBridgeAttributes(baseModel);
+	}
+
+	@Override
+	public void setExpandoBridgeAttributes(ServiceContext serviceContext) {
 		_folder.setExpandoBridgeAttributes(serviceContext);
 	}
 
@@ -384,7 +412,7 @@ public class FolderWrapper implements Folder, ModelWrapper<Folder> {
 	* @param modifiedDate the modified date of this folder
 	*/
 	@Override
-	public void setModifiedDate(java.util.Date modifiedDate) {
+	public void setModifiedDate(Date modifiedDate) {
 		_folder.setModifiedDate(modifiedDate);
 	}
 
@@ -404,7 +432,7 @@ public class FolderWrapper implements Folder, ModelWrapper<Folder> {
 	}
 
 	@Override
-	public void setPrimaryKeyObj(java.io.Serializable primaryKeyObj) {
+	public void setPrimaryKeyObj(Serializable primaryKeyObj) {
 		_folder.setPrimaryKeyObj(primaryKeyObj);
 	}
 
@@ -449,31 +477,6 @@ public class FolderWrapper implements Folder, ModelWrapper<Folder> {
 	}
 
 	@Override
-	public com.liferay.portal.model.CacheModel<com.liferay.mail.model.Folder> toCacheModel() {
-		return _folder.toCacheModel();
-	}
-
-	@Override
-	public com.liferay.mail.model.Folder toEscapedModel() {
-		return new FolderWrapper(_folder.toEscapedModel());
-	}
-
-	@Override
-	public java.lang.String toString() {
-		return _folder.toString();
-	}
-
-	@Override
-	public com.liferay.mail.model.Folder toUnescapedModel() {
-		return new FolderWrapper(_folder.toUnescapedModel());
-	}
-
-	@Override
-	public java.lang.String toXmlString() {
-		return _folder.toXmlString();
-	}
-
-	@Override
 	public boolean equals(Object obj) {
 		if (this == obj) {
 			return true;
@@ -490,14 +493,6 @@ public class FolderWrapper implements Folder, ModelWrapper<Folder> {
 		}
 
 		return false;
-	}
-
-	/**
-	 * @deprecated As of 6.1.0, replaced by {@link #getWrappedModel}
-	 */
-	@Deprecated
-	public Folder getWrappedFolder() {
-		return _folder;
 	}
 
 	@Override

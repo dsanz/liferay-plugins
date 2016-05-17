@@ -18,34 +18,36 @@
 package com.liferay.so.util;
 
 import com.liferay.asset.publisher.web.constants.AssetPublisherPortletKeys;
+import com.liferay.message.boards.web.constants.MBPortletKeys;
 import com.liferay.portal.kernel.configuration.Filter;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.language.LanguageUtil;
+import com.liferay.portal.kernel.model.Group;
+import com.liferay.portal.kernel.model.Layout;
+import com.liferay.portal.kernel.model.LayoutConstants;
+import com.liferay.portal.kernel.model.LayoutTemplate;
+import com.liferay.portal.kernel.model.LayoutTypePortlet;
+import com.liferay.portal.kernel.model.PortletConstants;
+import com.liferay.portal.kernel.model.ResourceConstants;
+import com.liferay.portal.kernel.model.Role;
+import com.liferay.portal.kernel.model.RoleConstants;
+import com.liferay.portal.kernel.portlet.PortletPreferencesFactoryUtil;
+import com.liferay.portal.kernel.security.permission.ActionKeys;
+import com.liferay.portal.kernel.service.LayoutLocalServiceUtil;
+import com.liferay.portal.kernel.service.ResourceLocalServiceUtil;
+import com.liferay.portal.kernel.service.ResourcePermissionLocalServiceUtil;
+import com.liferay.portal.kernel.service.RoleLocalServiceUtil;
+import com.liferay.portal.kernel.service.ServiceContext;
+import com.liferay.portal.kernel.service.permission.PortletPermissionUtil;
 import com.liferay.portal.kernel.util.LocaleUtil;
+import com.liferay.portal.kernel.util.PortletKeys;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.Validator;
-import com.liferay.portal.model.Group;
-import com.liferay.portal.model.Layout;
-import com.liferay.portal.model.LayoutConstants;
-import com.liferay.portal.model.LayoutTemplate;
-import com.liferay.portal.model.LayoutTypePortlet;
-import com.liferay.portal.model.PortletConstants;
-import com.liferay.portal.model.ResourceConstants;
-import com.liferay.portal.model.Role;
-import com.liferay.portal.model.RoleConstants;
-import com.liferay.portal.security.permission.ActionKeys;
-import com.liferay.portal.service.LayoutLocalServiceUtil;
-import com.liferay.portal.service.ResourceLocalServiceUtil;
-import com.liferay.portal.service.ResourcePermissionLocalServiceUtil;
-import com.liferay.portal.service.RoleLocalServiceUtil;
-import com.liferay.portal.service.ServiceContext;
-import com.liferay.portal.service.permission.PortletPermissionUtil;
-import com.liferay.portal.util.PortletKeys;
-import com.liferay.portlet.PortletPreferencesFactoryUtil;
 import com.liferay.site.navigation.breadcrumb.web.constants.BreadcrumbPortletKeys;
 import com.liferay.util.portlet.PortletProps;
 import com.liferay.wiki.constants.WikiPortletKeys;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -63,12 +65,17 @@ public class LayoutUtil {
 			String layoutTemplateId)
 		throws Exception {
 
+		Map<Locale, String> friendlyURLMap = new HashMap<>();
+
+		friendlyURLMap.put(LocaleUtil.getDefault(), friendlyURL);
+
 		ServiceContext serviceContext = new ServiceContext();
 
 		Layout layout = LayoutLocalServiceUtil.addLayout(
 			group.getCreatorUserId(), group.getGroupId(), privateLayout,
 			parentLayoutId, nameMap, null, null, null, null,
-			LayoutConstants.TYPE_PORTLET, false, friendlyURL, serviceContext);
+			LayoutConstants.TYPE_PORTLET, StringPool.BLANK, false,
+			friendlyURLMap, serviceContext);
 
 		LayoutTypePortlet layoutTypePortlet =
 			(LayoutTypePortlet)layout.getLayoutType();
@@ -159,13 +166,13 @@ public class LayoutUtil {
 			else if (portletId.startsWith(BreadcrumbPortletKeys.BREADCRUMB)) {
 				removePortletBorder(layout, portletId);
 			}
+			else if (portletId.startsWith(MBPortletKeys.MESSAGE_BOARDS)) {
+				configureMessageBoards(layout);
+				removePortletBorder(layout, portletId);
+			}
 			else if (portletId.startsWith(PortletKeys.BLOGS_AGGREGATOR)) {
 				configureBlogsAggregator(layout);
 				updatePortletTitle(layout, portletId, "recent-blogs");
-			}
-			else if (portletId.startsWith(PortletKeys.MESSAGE_BOARDS)) {
-				configureMessageBoards(layout);
-				removePortletBorder(layout, portletId);
 			}
 			else if (portletId.equals(PortletKeys.DOCUMENT_LIBRARY) ||
 					 portletId.equals(PortletKeys.BLOGS) ||
@@ -220,7 +227,7 @@ public class LayoutUtil {
 	public static void configureMessageBoards(Layout layout) throws Exception {
 		PortletPreferences portletSetup =
 			PortletPreferencesFactoryUtil.getLayoutPortletSetup(
-				layout, PortletKeys.MESSAGE_BOARDS);
+				layout, MBPortletKeys.MESSAGE_BOARDS);
 
 		String[] ranks = {
 			"Bronze=0", "Silver=25", "Gold=100", "Platinum=250",

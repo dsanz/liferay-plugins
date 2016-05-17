@@ -28,14 +28,18 @@ long priority = BeanParamUtil.getLong(tasksEntry, request, "priority", TasksEntr
 long assigneeUserId = BeanParamUtil.getLong(tasksEntry, request, "assigneeUserId");
 
 boolean addDueDate = false;
-String dueDateClassName = "hide";
+String dueDateHideClass = "hide";
 String dueDateToggleText = LanguageUtil.get(request, "add-due-date");
 
 if ((tasksEntry != null) && (tasksEntry.getDueDate() != null)) {
 	addDueDate = true;
-	dueDateClassName = StringPool.BLANK;
+	dueDateHideClass = StringPool.BLANK;
 	dueDateToggleText = LanguageUtil.get(request, "remove-due-date");
 }
+
+String dueDateControlGroupCssClass = renderResponse.getNamespace() + "dueDateControlGroup";
+
+String dueDateWrapperCssClass = dueDateControlGroupCssClass + StringPool.SPACE + dueDateHideClass;
 %>
 
 <c:choose>
@@ -90,7 +94,7 @@ if ((tasksEntry != null) && (tasksEntry.getDueDate() != null)) {
 						LinkedHashMap userParams = new LinkedHashMap();
 
 						userParams.put("inherit", Boolean.TRUE);
-						userParams.put("usersGroups", new Long(themeDisplay.getScopeGroupId()));
+						userParams.put("usersGroups", Long.valueOf(themeDisplay.getScopeGroupId()));
 
 						users = UserLocalServiceUtil.search(company.getCompanyId(), StringPool.BLANK, WorkflowConstants.STATUS_APPROVED, userParams, QueryUtil.ALL_POS, QueryUtil.ALL_POS, new UserFirstNameComparator(true));
 					}
@@ -128,7 +132,7 @@ if ((tasksEntry != null) && (tasksEntry.getDueDate() != null)) {
 
 				<aui:input id="addDueDate" name="addDueDate" type="hidden" value="<%= addDueDate %>" />
 
-				<aui:input cssClass="<%= dueDateClassName %>" label="" name="dueDate" />
+				<aui:input label="" name="dueDate" wrapperCssClass="<%= dueDateWrapperCssClass %>" />
 
 				<c:if test="<%= tasksEntry != null %>">
 					<aui:select name="status">
@@ -194,12 +198,10 @@ if ((tasksEntry != null) && (tasksEntry.getDueDate() != null)) {
 				}
 			}
 
-			var inputDate = A.one('#<portlet:namespace />fm1 .lfr-input-date');
-			var inputTime = A.one('#<portlet:namespace />fm1 .lfr-input-time');
+			var inputs = A.one('.<%= dueDateControlGroupCssClass %>');
 
-			if (inputDate && inputTime) {
-				inputDate.toggleClass('hide');
-				inputTime.toggleClass('hide');
+			if (inputs) {
+				inputs.toggleClass('hide');
 			}
 		},
 		['aui-base']

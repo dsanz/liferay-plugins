@@ -14,7 +14,11 @@
 
 package com.liferay.sampleservicebuilder.model;
 
-import com.liferay.portal.model.PersistedModel;
+import aQute.bnd.annotation.ProviderType;
+
+import com.liferay.portal.kernel.annotation.ImplementationClassName;
+import com.liferay.portal.kernel.model.PersistedModel;
+import com.liferay.portal.kernel.util.Accessor;
 
 /**
  * The extended model interface for the Foo service. Represents a row in the &quot;SSB_Foo&quot; database table, with each column mapped to a property of this class.
@@ -25,10 +29,28 @@ import com.liferay.portal.model.PersistedModel;
  * @see com.liferay.sampleservicebuilder.model.impl.FooModelImpl
  * @generated
  */
+@ImplementationClassName("com.liferay.sampleservicebuilder.model.impl.FooImpl")
+@ProviderType
 public interface Foo extends FooModel, PersistedModel {
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify this interface directly. Add methods to {@link com.liferay.sampleservicebuilder.model.impl.FooImpl} and rerun ServiceBuilder to automatically copy the method declarations to this interface.
 	 */
+	public static final Accessor<Foo, Long> FOO_ID_ACCESSOR = new Accessor<Foo, Long>() {
+			@Override
+			public Long get(Foo foo) {
+				return foo.getFooId();
+			}
+
+			@Override
+			public Class<Long> getAttributeClass() {
+				return Long.class;
+			}
+
+			@Override
+			public Class<Foo> getTypeClass() {
+				return Foo.class;
+			}
+		};
 }

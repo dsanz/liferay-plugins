@@ -16,8 +16,13 @@ package com.liferay.socialcoding.model;
 
 import aQute.bnd.annotation.ProviderType;
 
+import com.liferay.expando.kernel.model.ExpandoBridge;
+
+import com.liferay.portal.kernel.model.ModelWrapper;
+import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.util.Validator;
-import com.liferay.portal.model.ModelWrapper;
+
+import java.io.Serializable;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -109,8 +114,38 @@ public class JIRAChangeItemWrapper implements JIRAChangeItem,
 	}
 
 	@Override
-	public java.lang.Object clone() {
-		return new JIRAChangeItemWrapper((JIRAChangeItem)_jiraChangeItem.clone());
+	public boolean isCachedModel() {
+		return _jiraChangeItem.isCachedModel();
+	}
+
+	@Override
+	public boolean isEscapedModel() {
+		return _jiraChangeItem.isEscapedModel();
+	}
+
+	@Override
+	public boolean isNew() {
+		return _jiraChangeItem.isNew();
+	}
+
+	@Override
+	public ExpandoBridge getExpandoBridge() {
+		return _jiraChangeItem.getExpandoBridge();
+	}
+
+	@Override
+	public com.liferay.portal.kernel.model.CacheModel<com.liferay.socialcoding.model.JIRAChangeItem> toCacheModel() {
+		return _jiraChangeItem.toCacheModel();
+	}
+
+	@Override
+	public com.liferay.socialcoding.model.JIRAChangeItem toEscapedModel() {
+		return new JIRAChangeItemWrapper(_jiraChangeItem.toEscapedModel());
+	}
+
+	@Override
+	public com.liferay.socialcoding.model.JIRAChangeItem toUnescapedModel() {
+		return new JIRAChangeItemWrapper(_jiraChangeItem.toUnescapedModel());
 	}
 
 	@Override
@@ -120,8 +155,18 @@ public class JIRAChangeItemWrapper implements JIRAChangeItem,
 	}
 
 	@Override
-	public com.liferay.portlet.expando.model.ExpandoBridge getExpandoBridge() {
-		return _jiraChangeItem.getExpandoBridge();
+	public int hashCode() {
+		return _jiraChangeItem.hashCode();
+	}
+
+	@Override
+	public Serializable getPrimaryKeyObj() {
+		return _jiraChangeItem.getPrimaryKeyObj();
+	}
+
+	@Override
+	public java.lang.Object clone() {
+		return new JIRAChangeItemWrapper((JIRAChangeItem)_jiraChangeItem.clone());
 	}
 
 	/**
@@ -132,26 +177,6 @@ public class JIRAChangeItemWrapper implements JIRAChangeItem,
 	@Override
 	public java.lang.String getField() {
 		return _jiraChangeItem.getField();
-	}
-
-	/**
-	* Returns the jira change group ID of this j i r a change item.
-	*
-	* @return the jira change group ID of this j i r a change item
-	*/
-	@Override
-	public long getJiraChangeGroupId() {
-		return _jiraChangeItem.getJiraChangeGroupId();
-	}
-
-	/**
-	* Returns the jira change item ID of this j i r a change item.
-	*
-	* @return the jira change item ID of this j i r a change item
-	*/
-	@Override
-	public long getJiraChangeItemId() {
-		return _jiraChangeItem.getJiraChangeItemId();
 	}
 
 	/**
@@ -194,6 +219,36 @@ public class JIRAChangeItemWrapper implements JIRAChangeItem,
 		return _jiraChangeItem.getOldValue();
 	}
 
+	@Override
+	public java.lang.String toString() {
+		return _jiraChangeItem.toString();
+	}
+
+	@Override
+	public java.lang.String toXmlString() {
+		return _jiraChangeItem.toXmlString();
+	}
+
+	/**
+	* Returns the jira change group ID of this j i r a change item.
+	*
+	* @return the jira change group ID of this j i r a change item
+	*/
+	@Override
+	public long getJiraChangeGroupId() {
+		return _jiraChangeItem.getJiraChangeGroupId();
+	}
+
+	/**
+	* Returns the jira change item ID of this j i r a change item.
+	*
+	* @return the jira change item ID of this j i r a change item
+	*/
+	@Override
+	public long getJiraChangeItemId() {
+		return _jiraChangeItem.getJiraChangeItemId();
+	}
+
 	/**
 	* Returns the primary key of this j i r a change item.
 	*
@@ -202,31 +257,6 @@ public class JIRAChangeItemWrapper implements JIRAChangeItem,
 	@Override
 	public long getPrimaryKey() {
 		return _jiraChangeItem.getPrimaryKey();
-	}
-
-	@Override
-	public java.io.Serializable getPrimaryKeyObj() {
-		return _jiraChangeItem.getPrimaryKeyObj();
-	}
-
-	@Override
-	public int hashCode() {
-		return _jiraChangeItem.hashCode();
-	}
-
-	@Override
-	public boolean isCachedModel() {
-		return _jiraChangeItem.isCachedModel();
-	}
-
-	@Override
-	public boolean isEscapedModel() {
-		return _jiraChangeItem.isEscapedModel();
-	}
-
-	@Override
-	public boolean isNew() {
-		return _jiraChangeItem.isNew();
 	}
 
 	@Override
@@ -240,20 +270,18 @@ public class JIRAChangeItemWrapper implements JIRAChangeItem,
 	}
 
 	@Override
-	public void setExpandoBridgeAttributes(
-		com.liferay.portal.model.BaseModel<?> baseModel) {
-		_jiraChangeItem.setExpandoBridgeAttributes(baseModel);
-	}
-
-	@Override
-	public void setExpandoBridgeAttributes(
-		com.liferay.portlet.expando.model.ExpandoBridge expandoBridge) {
+	public void setExpandoBridgeAttributes(ExpandoBridge expandoBridge) {
 		_jiraChangeItem.setExpandoBridgeAttributes(expandoBridge);
 	}
 
 	@Override
 	public void setExpandoBridgeAttributes(
-		com.liferay.portal.service.ServiceContext serviceContext) {
+		com.liferay.portal.kernel.model.BaseModel<?> baseModel) {
+		_jiraChangeItem.setExpandoBridgeAttributes(baseModel);
+	}
+
+	@Override
+	public void setExpandoBridgeAttributes(ServiceContext serviceContext) {
 		_jiraChangeItem.setExpandoBridgeAttributes(serviceContext);
 	}
 
@@ -343,33 +371,8 @@ public class JIRAChangeItemWrapper implements JIRAChangeItem,
 	}
 
 	@Override
-	public void setPrimaryKeyObj(java.io.Serializable primaryKeyObj) {
+	public void setPrimaryKeyObj(Serializable primaryKeyObj) {
 		_jiraChangeItem.setPrimaryKeyObj(primaryKeyObj);
-	}
-
-	@Override
-	public com.liferay.portal.model.CacheModel<com.liferay.socialcoding.model.JIRAChangeItem> toCacheModel() {
-		return _jiraChangeItem.toCacheModel();
-	}
-
-	@Override
-	public com.liferay.socialcoding.model.JIRAChangeItem toEscapedModel() {
-		return new JIRAChangeItemWrapper(_jiraChangeItem.toEscapedModel());
-	}
-
-	@Override
-	public java.lang.String toString() {
-		return _jiraChangeItem.toString();
-	}
-
-	@Override
-	public com.liferay.socialcoding.model.JIRAChangeItem toUnescapedModel() {
-		return new JIRAChangeItemWrapper(_jiraChangeItem.toUnescapedModel());
-	}
-
-	@Override
-	public java.lang.String toXmlString() {
-		return _jiraChangeItem.toXmlString();
 	}
 
 	@Override
@@ -390,14 +393,6 @@ public class JIRAChangeItemWrapper implements JIRAChangeItem,
 		}
 
 		return false;
-	}
-
-	/**
-	 * @deprecated As of 6.1.0, replaced by {@link #getWrappedModel}
-	 */
-	@Deprecated
-	public JIRAChangeItem getWrappedJIRAChangeItem() {
-		return _jiraChangeItem;
 	}
 
 	@Override

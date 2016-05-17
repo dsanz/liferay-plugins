@@ -14,9 +14,11 @@
 
 package com.liferay.contacts.service;
 
+import aQute.bnd.annotation.ProviderType;
+
 import com.liferay.portal.kernel.bean.PortletBeanLocatorUtil;
+import com.liferay.portal.kernel.service.InvokableLocalService;
 import com.liferay.portal.kernel.util.ReferenceRegistry;
-import com.liferay.portal.service.InvokableLocalService;
 
 /**
  * Provides the local service utility for Entry. This utility wraps
@@ -32,6 +34,7 @@ import com.liferay.portal.service.InvokableLocalService;
  * @see com.liferay.contacts.service.impl.EntryLocalServiceImpl
  * @generated
  */
+@ProviderType
 public class EntryLocalServiceUtil {
 	/*
 	 * NOTE FOR DEVELOPERS:
@@ -90,17 +93,104 @@ public class EntryLocalServiceUtil {
 		return getService().deleteEntry(entryId);
 	}
 
+	public static com.liferay.contacts.model.Entry fetchEntry(long entryId) {
+		return getService().fetchEntry(entryId);
+	}
+
 	/**
-	* @throws PortalException
+	* Returns the entry with the primary key.
+	*
+	* @param entryId the primary key of the entry
+	* @return the entry
+	* @throws PortalException if a entry with the primary key could not be found
 	*/
-	public static com.liferay.portal.model.PersistedModel deletePersistedModel(
-		com.liferay.portal.model.PersistedModel persistedModel)
+	public static com.liferay.contacts.model.Entry getEntry(long entryId)
 		throws com.liferay.portal.kernel.exception.PortalException {
-		return getService().deletePersistedModel(persistedModel);
+		return getService().getEntry(entryId);
+	}
+
+	/**
+	* Updates the entry in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
+	*
+	* @param entry the entry
+	* @return the entry that was updated
+	*/
+	public static com.liferay.contacts.model.Entry updateEntry(
+		com.liferay.contacts.model.Entry entry) {
+		return getService().updateEntry(entry);
+	}
+
+	public static com.liferay.contacts.model.Entry updateEntry(long entryId,
+		java.lang.String fullName, java.lang.String emailAddress,
+		java.lang.String comments)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		return getService()
+				   .updateEntry(entryId, fullName, emailAddress, comments);
+	}
+
+	public static com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery getActionableDynamicQuery() {
+		return getService().getActionableDynamicQuery();
 	}
 
 	public static com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery() {
 		return getService().dynamicQuery();
+	}
+
+	public static com.liferay.portal.kernel.dao.orm.IndexableActionableDynamicQuery getIndexableActionableDynamicQuery() {
+		return getService().getIndexableActionableDynamicQuery();
+	}
+
+	/**
+	* @throws PortalException
+	*/
+	public static com.liferay.portal.kernel.model.PersistedModel deletePersistedModel(
+		com.liferay.portal.kernel.model.PersistedModel persistedModel)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		return getService().deletePersistedModel(persistedModel);
+	}
+
+	public static com.liferay.portal.kernel.model.PersistedModel getPersistedModel(
+		java.io.Serializable primaryKeyObj)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		return getService().getPersistedModel(primaryKeyObj);
+	}
+
+	/**
+	* Returns the number of entries.
+	*
+	* @return the number of entries
+	*/
+	public static int getEntriesCount() {
+		return getService().getEntriesCount();
+	}
+
+	public static int getEntriesCount(long userId) {
+		return getService().getEntriesCount(userId);
+	}
+
+	public static int searchCount(long userId, java.lang.String keywords) {
+		return getService().searchCount(userId, keywords);
+	}
+
+	public static int searchUsersAndContactsCount(long companyId, long userId,
+		java.lang.String keywords) {
+		return getService()
+				   .searchUsersAndContactsCount(companyId, userId, keywords);
+	}
+
+	public static java.lang.Object invokeMethod(java.lang.String name,
+		java.lang.String[] parameterTypes, java.lang.Object[] arguments)
+		throws java.lang.Throwable {
+		return getService().invokeMethod(name, parameterTypes, arguments);
+	}
+
+	/**
+	* Returns the OSGi service identifier.
+	*
+	* @return the OSGi service identifier
+	*/
+	public static java.lang.String getOSGiServiceIdentifier() {
+		return getService().getOSGiServiceIdentifier();
 	}
 
 	/**
@@ -154,47 +244,6 @@ public class EntryLocalServiceUtil {
 	}
 
 	/**
-	* Returns the number of rows that match the dynamic query.
-	*
-	* @param dynamicQuery the dynamic query
-	* @return the number of rows that match the dynamic query
-	*/
-	public static long dynamicQueryCount(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery) {
-		return getService().dynamicQueryCount(dynamicQuery);
-	}
-
-	/**
-	* Returns the number of rows that match the dynamic query.
-	*
-	* @param dynamicQuery the dynamic query
-	* @param projection the projection to apply to the query
-	* @return the number of rows that match the dynamic query
-	*/
-	public static long dynamicQueryCount(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery,
-		com.liferay.portal.kernel.dao.orm.Projection projection) {
-		return getService().dynamicQueryCount(dynamicQuery, projection);
-	}
-
-	public static com.liferay.contacts.model.Entry fetchEntry(long entryId) {
-		return getService().fetchEntry(entryId);
-	}
-
-	public static com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery getActionableDynamicQuery() {
-		return getService().getActionableDynamicQuery();
-	}
-
-	/**
-	* Returns the Spring bean ID for this bean.
-	*
-	* @return the Spring bean ID for this bean
-	*/
-	public static java.lang.String getBeanIdentifier() {
-		return getService().getBeanIdentifier();
-	}
-
-	/**
 	* Returns a range of all the entries.
 	*
 	* <p>
@@ -215,53 +264,12 @@ public class EntryLocalServiceUtil {
 		return getService().getEntries(userId, start, end);
 	}
 
-	/**
-	* Returns the number of entries.
-	*
-	* @return the number of entries
-	*/
-	public static int getEntriesCount() {
-		return getService().getEntriesCount();
-	}
-
-	public static int getEntriesCount(long userId) {
-		return getService().getEntriesCount(userId);
-	}
-
-	/**
-	* Returns the entry with the primary key.
-	*
-	* @param entryId the primary key of the entry
-	* @return the entry
-	* @throws PortalException if a entry with the primary key could not be found
-	*/
-	public static com.liferay.contacts.model.Entry getEntry(long entryId)
-		throws com.liferay.portal.kernel.exception.PortalException {
-		return getService().getEntry(entryId);
-	}
-
-	public static com.liferay.portal.model.PersistedModel getPersistedModel(
-		java.io.Serializable primaryKeyObj)
-		throws com.liferay.portal.kernel.exception.PortalException {
-		return getService().getPersistedModel(primaryKeyObj);
-	}
-
-	public static java.lang.Object invokeMethod(java.lang.String name,
-		java.lang.String[] parameterTypes, java.lang.Object[] arguments)
-		throws java.lang.Throwable {
-		return getService().invokeMethod(name, parameterTypes, arguments);
-	}
-
 	public static java.util.List<com.liferay.contacts.model.Entry> search(
 		long userId, java.lang.String keywords, int start, int end) {
 		return getService().search(userId, keywords, start, end);
 	}
 
-	public static int searchCount(long userId, java.lang.String keywords) {
-		return getService().searchCount(userId, keywords);
-	}
-
-	public static java.util.List<com.liferay.portal.model.BaseModel<?>> searchUsersAndContacts(
+	public static java.util.List<com.liferay.portal.kernel.model.BaseModel<?>> searchUsersAndContacts(
 		long companyId, long userId, java.lang.String keywords, int start,
 		int end) {
 		return getService()
@@ -269,38 +277,28 @@ public class EntryLocalServiceUtil {
 			end);
 	}
 
-	public static int searchUsersAndContactsCount(long companyId, long userId,
-		java.lang.String keywords) {
-		return getService()
-				   .searchUsersAndContactsCount(companyId, userId, keywords);
+	/**
+	* Returns the number of rows matching the dynamic query.
+	*
+	* @param dynamicQuery the dynamic query
+	* @return the number of rows matching the dynamic query
+	*/
+	public static long dynamicQueryCount(
+		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery) {
+		return getService().dynamicQueryCount(dynamicQuery);
 	}
 
 	/**
-	* Sets the Spring bean ID for this bean.
+	* Returns the number of rows matching the dynamic query.
 	*
-	* @param beanIdentifier the Spring bean ID for this bean
+	* @param dynamicQuery the dynamic query
+	* @param projection the projection to apply to the query
+	* @return the number of rows matching the dynamic query
 	*/
-	public static void setBeanIdentifier(java.lang.String beanIdentifier) {
-		getService().setBeanIdentifier(beanIdentifier);
-	}
-
-	/**
-	* Updates the entry in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
-	*
-	* @param entry the entry
-	* @return the entry that was updated
-	*/
-	public static com.liferay.contacts.model.Entry updateEntry(
-		com.liferay.contacts.model.Entry entry) {
-		return getService().updateEntry(entry);
-	}
-
-	public static com.liferay.contacts.model.Entry updateEntry(long entryId,
-		java.lang.String fullName, java.lang.String emailAddress,
-		java.lang.String comments)
-		throws com.liferay.portal.kernel.exception.PortalException {
-		return getService()
-				   .updateEntry(entryId, fullName, emailAddress, comments);
+	public static long dynamicQueryCount(
+		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery,
+		com.liferay.portal.kernel.dao.orm.Projection projection) {
+		return getService().dynamicQueryCount(dynamicQuery, projection);
 	}
 
 	public static void clearService() {
@@ -324,13 +322,6 @@ public class EntryLocalServiceUtil {
 		}
 
 		return _service;
-	}
-
-	/**
-	 * @deprecated As of 6.2.0
-	 */
-	@Deprecated
-	public void setService(EntryLocalService service) {
 	}
 
 	private static EntryLocalService _service;

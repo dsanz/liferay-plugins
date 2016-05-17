@@ -18,10 +18,10 @@ import aQute.bnd.annotation.ProviderType;
 
 import com.liferay.mail.model.Attachment;
 
+import com.liferay.portal.kernel.model.CacheModel;
 import com.liferay.portal.kernel.util.HashUtil;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringPool;
-import com.liferay.portal.model.CacheModel;
 
 import java.io.Externalizable;
 import java.io.IOException;
@@ -124,13 +124,19 @@ public class AttachmentCacheModel implements CacheModel<Attachment>,
 	@Override
 	public void readExternal(ObjectInput objectInput) throws IOException {
 		attachmentId = objectInput.readLong();
+
 		companyId = objectInput.readLong();
+
 		userId = objectInput.readLong();
+
 		accountId = objectInput.readLong();
+
 		folderId = objectInput.readLong();
+
 		messageId = objectInput.readLong();
 		contentPath = objectInput.readUTF();
 		fileName = objectInput.readUTF();
+
 		size = objectInput.readLong();
 	}
 
@@ -138,10 +144,15 @@ public class AttachmentCacheModel implements CacheModel<Attachment>,
 	public void writeExternal(ObjectOutput objectOutput)
 		throws IOException {
 		objectOutput.writeLong(attachmentId);
+
 		objectOutput.writeLong(companyId);
+
 		objectOutput.writeLong(userId);
+
 		objectOutput.writeLong(accountId);
+
 		objectOutput.writeLong(folderId);
+
 		objectOutput.writeLong(messageId);
 
 		if (contentPath == null) {

@@ -16,7 +16,7 @@ package com.liferay.socialcoding.service;
 
 import aQute.bnd.annotation.ProviderType;
 
-import com.liferay.portal.service.ServiceWrapper;
+import com.liferay.portal.kernel.service.ServiceWrapper;
 
 /**
  * Provides a wrapper for {@link JIRAActionLocalService}.
@@ -31,6 +31,38 @@ public class JIRAActionLocalServiceWrapper implements JIRAActionLocalService,
 	public JIRAActionLocalServiceWrapper(
 		JIRAActionLocalService jiraActionLocalService) {
 		_jiraActionLocalService = jiraActionLocalService;
+	}
+
+	@Override
+	public com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery getActionableDynamicQuery() {
+		return _jiraActionLocalService.getActionableDynamicQuery();
+	}
+
+	@Override
+	public com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery() {
+		return _jiraActionLocalService.dynamicQuery();
+	}
+
+	@Override
+	public com.liferay.portal.kernel.dao.orm.IndexableActionableDynamicQuery getIndexableActionableDynamicQuery() {
+		return _jiraActionLocalService.getIndexableActionableDynamicQuery();
+	}
+
+	/**
+	* @throws PortalException
+	*/
+	@Override
+	public com.liferay.portal.kernel.model.PersistedModel deletePersistedModel(
+		com.liferay.portal.kernel.model.PersistedModel persistedModel)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		return _jiraActionLocalService.deletePersistedModel(persistedModel);
+	}
+
+	@Override
+	public com.liferay.portal.kernel.model.PersistedModel getPersistedModel(
+		java.io.Serializable primaryKeyObj)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		return _jiraActionLocalService.getPersistedModel(primaryKeyObj);
 	}
 
 	/**
@@ -83,19 +115,64 @@ public class JIRAActionLocalServiceWrapper implements JIRAActionLocalService,
 		return _jiraActionLocalService.deleteJIRAAction(jiraActionId);
 	}
 
+	@Override
+	public com.liferay.socialcoding.model.JIRAAction fetchJIRAAction(
+		long jiraActionId) {
+		return _jiraActionLocalService.fetchJIRAAction(jiraActionId);
+	}
+
 	/**
-	* @throws PortalException
+	* Returns the j i r a action with the primary key.
+	*
+	* @param jiraActionId the primary key of the j i r a action
+	* @return the j i r a action
+	* @throws PortalException if a j i r a action with the primary key could not be found
 	*/
 	@Override
-	public com.liferay.portal.model.PersistedModel deletePersistedModel(
-		com.liferay.portal.model.PersistedModel persistedModel)
+	public com.liferay.socialcoding.model.JIRAAction getJIRAAction(
+		long jiraActionId)
 		throws com.liferay.portal.kernel.exception.PortalException {
-		return _jiraActionLocalService.deletePersistedModel(persistedModel);
+		return _jiraActionLocalService.getJIRAAction(jiraActionId);
+	}
+
+	/**
+	* Updates the j i r a action in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
+	*
+	* @param jiraAction the j i r a action
+	* @return the j i r a action that was updated
+	*/
+	@Override
+	public com.liferay.socialcoding.model.JIRAAction updateJIRAAction(
+		com.liferay.socialcoding.model.JIRAAction jiraAction) {
+		return _jiraActionLocalService.updateJIRAAction(jiraAction);
+	}
+
+	/**
+	* Returns the number of j i r a actions.
+	*
+	* @return the number of j i r a actions
+	*/
+	@Override
+	public int getJIRAActionsCount() {
+		return _jiraActionLocalService.getJIRAActionsCount();
 	}
 
 	@Override
-	public com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery() {
-		return _jiraActionLocalService.dynamicQuery();
+	public java.lang.Object invokeMethod(java.lang.String name,
+		java.lang.String[] parameterTypes, java.lang.Object[] arguments)
+		throws java.lang.Throwable {
+		return _jiraActionLocalService.invokeMethod(name, parameterTypes,
+			arguments);
+	}
+
+	/**
+	* Returns the OSGi service identifier.
+	*
+	* @return the OSGi service identifier
+	*/
+	@Override
+	public java.lang.String getOSGiServiceIdentifier() {
+		return _jiraActionLocalService.getOSGiServiceIdentifier();
 	}
 
 	/**
@@ -152,68 +229,6 @@ public class JIRAActionLocalServiceWrapper implements JIRAActionLocalService,
 	}
 
 	/**
-	* Returns the number of rows that match the dynamic query.
-	*
-	* @param dynamicQuery the dynamic query
-	* @return the number of rows that match the dynamic query
-	*/
-	@Override
-	public long dynamicQueryCount(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery) {
-		return _jiraActionLocalService.dynamicQueryCount(dynamicQuery);
-	}
-
-	/**
-	* Returns the number of rows that match the dynamic query.
-	*
-	* @param dynamicQuery the dynamic query
-	* @param projection the projection to apply to the query
-	* @return the number of rows that match the dynamic query
-	*/
-	@Override
-	public long dynamicQueryCount(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery,
-		com.liferay.portal.kernel.dao.orm.Projection projection) {
-		return _jiraActionLocalService.dynamicQueryCount(dynamicQuery,
-			projection);
-	}
-
-	@Override
-	public com.liferay.socialcoding.model.JIRAAction fetchJIRAAction(
-		long jiraActionId) {
-		return _jiraActionLocalService.fetchJIRAAction(jiraActionId);
-	}
-
-	@Override
-	public com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery getActionableDynamicQuery() {
-		return _jiraActionLocalService.getActionableDynamicQuery();
-	}
-
-	/**
-	* Returns the Spring bean ID for this bean.
-	*
-	* @return the Spring bean ID for this bean
-	*/
-	@Override
-	public java.lang.String getBeanIdentifier() {
-		return _jiraActionLocalService.getBeanIdentifier();
-	}
-
-	/**
-	* Returns the j i r a action with the primary key.
-	*
-	* @param jiraActionId the primary key of the j i r a action
-	* @return the j i r a action
-	* @throws PortalException if a j i r a action with the primary key could not be found
-	*/
-	@Override
-	public com.liferay.socialcoding.model.JIRAAction getJIRAAction(
-		long jiraActionId)
-		throws com.liferay.portal.kernel.exception.PortalException {
-		return _jiraActionLocalService.getJIRAAction(jiraActionId);
-	}
-
-	/**
 	* Returns a range of all the j i r a actions.
 	*
 	* <p>
@@ -231,67 +246,30 @@ public class JIRAActionLocalServiceWrapper implements JIRAActionLocalService,
 	}
 
 	/**
-	* Returns the number of j i r a actions.
+	* Returns the number of rows matching the dynamic query.
 	*
-	* @return the number of j i r a actions
+	* @param dynamicQuery the dynamic query
+	* @return the number of rows matching the dynamic query
 	*/
 	@Override
-	public int getJIRAActionsCount() {
-		return _jiraActionLocalService.getJIRAActionsCount();
-	}
-
-	@Override
-	public com.liferay.portal.model.PersistedModel getPersistedModel(
-		java.io.Serializable primaryKeyObj)
-		throws com.liferay.portal.kernel.exception.PortalException {
-		return _jiraActionLocalService.getPersistedModel(primaryKeyObj);
-	}
-
-	@Override
-	public java.lang.Object invokeMethod(java.lang.String name,
-		java.lang.String[] parameterTypes, java.lang.Object[] arguments)
-		throws java.lang.Throwable {
-		return _jiraActionLocalService.invokeMethod(name, parameterTypes,
-			arguments);
+	public long dynamicQueryCount(
+		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery) {
+		return _jiraActionLocalService.dynamicQueryCount(dynamicQuery);
 	}
 
 	/**
-	* Sets the Spring bean ID for this bean.
+	* Returns the number of rows matching the dynamic query.
 	*
-	* @param beanIdentifier the Spring bean ID for this bean
+	* @param dynamicQuery the dynamic query
+	* @param projection the projection to apply to the query
+	* @return the number of rows matching the dynamic query
 	*/
 	@Override
-	public void setBeanIdentifier(java.lang.String beanIdentifier) {
-		_jiraActionLocalService.setBeanIdentifier(beanIdentifier);
-	}
-
-	/**
-	* Updates the j i r a action in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
-	*
-	* @param jiraAction the j i r a action
-	* @return the j i r a action that was updated
-	*/
-	@Override
-	public com.liferay.socialcoding.model.JIRAAction updateJIRAAction(
-		com.liferay.socialcoding.model.JIRAAction jiraAction) {
-		return _jiraActionLocalService.updateJIRAAction(jiraAction);
-	}
-
-	/**
-	 * @deprecated As of 6.1.0, replaced by {@link #getWrappedService}
-	 */
-	@Deprecated
-	public JIRAActionLocalService getWrappedJIRAActionLocalService() {
-		return _jiraActionLocalService;
-	}
-
-	/**
-	 * @deprecated As of 6.1.0, replaced by {@link #setWrappedService}
-	 */
-	@Deprecated
-	public void setWrappedJIRAActionLocalService(
-		JIRAActionLocalService jiraActionLocalService) {
-		_jiraActionLocalService = jiraActionLocalService;
+	public long dynamicQueryCount(
+		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery,
+		com.liferay.portal.kernel.dao.orm.Projection projection) {
+		return _jiraActionLocalService.dynamicQueryCount(dynamicQuery,
+			projection);
 	}
 
 	@Override

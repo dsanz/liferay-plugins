@@ -16,8 +16,13 @@ package com.liferay.socialcoding.model;
 
 import aQute.bnd.annotation.ProviderType;
 
+import com.liferay.expando.kernel.model.ExpandoBridge;
+
+import com.liferay.portal.kernel.model.ModelWrapper;
+import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.util.Validator;
-import com.liferay.portal.model.ModelWrapper;
+
+import java.io.Serializable;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -116,13 +121,58 @@ public class JIRAActionWrapper implements JIRAAction, ModelWrapper<JIRAAction> {
 	}
 
 	@Override
-	public java.lang.Object clone() {
-		return new JIRAActionWrapper((JIRAAction)_jiraAction.clone());
+	public boolean isCachedModel() {
+		return _jiraAction.isCachedModel();
+	}
+
+	@Override
+	public boolean isEscapedModel() {
+		return _jiraAction.isEscapedModel();
+	}
+
+	@Override
+	public boolean isNew() {
+		return _jiraAction.isNew();
+	}
+
+	@Override
+	public ExpandoBridge getExpandoBridge() {
+		return _jiraAction.getExpandoBridge();
+	}
+
+	@Override
+	public com.liferay.portal.kernel.model.CacheModel<com.liferay.socialcoding.model.JIRAAction> toCacheModel() {
+		return _jiraAction.toCacheModel();
+	}
+
+	@Override
+	public com.liferay.socialcoding.model.JIRAAction toEscapedModel() {
+		return new JIRAActionWrapper(_jiraAction.toEscapedModel());
+	}
+
+	@Override
+	public com.liferay.socialcoding.model.JIRAAction toUnescapedModel() {
+		return new JIRAActionWrapper(_jiraAction.toUnescapedModel());
 	}
 
 	@Override
 	public int compareTo(com.liferay.socialcoding.model.JIRAAction jiraAction) {
 		return _jiraAction.compareTo(jiraAction);
+	}
+
+	@Override
+	public int hashCode() {
+		return _jiraAction.hashCode();
+	}
+
+	@Override
+	public Serializable getPrimaryKeyObj() {
+		return _jiraAction.getPrimaryKeyObj();
+	}
+
+	@Override
+	public java.lang.Object clone() {
+		return new JIRAActionWrapper((JIRAAction)_jiraAction.clone());
 	}
 
 	/**
@@ -136,31 +186,6 @@ public class JIRAActionWrapper implements JIRAAction, ModelWrapper<JIRAAction> {
 	}
 
 	/**
-	* Returns the create date of this j i r a action.
-	*
-	* @return the create date of this j i r a action
-	*/
-	@Override
-	public java.util.Date getCreateDate() {
-		return _jiraAction.getCreateDate();
-	}
-
-	@Override
-	public com.liferay.portlet.expando.model.ExpandoBridge getExpandoBridge() {
-		return _jiraAction.getExpandoBridge();
-	}
-
-	/**
-	* Returns the jira action ID of this j i r a action.
-	*
-	* @return the jira action ID of this j i r a action
-	*/
-	@Override
-	public long getJiraActionId() {
-		return _jiraAction.getJiraActionId();
-	}
-
-	/**
 	* Returns the jira group name of this j i r a action.
 	*
 	* @return the jira group name of this j i r a action
@@ -168,16 +193,6 @@ public class JIRAActionWrapper implements JIRAAction, ModelWrapper<JIRAAction> {
 	@Override
 	public java.lang.String getJiraGroupName() {
 		return _jiraAction.getJiraGroupName();
-	}
-
-	/**
-	* Returns the jira issue ID of this j i r a action.
-	*
-	* @return the jira issue ID of this j i r a action
-	*/
-	@Override
-	public long getJiraIssueId() {
-		return _jiraAction.getJiraIssueId();
 	}
 
 	/**
@@ -191,31 +206,6 @@ public class JIRAActionWrapper implements JIRAAction, ModelWrapper<JIRAAction> {
 	}
 
 	/**
-	* Returns the modified date of this j i r a action.
-	*
-	* @return the modified date of this j i r a action
-	*/
-	@Override
-	public java.util.Date getModifiedDate() {
-		return _jiraAction.getModifiedDate();
-	}
-
-	/**
-	* Returns the primary key of this j i r a action.
-	*
-	* @return the primary key of this j i r a action
-	*/
-	@Override
-	public long getPrimaryKey() {
-		return _jiraAction.getPrimaryKey();
-	}
-
-	@Override
-	public java.io.Serializable getPrimaryKeyObj() {
-		return _jiraAction.getPrimaryKeyObj();
-	}
-
-	/**
 	* Returns the type of this j i r a action.
 	*
 	* @return the type of this j i r a action
@@ -226,23 +216,63 @@ public class JIRAActionWrapper implements JIRAAction, ModelWrapper<JIRAAction> {
 	}
 
 	@Override
-	public int hashCode() {
-		return _jiraAction.hashCode();
+	public java.lang.String toString() {
+		return _jiraAction.toString();
 	}
 
 	@Override
-	public boolean isCachedModel() {
-		return _jiraAction.isCachedModel();
+	public java.lang.String toXmlString() {
+		return _jiraAction.toXmlString();
 	}
 
+	/**
+	* Returns the create date of this j i r a action.
+	*
+	* @return the create date of this j i r a action
+	*/
 	@Override
-	public boolean isEscapedModel() {
-		return _jiraAction.isEscapedModel();
+	public Date getCreateDate() {
+		return _jiraAction.getCreateDate();
 	}
 
+	/**
+	* Returns the modified date of this j i r a action.
+	*
+	* @return the modified date of this j i r a action
+	*/
 	@Override
-	public boolean isNew() {
-		return _jiraAction.isNew();
+	public Date getModifiedDate() {
+		return _jiraAction.getModifiedDate();
+	}
+
+	/**
+	* Returns the jira action ID of this j i r a action.
+	*
+	* @return the jira action ID of this j i r a action
+	*/
+	@Override
+	public long getJiraActionId() {
+		return _jiraAction.getJiraActionId();
+	}
+
+	/**
+	* Returns the jira issue ID of this j i r a action.
+	*
+	* @return the jira issue ID of this j i r a action
+	*/
+	@Override
+	public long getJiraIssueId() {
+		return _jiraAction.getJiraIssueId();
+	}
+
+	/**
+	* Returns the primary key of this j i r a action.
+	*
+	* @return the primary key of this j i r a action
+	*/
+	@Override
+	public long getPrimaryKey() {
+		return _jiraAction.getPrimaryKey();
 	}
 
 	@Override
@@ -271,25 +301,23 @@ public class JIRAActionWrapper implements JIRAAction, ModelWrapper<JIRAAction> {
 	* @param createDate the create date of this j i r a action
 	*/
 	@Override
-	public void setCreateDate(java.util.Date createDate) {
+	public void setCreateDate(Date createDate) {
 		_jiraAction.setCreateDate(createDate);
 	}
 
 	@Override
-	public void setExpandoBridgeAttributes(
-		com.liferay.portal.model.BaseModel<?> baseModel) {
-		_jiraAction.setExpandoBridgeAttributes(baseModel);
-	}
-
-	@Override
-	public void setExpandoBridgeAttributes(
-		com.liferay.portlet.expando.model.ExpandoBridge expandoBridge) {
+	public void setExpandoBridgeAttributes(ExpandoBridge expandoBridge) {
 		_jiraAction.setExpandoBridgeAttributes(expandoBridge);
 	}
 
 	@Override
 	public void setExpandoBridgeAttributes(
-		com.liferay.portal.service.ServiceContext serviceContext) {
+		com.liferay.portal.kernel.model.BaseModel<?> baseModel) {
+		_jiraAction.setExpandoBridgeAttributes(baseModel);
+	}
+
+	@Override
+	public void setExpandoBridgeAttributes(ServiceContext serviceContext) {
 		_jiraAction.setExpandoBridgeAttributes(serviceContext);
 	}
 
@@ -339,7 +367,7 @@ public class JIRAActionWrapper implements JIRAAction, ModelWrapper<JIRAAction> {
 	* @param modifiedDate the modified date of this j i r a action
 	*/
 	@Override
-	public void setModifiedDate(java.util.Date modifiedDate) {
+	public void setModifiedDate(Date modifiedDate) {
 		_jiraAction.setModifiedDate(modifiedDate);
 	}
 
@@ -359,7 +387,7 @@ public class JIRAActionWrapper implements JIRAAction, ModelWrapper<JIRAAction> {
 	}
 
 	@Override
-	public void setPrimaryKeyObj(java.io.Serializable primaryKeyObj) {
+	public void setPrimaryKeyObj(Serializable primaryKeyObj) {
 		_jiraAction.setPrimaryKeyObj(primaryKeyObj);
 	}
 
@@ -371,31 +399,6 @@ public class JIRAActionWrapper implements JIRAAction, ModelWrapper<JIRAAction> {
 	@Override
 	public void setType(java.lang.String type) {
 		_jiraAction.setType(type);
-	}
-
-	@Override
-	public com.liferay.portal.model.CacheModel<com.liferay.socialcoding.model.JIRAAction> toCacheModel() {
-		return _jiraAction.toCacheModel();
-	}
-
-	@Override
-	public com.liferay.socialcoding.model.JIRAAction toEscapedModel() {
-		return new JIRAActionWrapper(_jiraAction.toEscapedModel());
-	}
-
-	@Override
-	public java.lang.String toString() {
-		return _jiraAction.toString();
-	}
-
-	@Override
-	public com.liferay.socialcoding.model.JIRAAction toUnescapedModel() {
-		return new JIRAActionWrapper(_jiraAction.toUnescapedModel());
-	}
-
-	@Override
-	public java.lang.String toXmlString() {
-		return _jiraAction.toXmlString();
 	}
 
 	@Override
@@ -415,14 +418,6 @@ public class JIRAActionWrapper implements JIRAAction, ModelWrapper<JIRAAction> {
 		}
 
 		return false;
-	}
-
-	/**
-	 * @deprecated As of 6.1.0, replaced by {@link #getWrappedModel}
-	 */
-	@Deprecated
-	public JIRAAction getWrappedJIRAAction() {
-		return _jiraAction;
 	}
 
 	@Override

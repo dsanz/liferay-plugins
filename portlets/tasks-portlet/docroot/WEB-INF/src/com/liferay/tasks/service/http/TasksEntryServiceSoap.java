@@ -14,6 +14,8 @@
 
 package com.liferay.tasks.service.http;
 
+import aQute.bnd.annotation.ProviderType;
+
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 
@@ -23,7 +25,7 @@ import java.rmi.RemoteException;
 
 /**
  * Provides the SOAP utility for the
- * {@link com.liferay.tasks.service.TasksEntryServiceUtil} service utility. The
+ * {@link TasksEntryServiceUtil} service utility. The
  * static methods of this class calls the same methods of the service utility.
  * However, the signatures are different because it is difficult for SOAP to
  * support certain types.
@@ -58,15 +60,16 @@ import java.rmi.RemoteException;
  * @author Ryan Park
  * @see TasksEntryServiceHttp
  * @see com.liferay.tasks.model.TasksEntrySoap
- * @see com.liferay.tasks.service.TasksEntryServiceUtil
+ * @see TasksEntryServiceUtil
  * @generated
  */
+@ProviderType
 public class TasksEntryServiceSoap {
 	public static com.liferay.tasks.model.TasksEntrySoap addTasksEntry(
 		java.lang.String title, int priority, long assigneeUserId,
 		int dueDateMonth, int dueDateDay, int dueDateYear, int dueDateHour,
 		int dueDateMinute, boolean neverDue,
-		com.liferay.portal.service.ServiceContext serviceContext)
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws RemoteException {
 		try {
 			com.liferay.tasks.model.TasksEntry returnValue = TasksEntryServiceUtil.addTasksEntry(title,
@@ -102,7 +105,7 @@ public class TasksEntryServiceSoap {
 		long assigneeUserId, long resolverUserId, int dueDateMonth,
 		int dueDateDay, int dueDateYear, int dueDateHour, int dueDateMinute,
 		boolean neverDue, int status,
-		com.liferay.portal.service.ServiceContext serviceContext)
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws RemoteException {
 		try {
 			com.liferay.tasks.model.TasksEntry returnValue = TasksEntryServiceUtil.updateTasksEntry(tasksEntryId,

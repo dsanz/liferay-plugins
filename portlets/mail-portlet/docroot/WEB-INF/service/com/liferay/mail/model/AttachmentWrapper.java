@@ -16,8 +16,13 @@ package com.liferay.mail.model;
 
 import aQute.bnd.annotation.ProviderType;
 
+import com.liferay.expando.kernel.model.ExpandoBridge;
+
+import com.liferay.portal.kernel.model.ModelWrapper;
+import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.util.Validator;
-import com.liferay.portal.model.ModelWrapper;
+
+import java.io.Serializable;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -122,13 +127,98 @@ public class AttachmentWrapper implements Attachment, ModelWrapper<Attachment> {
 	}
 
 	@Override
-	public java.lang.Object clone() {
-		return new AttachmentWrapper((Attachment)_attachment.clone());
+	public boolean isCachedModel() {
+		return _attachment.isCachedModel();
+	}
+
+	@Override
+	public boolean isEscapedModel() {
+		return _attachment.isEscapedModel();
+	}
+
+	@Override
+	public boolean isNew() {
+		return _attachment.isNew();
+	}
+
+	@Override
+	public ExpandoBridge getExpandoBridge() {
+		return _attachment.getExpandoBridge();
+	}
+
+	@Override
+	public com.liferay.mail.model.Attachment toEscapedModel() {
+		return new AttachmentWrapper(_attachment.toEscapedModel());
+	}
+
+	@Override
+	public com.liferay.mail.model.Attachment toUnescapedModel() {
+		return new AttachmentWrapper(_attachment.toUnescapedModel());
+	}
+
+	@Override
+	public com.liferay.portal.kernel.model.CacheModel<com.liferay.mail.model.Attachment> toCacheModel() {
+		return _attachment.toCacheModel();
 	}
 
 	@Override
 	public int compareTo(com.liferay.mail.model.Attachment attachment) {
 		return _attachment.compareTo(attachment);
+	}
+
+	@Override
+	public int hashCode() {
+		return _attachment.hashCode();
+	}
+
+	@Override
+	public Serializable getPrimaryKeyObj() {
+		return _attachment.getPrimaryKeyObj();
+	}
+
+	@Override
+	public java.lang.Object clone() {
+		return new AttachmentWrapper((Attachment)_attachment.clone());
+	}
+
+	/**
+	* Returns the content path of this attachment.
+	*
+	* @return the content path of this attachment
+	*/
+	@Override
+	public java.lang.String getContentPath() {
+		return _attachment.getContentPath();
+	}
+
+	/**
+	* Returns the file name of this attachment.
+	*
+	* @return the file name of this attachment
+	*/
+	@Override
+	public java.lang.String getFileName() {
+		return _attachment.getFileName();
+	}
+
+	/**
+	* Returns the user uuid of this attachment.
+	*
+	* @return the user uuid of this attachment
+	*/
+	@Override
+	public java.lang.String getUserUuid() {
+		return _attachment.getUserUuid();
+	}
+
+	@Override
+	public java.lang.String toString() {
+		return _attachment.toString();
+	}
+
+	@Override
+	public java.lang.String toXmlString() {
+		return _attachment.toXmlString();
 	}
 
 	/**
@@ -162,31 +252,6 @@ public class AttachmentWrapper implements Attachment, ModelWrapper<Attachment> {
 	}
 
 	/**
-	* Returns the content path of this attachment.
-	*
-	* @return the content path of this attachment
-	*/
-	@Override
-	public java.lang.String getContentPath() {
-		return _attachment.getContentPath();
-	}
-
-	@Override
-	public com.liferay.portlet.expando.model.ExpandoBridge getExpandoBridge() {
-		return _attachment.getExpandoBridge();
-	}
-
-	/**
-	* Returns the file name of this attachment.
-	*
-	* @return the file name of this attachment
-	*/
-	@Override
-	public java.lang.String getFileName() {
-		return _attachment.getFileName();
-	}
-
-	/**
 	* Returns the folder ID of this attachment.
 	*
 	* @return the folder ID of this attachment
@@ -216,11 +281,6 @@ public class AttachmentWrapper implements Attachment, ModelWrapper<Attachment> {
 		return _attachment.getPrimaryKey();
 	}
 
-	@Override
-	public java.io.Serializable getPrimaryKeyObj() {
-		return _attachment.getPrimaryKeyObj();
-	}
-
 	/**
 	* Returns the size of this attachment.
 	*
@@ -239,36 +299,6 @@ public class AttachmentWrapper implements Attachment, ModelWrapper<Attachment> {
 	@Override
 	public long getUserId() {
 		return _attachment.getUserId();
-	}
-
-	/**
-	* Returns the user uuid of this attachment.
-	*
-	* @return the user uuid of this attachment
-	*/
-	@Override
-	public java.lang.String getUserUuid() {
-		return _attachment.getUserUuid();
-	}
-
-	@Override
-	public int hashCode() {
-		return _attachment.hashCode();
-	}
-
-	@Override
-	public boolean isCachedModel() {
-		return _attachment.isCachedModel();
-	}
-
-	@Override
-	public boolean isEscapedModel() {
-		return _attachment.isEscapedModel();
-	}
-
-	@Override
-	public boolean isNew() {
-		return _attachment.isNew();
 	}
 
 	@Override
@@ -322,20 +352,18 @@ public class AttachmentWrapper implements Attachment, ModelWrapper<Attachment> {
 	}
 
 	@Override
-	public void setExpandoBridgeAttributes(
-		com.liferay.portal.model.BaseModel<?> baseModel) {
-		_attachment.setExpandoBridgeAttributes(baseModel);
-	}
-
-	@Override
-	public void setExpandoBridgeAttributes(
-		com.liferay.portlet.expando.model.ExpandoBridge expandoBridge) {
+	public void setExpandoBridgeAttributes(ExpandoBridge expandoBridge) {
 		_attachment.setExpandoBridgeAttributes(expandoBridge);
 	}
 
 	@Override
 	public void setExpandoBridgeAttributes(
-		com.liferay.portal.service.ServiceContext serviceContext) {
+		com.liferay.portal.kernel.model.BaseModel<?> baseModel) {
+		_attachment.setExpandoBridgeAttributes(baseModel);
+	}
+
+	@Override
+	public void setExpandoBridgeAttributes(ServiceContext serviceContext) {
 		_attachment.setExpandoBridgeAttributes(serviceContext);
 	}
 
@@ -385,7 +413,7 @@ public class AttachmentWrapper implements Attachment, ModelWrapper<Attachment> {
 	}
 
 	@Override
-	public void setPrimaryKeyObj(java.io.Serializable primaryKeyObj) {
+	public void setPrimaryKeyObj(Serializable primaryKeyObj) {
 		_attachment.setPrimaryKeyObj(primaryKeyObj);
 	}
 
@@ -420,31 +448,6 @@ public class AttachmentWrapper implements Attachment, ModelWrapper<Attachment> {
 	}
 
 	@Override
-	public com.liferay.portal.model.CacheModel<com.liferay.mail.model.Attachment> toCacheModel() {
-		return _attachment.toCacheModel();
-	}
-
-	@Override
-	public com.liferay.mail.model.Attachment toEscapedModel() {
-		return new AttachmentWrapper(_attachment.toEscapedModel());
-	}
-
-	@Override
-	public java.lang.String toString() {
-		return _attachment.toString();
-	}
-
-	@Override
-	public com.liferay.mail.model.Attachment toUnescapedModel() {
-		return new AttachmentWrapper(_attachment.toUnescapedModel());
-	}
-
-	@Override
-	public java.lang.String toXmlString() {
-		return _attachment.toXmlString();
-	}
-
-	@Override
 	public boolean equals(Object obj) {
 		if (this == obj) {
 			return true;
@@ -461,14 +464,6 @@ public class AttachmentWrapper implements Attachment, ModelWrapper<Attachment> {
 		}
 
 		return false;
-	}
-
-	/**
-	 * @deprecated As of 6.1.0, replaced by {@link #getWrappedModel}
-	 */
-	@Deprecated
-	public Attachment getWrappedAttachment() {
-		return _attachment;
 	}
 
 	@Override

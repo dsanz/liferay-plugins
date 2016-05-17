@@ -17,17 +17,17 @@
 
 package com.liferay.contacts.service.impl;
 
-import com.liferay.contacts.DuplicateEntryEmailAddressException;
-import com.liferay.contacts.EntryEmailAddressException;
-import com.liferay.contacts.RequiredEntryEmailAddressException;
+import com.liferay.contacts.exception.DuplicateEntryEmailAddressException;
+import com.liferay.contacts.exception.EntryEmailAddressException;
+import com.liferay.contacts.exception.RequiredEntryEmailAddressException;
 import com.liferay.contacts.model.Entry;
 import com.liferay.contacts.service.base.EntryLocalServiceBaseImpl;
-import com.liferay.portal.ContactFullNameException;
+import com.liferay.portal.kernel.exception.ContactFullNameException;
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.model.BaseModel;
+import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Validator;
-import com.liferay.portal.model.BaseModel;
-import com.liferay.portal.model.User;
 
 import java.util.Date;
 import java.util.List;

@@ -14,9 +14,11 @@
 
 package com.liferay.so.service;
 
+import aQute.bnd.annotation.ProviderType;
+
 import com.liferay.portal.kernel.bean.PortletBeanLocatorUtil;
+import com.liferay.portal.kernel.service.InvokableLocalService;
 import com.liferay.portal.kernel.util.ReferenceRegistry;
-import com.liferay.portal.service.InvokableLocalService;
 
 /**
  * Provides the local service utility for FavoriteSite. This utility wraps
@@ -32,12 +34,47 @@ import com.liferay.portal.service.InvokableLocalService;
  * @see com.liferay.so.service.impl.FavoriteSiteLocalServiceImpl
  * @generated
  */
+@ProviderType
 public class FavoriteSiteLocalServiceUtil {
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify this class directly. Add custom service methods to {@link com.liferay.so.service.impl.FavoriteSiteLocalServiceImpl} and rerun ServiceBuilder to regenerate this class.
 	 */
+	public static boolean isFavoriteSite(long favoriteSiteId) {
+		return getService().isFavoriteSite(favoriteSiteId);
+	}
+
+	public static boolean isFavoriteSite(long userId, long groupId) {
+		return getService().isFavoriteSite(userId, groupId);
+	}
+
+	public static com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery getActionableDynamicQuery() {
+		return getService().getActionableDynamicQuery();
+	}
+
+	public static com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery() {
+		return getService().dynamicQuery();
+	}
+
+	public static com.liferay.portal.kernel.dao.orm.IndexableActionableDynamicQuery getIndexableActionableDynamicQuery() {
+		return getService().getIndexableActionableDynamicQuery();
+	}
+
+	/**
+	* @throws PortalException
+	*/
+	public static com.liferay.portal.kernel.model.PersistedModel deletePersistedModel(
+		com.liferay.portal.kernel.model.PersistedModel persistedModel)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		return getService().deletePersistedModel(persistedModel);
+	}
+
+	public static com.liferay.portal.kernel.model.PersistedModel getPersistedModel(
+		java.io.Serializable primaryKeyObj)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		return getService().getPersistedModel(primaryKeyObj);
+	}
 
 	/**
 	* Adds the favorite site to the database. Also notifies the appropriate model listeners.
@@ -91,22 +128,65 @@ public class FavoriteSiteLocalServiceUtil {
 		return getService().deleteFavoriteSite(favoriteSiteId);
 	}
 
-	public static void deleteFavoriteSites(long userId, long groupId)
-		throws com.liferay.portal.kernel.exception.PortalException {
-		getService().deleteFavoriteSites(userId, groupId);
+	public static com.liferay.so.model.FavoriteSite fetchFavoriteSite(
+		long favoriteSiteId) {
+		return getService().fetchFavoriteSite(favoriteSiteId);
 	}
 
 	/**
-	* @throws PortalException
+	* Returns the favorite site with the primary key.
+	*
+	* @param favoriteSiteId the primary key of the favorite site
+	* @return the favorite site
+	* @throws PortalException if a favorite site with the primary key could not be found
 	*/
-	public static com.liferay.portal.model.PersistedModel deletePersistedModel(
-		com.liferay.portal.model.PersistedModel persistedModel)
+	public static com.liferay.so.model.FavoriteSite getFavoriteSite(
+		long favoriteSiteId)
 		throws com.liferay.portal.kernel.exception.PortalException {
-		return getService().deletePersistedModel(persistedModel);
+		return getService().getFavoriteSite(favoriteSiteId);
 	}
 
-	public static com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery() {
-		return getService().dynamicQuery();
+	/**
+	* Updates the favorite site in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
+	*
+	* @param favoriteSite the favorite site
+	* @return the favorite site that was updated
+	*/
+	public static com.liferay.so.model.FavoriteSite updateFavoriteSite(
+		com.liferay.so.model.FavoriteSite favoriteSite) {
+		return getService().updateFavoriteSite(favoriteSite);
+	}
+
+	/**
+	* Returns the number of favorite sites.
+	*
+	* @return the number of favorite sites
+	*/
+	public static int getFavoriteSitesCount() {
+		return getService().getFavoriteSitesCount();
+	}
+
+	public static int getFavoriteSitesCount(long userId) {
+		return getService().getFavoriteSitesCount(userId);
+	}
+
+	public static int getFavoriteSitesCount(long userId, java.lang.String name) {
+		return getService().getFavoriteSitesCount(userId, name);
+	}
+
+	public static java.lang.Object invokeMethod(java.lang.String name,
+		java.lang.String[] parameterTypes, java.lang.Object[] arguments)
+		throws java.lang.Throwable {
+		return getService().invokeMethod(name, parameterTypes, arguments);
+	}
+
+	/**
+	* Returns the OSGi service identifier.
+	*
+	* @return the OSGi service identifier
+	*/
+	public static java.lang.String getOSGiServiceIdentifier() {
+		return getService().getOSGiServiceIdentifier();
 	}
 
 	/**
@@ -160,61 +240,6 @@ public class FavoriteSiteLocalServiceUtil {
 	}
 
 	/**
-	* Returns the number of rows that match the dynamic query.
-	*
-	* @param dynamicQuery the dynamic query
-	* @return the number of rows that match the dynamic query
-	*/
-	public static long dynamicQueryCount(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery) {
-		return getService().dynamicQueryCount(dynamicQuery);
-	}
-
-	/**
-	* Returns the number of rows that match the dynamic query.
-	*
-	* @param dynamicQuery the dynamic query
-	* @param projection the projection to apply to the query
-	* @return the number of rows that match the dynamic query
-	*/
-	public static long dynamicQueryCount(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery,
-		com.liferay.portal.kernel.dao.orm.Projection projection) {
-		return getService().dynamicQueryCount(dynamicQuery, projection);
-	}
-
-	public static com.liferay.so.model.FavoriteSite fetchFavoriteSite(
-		long favoriteSiteId) {
-		return getService().fetchFavoriteSite(favoriteSiteId);
-	}
-
-	public static com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery getActionableDynamicQuery() {
-		return getService().getActionableDynamicQuery();
-	}
-
-	/**
-	* Returns the Spring bean ID for this bean.
-	*
-	* @return the Spring bean ID for this bean
-	*/
-	public static java.lang.String getBeanIdentifier() {
-		return getService().getBeanIdentifier();
-	}
-
-	/**
-	* Returns the favorite site with the primary key.
-	*
-	* @param favoriteSiteId the primary key of the favorite site
-	* @return the favorite site
-	* @throws PortalException if a favorite site with the primary key could not be found
-	*/
-	public static com.liferay.so.model.FavoriteSite getFavoriteSite(
-		long favoriteSiteId)
-		throws com.liferay.portal.kernel.exception.PortalException {
-		return getService().getFavoriteSite(favoriteSiteId);
-	}
-
-	/**
 	* Returns a range of all the favorite sites.
 	*
 	* <p>
@@ -230,71 +255,43 @@ public class FavoriteSiteLocalServiceUtil {
 		return getService().getFavoriteSites(start, end);
 	}
 
-	public static java.util.List<java.lang.Object[]> getFavoriteSites(
-		long userId, java.lang.String name, int start, int end) {
-		return getService().getFavoriteSites(userId, name, start, end);
-	}
-
 	public static java.util.List<com.liferay.so.model.FavoriteSite> getFavoriteSites(
 		long userId, int start, int end) {
 		return getService().getFavoriteSites(userId, start, end);
 	}
 
+	public static java.util.List<java.lang.Object[]> getFavoriteSites(
+		long userId, java.lang.String name, int start, int end) {
+		return getService().getFavoriteSites(userId, name, start, end);
+	}
+
 	/**
-	* Returns the number of favorite sites.
+	* Returns the number of rows matching the dynamic query.
 	*
-	* @return the number of favorite sites
+	* @param dynamicQuery the dynamic query
+	* @return the number of rows matching the dynamic query
 	*/
-	public static int getFavoriteSitesCount() {
-		return getService().getFavoriteSitesCount();
+	public static long dynamicQueryCount(
+		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery) {
+		return getService().dynamicQueryCount(dynamicQuery);
 	}
 
-	public static int getFavoriteSitesCount(long userId) {
-		return getService().getFavoriteSitesCount(userId);
+	/**
+	* Returns the number of rows matching the dynamic query.
+	*
+	* @param dynamicQuery the dynamic query
+	* @param projection the projection to apply to the query
+	* @return the number of rows matching the dynamic query
+	*/
+	public static long dynamicQueryCount(
+		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery,
+		com.liferay.portal.kernel.dao.orm.Projection projection) {
+		return getService().dynamicQueryCount(dynamicQuery, projection);
 	}
 
-	public static int getFavoriteSitesCount(long userId, java.lang.String name) {
-		return getService().getFavoriteSitesCount(userId, name);
-	}
-
-	public static com.liferay.portal.model.PersistedModel getPersistedModel(
-		java.io.Serializable primaryKeyObj)
+	public static void deleteFavoriteSites(long userId, long groupId)
 		throws com.liferay.portal.kernel.exception.PortalException {
-		return getService().getPersistedModel(primaryKeyObj);
-	}
-
-	public static java.lang.Object invokeMethod(java.lang.String name,
-		java.lang.String[] parameterTypes, java.lang.Object[] arguments)
-		throws java.lang.Throwable {
-		return getService().invokeMethod(name, parameterTypes, arguments);
-	}
-
-	public static boolean isFavoriteSite(long favoriteSiteId) {
-		return getService().isFavoriteSite(favoriteSiteId);
-	}
-
-	public static boolean isFavoriteSite(long userId, long groupId) {
-		return getService().isFavoriteSite(userId, groupId);
-	}
-
-	/**
-	* Sets the Spring bean ID for this bean.
-	*
-	* @param beanIdentifier the Spring bean ID for this bean
-	*/
-	public static void setBeanIdentifier(java.lang.String beanIdentifier) {
-		getService().setBeanIdentifier(beanIdentifier);
-	}
-
-	/**
-	* Updates the favorite site in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
-	*
-	* @param favoriteSite the favorite site
-	* @return the favorite site that was updated
-	*/
-	public static com.liferay.so.model.FavoriteSite updateFavoriteSite(
-		com.liferay.so.model.FavoriteSite favoriteSite) {
-		return getService().updateFavoriteSite(favoriteSite);
+		getService().deleteFavoriteSites(userId, groupId);
 	}
 
 	public static void clearService() {
@@ -318,13 +315,6 @@ public class FavoriteSiteLocalServiceUtil {
 		}
 
 		return _service;
-	}
-
-	/**
-	 * @deprecated As of 6.2.0
-	 */
-	@Deprecated
-	public void setService(FavoriteSiteLocalService service) {
 	}
 
 	private static FavoriteSiteLocalService _service;

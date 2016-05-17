@@ -20,10 +20,10 @@ import com.liferay.portal.kernel.io.unsync.UnsyncByteArrayInputStream;
 import com.liferay.portal.kernel.io.unsync.UnsyncByteArrayOutputStream;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.model.BaseModel;
 import com.liferay.portal.kernel.util.ClassLoaderObjectInputStream;
 import com.liferay.portal.kernel.util.PropsUtil;
 import com.liferay.portal.kernel.util.Validator;
-import com.liferay.portal.model.BaseModel;
 
 import com.liferay.pushnotifications.model.PushNotificationsDeviceClp;
 
@@ -267,8 +267,8 @@ public class ClpSerializer {
 		String className = clazz.getName();
 
 		if (className.equals(
-					"com.liferay.pushnotifications.NoSuchDeviceException")) {
-			return new com.liferay.pushnotifications.NoSuchDeviceException(throwable.getMessage(),
+					"com.liferay.pushnotifications.exception.NoSuchDeviceException")) {
+			return new com.liferay.pushnotifications.exception.NoSuchDeviceException(throwable.getMessage(),
 				throwable.getCause());
 		}
 

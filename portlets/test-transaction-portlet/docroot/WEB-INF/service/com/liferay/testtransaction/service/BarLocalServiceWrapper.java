@@ -14,7 +14,9 @@
 
 package com.liferay.testtransaction.service;
 
-import com.liferay.portal.service.ServiceWrapper;
+import aQute.bnd.annotation.ProviderType;
+
+import com.liferay.portal.kernel.service.ServiceWrapper;
 
 /**
  * Provides a wrapper for {@link BarLocalService}.
@@ -23,10 +25,53 @@ import com.liferay.portal.service.ServiceWrapper;
  * @see BarLocalService
  * @generated
  */
+@ProviderType
 public class BarLocalServiceWrapper implements BarLocalService,
 	ServiceWrapper<BarLocalService> {
 	public BarLocalServiceWrapper(BarLocalService barLocalService) {
 		_barLocalService = barLocalService;
+	}
+
+	@Override
+	public boolean hasBar(java.lang.String text) {
+		return _barLocalService.hasBar(text);
+	}
+
+	@Override
+	public boolean hasClassName() {
+		return _barLocalService.hasClassName();
+	}
+
+	@Override
+	public com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery getActionableDynamicQuery() {
+		return _barLocalService.getActionableDynamicQuery();
+	}
+
+	@Override
+	public com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery() {
+		return _barLocalService.dynamicQuery();
+	}
+
+	@Override
+	public com.liferay.portal.kernel.dao.orm.IndexableActionableDynamicQuery getIndexableActionableDynamicQuery() {
+		return _barLocalService.getIndexableActionableDynamicQuery();
+	}
+
+	/**
+	* @throws PortalException
+	*/
+	@Override
+	public com.liferay.portal.kernel.model.PersistedModel deletePersistedModel(
+		com.liferay.portal.kernel.model.PersistedModel persistedModel)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		return _barLocalService.deletePersistedModel(persistedModel);
+	}
+
+	@Override
+	public com.liferay.portal.kernel.model.PersistedModel getPersistedModel(
+		java.io.Serializable primaryKeyObj)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		return _barLocalService.getPersistedModel(primaryKeyObj);
 	}
 
 	/**
@@ -39,21 +84,6 @@ public class BarLocalServiceWrapper implements BarLocalService,
 	public com.liferay.testtransaction.model.Bar addBar(
 		com.liferay.testtransaction.model.Bar bar) {
 		return _barLocalService.addBar(bar);
-	}
-
-	@Override
-	public void addBarAndClassName_PortalRollback(java.lang.String text) {
-		_barLocalService.addBarAndClassName_PortalRollback(text);
-	}
-
-	@Override
-	public void addBarAndClassName_PortletRollback(java.lang.String text) {
-		_barLocalService.addBarAndClassName_PortletRollback(text);
-	}
-
-	@Override
-	public void addBar_Rollback(java.lang.String text) {
-		_barLocalService.addBar_Rollback(text);
 	}
 
 	@Override
@@ -99,24 +129,66 @@ public class BarLocalServiceWrapper implements BarLocalService,
 	}
 
 	@Override
-	public void deleteBarAndClassName(com.liferay.testtransaction.model.Bar bar)
+	public com.liferay.testtransaction.model.Bar fetchBar(long barId) {
+		return _barLocalService.fetchBar(barId);
+	}
+
+	@Override
+	public com.liferay.testtransaction.model.Bar getBar(java.lang.String text)
 		throws com.liferay.portal.kernel.exception.PortalException {
-		_barLocalService.deleteBarAndClassName(bar);
+		return _barLocalService.getBar(text);
 	}
 
 	/**
-	* @throws PortalException
+	* Returns the bar with the primary key.
+	*
+	* @param barId the primary key of the bar
+	* @return the bar
+	* @throws PortalException if a bar with the primary key could not be found
 	*/
 	@Override
-	public com.liferay.portal.model.PersistedModel deletePersistedModel(
-		com.liferay.portal.model.PersistedModel persistedModel)
+	public com.liferay.testtransaction.model.Bar getBar(long barId)
 		throws com.liferay.portal.kernel.exception.PortalException {
-		return _barLocalService.deletePersistedModel(persistedModel);
+		return _barLocalService.getBar(barId);
+	}
+
+	/**
+	* Updates the bar in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
+	*
+	* @param bar the bar
+	* @return the bar that was updated
+	*/
+	@Override
+	public com.liferay.testtransaction.model.Bar updateBar(
+		com.liferay.testtransaction.model.Bar bar) {
+		return _barLocalService.updateBar(bar);
+	}
+
+	/**
+	* Returns the number of bars.
+	*
+	* @return the number of bars
+	*/
+	@Override
+	public int getBarsCount() {
+		return _barLocalService.getBarsCount();
 	}
 
 	@Override
-	public com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery() {
-		return _barLocalService.dynamicQuery();
+	public java.lang.Object invokeMethod(java.lang.String name,
+		java.lang.String[] parameterTypes, java.lang.Object[] arguments)
+		throws java.lang.Throwable {
+		return _barLocalService.invokeMethod(name, parameterTypes, arguments);
+	}
+
+	/**
+	* Returns the OSGi service identifier.
+	*
+	* @return the OSGi service identifier
+	*/
+	@Override
+	public java.lang.String getOSGiServiceIdentifier() {
+		return _barLocalService.getOSGiServiceIdentifier();
 	}
 
 	/**
@@ -173,61 +245,6 @@ public class BarLocalServiceWrapper implements BarLocalService,
 	}
 
 	/**
-	* Returns the number of rows that match the dynamic query.
-	*
-	* @param dynamicQuery the dynamic query
-	* @return the number of rows that match the dynamic query
-	*/
-	@Override
-	public long dynamicQueryCount(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery) {
-		return _barLocalService.dynamicQueryCount(dynamicQuery);
-	}
-
-	/**
-	* Returns the number of rows that match the dynamic query.
-	*
-	* @param dynamicQuery the dynamic query
-	* @param projection the projection to apply to the query
-	* @return the number of rows that match the dynamic query
-	*/
-	@Override
-	public long dynamicQueryCount(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery,
-		com.liferay.portal.kernel.dao.orm.Projection projection) {
-		return _barLocalService.dynamicQueryCount(dynamicQuery, projection);
-	}
-
-	@Override
-	public com.liferay.testtransaction.model.Bar fetchBar(long barId) {
-		return _barLocalService.fetchBar(barId);
-	}
-
-	@Override
-	public com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery getActionableDynamicQuery() {
-		return _barLocalService.getActionableDynamicQuery();
-	}
-
-	/**
-	* Returns the bar with the primary key.
-	*
-	* @param barId the primary key of the bar
-	* @return the bar
-	* @throws PortalException if a bar with the primary key could not be found
-	*/
-	@Override
-	public com.liferay.testtransaction.model.Bar getBar(long barId)
-		throws com.liferay.portal.kernel.exception.PortalException {
-		return _barLocalService.getBar(barId);
-	}
-
-	@Override
-	public com.liferay.testtransaction.model.Bar getBar(java.lang.String text)
-		throws com.liferay.portal.kernel.exception.PortalException {
-		return _barLocalService.getBar(text);
-	}
-
-	/**
 	* Returns a range of all the bars.
 	*
 	* <p>
@@ -245,90 +262,55 @@ public class BarLocalServiceWrapper implements BarLocalService,
 	}
 
 	/**
-	* Returns the number of bars.
+	* Returns the number of rows matching the dynamic query.
 	*
-	* @return the number of bars
+	* @param dynamicQuery the dynamic query
+	* @return the number of rows matching the dynamic query
 	*/
 	@Override
-	public int getBarsCount() {
-		return _barLocalService.getBarsCount();
+	public long dynamicQueryCount(
+		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery) {
+		return _barLocalService.dynamicQueryCount(dynamicQuery);
 	}
 
 	/**
-	* Returns the Spring bean ID for this bean.
+	* Returns the number of rows matching the dynamic query.
 	*
-	* @return the Spring bean ID for this bean
+	* @param dynamicQuery the dynamic query
+	* @param projection the projection to apply to the query
+	* @return the number of rows matching the dynamic query
 	*/
 	@Override
-	public java.lang.String getBeanIdentifier() {
-		return _barLocalService.getBeanIdentifier();
+	public long dynamicQueryCount(
+		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery,
+		com.liferay.portal.kernel.dao.orm.Projection projection) {
+		return _barLocalService.dynamicQueryCount(dynamicQuery, projection);
 	}
 
 	@Override
-	public com.liferay.portal.model.PersistedModel getPersistedModel(
-		java.io.Serializable primaryKeyObj)
+	public void addBarAndClassName_PortalRollback(java.lang.String text) {
+		_barLocalService.addBarAndClassName_PortalRollback(text);
+	}
+
+	@Override
+	public void addBarAndClassName_PortletRollback(java.lang.String text) {
+		_barLocalService.addBarAndClassName_PortletRollback(text);
+	}
+
+	@Override
+	public void addBar_Rollback(java.lang.String text) {
+		_barLocalService.addBar_Rollback(text);
+	}
+
+	@Override
+	public void deleteBarAndClassName(com.liferay.testtransaction.model.Bar bar)
 		throws com.liferay.portal.kernel.exception.PortalException {
-		return _barLocalService.getPersistedModel(primaryKeyObj);
-	}
-
-	@Override
-	public boolean hasBar(java.lang.String text) {
-		return _barLocalService.hasBar(text);
-	}
-
-	@Override
-	public boolean hasClassName() {
-		return _barLocalService.hasClassName();
-	}
-
-	@Override
-	public java.lang.Object invokeMethod(java.lang.String name,
-		java.lang.String[] parameterTypes, java.lang.Object[] arguments)
-		throws java.lang.Throwable {
-		return _barLocalService.invokeMethod(name, parameterTypes, arguments);
-	}
-
-	/**
-	* Sets the Spring bean ID for this bean.
-	*
-	* @param beanIdentifier the Spring bean ID for this bean
-	*/
-	@Override
-	public void setBeanIdentifier(java.lang.String beanIdentifier) {
-		_barLocalService.setBeanIdentifier(beanIdentifier);
+		_barLocalService.deleteBarAndClassName(bar);
 	}
 
 	@Override
 	public void testAddClassNameAndBar_Success(java.lang.String text) {
 		_barLocalService.testAddClassNameAndBar_Success(text);
-	}
-
-	/**
-	* Updates the bar in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
-	*
-	* @param bar the bar
-	* @return the bar that was updated
-	*/
-	@Override
-	public com.liferay.testtransaction.model.Bar updateBar(
-		com.liferay.testtransaction.model.Bar bar) {
-		return _barLocalService.updateBar(bar);
-	}
-
-	/**
-	 * @deprecated As of 6.1.0, replaced by {@link #getWrappedService}
-	 */
-	@Deprecated
-	public BarLocalService getWrappedBarLocalService() {
-		return _barLocalService;
-	}
-
-	/**
-	 * @deprecated As of 6.1.0, replaced by {@link #setWrappedService}
-	 */
-	@Deprecated
-	public void setWrappedBarLocalService(BarLocalService barLocalService) {
-		_barLocalService = barLocalService;
 	}
 
 	@Override

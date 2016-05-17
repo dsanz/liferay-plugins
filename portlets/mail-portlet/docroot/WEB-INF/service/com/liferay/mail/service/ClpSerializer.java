@@ -25,10 +25,10 @@ import com.liferay.portal.kernel.io.unsync.UnsyncByteArrayInputStream;
 import com.liferay.portal.kernel.io.unsync.UnsyncByteArrayOutputStream;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.model.BaseModel;
 import com.liferay.portal.kernel.util.ClassLoaderObjectInputStream;
 import com.liferay.portal.kernel.util.PropsUtil;
 import com.liferay.portal.kernel.util.Validator;
-import com.liferay.portal.model.BaseModel;
 
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -418,28 +418,31 @@ public class ClpSerializer {
 
 		String className = clazz.getName();
 
-		if (className.equals("com.liferay.mail.MailException")) {
-			return new com.liferay.mail.MailException(throwable.getMessage(),
+		if (className.equals("com.liferay.mail.exception.MailException")) {
+			return new com.liferay.mail.exception.MailException(throwable.getMessage(),
 				throwable.getCause());
 		}
 
-		if (className.equals("com.liferay.mail.NoSuchAccountException")) {
-			return new com.liferay.mail.NoSuchAccountException(throwable.getMessage(),
+		if (className.equals(
+					"com.liferay.mail.exception.NoSuchAccountException")) {
+			return new com.liferay.mail.exception.NoSuchAccountException(throwable.getMessage(),
 				throwable.getCause());
 		}
 
-		if (className.equals("com.liferay.mail.NoSuchAttachmentException")) {
-			return new com.liferay.mail.NoSuchAttachmentException(throwable.getMessage(),
+		if (className.equals(
+					"com.liferay.mail.exception.NoSuchAttachmentException")) {
+			return new com.liferay.mail.exception.NoSuchAttachmentException(throwable.getMessage(),
 				throwable.getCause());
 		}
 
-		if (className.equals("com.liferay.mail.NoSuchFolderException")) {
-			return new com.liferay.mail.NoSuchFolderException(throwable.getMessage(),
+		if (className.equals("com.liferay.mail.exception.NoSuchFolderException")) {
+			return new com.liferay.mail.exception.NoSuchFolderException(throwable.getMessage(),
 				throwable.getCause());
 		}
 
-		if (className.equals("com.liferay.mail.NoSuchMessageException")) {
-			return new com.liferay.mail.NoSuchMessageException(throwable.getMessage(),
+		if (className.equals(
+					"com.liferay.mail.exception.NoSuchMessageException")) {
+			return new com.liferay.mail.exception.NoSuchMessageException(throwable.getMessage(),
 				throwable.getCause());
 		}
 

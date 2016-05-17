@@ -17,14 +17,42 @@
 
 package com.liferay.so.sites.portlet;
 
-import com.liferay.portal.DuplicateGroupException;
-import com.liferay.portal.GroupKeyException;
+import com.liferay.portal.kernel.exception.DuplicateGroupException;
+import com.liferay.portal.kernel.exception.GroupKeyException;
 import com.liferay.portal.kernel.json.JSONArray;
 import com.liferay.portal.kernel.json.JSONFactoryUtil;
 import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.language.LanguageUtil;
+import com.liferay.portal.kernel.model.Group;
+import com.liferay.portal.kernel.model.Layout;
+import com.liferay.portal.kernel.model.LayoutConstants;
+import com.liferay.portal.kernel.model.LayoutSet;
+import com.liferay.portal.kernel.model.LayoutSetPrototype;
+import com.liferay.portal.kernel.model.MembershipRequest;
+import com.liferay.portal.kernel.model.MembershipRequestConstants;
+import com.liferay.portal.kernel.model.Organization;
+import com.liferay.portal.kernel.model.User;
+import com.liferay.portal.kernel.model.UserGroup;
 import com.liferay.portal.kernel.portlet.LiferayPortletResponse;
+import com.liferay.portal.kernel.portlet.PortletProvider;
+import com.liferay.portal.kernel.portlet.PortletProviderUtil;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCPortlet;
+import com.liferay.portal.kernel.security.permission.ActionKeys;
+import com.liferay.portal.kernel.security.permission.PermissionChecker;
+import com.liferay.portal.kernel.service.GroupLocalServiceUtil;
+import com.liferay.portal.kernel.service.GroupServiceUtil;
+import com.liferay.portal.kernel.service.LayoutLocalServiceUtil;
+import com.liferay.portal.kernel.service.LayoutSetLocalServiceUtil;
+import com.liferay.portal.kernel.service.LayoutSetPrototypeServiceUtil;
+import com.liferay.portal.kernel.service.MembershipRequestLocalServiceUtil;
+import com.liferay.portal.kernel.service.OrganizationLocalServiceUtil;
+import com.liferay.portal.kernel.service.PortletPreferencesLocalServiceUtil;
+import com.liferay.portal.kernel.service.ServiceContext;
+import com.liferay.portal.kernel.service.ServiceContextFactory;
+import com.liferay.portal.kernel.service.UserGroupLocalServiceUtil;
+import com.liferay.portal.kernel.service.UserLocalServiceUtil;
+import com.liferay.portal.kernel.service.permission.GroupPermissionUtil;
+import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.ClassResolverUtil;
 import com.liferay.portal.kernel.util.Constants;
 import com.liferay.portal.kernel.util.GetterUtil;
@@ -37,31 +65,6 @@ import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.UnicodeProperties;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.util.WebKeys;
-import com.liferay.portal.model.Group;
-import com.liferay.portal.model.Layout;
-import com.liferay.portal.model.LayoutConstants;
-import com.liferay.portal.model.LayoutSet;
-import com.liferay.portal.model.LayoutSetPrototype;
-import com.liferay.portal.model.MembershipRequestConstants;
-import com.liferay.portal.model.Organization;
-import com.liferay.portal.model.User;
-import com.liferay.portal.model.UserGroup;
-import com.liferay.portal.security.permission.ActionKeys;
-import com.liferay.portal.security.permission.PermissionChecker;
-import com.liferay.portal.service.GroupLocalServiceUtil;
-import com.liferay.portal.service.GroupServiceUtil;
-import com.liferay.portal.service.LayoutLocalServiceUtil;
-import com.liferay.portal.service.LayoutSetLocalServiceUtil;
-import com.liferay.portal.service.LayoutSetPrototypeServiceUtil;
-import com.liferay.portal.service.MembershipRequestLocalServiceUtil;
-import com.liferay.portal.service.OrganizationLocalServiceUtil;
-import com.liferay.portal.service.PortletPreferencesLocalServiceUtil;
-import com.liferay.portal.service.ServiceContext;
-import com.liferay.portal.service.ServiceContextFactory;
-import com.liferay.portal.service.UserGroupLocalServiceUtil;
-import com.liferay.portal.service.UserLocalServiceUtil;
-import com.liferay.portal.service.permission.GroupPermissionUtil;
-import com.liferay.portal.theme.ThemeDisplay;
 import com.liferay.so.service.FavoriteSiteLocalServiceUtil;
 import com.liferay.so.service.SocialOfficeServiceUtil;
 import com.liferay.so.sites.util.SitesUtil;
@@ -69,7 +72,10 @@ import com.liferay.so.util.GroupConstants;
 import com.liferay.so.util.PortletKeys;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
@@ -255,7 +261,8 @@ public class SitesPortlet extends MVCPortlet {
 			groupJSONObject.put(
 				"description", HtmlUtil.escape(group.getDescription()));
 			groupJSONObject.put(
-				"name", HtmlUtil.escape(
+				"name",
+				HtmlUtil.escape(
 					group.getDescriptiveName(themeDisplay.getLocale())));
 
 			boolean member = GroupLocalServiceUtil.hasUserGroup(
@@ -279,13 +286,10 @@ public class SitesPortlet extends MVCPortlet {
 			groupJSONObject.put("socialOfficeGroup", socialOfficeGroup);
 
 			PortletURL siteAssignmentsPortletURL =
-				liferayPortletResponse.createActionURL(
-					PortletKeys.SITE_MEMBERSHIPS_ADMIN);
+				PortletProviderUtil.getPortletURL(
+					resourceRequest, MembershipRequest.class.getName(),
+					PortletProvider.Action.EDIT);
 
-			siteAssignmentsPortletURL.setParameter(
-				"struts_action", "/sites_admin/edit_site_assignments");
-			siteAssignmentsPortletURL.setParameter(
-				Constants.CMD, "group_users");
 			siteAssignmentsPortletURL.setParameter(
 				"redirect", themeDisplay.getURLCurrent());
 			siteAssignmentsPortletURL.setParameter(
@@ -311,11 +315,10 @@ public class SitesPortlet extends MVCPortlet {
 
 					PortletURL membershipRequestURL =
 						liferayPortletResponse.createActionURL(
-							PortletKeys.SITES_ADMIN);
+							PortletKeys.SITE_ADMIN);
 
 					membershipRequestURL.setParameter(
-						"struts_action",
-						"/sites_admin/post_membership_request");
+						"javax.portlet.action", "postMembershipRequest");
 					membershipRequestURL.setParameter(
 						"redirect", themeDisplay.getURLCurrent());
 					membershipRequestURL.setParameter(
@@ -328,10 +331,10 @@ public class SitesPortlet extends MVCPortlet {
 						themeDisplay.getLocale(), "x-wishes-to-join-x",
 						new Object[] {
 							user.getFullName(), group.getDescriptiveName()
-						}, false);
+						},
+						false);
 
 					membershipRequestURL.setParameter("comments", comments);
-
 					membershipRequestURL.setWindowState(WindowState.NORMAL);
 
 					groupJSONObject.put(
@@ -367,18 +370,15 @@ public class SitesPortlet extends MVCPortlet {
 				else {
 					PortletURL deletePortletURL =
 						liferayPortletResponse.createActionURL(
-							PortletKeys.SITES_ADMIN);
-
-					deletePortletURL.setWindowState(WindowState.NORMAL);
+							PortletKeys.SITE_ADMIN);
 
 					deletePortletURL.setParameter(
-						"struts_action", "/sites_admin/edit_site");
-					deletePortletURL.setParameter(
-						Constants.CMD, Constants.DELETE);
+						"javax.portlet.action", "deleteGroups");
 					deletePortletURL.setParameter(
 						"redirect", themeDisplay.getURLCurrent());
 					deletePortletURL.setParameter(
 						"groupId", String.valueOf(group.getGroupId()));
+					deletePortletURL.setWindowState(WindowState.NORMAL);
 
 					groupJSONObject.put(
 						"deleteURL", deletePortletURL.toString());
@@ -387,14 +387,13 @@ public class SitesPortlet extends MVCPortlet {
 
 			PortletURL favoritePortletURL = resourceResponse.createActionURL();
 
-			favoritePortletURL.setWindowState(WindowState.NORMAL);
-
 			favoritePortletURL.setParameter(
 				ActionRequest.ACTION_NAME, "updateFavorites");
 			favoritePortletURL.setParameter(
 				"redirect", themeDisplay.getURLCurrent());
 			favoritePortletURL.setParameter(
 				"groupId", String.valueOf(group.getGroupId()));
+			favoritePortletURL.setWindowState(WindowState.NORMAL);
 
 			if (!member && !group.hasPublicLayouts()) {
 				groupJSONObject.put("favoriteURL", StringPool.BLANK);
@@ -532,8 +531,21 @@ public class SitesPortlet extends MVCPortlet {
 			ActionRequest actionRequest, ActionResponse actionResponse)
 		throws Exception {
 
+		ThemeDisplay themeDisplay = (ThemeDisplay)actionRequest.getAttribute(
+			WebKeys.THEME_DISPLAY);
+
+		Map<Locale, String> nameMap = new HashMap<>();
+
 		String name = ParamUtil.getString(actionRequest, "name");
+
+		nameMap.put(themeDisplay.getLocale(), name);
+
+		Map<Locale, String> descriptionMap = new HashMap<>();
+
 		String description = ParamUtil.getString(actionRequest, "description");
+
+		descriptionMap.put(themeDisplay.getLocale(), description);
+
 		long layoutSetPrototypeId = ParamUtil.getLong(
 			actionRequest, "layoutSetPrototypeId");
 
@@ -557,8 +569,10 @@ public class SitesPortlet extends MVCPortlet {
 			Group.class.getName(), actionRequest);
 
 		Group group = GroupServiceUtil.addGroup(
-			name, description, type, StringPool.BLANK, true, true,
-			serviceContext);
+			GroupConstants.DEFAULT_PARENT_GROUP_ID,
+			GroupConstants.DEFAULT_LIVE_GROUP_ID, nameMap, descriptionMap, type,
+			true, GroupConstants.DEFAULT_MEMBERSHIP_RESTRICTION,
+			StringPool.BLANK, true, true, serviceContext);
 
 		long publicLayoutSetPrototypeId = 0;
 		long privateLayoutSetPrototypeId = 0;
@@ -671,7 +685,7 @@ public class SitesPortlet extends MVCPortlet {
 	}
 
 	private static final String _CLASS_NAME =
-		"com.liferay.portlet.sites.util.SitesUtil";
+		"com.liferay.sites.kernel.util.SitesUtil";
 
 	private static MethodKey _mergeLayoutSetPrototypeLayoutsMethodKey =
 		new MethodKey(

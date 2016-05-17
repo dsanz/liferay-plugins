@@ -14,14 +14,15 @@
 
 package com.liferay.resourcesimporter.util;
 
+import com.liferay.portal.kernel.model.LayoutSetPrototype;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.PortalRunMode;
 import com.liferay.portal.kernel.util.PropertiesUtil;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.StringUtil;
-import com.liferay.portal.model.LayoutSetPrototype;
 
 import java.io.IOException;
+import java.io.InputStream;
 
 import java.util.Properties;
 
@@ -35,13 +36,14 @@ public class PluginPackageProperties {
 	public PluginPackageProperties(ServletContext servletContext)
 		throws IOException {
 
-		String propertiesString = StringUtil.read(
-			servletContext.getResourceAsStream(
-				"/WEB-INF/liferay-plugin-package.properties"));
+		InputStream inputStream = servletContext.getResourceAsStream(
+			"/WEB-INF/liferay-plugin-package.properties");
 
-		if (propertiesString == null) {
+		if (inputStream == null) {
 			return;
 		}
+
+		String propertiesString = StringUtil.read(inputStream);
 
 		String contextPath = servletContext.getRealPath(StringPool.SLASH);
 

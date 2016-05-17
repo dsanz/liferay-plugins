@@ -17,8 +17,19 @@
 
 package com.liferay.so.util;
 
+import com.liferay.expando.kernel.model.ExpandoTableConstants;
+import com.liferay.expando.kernel.model.ExpandoValue;
+import com.liferay.expando.kernel.service.ExpandoValueLocalServiceUtil;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.model.Group;
+import com.liferay.portal.kernel.model.Layout;
+import com.liferay.portal.kernel.model.LayoutSet;
+import com.liferay.portal.kernel.model.LayoutSetPrototype;
+import com.liferay.portal.kernel.service.LayoutLocalServiceUtil;
+import com.liferay.portal.kernel.service.LayoutSetLocalServiceUtil;
+import com.liferay.portal.kernel.service.LayoutSetPrototypeLocalServiceUtil;
+import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.ClassResolverUtil;
 import com.liferay.portal.kernel.util.ListUtil;
@@ -26,18 +37,7 @@ import com.liferay.portal.kernel.util.MethodKey;
 import com.liferay.portal.kernel.util.PortalClassInvoker;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.UnicodeProperties;
-import com.liferay.portal.model.Group;
-import com.liferay.portal.model.Layout;
-import com.liferay.portal.model.LayoutSet;
-import com.liferay.portal.model.LayoutSetPrototype;
-import com.liferay.portal.service.LayoutLocalServiceUtil;
-import com.liferay.portal.service.LayoutSetLocalServiceUtil;
-import com.liferay.portal.service.LayoutSetPrototypeLocalServiceUtil;
-import com.liferay.portal.service.ServiceContext;
-import com.liferay.portal.util.comparator.LayoutPriorityComparator;
-import com.liferay.portlet.expando.model.ExpandoTableConstants;
-import com.liferay.portlet.expando.model.ExpandoValue;
-import com.liferay.portlet.expando.service.ExpandoValueLocalServiceUtil;
+import com.liferay.portal.kernel.util.comparator.LayoutPriorityComparator;
 
 import java.util.List;
 
@@ -90,7 +90,7 @@ public class LayoutSetPrototypeUtil {
 		LayoutSetLocalServiceUtil.updateLayoutSet(layoutSet);
 
 		LayoutSetLocalServiceUtil.updateLookAndFeel(
-			group.getGroupId(), null, null, StringPool.BLANK, false);
+			group.getGroupId(), null, null, StringPool.BLANK);
 
 		LayoutSetPrototype layoutSetPrototype = fetchLayoutSetPrototype(
 			group.getCompanyId(), layoutSetPrototypeKey);
@@ -154,7 +154,7 @@ public class LayoutSetPrototypeUtil {
 	private static MethodKey _mergeLayoutSetPrototypeLayoutsMethodKey =
 		new MethodKey(
 			ClassResolverUtil.resolveByPortalClassLoader(
-				"com.liferay.portlet.sites.util.SitesUtil"),
+				"com.liferay.sites.kernel.util.SitesUtil"),
 			"mergeLayoutSetPrototypeLayouts", Group.class, LayoutSet.class);
 
 }

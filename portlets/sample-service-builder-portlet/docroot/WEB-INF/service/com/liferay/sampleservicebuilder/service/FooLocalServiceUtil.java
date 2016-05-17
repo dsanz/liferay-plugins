@@ -14,9 +14,11 @@
 
 package com.liferay.sampleservicebuilder.service;
 
+import aQute.bnd.annotation.ProviderType;
+
 import com.liferay.portal.kernel.bean.PortletBeanLocatorUtil;
+import com.liferay.portal.kernel.service.InvokableLocalService;
 import com.liferay.portal.kernel.util.ReferenceRegistry;
-import com.liferay.portal.service.InvokableLocalService;
 
 /**
  * Provides the local service utility for Foo. This utility wraps
@@ -32,18 +34,43 @@ import com.liferay.portal.service.InvokableLocalService;
  * @see com.liferay.sampleservicebuilder.service.impl.FooLocalServiceImpl
  * @generated
  */
+@ProviderType
 public class FooLocalServiceUtil {
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify this class directly. Add custom service methods to {@link com.liferay.sampleservicebuilder.service.impl.FooLocalServiceImpl} and rerun ServiceBuilder to regenerate this class.
 	 */
-	public static void addFoo(java.lang.String field1, boolean field2,
-		int field3, java.util.Date field4, java.lang.String field5,
-		com.liferay.portal.service.ServiceContext serviceContext)
+	public static com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery getActionableDynamicQuery() {
+		return getService().getActionableDynamicQuery();
+	}
+
+	public static com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery() {
+		return getService().dynamicQuery();
+	}
+
+	public static com.liferay.portal.kernel.dao.orm.ExportActionableDynamicQuery getExportActionableDynamicQuery(
+		com.liferay.exportimport.kernel.lar.PortletDataContext portletDataContext) {
+		return getService().getExportActionableDynamicQuery(portletDataContext);
+	}
+
+	public static com.liferay.portal.kernel.dao.orm.IndexableActionableDynamicQuery getIndexableActionableDynamicQuery() {
+		return getService().getIndexableActionableDynamicQuery();
+	}
+
+	/**
+	* @throws PortalException
+	*/
+	public static com.liferay.portal.kernel.model.PersistedModel deletePersistedModel(
+		com.liferay.portal.kernel.model.PersistedModel persistedModel)
 		throws com.liferay.portal.kernel.exception.PortalException {
-		getService()
-			.addFoo(field1, field2, field3, field4, field5, serviceContext);
+		return getService().deletePersistedModel(persistedModel);
+	}
+
+	public static com.liferay.portal.kernel.model.PersistedModel getPersistedModel(
+		java.io.Serializable primaryKeyObj)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		return getService().getPersistedModel(primaryKeyObj);
 	}
 
 	/**
@@ -91,17 +118,86 @@ public class FooLocalServiceUtil {
 		return getService().deleteFoo(fooId);
 	}
 
-	/**
-	* @throws PortalException
-	*/
-	public static com.liferay.portal.model.PersistedModel deletePersistedModel(
-		com.liferay.portal.model.PersistedModel persistedModel)
-		throws com.liferay.portal.kernel.exception.PortalException {
-		return getService().deletePersistedModel(persistedModel);
+	public static com.liferay.sampleservicebuilder.model.Foo fetchFoo(
+		long fooId) {
+		return getService().fetchFoo(fooId);
 	}
 
-	public static com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery() {
-		return getService().dynamicQuery();
+	/**
+	* Returns the foo matching the UUID and group.
+	*
+	* @param uuid the foo's UUID
+	* @param groupId the primary key of the group
+	* @return the matching foo, or <code>null</code> if a matching foo could not be found
+	*/
+	public static com.liferay.sampleservicebuilder.model.Foo fetchFooByUuidAndGroupId(
+		java.lang.String uuid, long groupId) {
+		return getService().fetchFooByUuidAndGroupId(uuid, groupId);
+	}
+
+	/**
+	* Returns the foo with the primary key.
+	*
+	* @param fooId the primary key of the foo
+	* @return the foo
+	* @throws PortalException if a foo with the primary key could not be found
+	*/
+	public static com.liferay.sampleservicebuilder.model.Foo getFoo(long fooId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		return getService().getFoo(fooId);
+	}
+
+	/**
+	* Returns the foo matching the UUID and group.
+	*
+	* @param uuid the foo's UUID
+	* @param groupId the primary key of the group
+	* @return the matching foo
+	* @throws PortalException if a matching foo could not be found
+	*/
+	public static com.liferay.sampleservicebuilder.model.Foo getFooByUuidAndGroupId(
+		java.lang.String uuid, long groupId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		return getService().getFooByUuidAndGroupId(uuid, groupId);
+	}
+
+	/**
+	* Updates the foo in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
+	*
+	* @param foo the foo
+	* @return the foo that was updated
+	*/
+	public static com.liferay.sampleservicebuilder.model.Foo updateFoo(
+		com.liferay.sampleservicebuilder.model.Foo foo) {
+		return getService().updateFoo(foo);
+	}
+
+	/**
+	* Returns the number of foos.
+	*
+	* @return the number of foos
+	*/
+	public static int getFoosCount() {
+		return getService().getFoosCount();
+	}
+
+	public static java.lang.Object getLocalObject() throws java.lang.Exception {
+		return getService().getLocalObject();
+	}
+
+	public static java.lang.Object invokeMethod(java.lang.String name,
+		java.lang.String[] parameterTypes, java.lang.Object[] arguments)
+		throws java.lang.Throwable {
+		return getService().invokeMethod(name, parameterTypes, arguments);
+	}
+
+	/**
+	* Returns the OSGi service identifier.
+	*
+	* @return the OSGi service identifier
+	*/
+	public static java.lang.String getOSGiServiceIdentifier() {
+		return getService().getOSGiServiceIdentifier();
 	}
 
 	/**
@@ -154,91 +250,6 @@ public class FooLocalServiceUtil {
 				   .dynamicQuery(dynamicQuery, start, end, orderByComparator);
 	}
 
-	/**
-	* Returns the number of rows that match the dynamic query.
-	*
-	* @param dynamicQuery the dynamic query
-	* @return the number of rows that match the dynamic query
-	*/
-	public static long dynamicQueryCount(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery) {
-		return getService().dynamicQueryCount(dynamicQuery);
-	}
-
-	/**
-	* Returns the number of rows that match the dynamic query.
-	*
-	* @param dynamicQuery the dynamic query
-	* @param projection the projection to apply to the query
-	* @return the number of rows that match the dynamic query
-	*/
-	public static long dynamicQueryCount(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery,
-		com.liferay.portal.kernel.dao.orm.Projection projection) {
-		return getService().dynamicQueryCount(dynamicQuery, projection);
-	}
-
-	public static com.liferay.sampleservicebuilder.model.Foo fetchFoo(
-		long fooId) {
-		return getService().fetchFoo(fooId);
-	}
-
-	/**
-	* Returns the foo matching the UUID and group.
-	*
-	* @param uuid the foo's UUID
-	* @param groupId the primary key of the group
-	* @return the matching foo, or <code>null</code> if a matching foo could not be found
-	*/
-	public static com.liferay.sampleservicebuilder.model.Foo fetchFooByUuidAndGroupId(
-		java.lang.String uuid, long groupId) {
-		return getService().fetchFooByUuidAndGroupId(uuid, groupId);
-	}
-
-	public static com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery getActionableDynamicQuery() {
-		return getService().getActionableDynamicQuery();
-	}
-
-	/**
-	* Returns the Spring bean ID for this bean.
-	*
-	* @return the Spring bean ID for this bean
-	*/
-	public static java.lang.String getBeanIdentifier() {
-		return getService().getBeanIdentifier();
-	}
-
-	public static com.liferay.portal.kernel.dao.orm.ExportActionableDynamicQuery getExportActionableDynamicQuery(
-		com.liferay.portal.kernel.lar.PortletDataContext portletDataContext) {
-		return getService().getExportActionableDynamicQuery(portletDataContext);
-	}
-
-	/**
-	* Returns the foo with the primary key.
-	*
-	* @param fooId the primary key of the foo
-	* @return the foo
-	* @throws PortalException if a foo with the primary key could not be found
-	*/
-	public static com.liferay.sampleservicebuilder.model.Foo getFoo(long fooId)
-		throws com.liferay.portal.kernel.exception.PortalException {
-		return getService().getFoo(fooId);
-	}
-
-	/**
-	* Returns the foo matching the UUID and group.
-	*
-	* @param uuid the foo's UUID
-	* @param groupId the primary key of the group
-	* @return the matching foo
-	* @throws PortalException if a matching foo could not be found
-	*/
-	public static com.liferay.sampleservicebuilder.model.Foo getFooByUuidAndGroupId(
-		java.lang.String uuid, long groupId)
-		throws com.liferay.portal.kernel.exception.PortalException {
-		return getService().getFooByUuidAndGroupId(uuid, groupId);
-	}
-
 	public static java.util.List<com.liferay.sampleservicebuilder.model.Foo> getFoos(
 		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.sampleservicebuilder.model.Foo> obc) {
 		return getService().getFoos(obc);
@@ -266,11 +277,28 @@ public class FooLocalServiceUtil {
 		return getService().getFoos(start, end, obc);
 	}
 
+	/**
+	* Returns all the foos matching the UUID and company.
+	*
+	* @param uuid the UUID of the foos
+	* @param companyId the primary key of the company
+	* @return the matching foos, or an empty list if no matches were found
+	*/
 	public static java.util.List<com.liferay.sampleservicebuilder.model.Foo> getFoosByUuidAndCompanyId(
 		java.lang.String uuid, long companyId) {
 		return getService().getFoosByUuidAndCompanyId(uuid, companyId);
 	}
 
+	/**
+	* Returns a range of foos matching the UUID and company.
+	*
+	* @param uuid the UUID of the foos
+	* @param companyId the primary key of the company
+	* @param start the lower bound of the range of foos
+	* @param end the upper bound of the range of foos (not inclusive)
+	* @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	* @return the range of matching foos, or an empty list if no matches were found
+	*/
 	public static java.util.List<com.liferay.sampleservicebuilder.model.Foo> getFoosByUuidAndCompanyId(
 		java.lang.String uuid, long companyId, int start, int end,
 		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.sampleservicebuilder.model.Foo> orderByComparator) {
@@ -280,37 +308,35 @@ public class FooLocalServiceUtil {
 	}
 
 	/**
-	* Returns the number of foos.
+	* Returns the number of rows matching the dynamic query.
 	*
-	* @return the number of foos
+	* @param dynamicQuery the dynamic query
+	* @return the number of rows matching the dynamic query
 	*/
-	public static int getFoosCount() {
-		return getService().getFoosCount();
-	}
-
-	public static java.lang.Object getLocalObject() throws java.lang.Exception {
-		return getService().getLocalObject();
-	}
-
-	public static com.liferay.portal.model.PersistedModel getPersistedModel(
-		java.io.Serializable primaryKeyObj)
-		throws com.liferay.portal.kernel.exception.PortalException {
-		return getService().getPersistedModel(primaryKeyObj);
-	}
-
-	public static java.lang.Object invokeMethod(java.lang.String name,
-		java.lang.String[] parameterTypes, java.lang.Object[] arguments)
-		throws java.lang.Throwable {
-		return getService().invokeMethod(name, parameterTypes, arguments);
+	public static long dynamicQueryCount(
+		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery) {
+		return getService().dynamicQueryCount(dynamicQuery);
 	}
 
 	/**
-	* Sets the Spring bean ID for this bean.
+	* Returns the number of rows matching the dynamic query.
 	*
-	* @param beanIdentifier the Spring bean ID for this bean
+	* @param dynamicQuery the dynamic query
+	* @param projection the projection to apply to the query
+	* @return the number of rows matching the dynamic query
 	*/
-	public static void setBeanIdentifier(java.lang.String beanIdentifier) {
-		getService().setBeanIdentifier(beanIdentifier);
+	public static long dynamicQueryCount(
+		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery,
+		com.liferay.portal.kernel.dao.orm.Projection projection) {
+		return getService().dynamicQueryCount(dynamicQuery, projection);
+	}
+
+	public static void addFoo(java.lang.String field1, boolean field2,
+		int field3, java.util.Date field4, java.lang.String field5,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		getService()
+			.addFoo(field1, field2, field3, field4, field5, serviceContext);
 	}
 
 	public static void updateAsset(long userId,
@@ -320,21 +346,10 @@ public class FooLocalServiceUtil {
 		getService().updateAsset(userId, foo, assetCategoryIds, assetTagNames);
 	}
 
-	/**
-	* Updates the foo in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
-	*
-	* @param foo the foo
-	* @return the foo that was updated
-	*/
-	public static com.liferay.sampleservicebuilder.model.Foo updateFoo(
-		com.liferay.sampleservicebuilder.model.Foo foo) {
-		return getService().updateFoo(foo);
-	}
-
 	public static void updateFoo(long fooId, java.lang.String field1,
 		boolean field2, int field3, java.util.Date field4,
 		java.lang.String field5,
-		com.liferay.portal.service.ServiceContext serviceContext)
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		getService()
 			.updateFoo(fooId, field1, field2, field3, field4, field5,
@@ -362,13 +377,6 @@ public class FooLocalServiceUtil {
 		}
 
 		return _service;
-	}
-
-	/**
-	 * @deprecated As of 6.2.0
-	 */
-	@Deprecated
-	public void setService(FooLocalService service) {
 	}
 
 	private static FooLocalService _service;

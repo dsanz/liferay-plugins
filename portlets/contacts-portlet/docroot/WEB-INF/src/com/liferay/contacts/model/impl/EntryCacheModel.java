@@ -14,11 +14,14 @@
 
 package com.liferay.contacts.model.impl;
 
+import aQute.bnd.annotation.ProviderType;
+
 import com.liferay.contacts.model.Entry;
 
+import com.liferay.portal.kernel.model.CacheModel;
+import com.liferay.portal.kernel.util.HashUtil;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringPool;
-import com.liferay.portal.model.CacheModel;
 
 import java.io.Externalizable;
 import java.io.IOException;
@@ -34,7 +37,32 @@ import java.util.Date;
  * @see Entry
  * @generated
  */
+@ProviderType
 public class EntryCacheModel implements CacheModel<Entry>, Externalizable {
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+
+		if (!(obj instanceof EntryCacheModel)) {
+			return false;
+		}
+
+		EntryCacheModel entryCacheModel = (EntryCacheModel)obj;
+
+		if (entryId == entryCacheModel.entryId) {
+			return true;
+		}
+
+		return false;
+	}
+
+	@Override
+	public int hashCode() {
+		return HashUtil.hash(0, entryId);
+	}
+
 	@Override
 	public String toString() {
 		StringBundler sb = new StringBundler(21);
@@ -123,8 +151,11 @@ public class EntryCacheModel implements CacheModel<Entry>, Externalizable {
 	@Override
 	public void readExternal(ObjectInput objectInput) throws IOException {
 		entryId = objectInput.readLong();
+
 		groupId = objectInput.readLong();
+
 		companyId = objectInput.readLong();
+
 		userId = objectInput.readLong();
 		userName = objectInput.readUTF();
 		createDate = objectInput.readLong();
@@ -138,8 +169,11 @@ public class EntryCacheModel implements CacheModel<Entry>, Externalizable {
 	public void writeExternal(ObjectOutput objectOutput)
 		throws IOException {
 		objectOutput.writeLong(entryId);
+
 		objectOutput.writeLong(groupId);
+
 		objectOutput.writeLong(companyId);
+
 		objectOutput.writeLong(userId);
 
 		if (userName == null) {

@@ -17,7 +17,7 @@
 <%@ include file="/init.jsp" %>
 
 <%
-ResourceBundle resourceBundle = portletConfig.getResourceBundle(locale);
+ResourceBundle portletConfigResourceBundle = portletConfig.getResourceBundle(locale);
 %>
 
 Test only in
@@ -51,6 +51,7 @@ Test only in
 			<th></th>
 		</tr>
 	</thead>
+
 	<tbody>
 
 		<%
@@ -236,7 +237,7 @@ Test only in
 					String resourceBundleActualValue = key;
 
 					try {
-						resourceBundleActualValue = resourceBundle.getString(key);
+						resourceBundleActualValue = portletConfigResourceBundle.getString(key);
 					}
 					catch (Exception e) {
 					}

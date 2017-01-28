@@ -14,7 +14,9 @@
 
 package com.liferay.words.service;
 
-import com.liferay.portal.service.ServiceWrapper;
+import aQute.bnd.annotation.ProviderType;
+
+import com.liferay.portal.kernel.service.ServiceWrapper;
 
 /**
  * Provides a wrapper for {@link WordsService}.
@@ -23,32 +25,11 @@ import com.liferay.portal.service.ServiceWrapper;
  * @see WordsService
  * @generated
  */
+@ProviderType
 public class WordsServiceWrapper implements WordsService,
 	ServiceWrapper<WordsService> {
 	public WordsServiceWrapper(WordsService wordsService) {
 		_wordsService = wordsService;
-	}
-
-	@Override
-	public java.util.List<java.lang.String> checkSpelling(java.lang.String text)
-		throws java.lang.Exception {
-		return _wordsService.checkSpelling(text);
-	}
-
-	/**
-	* Returns the Spring bean ID for this bean.
-	*
-	* @return the Spring bean ID for this bean
-	*/
-	@Override
-	public java.lang.String getBeanIdentifier() {
-		return _wordsService.getBeanIdentifier();
-	}
-
-	@Override
-	public java.util.List<java.lang.String> getSuggestions(
-		java.lang.String word) throws java.lang.Exception {
-		return _wordsService.getSuggestions(word);
 	}
 
 	@Override
@@ -59,29 +40,25 @@ public class WordsServiceWrapper implements WordsService,
 	}
 
 	/**
-	* Sets the Spring bean ID for this bean.
+	* Returns the OSGi service identifier.
 	*
-	* @param beanIdentifier the Spring bean ID for this bean
+	* @return the OSGi service identifier
 	*/
 	@Override
-	public void setBeanIdentifier(java.lang.String beanIdentifier) {
-		_wordsService.setBeanIdentifier(beanIdentifier);
+	public java.lang.String getOSGiServiceIdentifier() {
+		return _wordsService.getOSGiServiceIdentifier();
 	}
 
-	/**
-	 * @deprecated As of 6.1.0, replaced by {@link #getWrappedService}
-	 */
-	@Deprecated
-	public WordsService getWrappedWordsService() {
-		return _wordsService;
+	@Override
+	public java.util.List<java.lang.String> checkSpelling(java.lang.String text)
+		throws java.lang.Exception {
+		return _wordsService.checkSpelling(text);
 	}
 
-	/**
-	 * @deprecated As of 6.1.0, replaced by {@link #setWrappedService}
-	 */
-	@Deprecated
-	public void setWrappedWordsService(WordsService wordsService) {
-		_wordsService = wordsService;
+	@Override
+	public java.util.List<java.lang.String> getSuggestions(
+		java.lang.String word) throws java.lang.Exception {
+		return _wordsService.getSuggestions(word);
 	}
 
 	@Override

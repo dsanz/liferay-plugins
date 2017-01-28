@@ -14,8 +14,15 @@
 
 package com.liferay.testpacl.model;
 
+import aQute.bnd.annotation.ProviderType;
+
+import com.liferay.expando.kernel.model.ExpandoBridge;
+
+import com.liferay.portal.kernel.model.ModelWrapper;
+import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.util.Validator;
-import com.liferay.portal.model.ModelWrapper;
+
+import java.io.Serializable;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -30,6 +37,7 @@ import java.util.Map;
  * @see Foo
  * @generated
  */
+@ProviderType
 public class FooWrapper implements Foo, ModelWrapper<Foo> {
 	public FooWrapper(Foo foo) {
 		_foo = foo;
@@ -140,51 +148,6 @@ public class FooWrapper implements Foo, ModelWrapper<Foo> {
 		}
 	}
 
-	@Override
-	public java.lang.Object clone() {
-		return new FooWrapper((Foo)_foo.clone());
-	}
-
-	@Override
-	public int compareTo(com.liferay.testpacl.model.Foo foo) {
-		return _foo.compareTo(foo);
-	}
-
-	/**
-	* Returns the company ID of this foo.
-	*
-	* @return the company ID of this foo
-	*/
-	@Override
-	public long getCompanyId() {
-		return _foo.getCompanyId();
-	}
-
-	/**
-	* Returns the create date of this foo.
-	*
-	* @return the create date of this foo
-	*/
-	@Override
-	public java.util.Date getCreateDate() {
-		return _foo.getCreateDate();
-	}
-
-	@Override
-	public com.liferay.portlet.expando.model.ExpandoBridge getExpandoBridge() {
-		return _foo.getExpandoBridge();
-	}
-
-	/**
-	* Returns the field1 of this foo.
-	*
-	* @return the field1 of this foo
-	*/
-	@Override
-	public java.lang.String getField1() {
-		return _foo.getField1();
-	}
-
 	/**
 	* Returns the field2 of this foo.
 	*
@@ -193,116 +156,6 @@ public class FooWrapper implements Foo, ModelWrapper<Foo> {
 	@Override
 	public boolean getField2() {
 		return _foo.getField2();
-	}
-
-	/**
-	* Returns the field3 of this foo.
-	*
-	* @return the field3 of this foo
-	*/
-	@Override
-	public int getField3() {
-		return _foo.getField3();
-	}
-
-	/**
-	* Returns the field4 of this foo.
-	*
-	* @return the field4 of this foo
-	*/
-	@Override
-	public java.util.Date getField4() {
-		return _foo.getField4();
-	}
-
-	/**
-	* Returns the field5 of this foo.
-	*
-	* @return the field5 of this foo
-	*/
-	@Override
-	public java.lang.String getField5() {
-		return _foo.getField5();
-	}
-
-	/**
-	* Returns the foo ID of this foo.
-	*
-	* @return the foo ID of this foo
-	*/
-	@Override
-	public long getFooId() {
-		return _foo.getFooId();
-	}
-
-	/**
-	* Returns the group ID of this foo.
-	*
-	* @return the group ID of this foo
-	*/
-	@Override
-	public long getGroupId() {
-		return _foo.getGroupId();
-	}
-
-	/**
-	* Returns the modified date of this foo.
-	*
-	* @return the modified date of this foo
-	*/
-	@Override
-	public java.util.Date getModifiedDate() {
-		return _foo.getModifiedDate();
-	}
-
-	/**
-	* Returns the primary key of this foo.
-	*
-	* @return the primary key of this foo
-	*/
-	@Override
-	public long getPrimaryKey() {
-		return _foo.getPrimaryKey();
-	}
-
-	@Override
-	public java.io.Serializable getPrimaryKeyObj() {
-		return _foo.getPrimaryKeyObj();
-	}
-
-	/**
-	* Returns the user ID of this foo.
-	*
-	* @return the user ID of this foo
-	*/
-	@Override
-	public long getUserId() {
-		return _foo.getUserId();
-	}
-
-	/**
-	* Returns the user name of this foo.
-	*
-	* @return the user name of this foo
-	*/
-	@Override
-	public java.lang.String getUserName() {
-		return _foo.getUserName();
-	}
-
-	/**
-	* Returns the user uuid of this foo.
-	*
-	* @return the user uuid of this foo
-	*/
-	@Override
-	public java.lang.String getUserUuid() {
-		return _foo.getUserUuid();
-	}
-
-	@Override
-	public int hashCode() {
-		return _foo.hashCode();
 	}
 
 	@Override
@@ -331,6 +184,186 @@ public class FooWrapper implements Foo, ModelWrapper<Foo> {
 	}
 
 	@Override
+	public ExpandoBridge getExpandoBridge() {
+		return _foo.getExpandoBridge();
+	}
+
+	@Override
+	public com.liferay.portal.kernel.model.CacheModel<com.liferay.testpacl.model.Foo> toCacheModel() {
+		return _foo.toCacheModel();
+	}
+
+	@Override
+	public com.liferay.testpacl.model.Foo toEscapedModel() {
+		return new FooWrapper(_foo.toEscapedModel());
+	}
+
+	@Override
+	public com.liferay.testpacl.model.Foo toUnescapedModel() {
+		return new FooWrapper(_foo.toUnescapedModel());
+	}
+
+	@Override
+	public int compareTo(com.liferay.testpacl.model.Foo foo) {
+		return _foo.compareTo(foo);
+	}
+
+	/**
+	* Returns the field3 of this foo.
+	*
+	* @return the field3 of this foo
+	*/
+	@Override
+	public int getField3() {
+		return _foo.getField3();
+	}
+
+	@Override
+	public int hashCode() {
+		return _foo.hashCode();
+	}
+
+	@Override
+	public Serializable getPrimaryKeyObj() {
+		return _foo.getPrimaryKeyObj();
+	}
+
+	@Override
+	public java.lang.Object clone() {
+		return new FooWrapper((Foo)_foo.clone());
+	}
+
+	/**
+	* Returns the field1 of this foo.
+	*
+	* @return the field1 of this foo
+	*/
+	@Override
+	public java.lang.String getField1() {
+		return _foo.getField1();
+	}
+
+	/**
+	* Returns the field5 of this foo.
+	*
+	* @return the field5 of this foo
+	*/
+	@Override
+	public java.lang.String getField5() {
+		return _foo.getField5();
+	}
+
+	/**
+	* Returns the user name of this foo.
+	*
+	* @return the user name of this foo
+	*/
+	@Override
+	public java.lang.String getUserName() {
+		return _foo.getUserName();
+	}
+
+	/**
+	* Returns the user uuid of this foo.
+	*
+	* @return the user uuid of this foo
+	*/
+	@Override
+	public java.lang.String getUserUuid() {
+		return _foo.getUserUuid();
+	}
+
+	@Override
+	public java.lang.String toString() {
+		return _foo.toString();
+	}
+
+	@Override
+	public java.lang.String toXmlString() {
+		return _foo.toXmlString();
+	}
+
+	/**
+	* Returns the create date of this foo.
+	*
+	* @return the create date of this foo
+	*/
+	@Override
+	public Date getCreateDate() {
+		return _foo.getCreateDate();
+	}
+
+	/**
+	* Returns the field4 of this foo.
+	*
+	* @return the field4 of this foo
+	*/
+	@Override
+	public Date getField4() {
+		return _foo.getField4();
+	}
+
+	/**
+	* Returns the modified date of this foo.
+	*
+	* @return the modified date of this foo
+	*/
+	@Override
+	public Date getModifiedDate() {
+		return _foo.getModifiedDate();
+	}
+
+	/**
+	* Returns the company ID of this foo.
+	*
+	* @return the company ID of this foo
+	*/
+	@Override
+	public long getCompanyId() {
+		return _foo.getCompanyId();
+	}
+
+	/**
+	* Returns the foo ID of this foo.
+	*
+	* @return the foo ID of this foo
+	*/
+	@Override
+	public long getFooId() {
+		return _foo.getFooId();
+	}
+
+	/**
+	* Returns the group ID of this foo.
+	*
+	* @return the group ID of this foo
+	*/
+	@Override
+	public long getGroupId() {
+		return _foo.getGroupId();
+	}
+
+	/**
+	* Returns the primary key of this foo.
+	*
+	* @return the primary key of this foo
+	*/
+	@Override
+	public long getPrimaryKey() {
+		return _foo.getPrimaryKey();
+	}
+
+	/**
+	* Returns the user ID of this foo.
+	*
+	* @return the user ID of this foo
+	*/
+	@Override
+	public long getUserId() {
+		return _foo.getUserId();
+	}
+
+	@Override
 	public void persist() {
 		_foo.persist();
 	}
@@ -356,25 +389,23 @@ public class FooWrapper implements Foo, ModelWrapper<Foo> {
 	* @param createDate the create date of this foo
 	*/
 	@Override
-	public void setCreateDate(java.util.Date createDate) {
+	public void setCreateDate(Date createDate) {
 		_foo.setCreateDate(createDate);
 	}
 
 	@Override
-	public void setExpandoBridgeAttributes(
-		com.liferay.portal.model.BaseModel<?> baseModel) {
-		_foo.setExpandoBridgeAttributes(baseModel);
-	}
-
-	@Override
-	public void setExpandoBridgeAttributes(
-		com.liferay.portlet.expando.model.ExpandoBridge expandoBridge) {
+	public void setExpandoBridgeAttributes(ExpandoBridge expandoBridge) {
 		_foo.setExpandoBridgeAttributes(expandoBridge);
 	}
 
 	@Override
 	public void setExpandoBridgeAttributes(
-		com.liferay.portal.service.ServiceContext serviceContext) {
+		com.liferay.portal.kernel.model.BaseModel<?> baseModel) {
+		_foo.setExpandoBridgeAttributes(baseModel);
+	}
+
+	@Override
+	public void setExpandoBridgeAttributes(ServiceContext serviceContext) {
 		_foo.setExpandoBridgeAttributes(serviceContext);
 	}
 
@@ -414,7 +445,7 @@ public class FooWrapper implements Foo, ModelWrapper<Foo> {
 	* @param field4 the field4 of this foo
 	*/
 	@Override
-	public void setField4(java.util.Date field4) {
+	public void setField4(Date field4) {
 		_foo.setField4(field4);
 	}
 
@@ -454,7 +485,7 @@ public class FooWrapper implements Foo, ModelWrapper<Foo> {
 	* @param modifiedDate the modified date of this foo
 	*/
 	@Override
-	public void setModifiedDate(java.util.Date modifiedDate) {
+	public void setModifiedDate(Date modifiedDate) {
 		_foo.setModifiedDate(modifiedDate);
 	}
 
@@ -474,7 +505,7 @@ public class FooWrapper implements Foo, ModelWrapper<Foo> {
 	}
 
 	@Override
-	public void setPrimaryKeyObj(java.io.Serializable primaryKeyObj) {
+	public void setPrimaryKeyObj(Serializable primaryKeyObj) {
 		_foo.setPrimaryKeyObj(primaryKeyObj);
 	}
 
@@ -509,31 +540,6 @@ public class FooWrapper implements Foo, ModelWrapper<Foo> {
 	}
 
 	@Override
-	public com.liferay.portal.model.CacheModel<com.liferay.testpacl.model.Foo> toCacheModel() {
-		return _foo.toCacheModel();
-	}
-
-	@Override
-	public com.liferay.testpacl.model.Foo toEscapedModel() {
-		return new FooWrapper(_foo.toEscapedModel());
-	}
-
-	@Override
-	public java.lang.String toString() {
-		return _foo.toString();
-	}
-
-	@Override
-	public com.liferay.testpacl.model.Foo toUnescapedModel() {
-		return new FooWrapper(_foo.toUnescapedModel());
-	}
-
-	@Override
-	public java.lang.String toXmlString() {
-		return _foo.toXmlString();
-	}
-
-	@Override
 	public boolean equals(Object obj) {
 		if (this == obj) {
 			return true;
@@ -550,14 +556,6 @@ public class FooWrapper implements Foo, ModelWrapper<Foo> {
 		}
 
 		return false;
-	}
-
-	/**
-	 * @deprecated As of 6.1.0, replaced by {@link #getWrappedModel}
-	 */
-	@Deprecated
-	public Foo getWrappedFoo() {
-		return _foo;
 	}
 
 	@Override
@@ -580,5 +578,5 @@ public class FooWrapper implements Foo, ModelWrapper<Foo> {
 		_foo.resetOriginalValues();
 	}
 
-	private Foo _foo;
+	private final Foo _foo;
 }

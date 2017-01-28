@@ -16,7 +16,9 @@ package com.liferay.socialcoding.model;
 
 import aQute.bnd.annotation.ProviderType;
 
-import com.liferay.portal.model.PersistedModel;
+import com.liferay.portal.kernel.annotation.ImplementationClassName;
+import com.liferay.portal.kernel.model.PersistedModel;
+import com.liferay.portal.kernel.util.Accessor;
 
 /**
  * The extended model interface for the JIRAChangeItem service. Represents a row in the &quot;changeitem&quot; database table, with each column mapped to a property of this class.
@@ -27,6 +29,7 @@ import com.liferay.portal.model.PersistedModel;
  * @see com.liferay.socialcoding.model.impl.JIRAChangeItemModelImpl
  * @generated
  */
+@ImplementationClassName("com.liferay.socialcoding.model.impl.JIRAChangeItemImpl")
 @ProviderType
 public interface JIRAChangeItem extends JIRAChangeItemModel, PersistedModel {
 	/*
@@ -34,4 +37,21 @@ public interface JIRAChangeItem extends JIRAChangeItemModel, PersistedModel {
 	 *
 	 * Never modify this interface directly. Add methods to {@link com.liferay.socialcoding.model.impl.JIRAChangeItemImpl} and rerun ServiceBuilder to automatically copy the method declarations to this interface.
 	 */
+	public static final Accessor<JIRAChangeItem, Long> JIRA_CHANGE_ITEM_ID_ACCESSOR =
+		new Accessor<JIRAChangeItem, Long>() {
+			@Override
+			public Long get(JIRAChangeItem jiraChangeItem) {
+				return jiraChangeItem.getJiraChangeItemId();
+			}
+
+			@Override
+			public Class<Long> getAttributeClass() {
+				return Long.class;
+			}
+
+			@Override
+			public Class<JIRAChangeItem> getTypeClass() {
+				return JIRAChangeItem.class;
+			}
+		};
 }

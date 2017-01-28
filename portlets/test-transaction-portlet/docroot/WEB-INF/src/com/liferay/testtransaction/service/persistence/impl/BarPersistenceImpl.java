@@ -14,8 +14,11 @@
 
 package com.liferay.testtransaction.service.persistence.impl;
 
-import com.liferay.portal.kernel.cache.CacheRegistryUtil;
+import aQute.bnd.annotation.ProviderType;
+
+import com.liferay.portal.kernel.dao.orm.EntityCache;
 import com.liferay.portal.kernel.dao.orm.EntityCacheUtil;
+import com.liferay.portal.kernel.dao.orm.FinderCache;
 import com.liferay.portal.kernel.dao.orm.FinderCacheUtil;
 import com.liferay.portal.kernel.dao.orm.FinderPath;
 import com.liferay.portal.kernel.dao.orm.Query;
@@ -24,18 +27,15 @@ import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.dao.orm.Session;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
-import com.liferay.portal.kernel.util.GetterUtil;
+import com.liferay.portal.kernel.model.CacheModel;
+import com.liferay.portal.kernel.service.persistence.impl.BasePersistenceImpl;
 import com.liferay.portal.kernel.util.OrderByComparator;
-import com.liferay.portal.kernel.util.PropsKeys;
-import com.liferay.portal.kernel.util.PropsUtil;
 import com.liferay.portal.kernel.util.SetUtil;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.Validator;
-import com.liferay.portal.model.CacheModel;
-import com.liferay.portal.service.persistence.impl.BasePersistenceImpl;
 
-import com.liferay.testtransaction.NoSuchBarException;
+import com.liferay.testtransaction.exception.NoSuchBarException;
 import com.liferay.testtransaction.model.Bar;
 import com.liferay.testtransaction.model.impl.BarImpl;
 import com.liferay.testtransaction.model.impl.BarModelImpl;
@@ -60,9 +60,10 @@ import java.util.Set;
  *
  * @author Brian Wing Shun Chan
  * @see BarPersistence
- * @see BarUtil
+ * @see com.liferay.testtransaction.service.persistence.BarUtil
  * @generated
  */
+@ProviderType
 public class BarPersistenceImpl extends BasePersistenceImpl<Bar>
 	implements BarPersistence {
 	/*
@@ -118,7 +119,7 @@ public class BarPersistenceImpl extends BasePersistenceImpl<Bar>
 	 * Returns a range of all the bars where text = &#63;.
 	 *
 	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link com.liferay.testtransaction.model.impl.BarModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link BarModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	 * </p>
 	 *
 	 * @param text the text
@@ -135,7 +136,7 @@ public class BarPersistenceImpl extends BasePersistenceImpl<Bar>
 	 * Returns an ordered range of all the bars where text = &#63;.
 	 *
 	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link com.liferay.testtransaction.model.impl.BarModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link BarModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	 * </p>
 	 *
 	 * @param text the text
@@ -147,6 +148,26 @@ public class BarPersistenceImpl extends BasePersistenceImpl<Bar>
 	@Override
 	public List<Bar> findByText(String text, int start, int end,
 		OrderByComparator<Bar> orderByComparator) {
+		return findByText(text, start, end, orderByComparator, true);
+	}
+
+	/**
+	 * Returns an ordered range of all the bars where text = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link BarModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	 * </p>
+	 *
+	 * @param text the text
+	 * @param start the lower bound of the range of bars
+	 * @param end the upper bound of the range of bars (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @return the ordered range of matching bars
+	 */
+	@Override
+	public List<Bar> findByText(String text, int start, int end,
+		OrderByComparator<Bar> orderByComparator, boolean retrieveFromCache) {
 		boolean pagination = true;
 		FinderPath finderPath = null;
 		Object[] finderArgs = null;
@@ -162,15 +183,18 @@ public class BarPersistenceImpl extends BasePersistenceImpl<Bar>
 			finderArgs = new Object[] { text, start, end, orderByComparator };
 		}
 
-		List<Bar> list = (List<Bar>)FinderCacheUtil.getResult(finderPath,
-				finderArgs, this);
+		List<Bar> list = null;
 
-		if ((list != null) && !list.isEmpty()) {
-			for (Bar bar : list) {
-				if (!Validator.equals(text, bar.getText())) {
-					list = null;
+		if (retrieveFromCache) {
+			list = (List<Bar>)finderCache.getResult(finderPath, finderArgs, this);
 
-					break;
+			if ((list != null) && !list.isEmpty()) {
+				for (Bar bar : list) {
+					if (!Validator.equals(text, bar.getText())) {
+						list = null;
+
+						break;
+					}
 				}
 			}
 		}
@@ -180,7 +204,7 @@ public class BarPersistenceImpl extends BasePersistenceImpl<Bar>
 
 			if (orderByComparator != null) {
 				query = new StringBundler(3 +
-						(orderByComparator.getOrderByFields().length * 3));
+						(orderByComparator.getOrderByFields().length * 2));
 			}
 			else {
 				query = new StringBundler(3);
@@ -240,10 +264,10 @@ public class BarPersistenceImpl extends BasePersistenceImpl<Bar>
 
 				cacheResult(list);
 
-				FinderCacheUtil.putResult(finderPath, finderArgs, list);
+				finderCache.putResult(finderPath, finderArgs, list);
 			}
 			catch (Exception e) {
-				FinderCacheUtil.removeResult(finderPath, finderArgs);
+				finderCache.removeResult(finderPath, finderArgs);
 
 				throw processException(e);
 			}
@@ -261,7 +285,7 @@ public class BarPersistenceImpl extends BasePersistenceImpl<Bar>
 	 * @param text the text
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the first matching bar
-	 * @throws com.liferay.testtransaction.NoSuchBarException if a matching bar could not be found
+	 * @throws NoSuchBarException if a matching bar could not be found
 	 */
 	@Override
 	public Bar findByText_First(String text,
@@ -309,7 +333,7 @@ public class BarPersistenceImpl extends BasePersistenceImpl<Bar>
 	 * @param text the text
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the last matching bar
-	 * @throws com.liferay.testtransaction.NoSuchBarException if a matching bar could not be found
+	 * @throws NoSuchBarException if a matching bar could not be found
 	 */
 	@Override
 	public Bar findByText_Last(String text,
@@ -364,7 +388,7 @@ public class BarPersistenceImpl extends BasePersistenceImpl<Bar>
 	 * @param text the text
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the previous, current, and next bar
-	 * @throws com.liferay.testtransaction.NoSuchBarException if a bar with the primary key could not be found
+	 * @throws NoSuchBarException if a bar with the primary key could not be found
 	 */
 	@Override
 	public Bar[] findByText_PrevAndNext(long barId, String text,
@@ -401,8 +425,9 @@ public class BarPersistenceImpl extends BasePersistenceImpl<Bar>
 		StringBundler query = null;
 
 		if (orderByComparator != null) {
-			query = new StringBundler(6 +
-					(orderByComparator.getOrderByFields().length * 6));
+			query = new StringBundler(4 +
+					(orderByComparator.getOrderByConditionFields().length * 3) +
+					(orderByComparator.getOrderByFields().length * 3));
 		}
 		else {
 			query = new StringBundler(3);
@@ -539,8 +564,7 @@ public class BarPersistenceImpl extends BasePersistenceImpl<Bar>
 
 		Object[] finderArgs = new Object[] { text };
 
-		Long count = (Long)FinderCacheUtil.getResult(finderPath, finderArgs,
-				this);
+		Long count = (Long)finderCache.getResult(finderPath, finderArgs, this);
 
 		if (count == null) {
 			StringBundler query = new StringBundler(2);
@@ -578,10 +602,10 @@ public class BarPersistenceImpl extends BasePersistenceImpl<Bar>
 
 				count = (Long)q.uniqueResult();
 
-				FinderCacheUtil.putResult(finderPath, finderArgs, count);
+				finderCache.putResult(finderPath, finderArgs, count);
 			}
 			catch (Exception e) {
-				FinderCacheUtil.removeResult(finderPath, finderArgs);
+				finderCache.removeResult(finderPath, finderArgs);
 
 				throw processException(e);
 			}
@@ -608,8 +632,8 @@ public class BarPersistenceImpl extends BasePersistenceImpl<Bar>
 	 */
 	@Override
 	public void cacheResult(Bar bar) {
-		EntityCacheUtil.putResult(BarModelImpl.ENTITY_CACHE_ENABLED,
-			BarImpl.class, bar.getPrimaryKey(), bar);
+		entityCache.putResult(BarModelImpl.ENTITY_CACHE_ENABLED, BarImpl.class,
+			bar.getPrimaryKey(), bar);
 
 		bar.resetOriginalValues();
 	}
@@ -622,7 +646,7 @@ public class BarPersistenceImpl extends BasePersistenceImpl<Bar>
 	@Override
 	public void cacheResult(List<Bar> bars) {
 		for (Bar bar : bars) {
-			if (EntityCacheUtil.getResult(BarModelImpl.ENTITY_CACHE_ENABLED,
+			if (entityCache.getResult(BarModelImpl.ENTITY_CACHE_ENABLED,
 						BarImpl.class, bar.getPrimaryKey()) == null) {
 				cacheResult(bar);
 			}
@@ -636,45 +660,41 @@ public class BarPersistenceImpl extends BasePersistenceImpl<Bar>
 	 * Clears the cache for all bars.
 	 *
 	 * <p>
-	 * The {@link com.liferay.portal.kernel.dao.orm.EntityCache} and {@link com.liferay.portal.kernel.dao.orm.FinderCache} are both cleared by this method.
+	 * The {@link EntityCache} and {@link FinderCache} are both cleared by this method.
 	 * </p>
 	 */
 	@Override
 	public void clearCache() {
-		if (_HIBERNATE_CACHE_USE_SECOND_LEVEL_CACHE) {
-			CacheRegistryUtil.clear(BarImpl.class.getName());
-		}
+		entityCache.clearCache(BarImpl.class);
 
-		EntityCacheUtil.clearCache(BarImpl.class);
-
-		FinderCacheUtil.clearCache(FINDER_CLASS_NAME_ENTITY);
-		FinderCacheUtil.clearCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
-		FinderCacheUtil.clearCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
+		finderCache.clearCache(FINDER_CLASS_NAME_ENTITY);
+		finderCache.clearCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
+		finderCache.clearCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
 	}
 
 	/**
 	 * Clears the cache for the bar.
 	 *
 	 * <p>
-	 * The {@link com.liferay.portal.kernel.dao.orm.EntityCache} and {@link com.liferay.portal.kernel.dao.orm.FinderCache} are both cleared by this method.
+	 * The {@link EntityCache} and {@link FinderCache} are both cleared by this method.
 	 * </p>
 	 */
 	@Override
 	public void clearCache(Bar bar) {
-		EntityCacheUtil.removeResult(BarModelImpl.ENTITY_CACHE_ENABLED,
+		entityCache.removeResult(BarModelImpl.ENTITY_CACHE_ENABLED,
 			BarImpl.class, bar.getPrimaryKey());
 
-		FinderCacheUtil.clearCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
-		FinderCacheUtil.clearCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
+		finderCache.clearCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
+		finderCache.clearCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
 	}
 
 	@Override
 	public void clearCache(List<Bar> bars) {
-		FinderCacheUtil.clearCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
-		FinderCacheUtil.clearCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
+		finderCache.clearCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
+		finderCache.clearCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
 
 		for (Bar bar : bars) {
-			EntityCacheUtil.removeResult(BarModelImpl.ENTITY_CACHE_ENABLED,
+			entityCache.removeResult(BarModelImpl.ENTITY_CACHE_ENABLED,
 				BarImpl.class, bar.getPrimaryKey());
 		}
 	}
@@ -700,7 +720,7 @@ public class BarPersistenceImpl extends BasePersistenceImpl<Bar>
 	 *
 	 * @param barId the primary key of the bar
 	 * @return the bar that was removed
-	 * @throws com.liferay.testtransaction.NoSuchBarException if a bar with the primary key could not be found
+	 * @throws NoSuchBarException if a bar with the primary key could not be found
 	 */
 	@Override
 	public Bar remove(long barId) throws NoSuchBarException {
@@ -712,7 +732,7 @@ public class BarPersistenceImpl extends BasePersistenceImpl<Bar>
 	 *
 	 * @param primaryKey the primary key of the bar
 	 * @return the bar that was removed
-	 * @throws com.liferay.testtransaction.NoSuchBarException if a bar with the primary key could not be found
+	 * @throws NoSuchBarException if a bar with the primary key could not be found
 	 */
 	@Override
 	public Bar remove(Serializable primaryKey) throws NoSuchBarException {
@@ -724,8 +744,8 @@ public class BarPersistenceImpl extends BasePersistenceImpl<Bar>
 			Bar bar = (Bar)session.get(BarImpl.class, primaryKey);
 
 			if (bar == null) {
-				if (_log.isWarnEnabled()) {
-					_log.warn(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY + primaryKey);
+				if (_log.isDebugEnabled()) {
+					_log.debug(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY + primaryKey);
 				}
 
 				throw new NoSuchBarException(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY +
@@ -777,7 +797,7 @@ public class BarPersistenceImpl extends BasePersistenceImpl<Bar>
 	}
 
 	@Override
-	public Bar updateImpl(com.liferay.testtransaction.model.Bar bar) {
+	public Bar updateImpl(Bar bar) {
 		bar = toUnwrappedModel(bar);
 
 		boolean isNew = bar.isNew();
@@ -795,7 +815,7 @@ public class BarPersistenceImpl extends BasePersistenceImpl<Bar>
 				bar.setNew(false);
 			}
 			else {
-				session.merge(bar);
+				bar = (Bar)session.merge(bar);
 			}
 		}
 		catch (Exception e) {
@@ -805,10 +825,10 @@ public class BarPersistenceImpl extends BasePersistenceImpl<Bar>
 			closeSession(session);
 		}
 
-		FinderCacheUtil.clearCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
+		finderCache.clearCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 
 		if (isNew || !BarModelImpl.COLUMN_BITMASK_ENABLED) {
-			FinderCacheUtil.clearCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
+			finderCache.clearCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
 		}
 
 		else {
@@ -816,20 +836,20 @@ public class BarPersistenceImpl extends BasePersistenceImpl<Bar>
 					FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_TEXT.getColumnBitmask()) != 0) {
 				Object[] args = new Object[] { barModelImpl.getOriginalText() };
 
-				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_TEXT, args);
-				FinderCacheUtil.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_TEXT,
+				finderCache.removeResult(FINDER_PATH_COUNT_BY_TEXT, args);
+				finderCache.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_TEXT,
 					args);
 
 				args = new Object[] { barModelImpl.getText() };
 
-				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_TEXT, args);
-				FinderCacheUtil.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_TEXT,
+				finderCache.removeResult(FINDER_PATH_COUNT_BY_TEXT, args);
+				finderCache.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_TEXT,
 					args);
 			}
 		}
 
-		EntityCacheUtil.putResult(BarModelImpl.ENTITY_CACHE_ENABLED,
-			BarImpl.class, bar.getPrimaryKey(), bar, false);
+		entityCache.putResult(BarModelImpl.ENTITY_CACHE_ENABLED, BarImpl.class,
+			bar.getPrimaryKey(), bar, false);
 
 		bar.resetOriginalValues();
 
@@ -853,11 +873,11 @@ public class BarPersistenceImpl extends BasePersistenceImpl<Bar>
 	}
 
 	/**
-	 * Returns the bar with the primary key or throws a {@link com.liferay.portal.NoSuchModelException} if it could not be found.
+	 * Returns the bar with the primary key or throws a {@link com.liferay.portal.kernel.exception.NoSuchModelException} if it could not be found.
 	 *
 	 * @param primaryKey the primary key of the bar
 	 * @return the bar
-	 * @throws com.liferay.testtransaction.NoSuchBarException if a bar with the primary key could not be found
+	 * @throws NoSuchBarException if a bar with the primary key could not be found
 	 */
 	@Override
 	public Bar findByPrimaryKey(Serializable primaryKey)
@@ -865,8 +885,8 @@ public class BarPersistenceImpl extends BasePersistenceImpl<Bar>
 		Bar bar = fetchByPrimaryKey(primaryKey);
 
 		if (bar == null) {
-			if (_log.isWarnEnabled()) {
-				_log.warn(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY + primaryKey);
+			if (_log.isDebugEnabled()) {
+				_log.debug(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY + primaryKey);
 			}
 
 			throw new NoSuchBarException(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY +
@@ -877,11 +897,11 @@ public class BarPersistenceImpl extends BasePersistenceImpl<Bar>
 	}
 
 	/**
-	 * Returns the bar with the primary key or throws a {@link com.liferay.testtransaction.NoSuchBarException} if it could not be found.
+	 * Returns the bar with the primary key or throws a {@link NoSuchBarException} if it could not be found.
 	 *
 	 * @param barId the primary key of the bar
 	 * @return the bar
-	 * @throws com.liferay.testtransaction.NoSuchBarException if a bar with the primary key could not be found
+	 * @throws NoSuchBarException if a bar with the primary key could not be found
 	 */
 	@Override
 	public Bar findByPrimaryKey(long barId) throws NoSuchBarException {
@@ -896,7 +916,7 @@ public class BarPersistenceImpl extends BasePersistenceImpl<Bar>
 	 */
 	@Override
 	public Bar fetchByPrimaryKey(Serializable primaryKey) {
-		Bar bar = (Bar)EntityCacheUtil.getResult(BarModelImpl.ENTITY_CACHE_ENABLED,
+		Bar bar = (Bar)entityCache.getResult(BarModelImpl.ENTITY_CACHE_ENABLED,
 				BarImpl.class, primaryKey);
 
 		if (bar == _nullBar) {
@@ -915,12 +935,12 @@ public class BarPersistenceImpl extends BasePersistenceImpl<Bar>
 					cacheResult(bar);
 				}
 				else {
-					EntityCacheUtil.putResult(BarModelImpl.ENTITY_CACHE_ENABLED,
+					entityCache.putResult(BarModelImpl.ENTITY_CACHE_ENABLED,
 						BarImpl.class, primaryKey, _nullBar);
 				}
 			}
 			catch (Exception e) {
-				EntityCacheUtil.removeResult(BarModelImpl.ENTITY_CACHE_ENABLED,
+				entityCache.removeResult(BarModelImpl.ENTITY_CACHE_ENABLED,
 					BarImpl.class, primaryKey);
 
 				throw processException(e);
@@ -970,7 +990,7 @@ public class BarPersistenceImpl extends BasePersistenceImpl<Bar>
 		Set<Serializable> uncachedPrimaryKeys = null;
 
 		for (Serializable primaryKey : primaryKeys) {
-			Bar bar = (Bar)EntityCacheUtil.getResult(BarModelImpl.ENTITY_CACHE_ENABLED,
+			Bar bar = (Bar)entityCache.getResult(BarModelImpl.ENTITY_CACHE_ENABLED,
 					BarImpl.class, primaryKey);
 
 			if (bar == null) {
@@ -1022,7 +1042,7 @@ public class BarPersistenceImpl extends BasePersistenceImpl<Bar>
 			}
 
 			for (Serializable primaryKey : uncachedPrimaryKeys) {
-				EntityCacheUtil.putResult(BarModelImpl.ENTITY_CACHE_ENABLED,
+				entityCache.putResult(BarModelImpl.ENTITY_CACHE_ENABLED,
 					BarImpl.class, primaryKey, _nullBar);
 			}
 		}
@@ -1050,7 +1070,7 @@ public class BarPersistenceImpl extends BasePersistenceImpl<Bar>
 	 * Returns a range of all the bars.
 	 *
 	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link com.liferay.testtransaction.model.impl.BarModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link BarModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	 * </p>
 	 *
 	 * @param start the lower bound of the range of bars
@@ -1066,7 +1086,7 @@ public class BarPersistenceImpl extends BasePersistenceImpl<Bar>
 	 * Returns an ordered range of all the bars.
 	 *
 	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link com.liferay.testtransaction.model.impl.BarModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link BarModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	 * </p>
 	 *
 	 * @param start the lower bound of the range of bars
@@ -1077,6 +1097,25 @@ public class BarPersistenceImpl extends BasePersistenceImpl<Bar>
 	@Override
 	public List<Bar> findAll(int start, int end,
 		OrderByComparator<Bar> orderByComparator) {
+		return findAll(start, end, orderByComparator, true);
+	}
+
+	/**
+	 * Returns an ordered range of all the bars.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link BarModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	 * </p>
+	 *
+	 * @param start the lower bound of the range of bars
+	 * @param end the upper bound of the range of bars (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @return the ordered range of bars
+	 */
+	@Override
+	public List<Bar> findAll(int start, int end,
+		OrderByComparator<Bar> orderByComparator, boolean retrieveFromCache) {
 		boolean pagination = true;
 		FinderPath finderPath = null;
 		Object[] finderArgs = null;
@@ -1092,8 +1131,11 @@ public class BarPersistenceImpl extends BasePersistenceImpl<Bar>
 			finderArgs = new Object[] { start, end, orderByComparator };
 		}
 
-		List<Bar> list = (List<Bar>)FinderCacheUtil.getResult(finderPath,
-				finderArgs, this);
+		List<Bar> list = null;
+
+		if (retrieveFromCache) {
+			list = (List<Bar>)finderCache.getResult(finderPath, finderArgs, this);
+		}
 
 		if (list == null) {
 			StringBundler query = null;
@@ -1101,7 +1143,7 @@ public class BarPersistenceImpl extends BasePersistenceImpl<Bar>
 
 			if (orderByComparator != null) {
 				query = new StringBundler(2 +
-						(orderByComparator.getOrderByFields().length * 3));
+						(orderByComparator.getOrderByFields().length * 2));
 
 				query.append(_SQL_SELECT_BAR);
 
@@ -1139,10 +1181,10 @@ public class BarPersistenceImpl extends BasePersistenceImpl<Bar>
 
 				cacheResult(list);
 
-				FinderCacheUtil.putResult(finderPath, finderArgs, list);
+				finderCache.putResult(finderPath, finderArgs, list);
 			}
 			catch (Exception e) {
-				FinderCacheUtil.removeResult(finderPath, finderArgs);
+				finderCache.removeResult(finderPath, finderArgs);
 
 				throw processException(e);
 			}
@@ -1172,7 +1214,7 @@ public class BarPersistenceImpl extends BasePersistenceImpl<Bar>
 	 */
 	@Override
 	public int countAll() {
-		Long count = (Long)FinderCacheUtil.getResult(FINDER_PATH_COUNT_ALL,
+		Long count = (Long)finderCache.getResult(FINDER_PATH_COUNT_ALL,
 				FINDER_ARGS_EMPTY, this);
 
 		if (count == null) {
@@ -1185,11 +1227,11 @@ public class BarPersistenceImpl extends BasePersistenceImpl<Bar>
 
 				count = (Long)q.uniqueResult();
 
-				FinderCacheUtil.putResult(FINDER_PATH_COUNT_ALL,
-					FINDER_ARGS_EMPTY, count);
+				finderCache.putResult(FINDER_PATH_COUNT_ALL, FINDER_ARGS_EMPTY,
+					count);
 			}
 			catch (Exception e) {
-				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_ALL,
+				finderCache.removeResult(FINDER_PATH_COUNT_ALL,
 					FINDER_ARGS_EMPTY);
 
 				throw processException(e);
@@ -1203,8 +1245,13 @@ public class BarPersistenceImpl extends BasePersistenceImpl<Bar>
 	}
 
 	@Override
-	protected Set<String> getBadColumnNames() {
+	public Set<String> getBadColumnNames() {
 		return _badColumnNames;
+	}
+
+	@Override
+	protected Map<String, Integer> getTableColumnsMap() {
+		return BarModelImpl.TABLE_COLUMNS_MAP;
 	}
 
 	/**
@@ -1214,12 +1261,14 @@ public class BarPersistenceImpl extends BasePersistenceImpl<Bar>
 	}
 
 	public void destroy() {
-		EntityCacheUtil.removeCache(BarImpl.class.getName());
-		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_ENTITY);
-		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
-		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
+		entityCache.removeCache(BarImpl.class.getName());
+		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
+		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
+		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
 	}
 
+	protected EntityCache entityCache = EntityCacheUtil.getEntityCache();
+	protected FinderCache finderCache = FinderCacheUtil.getFinderCache();
 	private static final String _SQL_SELECT_BAR = "SELECT bar FROM Bar bar";
 	private static final String _SQL_SELECT_BAR_WHERE_PKS_IN = "SELECT bar FROM Bar bar WHERE barId IN (";
 	private static final String _SQL_SELECT_BAR_WHERE = "SELECT bar FROM Bar bar WHERE ";
@@ -1228,13 +1277,11 @@ public class BarPersistenceImpl extends BasePersistenceImpl<Bar>
 	private static final String _ORDER_BY_ENTITY_ALIAS = "bar.";
 	private static final String _NO_SUCH_ENTITY_WITH_PRIMARY_KEY = "No Bar exists with the primary key ";
 	private static final String _NO_SUCH_ENTITY_WITH_KEY = "No Bar exists with the key {";
-	private static final boolean _HIBERNATE_CACHE_USE_SECOND_LEVEL_CACHE = GetterUtil.getBoolean(PropsUtil.get(
-				PropsKeys.HIBERNATE_CACHE_USE_SECOND_LEVEL_CACHE));
-	private static Log _log = LogFactoryUtil.getLog(BarPersistenceImpl.class);
-	private static Set<String> _badColumnNames = SetUtil.fromArray(new String[] {
+	private static final Log _log = LogFactoryUtil.getLog(BarPersistenceImpl.class);
+	private static final Set<String> _badColumnNames = SetUtil.fromArray(new String[] {
 				"text"
 			});
-	private static Bar _nullBar = new BarImpl() {
+	private static final Bar _nullBar = new BarImpl() {
 			@Override
 			public Object clone() {
 				return this;
@@ -1246,7 +1293,7 @@ public class BarPersistenceImpl extends BasePersistenceImpl<Bar>
 			}
 		};
 
-	private static CacheModel<Bar> _nullBarCacheModel = new CacheModel<Bar>() {
+	private static final CacheModel<Bar> _nullBarCacheModel = new CacheModel<Bar>() {
 			@Override
 			public Bar toEntityModel() {
 				return _nullBar;

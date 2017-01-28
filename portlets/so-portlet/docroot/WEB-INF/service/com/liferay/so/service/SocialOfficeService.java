@@ -14,15 +14,17 @@
 
 package com.liferay.so.service;
 
+import aQute.bnd.annotation.ProviderType;
+
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.jsonwebservice.JSONWebService;
+import com.liferay.portal.kernel.security.access.control.AccessControlled;
+import com.liferay.portal.kernel.service.BaseService;
+import com.liferay.portal.kernel.service.InvokableService;
 import com.liferay.portal.kernel.transaction.Isolation;
 import com.liferay.portal.kernel.transaction.Propagation;
 import com.liferay.portal.kernel.transaction.Transactional;
-import com.liferay.portal.security.ac.AccessControlled;
-import com.liferay.portal.service.BaseService;
-import com.liferay.portal.service.InvokableService;
 
 /**
  * Provides the remote service interface for SocialOffice. Methods of this
@@ -37,6 +39,7 @@ import com.liferay.portal.service.InvokableService;
  */
 @AccessControlled
 @JSONWebService
+@ProviderType
 @Transactional(isolation = Isolation.PORTAL, rollbackFor =  {
 	PortalException.class, SystemException.class})
 public interface SocialOfficeService extends BaseService, InvokableService {
@@ -45,31 +48,21 @@ public interface SocialOfficeService extends BaseService, InvokableService {
 	 *
 	 * Never modify or reference this interface directly. Always use {@link SocialOfficeServiceUtil} to access the social office remote service. Add custom service methods to {@link com.liferay.so.service.impl.SocialOfficeServiceImpl} and rerun ServiceBuilder to automatically copy the method declarations to this interface.
 	 */
-
-	/**
-	* Returns the Spring bean ID for this bean.
-	*
-	* @return the Spring bean ID for this bean
-	*/
-	public java.lang.String getBeanIdentifier();
-
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public long[] getUserSocialOfficeGroupIds()
-		throws com.liferay.portal.kernel.exception.PortalException;
+	public boolean isSocialOfficeGroup(long groupId) throws PortalException;
 
 	@Override
 	public java.lang.Object invokeMethod(java.lang.String name,
 		java.lang.String[] parameterTypes, java.lang.Object[] arguments)
 		throws java.lang.Throwable;
 
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public boolean isSocialOfficeGroup(long groupId)
-		throws com.liferay.portal.kernel.exception.PortalException;
-
 	/**
-	* Sets the Spring bean ID for this bean.
+	* Returns the OSGi service identifier.
 	*
-	* @param beanIdentifier the Spring bean ID for this bean
+	* @return the OSGi service identifier
 	*/
-	public void setBeanIdentifier(java.lang.String beanIdentifier);
+	public java.lang.String getOSGiServiceIdentifier();
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public long[] getUserSocialOfficeGroupIds() throws PortalException;
 }

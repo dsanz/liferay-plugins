@@ -16,8 +16,13 @@ package com.liferay.socialcoding.model;
 
 import aQute.bnd.annotation.ProviderType;
 
+import com.liferay.expando.kernel.model.ExpandoBridge;
+
+import com.liferay.portal.kernel.model.ModelWrapper;
+import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.util.Validator;
-import com.liferay.portal.model.ModelWrapper;
+
+import java.io.Serializable;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -81,28 +86,58 @@ public class JIRAProjectWrapper implements JIRAProject,
 	}
 
 	@Override
-	public java.lang.Object clone() {
-		return new JIRAProjectWrapper((JIRAProject)_jiraProject.clone());
+	public boolean isCachedModel() {
+		return _jiraProject.isCachedModel();
 	}
 
 	@Override
-	public int compareTo(JIRAProject jiraProject) {
+	public boolean isEscapedModel() {
+		return _jiraProject.isEscapedModel();
+	}
+
+	@Override
+	public boolean isNew() {
+		return _jiraProject.isNew();
+	}
+
+	@Override
+	public ExpandoBridge getExpandoBridge() {
+		return _jiraProject.getExpandoBridge();
+	}
+
+	@Override
+	public com.liferay.portal.kernel.model.CacheModel<com.liferay.socialcoding.model.JIRAProject> toCacheModel() {
+		return _jiraProject.toCacheModel();
+	}
+
+	@Override
+	public com.liferay.socialcoding.model.JIRAProject toEscapedModel() {
+		return new JIRAProjectWrapper(_jiraProject.toEscapedModel());
+	}
+
+	@Override
+	public com.liferay.socialcoding.model.JIRAProject toUnescapedModel() {
+		return new JIRAProjectWrapper(_jiraProject.toUnescapedModel());
+	}
+
+	@Override
+	public int compareTo(com.liferay.socialcoding.model.JIRAProject jiraProject) {
 		return _jiraProject.compareTo(jiraProject);
 	}
 
 	@Override
-	public com.liferay.portlet.expando.model.ExpandoBridge getExpandoBridge() {
-		return _jiraProject.getExpandoBridge();
+	public int hashCode() {
+		return _jiraProject.hashCode();
 	}
 
-	/**
-	* Returns the jira project ID of this j i r a project.
-	*
-	* @return the jira project ID of this j i r a project
-	*/
 	@Override
-	public long getJiraProjectId() {
-		return _jiraProject.getJiraProjectId();
+	public Serializable getPrimaryKeyObj() {
+		return _jiraProject.getPrimaryKeyObj();
+	}
+
+	@Override
+	public java.lang.Object clone() {
+		return new JIRAProjectWrapper((JIRAProject)_jiraProject.clone());
 	}
 
 	/**
@@ -125,6 +160,26 @@ public class JIRAProjectWrapper implements JIRAProject,
 		return _jiraProject.getName();
 	}
 
+	@Override
+	public java.lang.String toString() {
+		return _jiraProject.toString();
+	}
+
+	@Override
+	public java.lang.String toXmlString() {
+		return _jiraProject.toXmlString();
+	}
+
+	/**
+	* Returns the jira project ID of this j i r a project.
+	*
+	* @return the jira project ID of this j i r a project
+	*/
+	@Override
+	public long getJiraProjectId() {
+		return _jiraProject.getJiraProjectId();
+	}
+
 	/**
 	* Returns the primary key of this j i r a project.
 	*
@@ -133,31 +188,6 @@ public class JIRAProjectWrapper implements JIRAProject,
 	@Override
 	public long getPrimaryKey() {
 		return _jiraProject.getPrimaryKey();
-	}
-
-	@Override
-	public java.io.Serializable getPrimaryKeyObj() {
-		return _jiraProject.getPrimaryKeyObj();
-	}
-
-	@Override
-	public int hashCode() {
-		return _jiraProject.hashCode();
-	}
-
-	@Override
-	public boolean isCachedModel() {
-		return _jiraProject.isCachedModel();
-	}
-
-	@Override
-	public boolean isEscapedModel() {
-		return _jiraProject.isEscapedModel();
-	}
-
-	@Override
-	public boolean isNew() {
-		return _jiraProject.isNew();
 	}
 
 	@Override
@@ -171,20 +201,18 @@ public class JIRAProjectWrapper implements JIRAProject,
 	}
 
 	@Override
-	public void setExpandoBridgeAttributes(
-		com.liferay.portal.model.BaseModel<?> baseModel) {
-		_jiraProject.setExpandoBridgeAttributes(baseModel);
-	}
-
-	@Override
-	public void setExpandoBridgeAttributes(
-		com.liferay.portlet.expando.model.ExpandoBridge expandoBridge) {
+	public void setExpandoBridgeAttributes(ExpandoBridge expandoBridge) {
 		_jiraProject.setExpandoBridgeAttributes(expandoBridge);
 	}
 
 	@Override
 	public void setExpandoBridgeAttributes(
-		com.liferay.portal.service.ServiceContext serviceContext) {
+		com.liferay.portal.kernel.model.BaseModel<?> baseModel) {
+		_jiraProject.setExpandoBridgeAttributes(baseModel);
+	}
+
+	@Override
+	public void setExpandoBridgeAttributes(ServiceContext serviceContext) {
 		_jiraProject.setExpandoBridgeAttributes(serviceContext);
 	}
 
@@ -234,33 +262,8 @@ public class JIRAProjectWrapper implements JIRAProject,
 	}
 
 	@Override
-	public void setPrimaryKeyObj(java.io.Serializable primaryKeyObj) {
+	public void setPrimaryKeyObj(Serializable primaryKeyObj) {
 		_jiraProject.setPrimaryKeyObj(primaryKeyObj);
-	}
-
-	@Override
-	public com.liferay.portal.model.CacheModel<JIRAProject> toCacheModel() {
-		return _jiraProject.toCacheModel();
-	}
-
-	@Override
-	public JIRAProject toEscapedModel() {
-		return new JIRAProjectWrapper(_jiraProject.toEscapedModel());
-	}
-
-	@Override
-	public java.lang.String toString() {
-		return _jiraProject.toString();
-	}
-
-	@Override
-	public JIRAProject toUnescapedModel() {
-		return new JIRAProjectWrapper(_jiraProject.toUnescapedModel());
-	}
-
-	@Override
-	public java.lang.String toXmlString() {
-		return _jiraProject.toXmlString();
 	}
 
 	@Override
@@ -280,14 +283,6 @@ public class JIRAProjectWrapper implements JIRAProject,
 		}
 
 		return false;
-	}
-
-	/**
-	 * @deprecated As of 6.1.0, replaced by {@link #getWrappedModel}
-	 */
-	@Deprecated
-	public JIRAProject getWrappedJIRAProject() {
-		return _jiraProject;
 	}
 
 	@Override

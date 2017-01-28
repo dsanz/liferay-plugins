@@ -14,9 +14,17 @@
 
 package com.liferay.samplelar.model;
 
-import com.liferay.portal.kernel.lar.StagedModelType;
+import aQute.bnd.annotation.ProviderType;
+
+import com.liferay.expando.kernel.model.ExpandoBridge;
+
+import com.liferay.exportimport.kernel.lar.StagedModelType;
+
+import com.liferay.portal.kernel.model.ModelWrapper;
+import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.util.Validator;
-import com.liferay.portal.model.ModelWrapper;
+
+import java.io.Serializable;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -31,6 +39,7 @@ import java.util.Map;
  * @see SampleLARBooking
  * @generated
  */
+@ProviderType
 public class SampleLARBookingWrapper implements SampleLARBooking,
 	ModelWrapper<SampleLARBooking> {
 	public SampleLARBookingWrapper(SampleLARBooking sampleLARBooking) {
@@ -60,6 +69,7 @@ public class SampleLARBookingWrapper implements SampleLARBooking,
 		attributes.put("createDate", getCreateDate());
 		attributes.put("modifiedDate", getModifiedDate());
 		attributes.put("bookingNumber", getBookingNumber());
+		attributes.put("lastPublishDate", getLastPublishDate());
 
 		return attributes;
 	}
@@ -119,17 +129,68 @@ public class SampleLARBookingWrapper implements SampleLARBooking,
 		if (bookingNumber != null) {
 			setBookingNumber(bookingNumber);
 		}
+
+		Date lastPublishDate = (Date)attributes.get("lastPublishDate");
+
+		if (lastPublishDate != null) {
+			setLastPublishDate(lastPublishDate);
+		}
 	}
 
 	@Override
-	public java.lang.Object clone() {
-		return new SampleLARBookingWrapper((SampleLARBooking)_sampleLARBooking.clone());
+	public boolean isCachedModel() {
+		return _sampleLARBooking.isCachedModel();
+	}
+
+	@Override
+	public boolean isEscapedModel() {
+		return _sampleLARBooking.isEscapedModel();
+	}
+
+	@Override
+	public boolean isNew() {
+		return _sampleLARBooking.isNew();
+	}
+
+	@Override
+	public ExpandoBridge getExpandoBridge() {
+		return _sampleLARBooking.getExpandoBridge();
+	}
+
+	@Override
+	public com.liferay.portal.kernel.model.CacheModel<com.liferay.samplelar.model.SampleLARBooking> toCacheModel() {
+		return _sampleLARBooking.toCacheModel();
+	}
+
+	@Override
+	public com.liferay.samplelar.model.SampleLARBooking toEscapedModel() {
+		return new SampleLARBookingWrapper(_sampleLARBooking.toEscapedModel());
+	}
+
+	@Override
+	public com.liferay.samplelar.model.SampleLARBooking toUnescapedModel() {
+		return new SampleLARBookingWrapper(_sampleLARBooking.toUnescapedModel());
 	}
 
 	@Override
 	public int compareTo(
 		com.liferay.samplelar.model.SampleLARBooking sampleLARBooking) {
 		return _sampleLARBooking.compareTo(sampleLARBooking);
+	}
+
+	@Override
+	public int hashCode() {
+		return _sampleLARBooking.hashCode();
+	}
+
+	@Override
+	public Serializable getPrimaryKeyObj() {
+		return _sampleLARBooking.getPrimaryKeyObj();
+	}
+
+	@Override
+	public java.lang.Object clone() {
+		return new SampleLARBookingWrapper((SampleLARBooking)_sampleLARBooking.clone());
 	}
 
 	/**
@@ -140,86 +201,6 @@ public class SampleLARBookingWrapper implements SampleLARBooking,
 	@Override
 	public java.lang.String getBookingNumber() {
 		return _sampleLARBooking.getBookingNumber();
-	}
-
-	/**
-	* Returns the company ID of this sample l a r booking.
-	*
-	* @return the company ID of this sample l a r booking
-	*/
-	@Override
-	public long getCompanyId() {
-		return _sampleLARBooking.getCompanyId();
-	}
-
-	/**
-	* Returns the create date of this sample l a r booking.
-	*
-	* @return the create date of this sample l a r booking
-	*/
-	@Override
-	public java.util.Date getCreateDate() {
-		return _sampleLARBooking.getCreateDate();
-	}
-
-	@Override
-	public com.liferay.portlet.expando.model.ExpandoBridge getExpandoBridge() {
-		return _sampleLARBooking.getExpandoBridge();
-	}
-
-	/**
-	* Returns the group ID of this sample l a r booking.
-	*
-	* @return the group ID of this sample l a r booking
-	*/
-	@Override
-	public long getGroupId() {
-		return _sampleLARBooking.getGroupId();
-	}
-
-	/**
-	* Returns the modified date of this sample l a r booking.
-	*
-	* @return the modified date of this sample l a r booking
-	*/
-	@Override
-	public java.util.Date getModifiedDate() {
-		return _sampleLARBooking.getModifiedDate();
-	}
-
-	/**
-	* Returns the primary key of this sample l a r booking.
-	*
-	* @return the primary key of this sample l a r booking
-	*/
-	@Override
-	public long getPrimaryKey() {
-		return _sampleLARBooking.getPrimaryKey();
-	}
-
-	@Override
-	public java.io.Serializable getPrimaryKeyObj() {
-		return _sampleLARBooking.getPrimaryKeyObj();
-	}
-
-	/**
-	* Returns the sample l a r booking ID of this sample l a r booking.
-	*
-	* @return the sample l a r booking ID of this sample l a r booking
-	*/
-	@Override
-	public long getSampleLARBookingId() {
-		return _sampleLARBooking.getSampleLARBookingId();
-	}
-
-	/**
-	* Returns the user ID of this sample l a r booking.
-	*
-	* @return the user ID of this sample l a r booking
-	*/
-	@Override
-	public long getUserId() {
-		return _sampleLARBooking.getUserId();
 	}
 
 	/**
@@ -253,23 +234,93 @@ public class SampleLARBookingWrapper implements SampleLARBooking,
 	}
 
 	@Override
-	public int hashCode() {
-		return _sampleLARBooking.hashCode();
+	public java.lang.String toString() {
+		return _sampleLARBooking.toString();
 	}
 
 	@Override
-	public boolean isCachedModel() {
-		return _sampleLARBooking.isCachedModel();
+	public java.lang.String toXmlString() {
+		return _sampleLARBooking.toXmlString();
 	}
 
+	/**
+	* Returns the create date of this sample l a r booking.
+	*
+	* @return the create date of this sample l a r booking
+	*/
 	@Override
-	public boolean isEscapedModel() {
-		return _sampleLARBooking.isEscapedModel();
+	public Date getCreateDate() {
+		return _sampleLARBooking.getCreateDate();
 	}
 
+	/**
+	* Returns the last publish date of this sample l a r booking.
+	*
+	* @return the last publish date of this sample l a r booking
+	*/
 	@Override
-	public boolean isNew() {
-		return _sampleLARBooking.isNew();
+	public Date getLastPublishDate() {
+		return _sampleLARBooking.getLastPublishDate();
+	}
+
+	/**
+	* Returns the modified date of this sample l a r booking.
+	*
+	* @return the modified date of this sample l a r booking
+	*/
+	@Override
+	public Date getModifiedDate() {
+		return _sampleLARBooking.getModifiedDate();
+	}
+
+	/**
+	* Returns the company ID of this sample l a r booking.
+	*
+	* @return the company ID of this sample l a r booking
+	*/
+	@Override
+	public long getCompanyId() {
+		return _sampleLARBooking.getCompanyId();
+	}
+
+	/**
+	* Returns the group ID of this sample l a r booking.
+	*
+	* @return the group ID of this sample l a r booking
+	*/
+	@Override
+	public long getGroupId() {
+		return _sampleLARBooking.getGroupId();
+	}
+
+	/**
+	* Returns the primary key of this sample l a r booking.
+	*
+	* @return the primary key of this sample l a r booking
+	*/
+	@Override
+	public long getPrimaryKey() {
+		return _sampleLARBooking.getPrimaryKey();
+	}
+
+	/**
+	* Returns the sample l a r booking ID of this sample l a r booking.
+	*
+	* @return the sample l a r booking ID of this sample l a r booking
+	*/
+	@Override
+	public long getSampleLARBookingId() {
+		return _sampleLARBooking.getSampleLARBookingId();
+	}
+
+	/**
+	* Returns the user ID of this sample l a r booking.
+	*
+	* @return the user ID of this sample l a r booking
+	*/
+	@Override
+	public long getUserId() {
+		return _sampleLARBooking.getUserId();
 	}
 
 	@Override
@@ -308,25 +359,23 @@ public class SampleLARBookingWrapper implements SampleLARBooking,
 	* @param createDate the create date of this sample l a r booking
 	*/
 	@Override
-	public void setCreateDate(java.util.Date createDate) {
+	public void setCreateDate(Date createDate) {
 		_sampleLARBooking.setCreateDate(createDate);
 	}
 
 	@Override
-	public void setExpandoBridgeAttributes(
-		com.liferay.portal.model.BaseModel<?> baseModel) {
-		_sampleLARBooking.setExpandoBridgeAttributes(baseModel);
-	}
-
-	@Override
-	public void setExpandoBridgeAttributes(
-		com.liferay.portlet.expando.model.ExpandoBridge expandoBridge) {
+	public void setExpandoBridgeAttributes(ExpandoBridge expandoBridge) {
 		_sampleLARBooking.setExpandoBridgeAttributes(expandoBridge);
 	}
 
 	@Override
 	public void setExpandoBridgeAttributes(
-		com.liferay.portal.service.ServiceContext serviceContext) {
+		com.liferay.portal.kernel.model.BaseModel<?> baseModel) {
+		_sampleLARBooking.setExpandoBridgeAttributes(baseModel);
+	}
+
+	@Override
+	public void setExpandoBridgeAttributes(ServiceContext serviceContext) {
 		_sampleLARBooking.setExpandoBridgeAttributes(serviceContext);
 	}
 
@@ -341,12 +390,22 @@ public class SampleLARBookingWrapper implements SampleLARBooking,
 	}
 
 	/**
+	* Sets the last publish date of this sample l a r booking.
+	*
+	* @param lastPublishDate the last publish date of this sample l a r booking
+	*/
+	@Override
+	public void setLastPublishDate(Date lastPublishDate) {
+		_sampleLARBooking.setLastPublishDate(lastPublishDate);
+	}
+
+	/**
 	* Sets the modified date of this sample l a r booking.
 	*
 	* @param modifiedDate the modified date of this sample l a r booking
 	*/
 	@Override
-	public void setModifiedDate(java.util.Date modifiedDate) {
+	public void setModifiedDate(Date modifiedDate) {
 		_sampleLARBooking.setModifiedDate(modifiedDate);
 	}
 
@@ -366,7 +425,7 @@ public class SampleLARBookingWrapper implements SampleLARBooking,
 	}
 
 	@Override
-	public void setPrimaryKeyObj(java.io.Serializable primaryKeyObj) {
+	public void setPrimaryKeyObj(Serializable primaryKeyObj) {
 		_sampleLARBooking.setPrimaryKeyObj(primaryKeyObj);
 	}
 
@@ -421,31 +480,6 @@ public class SampleLARBookingWrapper implements SampleLARBooking,
 	}
 
 	@Override
-	public com.liferay.portal.model.CacheModel<com.liferay.samplelar.model.SampleLARBooking> toCacheModel() {
-		return _sampleLARBooking.toCacheModel();
-	}
-
-	@Override
-	public com.liferay.samplelar.model.SampleLARBooking toEscapedModel() {
-		return new SampleLARBookingWrapper(_sampleLARBooking.toEscapedModel());
-	}
-
-	@Override
-	public java.lang.String toString() {
-		return _sampleLARBooking.toString();
-	}
-
-	@Override
-	public com.liferay.samplelar.model.SampleLARBooking toUnescapedModel() {
-		return new SampleLARBookingWrapper(_sampleLARBooking.toUnescapedModel());
-	}
-
-	@Override
-	public java.lang.String toXmlString() {
-		return _sampleLARBooking.toXmlString();
-	}
-
-	@Override
 	public boolean equals(Object obj) {
 		if (this == obj) {
 			return true;
@@ -470,14 +504,6 @@ public class SampleLARBookingWrapper implements SampleLARBooking,
 		return _sampleLARBooking.getStagedModelType();
 	}
 
-	/**
-	 * @deprecated As of 6.1.0, replaced by {@link #getWrappedModel}
-	 */
-	@Deprecated
-	public SampleLARBooking getWrappedSampleLARBooking() {
-		return _sampleLARBooking;
-	}
-
 	@Override
 	public SampleLARBooking getWrappedModel() {
 		return _sampleLARBooking;
@@ -498,5 +524,5 @@ public class SampleLARBookingWrapper implements SampleLARBooking,
 		_sampleLARBooking.resetOriginalValues();
 	}
 
-	private SampleLARBooking _sampleLARBooking;
+	private final SampleLARBooking _sampleLARBooking;
 }

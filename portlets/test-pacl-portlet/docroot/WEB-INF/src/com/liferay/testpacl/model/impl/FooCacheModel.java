@@ -14,9 +14,12 @@
 
 package com.liferay.testpacl.model.impl;
 
+import aQute.bnd.annotation.ProviderType;
+
+import com.liferay.portal.kernel.model.CacheModel;
+import com.liferay.portal.kernel.util.HashUtil;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringPool;
-import com.liferay.portal.model.CacheModel;
 
 import com.liferay.testpacl.model.Foo;
 
@@ -34,7 +37,32 @@ import java.util.Date;
  * @see Foo
  * @generated
  */
+@ProviderType
 public class FooCacheModel implements CacheModel<Foo>, Externalizable {
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+
+		if (!(obj instanceof FooCacheModel)) {
+			return false;
+		}
+
+		FooCacheModel fooCacheModel = (FooCacheModel)obj;
+
+		if (fooId == fooCacheModel.fooId) {
+			return true;
+		}
+
+		return false;
+	}
+
+	@Override
+	public int hashCode() {
+		return HashUtil.hash(0, fooId);
+	}
+
 	@Override
 	public String toString() {
 		StringBundler sb = new StringBundler(25);
@@ -130,14 +158,19 @@ public class FooCacheModel implements CacheModel<Foo>, Externalizable {
 	@Override
 	public void readExternal(ObjectInput objectInput) throws IOException {
 		fooId = objectInput.readLong();
+
 		groupId = objectInput.readLong();
+
 		companyId = objectInput.readLong();
+
 		userId = objectInput.readLong();
 		userName = objectInput.readUTF();
 		createDate = objectInput.readLong();
 		modifiedDate = objectInput.readLong();
 		field1 = objectInput.readUTF();
+
 		field2 = objectInput.readBoolean();
+
 		field3 = objectInput.readInt();
 		field4 = objectInput.readLong();
 		field5 = objectInput.readUTF();
@@ -147,8 +180,11 @@ public class FooCacheModel implements CacheModel<Foo>, Externalizable {
 	public void writeExternal(ObjectOutput objectOutput)
 		throws IOException {
 		objectOutput.writeLong(fooId);
+
 		objectOutput.writeLong(groupId);
+
 		objectOutput.writeLong(companyId);
+
 		objectOutput.writeLong(userId);
 
 		if (userName == null) {
@@ -169,6 +205,7 @@ public class FooCacheModel implements CacheModel<Foo>, Externalizable {
 		}
 
 		objectOutput.writeBoolean(field2);
+
 		objectOutput.writeInt(field3);
 		objectOutput.writeLong(field4);
 

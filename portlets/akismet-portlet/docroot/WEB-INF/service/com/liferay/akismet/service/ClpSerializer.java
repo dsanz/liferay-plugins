@@ -14,16 +14,18 @@
 
 package com.liferay.akismet.service;
 
+import aQute.bnd.annotation.ProviderType;
+
 import com.liferay.akismet.model.AkismetDataClp;
 
 import com.liferay.portal.kernel.io.unsync.UnsyncByteArrayInputStream;
 import com.liferay.portal.kernel.io.unsync.UnsyncByteArrayOutputStream;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.model.BaseModel;
 import com.liferay.portal.kernel.util.ClassLoaderObjectInputStream;
 import com.liferay.portal.kernel.util.PropsUtil;
 import com.liferay.portal.kernel.util.Validator;
-import com.liferay.portal.model.BaseModel;
 
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -36,6 +38,7 @@ import java.util.List;
 /**
  * @author Brian Wing Shun Chan
  */
+@ProviderType
 public class ClpSerializer {
 	public static String getServletContextName() {
 		if (Validator.isNotNull(_servletContextName)) {
@@ -262,8 +265,9 @@ public class ClpSerializer {
 
 		String className = clazz.getName();
 
-		if (className.equals("com.liferay.akismet.NoSuchDataException")) {
-			return new com.liferay.akismet.NoSuchDataException(throwable.getMessage(),
+		if (className.equals(
+					"com.liferay.akismet.exception.NoSuchDataException")) {
+			return new com.liferay.akismet.exception.NoSuchDataException(throwable.getMessage(),
 				throwable.getCause());
 		}
 

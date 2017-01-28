@@ -17,6 +17,13 @@
 
 package com.liferay.so.activities.portlet;
 
+import com.liferay.message.boards.kernel.model.MBMessage;
+import com.liferay.message.boards.kernel.model.MBMessageDisplay;
+import com.liferay.message.boards.kernel.model.MBThread;
+import com.liferay.message.boards.kernel.model.MBTreeWalker;
+import com.liferay.message.boards.kernel.service.MBMessageLocalServiceUtil;
+import com.liferay.message.boards.kernel.service.MBMessageServiceUtil;
+import com.liferay.message.boards.kernel.util.comparator.MessageCreateDateComparator;
 import com.liferay.microblogs.model.MicroblogsEntry;
 import com.liferay.microblogs.model.MicroblogsEntryConstants;
 import com.liferay.microblogs.service.MicroblogsEntryLocalServiceUtil;
@@ -25,7 +32,12 @@ import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.json.JSONArray;
 import com.liferay.portal.kernel.json.JSONFactoryUtil;
 import com.liferay.portal.kernel.json.JSONObject;
+import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCPortlet;
+import com.liferay.portal.kernel.service.ServiceContext;
+import com.liferay.portal.kernel.service.ServiceContextFactory;
+import com.liferay.portal.kernel.service.UserLocalServiceUtil;
+import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.Constants;
 import com.liferay.portal.kernel.util.FastDateFormatFactoryUtil;
 import com.liferay.portal.kernel.util.HtmlUtil;
@@ -35,21 +47,9 @@ import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.Time;
 import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.portal.kernel.workflow.WorkflowConstants;
-import com.liferay.portal.model.User;
-import com.liferay.portal.service.ServiceContext;
-import com.liferay.portal.service.ServiceContextFactory;
-import com.liferay.portal.service.UserLocalServiceUtil;
-import com.liferay.portal.theme.ThemeDisplay;
-import com.liferay.portlet.messageboards.model.MBMessage;
-import com.liferay.portlet.messageboards.model.MBMessageDisplay;
-import com.liferay.portlet.messageboards.model.MBThread;
-import com.liferay.portlet.messageboards.model.MBTreeWalker;
-import com.liferay.portlet.messageboards.service.MBMessageLocalServiceUtil;
-import com.liferay.portlet.messageboards.service.MBMessageServiceUtil;
-import com.liferay.portlet.messageboards.util.comparator.MessageCreateDateComparator;
-import com.liferay.portlet.social.model.SocialActivitySet;
-import com.liferay.portlet.social.service.SocialActivitySetLocalServiceUtil;
 import com.liferay.so.activities.util.ActivitiesUtil;
+import com.liferay.social.kernel.model.SocialActivitySet;
+import com.liferay.social.kernel.service.SocialActivitySetLocalServiceUtil;
 
 import java.io.IOException;
 
@@ -276,9 +276,8 @@ public class ActivitiesPortlet extends MVCPortlet {
 			}
 			else if (cmd.equals(Constants.EDIT) && (mbMessageId > 0)) {
 				mbMessage = MBMessageServiceUtil.updateDiscussionMessage(
-					className, classPK, className, classPK,
-					themeDisplay.getUserId(), mbMessageId, StringPool.BLANK,
-					body, serviceContext);
+					className, classPK, mbMessageId, StringPool.BLANK, body,
+					serviceContext);
 			}
 			else {
 				MBMessageDisplay mbMessageDisplay =
@@ -293,8 +292,7 @@ public class ActivitiesPortlet extends MVCPortlet {
 				MBMessage rootMBMessage = mbTreeWalker.getRoot();
 
 				mbMessage = MBMessageServiceUtil.addDiscussionMessage(
-					groupId, className, classPK, className, classPK,
-					themeDisplay.getUserId(), mbThread.getThreadId(),
+					groupId, className, classPK, mbThread.getThreadId(),
 					rootMBMessage.getMessageId(), StringPool.BLANK, body,
 					serviceContext);
 			}

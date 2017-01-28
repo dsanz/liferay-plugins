@@ -45,25 +45,21 @@ public class WCUtil {
 
 	public static String translate(String text) {
 		return StringUtil.replace(
-			text,
-			new String[] {
-				" doth ", " hath "
-			},
-			new String[] {
-				" does ", " has "
-			}
-		);
+			text, new String[] {" doth ", " hath "},
+			new String[] {" does ", " has "});
 	}
 
 	private WCUtil() {
 		Document document = null;
 
 		try {
-			ClassLoader classLoader = getClass().getClassLoader();
+			Class<?> clazz = getClass();
+
+			ClassLoader classLoader = clazz.getClassLoader();
 
 			URL url = classLoader.getResource(
-				"com/liferay/westminstercatechism/dependencies/" +
-					"westminster_catechmism.xml");
+				"com/liferay/westminstercatechism/dependencies" +
+					"/westminster_catechmism.xml");
 
 			document = SAXReaderUtil.read(url);
 		}

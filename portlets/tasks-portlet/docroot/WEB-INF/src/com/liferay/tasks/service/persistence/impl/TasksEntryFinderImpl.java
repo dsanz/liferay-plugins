@@ -23,11 +23,10 @@ import com.liferay.portal.kernel.dao.orm.SQLQuery;
 import com.liferay.portal.kernel.dao.orm.Session;
 import com.liferay.portal.kernel.dao.orm.Type;
 import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.StringUtil;
-import com.liferay.portal.service.persistence.impl.BasePersistenceImpl;
-import com.liferay.portal.util.PortalUtil;
 import com.liferay.tasks.model.TasksEntry;
 import com.liferay.tasks.model.TasksEntryConstants;
 import com.liferay.tasks.model.impl.TasksEntryImpl;
@@ -42,7 +41,7 @@ import java.util.List;
  * @author Ryan Park
  */
 public class TasksEntryFinderImpl
-	extends BasePersistenceImpl<TasksEntry> implements TasksEntryFinder {
+	extends TasksEntryFinderBaseImpl implements TasksEntryFinder {
 
 	public static final String COUNT_BY_G_U_P_A_S_T_N =
 		TasksEntryFinder.class.getName() + ".countByG_U_P_A_S_T_N";
@@ -240,23 +239,6 @@ public class TasksEntryFinderImpl
 		}
 	}
 
-	protected int countByG_U_S(long groupId, long userId, int status) {
-		if (status != TasksEntryConstants.STATUS_ALL) {
-			if (groupId > 0) {
-				return TasksEntryUtil.countByG_U_S(
-					groupId, userId, getStatuses(status));
-			}
-
-			return TasksEntryUtil.countByU_S(userId, getStatuses(status));
-		}
-
-		if (groupId > 0) {
-			return TasksEntryUtil.countByG_U(groupId, userId);
-		}
-
-		return TasksEntryUtil.countByUserId(userId);
-	}
-
 	protected int countByG_A_S(long groupId, long assigneeUserId, int status) {
 		if (status != TasksEntryConstants.STATUS_ALL) {
 			if (groupId > 0) {
@@ -275,24 +257,21 @@ public class TasksEntryFinderImpl
 		return TasksEntryUtil.countByAssigneeUserId(assigneeUserId);
 	}
 
-	protected List<TasksEntry> findByG_U_S(
-		long groupId, long userId, int status, int start, int end) {
-
+	protected int countByG_U_S(long groupId, long userId, int status) {
 		if (status != TasksEntryConstants.STATUS_ALL) {
 			if (groupId > 0) {
-				return TasksEntryUtil.findByG_U_S(
-					groupId, userId, getStatuses(status), start, end);
+				return TasksEntryUtil.countByG_U_S(
+					groupId, userId, getStatuses(status));
 			}
 
-			return TasksEntryUtil.findByU_S(
-				userId, getStatuses(status), start, end);
+			return TasksEntryUtil.countByU_S(userId, getStatuses(status));
 		}
 
 		if (groupId > 0) {
-			return TasksEntryUtil.findByG_U(groupId, userId, start, end);
+			return TasksEntryUtil.countByG_U(groupId, userId);
 		}
 
-		return TasksEntryUtil.findByUserId(userId, start, end);
+		return TasksEntryUtil.countByUserId(userId);
 	}
 
 	protected List<TasksEntry> findByG_A_S(
@@ -314,6 +293,26 @@ public class TasksEntryFinderImpl
 		}
 
 		return TasksEntryUtil.findByAssigneeUserId(assigneeUserId, start, end);
+	}
+
+	protected List<TasksEntry> findByG_U_S(
+		long groupId, long userId, int status, int start, int end) {
+
+		if (status != TasksEntryConstants.STATUS_ALL) {
+			if (groupId > 0) {
+				return TasksEntryUtil.findByG_U_S(
+					groupId, userId, getStatuses(status), start, end);
+			}
+
+			return TasksEntryUtil.findByU_S(
+				userId, getStatuses(status), start, end);
+		}
+
+		if (groupId > 0) {
+			return TasksEntryUtil.findByG_U(groupId, userId, start, end);
+		}
+
+		return TasksEntryUtil.findByUserId(userId, start, end);
 	}
 
 	protected String getAssetTagTagIds(

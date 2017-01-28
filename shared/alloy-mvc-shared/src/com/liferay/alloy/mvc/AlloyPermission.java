@@ -14,18 +14,19 @@
 
 package com.liferay.alloy.mvc;
 
-import com.liferay.portal.NoSuchResourceActionException;
 import com.liferay.portal.kernel.bean.BeanPropertiesUtil;
+import com.liferay.portal.kernel.exception.NoSuchResourceActionException;
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.model.BaseModel;
+import com.liferay.portal.kernel.security.auth.PrincipalException;
+import com.liferay.portal.kernel.security.permission.PermissionChecker;
+import com.liferay.portal.kernel.security.permission.PermissionThreadLocal;
+import com.liferay.portal.kernel.security.permission.ResourceActionsUtil;
+import com.liferay.portal.kernel.theme.PortletDisplay;
+import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.CharPool;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.StringUtil;
-import com.liferay.portal.model.BaseModel;
-import com.liferay.portal.security.auth.PrincipalException;
-import com.liferay.portal.security.permission.PermissionChecker;
-import com.liferay.portal.security.permission.ResourceActionsUtil;
-import com.liferay.portal.theme.PortletDisplay;
-import com.liferay.portal.theme.ThemeDisplay;
 
 /**
  * @author Ethan Bustad
@@ -99,7 +100,8 @@ public class AlloyPermission {
 		ThemeDisplay themeDisplay, BaseModel<?> baseModel, String action) {
 
 		return contains(
-			themeDisplay.getPermissionChecker(), themeDisplay.getScopeGroupId(),
+			PermissionThreadLocal.getPermissionChecker(),
+			themeDisplay.getScopeGroupId(),
 			BeanPropertiesUtil.getString(baseModel, "modelClassName"),
 			(Long)baseModel.getPrimaryKeyObj(), StringUtil.toUpperCase(action));
 	}
@@ -112,12 +114,24 @@ public class AlloyPermission {
 		String actionId = formatActionId(controller, action);
 
 		return contains(
-			themeDisplay.getPermissionChecker(), themeDisplay.getScopeGroupId(),
-			portletDisplay.getRootPortletId(), themeDisplay.getScopeGroupId(),
-			actionId);
+			PermissionThreadLocal.getPermissionChecker(),
+			themeDisplay.getScopeGroupId(), portletDisplay.getRootPortletId(),
+			themeDisplay.getScopeGroupId(), actionId);
 	}
 
-	protected static String formatActionId(String controller, String action) {
+	public static boolean contains(
+		ThemeDisplay themeDisplay, String rootPortletId, String controller,
+		String action) {
+
+		String actionId = formatActionId(controller, action);
+
+		return contains(
+			PermissionThreadLocal.getPermissionChecker(),
+			themeDisplay.getScopeGroupId(), rootPortletId,
+			themeDisplay.getScopeGroupId(), actionId);
+	}
+
+	protected static String formatAction(String action) {
 		StringBuilder sb = new StringBuilder(StringUtil.toUpperCase(action));
 
 		for (int i = 0; i < action.length(); i++) {
@@ -127,8 +141,36 @@ public class AlloyPermission {
 				int delta = sb.length() - action.length();
 
 				sb.insert(i + delta, CharPool.UNDERLINE);
+
+				if (((i + 1) >= action.length()) ||
+					Character.isLowerCase(action.charAt(i + 1))) {
+
+					continue;
+				}
+
+				while (i < action.length()) {
+					c = action.charAt(i);
+
+					if (Character.isLowerCase(c)) {
+						break;
+					}
+
+					i++;
+				}
+
+				if (i == action.length()) {
+					continue;
+				}
+
+				sb.insert(i + delta, CharPool.UNDERLINE);
 			}
 		}
+
+		return sb.toString();
+	}
+
+	protected static String formatActionId(String controller, String action) {
+		StringBuilder sb = new StringBuilder(formatAction(action));
 
 		sb.append(StringPool.POUND);
 		sb.append(StringUtil.toUpperCase(controller));

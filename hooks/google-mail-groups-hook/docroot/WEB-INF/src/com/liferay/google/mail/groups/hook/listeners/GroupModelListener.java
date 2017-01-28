@@ -21,16 +21,16 @@ import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.messaging.DestinationNames;
 import com.liferay.portal.kernel.messaging.MessageBusUtil;
+import com.liferay.portal.kernel.model.BaseModelListener;
+import com.liferay.portal.kernel.model.Group;
+import com.liferay.portal.kernel.model.Organization;
+import com.liferay.portal.kernel.model.User;
+import com.liferay.portal.kernel.model.UserGroup;
 import com.liferay.portal.kernel.process.ProcessCallable;
 import com.liferay.portal.kernel.process.ProcessException;
-import com.liferay.portal.kernel.transaction.TransactionCommitCallbackRegistryUtil;
-import com.liferay.portal.model.BaseModelListener;
-import com.liferay.portal.model.Group;
-import com.liferay.portal.model.Organization;
-import com.liferay.portal.model.User;
-import com.liferay.portal.model.UserGroup;
-import com.liferay.portal.service.GroupLocalServiceUtil;
-import com.liferay.portal.service.UserLocalServiceUtil;
+import com.liferay.portal.kernel.service.GroupLocalServiceUtil;
+import com.liferay.portal.kernel.service.UserLocalServiceUtil;
+import com.liferay.portal.kernel.transaction.TransactionCommitCallbackUtil;
 
 import java.io.Serializable;
 
@@ -68,7 +68,7 @@ public class GroupModelListener extends BaseModelListener<Group> {
 
 			};
 
-			TransactionCommitCallbackRegistryUtil.registerCallback(callable);
+			TransactionCommitCallbackUtil.registerCallback(callable);
 		}
 		catch (Exception e) {
 			_log.error(e, e);
@@ -131,7 +131,7 @@ public class GroupModelListener extends BaseModelListener<Group> {
 
 			};
 
-			TransactionCommitCallbackRegistryUtil.registerCallback(callable);
+			TransactionCommitCallbackUtil.registerCallback(callable);
 		}
 		catch (Exception e) {
 			_log.error(e, e);
@@ -143,8 +143,7 @@ public class GroupModelListener extends BaseModelListener<Group> {
 			Object associationClassPK)
 		throws PortalException {
 
-		if (!associationClassName.equals(
-				Organization.class.getName()) &&
+		if (!associationClassName.equals(Organization.class.getName()) &&
 			!associationClassName.equals(UserGroup.class.getName())) {
 
 			return new ArrayList<>();

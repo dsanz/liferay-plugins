@@ -14,6 +14,8 @@
 
 package com.liferay.sampleservicebuilder.service.base;
 
+import aQute.bnd.annotation.ProviderType;
+
 import com.liferay.sampleservicebuilder.service.FooServiceUtil;
 
 import java.util.Arrays;
@@ -22,15 +24,16 @@ import java.util.Arrays;
  * @author Brian Wing Shun Chan
  * @generated
  */
+@ProviderType
 public class FooServiceClpInvoker {
 	public FooServiceClpInvoker() {
-		_methodName36 = "getBeanIdentifier";
+		_methodName36 = "getOSGiServiceIdentifier";
 
 		_methodParameterTypes36 = new String[] {  };
 
-		_methodName37 = "setBeanIdentifier";
+		_methodName41 = "getFoos";
 
-		_methodParameterTypes37 = new String[] { "java.lang.String" };
+		_methodParameterTypes41 = new String[] {  };
 
 		_methodName42 = "getUser";
 
@@ -45,14 +48,12 @@ public class FooServiceClpInvoker {
 		Object[] arguments) throws Throwable {
 		if (_methodName36.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes36, parameterTypes)) {
-			return FooServiceUtil.getBeanIdentifier();
+			return FooServiceUtil.getOSGiServiceIdentifier();
 		}
 
-		if (_methodName37.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes37, parameterTypes)) {
-			FooServiceUtil.setBeanIdentifier((java.lang.String)arguments[0]);
-
-			return null;
+		if (_methodName41.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes41, parameterTypes)) {
+			return FooServiceUtil.getFoos();
 		}
 
 		if (_methodName42.equals(name) &&
@@ -70,8 +71,8 @@ public class FooServiceClpInvoker {
 
 	private String _methodName36;
 	private String[] _methodParameterTypes36;
-	private String _methodName37;
-	private String[] _methodParameterTypes37;
+	private String _methodName41;
+	private String[] _methodParameterTypes41;
 	private String _methodName42;
 	private String[] _methodParameterTypes42;
 	private String _methodName43;

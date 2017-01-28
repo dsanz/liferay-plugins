@@ -50,7 +50,7 @@ catch (NoSuchRoleException nsre) {
 			%>
 
 			<a class="so-logo" href="<%= group.getDisplayURL(themeDisplay, true) %>">
-				<img alt="<liferay-ui:message escapeAttribute="<%= true %>" key="social-office" /> <liferay-ui:message escapeAttribute="<%= true %>" key="logo" />" height="32" src='<%= PortalUtil.getPathContext(request) + "/user_bar/images/so_logo.png" %>' width="32" />
+				<img alt="<liferay-ui:message escapeAttribute="<%= true %>" key="social-office" /> <liferay-ui:message escapeAttribute="<%= true %>" key="logo" />" height="32" src="<%= PortalUtil.getPathContext(request) + "/user_bar/images/so_logo.png" %>" width="32" />
 			</a>
 
 			<nav>
@@ -136,36 +136,6 @@ catch (NoSuchRoleException nsre) {
 					}
 				);
 			}
-		}
-
-		var navAccountControlsBtn = A.one('#<%= PortalUtil.getPortletNamespace(PortletKeys.DOCKBAR) %>navAccountControlsNavbarBtn');
-
-		if (navAccountControlsBtn) {
-			navAccountControlsBtn.on(
-				'click',
-				function(event) {
-					var sitesDirectory = A.one('.portlet-dockbar .sites-directory');
-
-					if (!sitesDirectory) {
-						var mySitesMenu = A.one('.portlet-dockbar .my-sites .my-sites-menu');
-
-						var sitesDirectoryString = '<li class="last sites-directory"><a href="javascript:;" onclick="<portlet:namespace />openWindow();"><i class="icon-reorder"></i><span class="site-name"> ' + Liferay.Language.get('sites-directory') + '</span></a></li>';
-
-						if (mySitesMenu) {
-							mySitesMenu.insert(sitesDirectoryString);
-						}
-						else {
-							var navAccountControls = A.one('.nav-account-controls');
-
-							var dividerVertical = navAccountControls.one('.divider-vertical ');
-
-							if (dividerVertical) {
-								navAccountControls.insertBefore(sitesDirectoryString, dividerVertical);
-							}
-						}
-					}
-				}
-			);
 		}
 	</aui:script>
 </c:if>

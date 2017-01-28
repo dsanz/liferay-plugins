@@ -14,14 +14,16 @@
 
 package com.liferay.resourcesimporter.util;
 
+import com.liferay.portal.kernel.model.LayoutSetPrototype;
+import com.liferay.portal.kernel.util.CharPool;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.PortalRunMode;
 import com.liferay.portal.kernel.util.PropertiesUtil;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.StringUtil;
-import com.liferay.portal.model.LayoutSetPrototype;
 
 import java.io.IOException;
+import java.io.InputStream;
 
 import java.util.Properties;
 
@@ -35,18 +37,19 @@ public class PluginPackageProperties {
 	public PluginPackageProperties(ServletContext servletContext)
 		throws IOException {
 
-		String propertiesString = StringUtil.read(
-			servletContext.getResourceAsStream(
-				"/WEB-INF/liferay-plugin-package.properties"));
+		InputStream inputStream = servletContext.getResourceAsStream(
+			"/WEB-INF/liferay-plugin-package.properties");
 
-		if (propertiesString == null) {
+		if (inputStream == null) {
 			return;
 		}
+
+		String propertiesString = StringUtil.read(inputStream);
 
 		String contextPath = servletContext.getRealPath(StringPool.SLASH);
 
 		contextPath = StringUtil.replace(
-			contextPath, StringPool.BACK_SLASH, StringPool.SLASH);
+			contextPath, CharPool.BACK_SLASH, CharPool.SLASH);
 
 		propertiesString = propertiesString.replace(
 			"${context.path}", contextPath);
@@ -78,10 +81,15 @@ public class PluginPackageProperties {
 	}
 
 	public boolean isDeveloperModeEnabled() {
-		return GetterUtil.getBoolean(
-			_properties.getProperty(
-				"resources-importer-developer-mode-enabled")) ||
-			PortalRunMode.isTestMode();
+		if (GetterUtil.getBoolean(
+				_properties.getProperty(
+					"resources-importer-developer-mode-enabled")) ||
+			PortalRunMode.isTestMode()) {
+
+			return true;
+		}
+
+		return false;
 	}
 
 	public boolean isUpdateModeEnabled() {

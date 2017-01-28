@@ -14,7 +14,9 @@
 
 package com.liferay.testblob.service;
 
-import com.liferay.portal.service.ServiceWrapper;
+import aQute.bnd.annotation.ProviderType;
+
+import com.liferay.portal.kernel.service.ServiceWrapper;
 
 /**
  * Provides a wrapper for {@link TestBlobEntryLocalService}.
@@ -23,12 +25,45 @@ import com.liferay.portal.service.ServiceWrapper;
  * @see TestBlobEntryLocalService
  * @generated
  */
+@ProviderType
 public class TestBlobEntryLocalServiceWrapper
 	implements TestBlobEntryLocalService,
 		ServiceWrapper<TestBlobEntryLocalService> {
 	public TestBlobEntryLocalServiceWrapper(
 		TestBlobEntryLocalService testBlobEntryLocalService) {
 		_testBlobEntryLocalService = testBlobEntryLocalService;
+	}
+
+	@Override
+	public com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery getActionableDynamicQuery() {
+		return _testBlobEntryLocalService.getActionableDynamicQuery();
+	}
+
+	@Override
+	public com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery() {
+		return _testBlobEntryLocalService.dynamicQuery();
+	}
+
+	@Override
+	public com.liferay.portal.kernel.dao.orm.IndexableActionableDynamicQuery getIndexableActionableDynamicQuery() {
+		return _testBlobEntryLocalService.getIndexableActionableDynamicQuery();
+	}
+
+	/**
+	* @throws PortalException
+	*/
+	@Override
+	public com.liferay.portal.kernel.model.PersistedModel deletePersistedModel(
+		com.liferay.portal.kernel.model.PersistedModel persistedModel)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		return _testBlobEntryLocalService.deletePersistedModel(persistedModel);
+	}
+
+	@Override
+	public com.liferay.portal.kernel.model.PersistedModel getPersistedModel(
+		java.io.Serializable primaryKeyObj)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		return _testBlobEntryLocalService.getPersistedModel(primaryKeyObj);
 	}
 
 	/**
@@ -53,16 +88,6 @@ public class TestBlobEntryLocalServiceWrapper
 	public com.liferay.testblob.model.TestBlobEntry createTestBlobEntry(
 		long testBlobEntryId) {
 		return _testBlobEntryLocalService.createTestBlobEntry(testBlobEntryId);
-	}
-
-	/**
-	* @throws PortalException
-	*/
-	@Override
-	public com.liferay.portal.model.PersistedModel deletePersistedModel(
-		com.liferay.portal.model.PersistedModel persistedModel)
-		throws com.liferay.portal.kernel.exception.PortalException {
-		return _testBlobEntryLocalService.deletePersistedModel(persistedModel);
 	}
 
 	/**
@@ -92,8 +117,69 @@ public class TestBlobEntryLocalServiceWrapper
 	}
 
 	@Override
-	public com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery() {
-		return _testBlobEntryLocalService.dynamicQuery();
+	public com.liferay.testblob.model.TestBlobEntry fetchTestBlobEntry(
+		long testBlobEntryId) {
+		return _testBlobEntryLocalService.fetchTestBlobEntry(testBlobEntryId);
+	}
+
+	/**
+	* Returns the test blob entry with the primary key.
+	*
+	* @param testBlobEntryId the primary key of the test blob entry
+	* @return the test blob entry
+	* @throws PortalException if a test blob entry with the primary key could not be found
+	*/
+	@Override
+	public com.liferay.testblob.model.TestBlobEntry getTestBlobEntry(
+		long testBlobEntryId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		return _testBlobEntryLocalService.getTestBlobEntry(testBlobEntryId);
+	}
+
+	/**
+	* Updates the test blob entry in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
+	*
+	* @param testBlobEntry the test blob entry
+	* @return the test blob entry that was updated
+	*/
+	@Override
+	public com.liferay.testblob.model.TestBlobEntry updateTestBlobEntry(
+		com.liferay.testblob.model.TestBlobEntry testBlobEntry) {
+		return _testBlobEntryLocalService.updateTestBlobEntry(testBlobEntry);
+	}
+
+	@Override
+	public com.liferay.testblob.model.TestBlobEntryBlobFieldBlobModel getBlobFieldBlobModel(
+		java.io.Serializable primaryKey) {
+		return _testBlobEntryLocalService.getBlobFieldBlobModel(primaryKey);
+	}
+
+	/**
+	* Returns the number of test blob entries.
+	*
+	* @return the number of test blob entries
+	*/
+	@Override
+	public int getTestBlobEntriesCount() {
+		return _testBlobEntryLocalService.getTestBlobEntriesCount();
+	}
+
+	@Override
+	public java.lang.Object invokeMethod(java.lang.String name,
+		java.lang.String[] parameterTypes, java.lang.Object[] arguments)
+		throws java.lang.Throwable {
+		return _testBlobEntryLocalService.invokeMethod(name, parameterTypes,
+			arguments);
+	}
+
+	/**
+	* Returns the OSGi service identifier.
+	*
+	* @return the OSGi service identifier
+	*/
+	@Override
+	public java.lang.String getOSGiServiceIdentifier() {
+		return _testBlobEntryLocalService.getOSGiServiceIdentifier();
 	}
 
 	/**
@@ -150,67 +236,6 @@ public class TestBlobEntryLocalServiceWrapper
 	}
 
 	/**
-	* Returns the number of rows that match the dynamic query.
-	*
-	* @param dynamicQuery the dynamic query
-	* @return the number of rows that match the dynamic query
-	*/
-	@Override
-	public long dynamicQueryCount(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery) {
-		return _testBlobEntryLocalService.dynamicQueryCount(dynamicQuery);
-	}
-
-	/**
-	* Returns the number of rows that match the dynamic query.
-	*
-	* @param dynamicQuery the dynamic query
-	* @param projection the projection to apply to the query
-	* @return the number of rows that match the dynamic query
-	*/
-	@Override
-	public long dynamicQueryCount(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery,
-		com.liferay.portal.kernel.dao.orm.Projection projection) {
-		return _testBlobEntryLocalService.dynamicQueryCount(dynamicQuery,
-			projection);
-	}
-
-	@Override
-	public com.liferay.testblob.model.TestBlobEntry fetchTestBlobEntry(
-		long testBlobEntryId) {
-		return _testBlobEntryLocalService.fetchTestBlobEntry(testBlobEntryId);
-	}
-
-	@Override
-	public com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery getActionableDynamicQuery() {
-		return _testBlobEntryLocalService.getActionableDynamicQuery();
-	}
-
-	/**
-	* Returns the Spring bean ID for this bean.
-	*
-	* @return the Spring bean ID for this bean
-	*/
-	@Override
-	public java.lang.String getBeanIdentifier() {
-		return _testBlobEntryLocalService.getBeanIdentifier();
-	}
-
-	@Override
-	public com.liferay.testblob.model.TestBlobEntryBlobFieldBlobModel getBlobFieldBlobModel(
-		java.io.Serializable primaryKey) {
-		return _testBlobEntryLocalService.getBlobFieldBlobModel(primaryKey);
-	}
-
-	@Override
-	public com.liferay.portal.model.PersistedModel getPersistedModel(
-		java.io.Serializable primaryKeyObj)
-		throws com.liferay.portal.kernel.exception.PortalException {
-		return _testBlobEntryLocalService.getPersistedModel(primaryKeyObj);
-	}
-
-	/**
 	* Returns a range of all the test blob entries.
 	*
 	* <p>
@@ -228,74 +253,30 @@ public class TestBlobEntryLocalServiceWrapper
 	}
 
 	/**
-	* Returns the number of test blob entries.
+	* Returns the number of rows matching the dynamic query.
 	*
-	* @return the number of test blob entries
+	* @param dynamicQuery the dynamic query
+	* @return the number of rows matching the dynamic query
 	*/
 	@Override
-	public int getTestBlobEntriesCount() {
-		return _testBlobEntryLocalService.getTestBlobEntriesCount();
+	public long dynamicQueryCount(
+		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery) {
+		return _testBlobEntryLocalService.dynamicQueryCount(dynamicQuery);
 	}
 
 	/**
-	* Returns the test blob entry with the primary key.
+	* Returns the number of rows matching the dynamic query.
 	*
-	* @param testBlobEntryId the primary key of the test blob entry
-	* @return the test blob entry
-	* @throws PortalException if a test blob entry with the primary key could not be found
+	* @param dynamicQuery the dynamic query
+	* @param projection the projection to apply to the query
+	* @return the number of rows matching the dynamic query
 	*/
 	@Override
-	public com.liferay.testblob.model.TestBlobEntry getTestBlobEntry(
-		long testBlobEntryId)
-		throws com.liferay.portal.kernel.exception.PortalException {
-		return _testBlobEntryLocalService.getTestBlobEntry(testBlobEntryId);
-	}
-
-	@Override
-	public java.lang.Object invokeMethod(java.lang.String name,
-		java.lang.String[] parameterTypes, java.lang.Object[] arguments)
-		throws java.lang.Throwable {
-		return _testBlobEntryLocalService.invokeMethod(name, parameterTypes,
-			arguments);
-	}
-
-	/**
-	* Sets the Spring bean ID for this bean.
-	*
-	* @param beanIdentifier the Spring bean ID for this bean
-	*/
-	@Override
-	public void setBeanIdentifier(java.lang.String beanIdentifier) {
-		_testBlobEntryLocalService.setBeanIdentifier(beanIdentifier);
-	}
-
-	/**
-	* Updates the test blob entry in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
-	*
-	* @param testBlobEntry the test blob entry
-	* @return the test blob entry that was updated
-	*/
-	@Override
-	public com.liferay.testblob.model.TestBlobEntry updateTestBlobEntry(
-		com.liferay.testblob.model.TestBlobEntry testBlobEntry) {
-		return _testBlobEntryLocalService.updateTestBlobEntry(testBlobEntry);
-	}
-
-	/**
-	 * @deprecated As of 6.1.0, replaced by {@link #getWrappedService}
-	 */
-	@Deprecated
-	public TestBlobEntryLocalService getWrappedTestBlobEntryLocalService() {
-		return _testBlobEntryLocalService;
-	}
-
-	/**
-	 * @deprecated As of 6.1.0, replaced by {@link #setWrappedService}
-	 */
-	@Deprecated
-	public void setWrappedTestBlobEntryLocalService(
-		TestBlobEntryLocalService testBlobEntryLocalService) {
-		_testBlobEntryLocalService = testBlobEntryLocalService;
+	public long dynamicQueryCount(
+		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery,
+		com.liferay.portal.kernel.dao.orm.Projection projection) {
+		return _testBlobEntryLocalService.dynamicQueryCount(dynamicQuery,
+			projection);
 	}
 
 	@Override

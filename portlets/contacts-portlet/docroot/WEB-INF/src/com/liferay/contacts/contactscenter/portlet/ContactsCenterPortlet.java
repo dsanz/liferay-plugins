@@ -17,83 +17,84 @@
 
 package com.liferay.contacts.contactscenter.portlet;
 
-import com.liferay.contacts.DuplicateEntryEmailAddressException;
-import com.liferay.contacts.EntryEmailAddressException;
+import com.liferay.announcements.kernel.model.AnnouncementsDelivery;
+import com.liferay.announcements.kernel.service.AnnouncementsDeliveryLocalServiceUtil;
+import com.liferay.contacts.exception.DuplicateEntryEmailAddressException;
+import com.liferay.contacts.exception.EntryEmailAddressException;
 import com.liferay.contacts.model.Entry;
 import com.liferay.contacts.service.EntryLocalServiceUtil;
 import com.liferay.contacts.util.ContactsConstants;
 import com.liferay.contacts.util.ContactsUtil;
 import com.liferay.contacts.util.PortletKeys;
 import com.liferay.contacts.util.SocialRelationConstants;
-import com.liferay.portal.AddressCityException;
-import com.liferay.portal.AddressStreetException;
-import com.liferay.portal.AddressZipException;
-import com.liferay.portal.ContactFirstNameException;
-import com.liferay.portal.ContactFullNameException;
-import com.liferay.portal.ContactLastNameException;
-import com.liferay.portal.DuplicateUserEmailAddressException;
-import com.liferay.portal.EmailAddressException;
-import com.liferay.portal.NoSuchCountryException;
-import com.liferay.portal.NoSuchListTypeException;
-import com.liferay.portal.NoSuchRegionException;
-import com.liferay.portal.NoSuchUserException;
-import com.liferay.portal.PhoneNumberException;
-import com.liferay.portal.ReservedUserEmailAddressException;
-import com.liferay.portal.ReservedUserScreenNameException;
-import com.liferay.portal.UserEmailAddressException;
-import com.liferay.portal.UserScreenNameException;
-import com.liferay.portal.UserSmsException;
-import com.liferay.portal.WebsiteURLException;
 import com.liferay.portal.kernel.bean.BeanParamUtil;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
+import com.liferay.portal.kernel.exception.AddressCityException;
+import com.liferay.portal.kernel.exception.AddressStreetException;
+import com.liferay.portal.kernel.exception.AddressZipException;
+import com.liferay.portal.kernel.exception.ContactFirstNameException;
+import com.liferay.portal.kernel.exception.ContactFullNameException;
+import com.liferay.portal.kernel.exception.ContactLastNameException;
+import com.liferay.portal.kernel.exception.DuplicateUserEmailAddressException;
+import com.liferay.portal.kernel.exception.EmailAddressException;
+import com.liferay.portal.kernel.exception.NoSuchCountryException;
+import com.liferay.portal.kernel.exception.NoSuchListTypeException;
+import com.liferay.portal.kernel.exception.NoSuchRegionException;
+import com.liferay.portal.kernel.exception.NoSuchUserException;
+import com.liferay.portal.kernel.exception.PhoneNumberException;
+import com.liferay.portal.kernel.exception.PhoneNumberExtensionException;
+import com.liferay.portal.kernel.exception.ReservedUserEmailAddressException;
+import com.liferay.portal.kernel.exception.ReservedUserScreenNameException;
+import com.liferay.portal.kernel.exception.UserEmailAddressException;
+import com.liferay.portal.kernel.exception.UserScreenNameException;
+import com.liferay.portal.kernel.exception.UserSmsException;
+import com.liferay.portal.kernel.exception.WebsiteURLException;
 import com.liferay.portal.kernel.json.JSONArray;
 import com.liferay.portal.kernel.json.JSONFactoryUtil;
 import com.liferay.portal.kernel.json.JSONObject;
+import com.liferay.portal.kernel.model.Address;
+import com.liferay.portal.kernel.model.BaseModel;
+import com.liferay.portal.kernel.model.Contact;
+import com.liferay.portal.kernel.model.EmailAddress;
+import com.liferay.portal.kernel.model.Group;
+import com.liferay.portal.kernel.model.Layout;
+import com.liferay.portal.kernel.model.Phone;
+import com.liferay.portal.kernel.model.PortletConstants;
+import com.liferay.portal.kernel.model.Role;
+import com.liferay.portal.kernel.model.RoleConstants;
+import com.liferay.portal.kernel.model.User;
+import com.liferay.portal.kernel.model.UserNotificationDeliveryConstants;
+import com.liferay.portal.kernel.model.Website;
 import com.liferay.portal.kernel.notifications.UserNotificationManagerUtil;
 import com.liferay.portal.kernel.portlet.LiferayPortletResponse;
 import com.liferay.portal.kernel.portlet.LiferayWindowState;
 import com.liferay.portal.kernel.portlet.PortletResponseUtil;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCPortlet;
+import com.liferay.portal.kernel.service.RoleLocalServiceUtil;
+import com.liferay.portal.kernel.service.ServiceContext;
+import com.liferay.portal.kernel.service.ServiceContextFactory;
+import com.liferay.portal.kernel.service.UserLocalServiceUtil;
+import com.liferay.portal.kernel.service.UserNotificationEventLocalServiceUtil;
+import com.liferay.portal.kernel.service.UserServiceUtil;
+import com.liferay.portal.kernel.theme.PortletDisplay;
+import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.CalendarFactoryUtil;
 import com.liferay.portal.kernel.util.ListUtil;
 import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.ParamUtil;
+import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.WebKeys;
+import com.liferay.portal.kernel.util.comparator.UserLastNameComparator;
 import com.liferay.portal.kernel.workflow.WorkflowConstants;
-import com.liferay.portal.model.Address;
-import com.liferay.portal.model.BaseModel;
-import com.liferay.portal.model.Contact;
-import com.liferay.portal.model.EmailAddress;
-import com.liferay.portal.model.Group;
-import com.liferay.portal.model.Layout;
-import com.liferay.portal.model.Phone;
-import com.liferay.portal.model.PortletConstants;
-import com.liferay.portal.model.Role;
-import com.liferay.portal.model.RoleConstants;
-import com.liferay.portal.model.User;
-import com.liferay.portal.model.UserNotificationDeliveryConstants;
-import com.liferay.portal.model.Website;
-import com.liferay.portal.service.RoleLocalServiceUtil;
-import com.liferay.portal.service.ServiceContext;
-import com.liferay.portal.service.ServiceContextFactory;
-import com.liferay.portal.service.UserLocalServiceUtil;
-import com.liferay.portal.service.UserNotificationEventLocalServiceUtil;
-import com.liferay.portal.service.UserServiceUtil;
-import com.liferay.portal.theme.PortletDisplay;
-import com.liferay.portal.theme.ThemeDisplay;
-import com.liferay.portal.util.PortalUtil;
-import com.liferay.portal.util.comparator.UserLastNameComparator;
-import com.liferay.portlet.announcements.model.AnnouncementsDelivery;
-import com.liferay.portlet.announcements.service.AnnouncementsDeliveryLocalServiceUtil;
-import com.liferay.portlet.social.NoSuchRelationException;
-import com.liferay.portlet.social.model.SocialRelation;
-import com.liferay.portlet.social.model.SocialRequest;
-import com.liferay.portlet.social.model.SocialRequestConstants;
-import com.liferay.portlet.social.service.SocialRelationLocalServiceUtil;
-import com.liferay.portlet.social.service.SocialRequestLocalServiceUtil;
-import com.liferay.portlet.usersadmin.util.UsersAdminUtil;
+import com.liferay.social.kernel.exception.NoSuchRelationException;
+import com.liferay.social.kernel.model.SocialRelation;
+import com.liferay.social.kernel.model.SocialRequest;
+import com.liferay.social.kernel.model.SocialRequestConstants;
+import com.liferay.social.kernel.service.SocialRelationLocalServiceUtil;
+import com.liferay.social.kernel.service.SocialRequestLocalServiceUtil;
+import com.liferay.users.admin.kernel.util.UsersAdminUtil;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -568,7 +569,7 @@ public class ContactsCenterPortlet extends MVCPortlet {
 				message = "please-enter-a-valid-email-address";
 			}
 			else if (e instanceof NoSuchCountryException) {
-				message ="please-select-a-country";
+				message = "please-select-a-country";
 			}
 			else if (e instanceof NoSuchListTypeException) {
 				message = "please-select-a-type";
@@ -578,6 +579,9 @@ public class ContactsCenterPortlet extends MVCPortlet {
 			}
 			else if (e instanceof PhoneNumberException) {
 				message = "please-enter-a-valid-phone-number";
+			}
+			else if (e instanceof PhoneNumberExtensionException) {
+				message = "please-enter-a-valid-phone-number-extension";
 			}
 			else if (e instanceof ReservedUserEmailAddressException) {
 				message = "the-email-address-you-requested-is-reserveds";
@@ -768,8 +772,7 @@ public class ContactsCenterPortlet extends MVCPortlet {
 				jsonArray.put(contactJSONObject);
 			}
 		}
-		else if (filterBy.equals(
-					ContactsConstants.FILTER_BY_FOLLOWERS) &&
+		else if (filterBy.equals(ContactsConstants.FILTER_BY_FOLLOWERS) &&
 				 !portletId.equals(PortletKeys.MEMBERS)) {
 
 			List<SocialRelation> socialRelations =
@@ -861,9 +864,7 @@ public class ContactsCenterPortlet extends MVCPortlet {
 
 				params.put(
 					"userGroupRole",
-					new Long[] {
-						group.getGroupId(), siteOwnerRole.getRoleId()
-					});
+					new Long[] {group.getGroupId(), siteOwnerRole.getRoleId()});
 
 				users.addAll(
 					UserLocalServiceUtil.search(
@@ -1137,21 +1138,15 @@ public class ContactsCenterPortlet extends MVCPortlet {
 
 		Contact contact = user.getContact();
 
-		String aimSn = BeanParamUtil.getString(contact, actionRequest, "aimSn");
 		String facebookSn = BeanParamUtil.getString(
 			contact, actionRequest, "facebookSn");
-		String icqSn = BeanParamUtil.getString(contact, actionRequest, "icqSn");
 		String jabberSn = BeanParamUtil.getString(
 			contact, actionRequest, "jabberSn");
-		String msnSn = BeanParamUtil.getString(contact, actionRequest, "msnSn");
-		String mySpaceSn = BeanParamUtil.getString(
-			contact, actionRequest, "mySpaceSn");
 		String skypeSn = BeanParamUtil.getString(
 			contact, actionRequest, "skypeSn");
 		String smsSn = BeanParamUtil.getString(contact, actionRequest, "smsSn");
 		String twitterSn = BeanParamUtil.getString(
 			contact, actionRequest, "twitterSn");
-		String ymSn = BeanParamUtil.getString(contact, actionRequest, "ymSn");
 
 		Calendar cal = CalendarFactoryUtil.getCalendar();
 
@@ -1174,11 +1169,11 @@ public class ContactsCenterPortlet extends MVCPortlet {
 			user.getLanguageId(), user.getTimeZoneId(), user.getGreeting(),
 			comments, firstName, middleName, lastName, contact.getPrefixId(),
 			contact.getSuffixId(), user.isMale(), birthdayMonth, birthdayDay,
-			birthdayYear, smsSn, aimSn, facebookSn, icqSn, jabberSn, msnSn,
-			mySpaceSn, skypeSn, twitterSn, ymSn, jobTitle, user.getGroupIds(),
-			user.getOrganizationIds(), user.getRoleIds(), null,
-			user.getUserGroupIds(), user.getAddresses(), null, user.getPhones(),
-			user.getWebsites(), announcementsDeliveries, new ServiceContext());
+			birthdayYear, smsSn, facebookSn, jabberSn, skypeSn, twitterSn,
+			jobTitle, user.getGroupIds(), user.getOrganizationIds(),
+			user.getRoleIds(), null, user.getUserGroupIds(),
+			user.getAddresses(), null, user.getPhones(), user.getWebsites(),
+			announcementsDeliveries, new ServiceContext());
 	}
 
 	protected void updateWebsites(ActionRequest actionRequest)

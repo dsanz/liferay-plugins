@@ -14,13 +14,13 @@
 
 package com.liferay.socialcoding.service.impl;
 
-import com.liferay.portal.NoSuchUserException;
+import com.liferay.portal.kernel.exception.NoSuchUserException;
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.model.User;
+import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.kernel.util.StringPool;
-import com.liferay.portal.model.User;
-import com.liferay.portal.util.PortalUtil;
-import com.liferay.portlet.social.service.SocialActivityLocalServiceUtil;
-import com.liferay.socialcoding.NoSuchSVNRevisionException;
+import com.liferay.social.kernel.service.SocialActivityLocalServiceUtil;
+import com.liferay.socialcoding.exception.NoSuchSVNRevisionException;
 import com.liferay.socialcoding.model.SVNRevision;
 import com.liferay.socialcoding.service.base.SVNRevisionLocalServiceBaseImpl;
 import com.liferay.socialcoding.svn.social.SVNActivityKeys;
@@ -93,7 +93,7 @@ public class SVNRevisionLocalServiceImpl
 		List<SVNRevision> svnRevisions = svnRevisionPersistence.findBySVNUserId(
 			svnUserId, count - 1, count);
 
-		if (svnRevisions.size() > 0) {
+		if (!svnRevisions.isEmpty()) {
 			return svnRevisions.get(0);
 		}
 		else {
@@ -107,7 +107,7 @@ public class SVNRevisionLocalServiceImpl
 		List<SVNRevision> svnRevisions = svnRevisionPersistence.findBySVNUserId(
 			svnUserId, 0, 1);
 
-		if (svnRevisions.size() > 0) {
+		if (!svnRevisions.isEmpty()) {
 			return svnRevisions.get(0);
 		}
 		else {

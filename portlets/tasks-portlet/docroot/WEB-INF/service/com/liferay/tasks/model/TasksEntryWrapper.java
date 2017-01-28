@@ -14,8 +14,15 @@
 
 package com.liferay.tasks.model;
 
+import aQute.bnd.annotation.ProviderType;
+
+import com.liferay.expando.kernel.model.ExpandoBridge;
+
+import com.liferay.portal.kernel.model.ModelWrapper;
+import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.util.Validator;
-import com.liferay.portal.model.ModelWrapper;
+
+import java.io.Serializable;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -30,6 +37,7 @@ import java.util.Map;
  * @see TasksEntry
  * @generated
  */
+@ProviderType
 public class TasksEntryWrapper implements TasksEntry, ModelWrapper<TasksEntry> {
 	public TasksEntryWrapper(TasksEntry tasksEntry) {
 		_tasksEntry = tasksEntry;
@@ -155,118 +163,43 @@ public class TasksEntryWrapper implements TasksEntry, ModelWrapper<TasksEntry> {
 	}
 
 	@Override
-	public java.lang.Object clone() {
-		return new TasksEntryWrapper((TasksEntry)_tasksEntry.clone());
+	public boolean isCachedModel() {
+		return _tasksEntry.isCachedModel();
+	}
+
+	@Override
+	public boolean isEscapedModel() {
+		return _tasksEntry.isEscapedModel();
+	}
+
+	@Override
+	public boolean isNew() {
+		return _tasksEntry.isNew();
+	}
+
+	@Override
+	public ExpandoBridge getExpandoBridge() {
+		return _tasksEntry.getExpandoBridge();
+	}
+
+	@Override
+	public com.liferay.portal.kernel.model.CacheModel<com.liferay.tasks.model.TasksEntry> toCacheModel() {
+		return _tasksEntry.toCacheModel();
+	}
+
+	@Override
+	public com.liferay.tasks.model.TasksEntry toEscapedModel() {
+		return new TasksEntryWrapper(_tasksEntry.toEscapedModel());
+	}
+
+	@Override
+	public com.liferay.tasks.model.TasksEntry toUnescapedModel() {
+		return new TasksEntryWrapper(_tasksEntry.toUnescapedModel());
 	}
 
 	@Override
 	public int compareTo(com.liferay.tasks.model.TasksEntry tasksEntry) {
 		return _tasksEntry.compareTo(tasksEntry);
-	}
-
-	@Override
-	public java.lang.String getAssigneeFullName() {
-		return _tasksEntry.getAssigneeFullName();
-	}
-
-	/**
-	* Returns the assignee user ID of this tasks entry.
-	*
-	* @return the assignee user ID of this tasks entry
-	*/
-	@Override
-	public long getAssigneeUserId() {
-		return _tasksEntry.getAssigneeUserId();
-	}
-
-	/**
-	* Returns the assignee user uuid of this tasks entry.
-	*
-	* @return the assignee user uuid of this tasks entry
-	*/
-	@Override
-	public java.lang.String getAssigneeUserUuid() {
-		return _tasksEntry.getAssigneeUserUuid();
-	}
-
-	/**
-	* Returns the company ID of this tasks entry.
-	*
-	* @return the company ID of this tasks entry
-	*/
-	@Override
-	public long getCompanyId() {
-		return _tasksEntry.getCompanyId();
-	}
-
-	/**
-	* Returns the create date of this tasks entry.
-	*
-	* @return the create date of this tasks entry
-	*/
-	@Override
-	public java.util.Date getCreateDate() {
-		return _tasksEntry.getCreateDate();
-	}
-
-	/**
-	* Returns the due date of this tasks entry.
-	*
-	* @return the due date of this tasks entry
-	*/
-	@Override
-	public java.util.Date getDueDate() {
-		return _tasksEntry.getDueDate();
-	}
-
-	@Override
-	public com.liferay.portlet.expando.model.ExpandoBridge getExpandoBridge() {
-		return _tasksEntry.getExpandoBridge();
-	}
-
-	/**
-	* Returns the finish date of this tasks entry.
-	*
-	* @return the finish date of this tasks entry
-	*/
-	@Override
-	public java.util.Date getFinishDate() {
-		return _tasksEntry.getFinishDate();
-	}
-
-	/**
-	* Returns the group ID of this tasks entry.
-	*
-	* @return the group ID of this tasks entry
-	*/
-	@Override
-	public long getGroupId() {
-		return _tasksEntry.getGroupId();
-	}
-
-	/**
-	* Returns the modified date of this tasks entry.
-	*
-	* @return the modified date of this tasks entry
-	*/
-	@Override
-	public java.util.Date getModifiedDate() {
-		return _tasksEntry.getModifiedDate();
-	}
-
-	/**
-	* Returns the primary key of this tasks entry.
-	*
-	* @return the primary key of this tasks entry
-	*/
-	@Override
-	public long getPrimaryKey() {
-		return _tasksEntry.getPrimaryKey();
-	}
-
-	@Override
-	public java.io.Serializable getPrimaryKeyObj() {
-		return _tasksEntry.getPrimaryKeyObj();
 	}
 
 	/**
@@ -277,36 +210,6 @@ public class TasksEntryWrapper implements TasksEntry, ModelWrapper<TasksEntry> {
 	@Override
 	public int getPriority() {
 		return _tasksEntry.getPriority();
-	}
-
-	@Override
-	public java.lang.String getPriorityLabel() {
-		return _tasksEntry.getPriorityLabel();
-	}
-
-	@Override
-	public java.lang.String getReporterFullName() {
-		return _tasksEntry.getReporterFullName();
-	}
-
-	/**
-	* Returns the resolver user ID of this tasks entry.
-	*
-	* @return the resolver user ID of this tasks entry
-	*/
-	@Override
-	public long getResolverUserId() {
-		return _tasksEntry.getResolverUserId();
-	}
-
-	/**
-	* Returns the resolver user uuid of this tasks entry.
-	*
-	* @return the resolver user uuid of this tasks entry
-	*/
-	@Override
-	public java.lang.String getResolverUserUuid() {
-		return _tasksEntry.getResolverUserUuid();
 	}
 
 	/**
@@ -320,18 +223,58 @@ public class TasksEntryWrapper implements TasksEntry, ModelWrapper<TasksEntry> {
 	}
 
 	@Override
-	public java.lang.String getStatusLabel() {
-		return _tasksEntry.getStatusLabel();
+	public int hashCode() {
+		return _tasksEntry.hashCode();
+	}
+
+	@Override
+	public Serializable getPrimaryKeyObj() {
+		return _tasksEntry.getPrimaryKeyObj();
+	}
+
+	@Override
+	public java.lang.Object clone() {
+		return new TasksEntryWrapper((TasksEntry)_tasksEntry.clone());
+	}
+
+	@Override
+	public java.lang.String getAssigneeFullName() {
+		return _tasksEntry.getAssigneeFullName();
 	}
 
 	/**
-	* Returns the tasks entry ID of this tasks entry.
+	* Returns the assignee user uuid of this tasks entry.
 	*
-	* @return the tasks entry ID of this tasks entry
+	* @return the assignee user uuid of this tasks entry
 	*/
 	@Override
-	public long getTasksEntryId() {
-		return _tasksEntry.getTasksEntryId();
+	public java.lang.String getAssigneeUserUuid() {
+		return _tasksEntry.getAssigneeUserUuid();
+	}
+
+	@Override
+	public java.lang.String getPriorityLabel() {
+		return _tasksEntry.getPriorityLabel();
+	}
+
+	@Override
+	public java.lang.String getReporterFullName() {
+		return _tasksEntry.getReporterFullName();
+	}
+
+	/**
+	* Returns the resolver user uuid of this tasks entry.
+	*
+	* @return the resolver user uuid of this tasks entry
+	*/
+	@Override
+	public java.lang.String getResolverUserUuid() {
+		return _tasksEntry.getResolverUserUuid();
+	}
+
+	@Override
+	public java.lang.String getStatusLabel() {
+		return _tasksEntry.getStatusLabel();
 	}
 
 	/**
@@ -342,16 +285,6 @@ public class TasksEntryWrapper implements TasksEntry, ModelWrapper<TasksEntry> {
 	@Override
 	public java.lang.String getTitle() {
 		return _tasksEntry.getTitle();
-	}
-
-	/**
-	* Returns the user ID of this tasks entry.
-	*
-	* @return the user ID of this tasks entry
-	*/
-	@Override
-	public long getUserId() {
-		return _tasksEntry.getUserId();
 	}
 
 	/**
@@ -375,23 +308,123 @@ public class TasksEntryWrapper implements TasksEntry, ModelWrapper<TasksEntry> {
 	}
 
 	@Override
-	public int hashCode() {
-		return _tasksEntry.hashCode();
+	public java.lang.String toString() {
+		return _tasksEntry.toString();
 	}
 
 	@Override
-	public boolean isCachedModel() {
-		return _tasksEntry.isCachedModel();
+	public java.lang.String toXmlString() {
+		return _tasksEntry.toXmlString();
 	}
 
+	/**
+	* Returns the create date of this tasks entry.
+	*
+	* @return the create date of this tasks entry
+	*/
 	@Override
-	public boolean isEscapedModel() {
-		return _tasksEntry.isEscapedModel();
+	public Date getCreateDate() {
+		return _tasksEntry.getCreateDate();
 	}
 
+	/**
+	* Returns the due date of this tasks entry.
+	*
+	* @return the due date of this tasks entry
+	*/
 	@Override
-	public boolean isNew() {
-		return _tasksEntry.isNew();
+	public Date getDueDate() {
+		return _tasksEntry.getDueDate();
+	}
+
+	/**
+	* Returns the finish date of this tasks entry.
+	*
+	* @return the finish date of this tasks entry
+	*/
+	@Override
+	public Date getFinishDate() {
+		return _tasksEntry.getFinishDate();
+	}
+
+	/**
+	* Returns the modified date of this tasks entry.
+	*
+	* @return the modified date of this tasks entry
+	*/
+	@Override
+	public Date getModifiedDate() {
+		return _tasksEntry.getModifiedDate();
+	}
+
+	/**
+	* Returns the assignee user ID of this tasks entry.
+	*
+	* @return the assignee user ID of this tasks entry
+	*/
+	@Override
+	public long getAssigneeUserId() {
+		return _tasksEntry.getAssigneeUserId();
+	}
+
+	/**
+	* Returns the company ID of this tasks entry.
+	*
+	* @return the company ID of this tasks entry
+	*/
+	@Override
+	public long getCompanyId() {
+		return _tasksEntry.getCompanyId();
+	}
+
+	/**
+	* Returns the group ID of this tasks entry.
+	*
+	* @return the group ID of this tasks entry
+	*/
+	@Override
+	public long getGroupId() {
+		return _tasksEntry.getGroupId();
+	}
+
+	/**
+	* Returns the primary key of this tasks entry.
+	*
+	* @return the primary key of this tasks entry
+	*/
+	@Override
+	public long getPrimaryKey() {
+		return _tasksEntry.getPrimaryKey();
+	}
+
+	/**
+	* Returns the resolver user ID of this tasks entry.
+	*
+	* @return the resolver user ID of this tasks entry
+	*/
+	@Override
+	public long getResolverUserId() {
+		return _tasksEntry.getResolverUserId();
+	}
+
+	/**
+	* Returns the tasks entry ID of this tasks entry.
+	*
+	* @return the tasks entry ID of this tasks entry
+	*/
+	@Override
+	public long getTasksEntryId() {
+		return _tasksEntry.getTasksEntryId();
+	}
+
+	/**
+	* Returns the user ID of this tasks entry.
+	*
+	* @return the user ID of this tasks entry
+	*/
+	@Override
+	public long getUserId() {
+		return _tasksEntry.getUserId();
 	}
 
 	@Override
@@ -440,7 +473,7 @@ public class TasksEntryWrapper implements TasksEntry, ModelWrapper<TasksEntry> {
 	* @param createDate the create date of this tasks entry
 	*/
 	@Override
-	public void setCreateDate(java.util.Date createDate) {
+	public void setCreateDate(Date createDate) {
 		_tasksEntry.setCreateDate(createDate);
 	}
 
@@ -450,25 +483,23 @@ public class TasksEntryWrapper implements TasksEntry, ModelWrapper<TasksEntry> {
 	* @param dueDate the due date of this tasks entry
 	*/
 	@Override
-	public void setDueDate(java.util.Date dueDate) {
+	public void setDueDate(Date dueDate) {
 		_tasksEntry.setDueDate(dueDate);
 	}
 
 	@Override
-	public void setExpandoBridgeAttributes(
-		com.liferay.portal.model.BaseModel<?> baseModel) {
-		_tasksEntry.setExpandoBridgeAttributes(baseModel);
-	}
-
-	@Override
-	public void setExpandoBridgeAttributes(
-		com.liferay.portlet.expando.model.ExpandoBridge expandoBridge) {
+	public void setExpandoBridgeAttributes(ExpandoBridge expandoBridge) {
 		_tasksEntry.setExpandoBridgeAttributes(expandoBridge);
 	}
 
 	@Override
 	public void setExpandoBridgeAttributes(
-		com.liferay.portal.service.ServiceContext serviceContext) {
+		com.liferay.portal.kernel.model.BaseModel<?> baseModel) {
+		_tasksEntry.setExpandoBridgeAttributes(baseModel);
+	}
+
+	@Override
+	public void setExpandoBridgeAttributes(ServiceContext serviceContext) {
 		_tasksEntry.setExpandoBridgeAttributes(serviceContext);
 	}
 
@@ -478,7 +509,7 @@ public class TasksEntryWrapper implements TasksEntry, ModelWrapper<TasksEntry> {
 	* @param finishDate the finish date of this tasks entry
 	*/
 	@Override
-	public void setFinishDate(java.util.Date finishDate) {
+	public void setFinishDate(Date finishDate) {
 		_tasksEntry.setFinishDate(finishDate);
 	}
 
@@ -498,7 +529,7 @@ public class TasksEntryWrapper implements TasksEntry, ModelWrapper<TasksEntry> {
 	* @param modifiedDate the modified date of this tasks entry
 	*/
 	@Override
-	public void setModifiedDate(java.util.Date modifiedDate) {
+	public void setModifiedDate(Date modifiedDate) {
 		_tasksEntry.setModifiedDate(modifiedDate);
 	}
 
@@ -518,7 +549,7 @@ public class TasksEntryWrapper implements TasksEntry, ModelWrapper<TasksEntry> {
 	}
 
 	@Override
-	public void setPrimaryKeyObj(java.io.Serializable primaryKeyObj) {
+	public void setPrimaryKeyObj(Serializable primaryKeyObj) {
 		_tasksEntry.setPrimaryKeyObj(primaryKeyObj);
 	}
 
@@ -613,31 +644,6 @@ public class TasksEntryWrapper implements TasksEntry, ModelWrapper<TasksEntry> {
 	}
 
 	@Override
-	public com.liferay.portal.model.CacheModel<com.liferay.tasks.model.TasksEntry> toCacheModel() {
-		return _tasksEntry.toCacheModel();
-	}
-
-	@Override
-	public com.liferay.tasks.model.TasksEntry toEscapedModel() {
-		return new TasksEntryWrapper(_tasksEntry.toEscapedModel());
-	}
-
-	@Override
-	public java.lang.String toString() {
-		return _tasksEntry.toString();
-	}
-
-	@Override
-	public com.liferay.tasks.model.TasksEntry toUnescapedModel() {
-		return new TasksEntryWrapper(_tasksEntry.toUnescapedModel());
-	}
-
-	@Override
-	public java.lang.String toXmlString() {
-		return _tasksEntry.toXmlString();
-	}
-
-	@Override
 	public boolean equals(Object obj) {
 		if (this == obj) {
 			return true;
@@ -654,14 +660,6 @@ public class TasksEntryWrapper implements TasksEntry, ModelWrapper<TasksEntry> {
 		}
 
 		return false;
-	}
-
-	/**
-	 * @deprecated As of 6.1.0, replaced by {@link #getWrappedModel}
-	 */
-	@Deprecated
-	public TasksEntry getWrappedTasksEntry() {
-		return _tasksEntry;
 	}
 
 	@Override
@@ -684,5 +682,5 @@ public class TasksEntryWrapper implements TasksEntry, ModelWrapper<TasksEntry> {
 		_tasksEntry.resetOriginalValues();
 	}
 
-	private TasksEntry _tasksEntry;
+	private final TasksEntry _tasksEntry;
 }

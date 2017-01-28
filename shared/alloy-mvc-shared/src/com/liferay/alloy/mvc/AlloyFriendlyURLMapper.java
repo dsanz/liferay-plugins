@@ -21,10 +21,9 @@ import com.liferay.portal.kernel.portlet.LiferayPortletURL;
 import com.liferay.portal.kernel.servlet.HttpMethods;
 import com.liferay.portal.kernel.util.CharPool;
 import com.liferay.portal.kernel.util.ParamUtil;
+import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.kernel.util.StringPool;
-import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Validator;
-import com.liferay.portal.util.PortalUtil;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -49,7 +48,9 @@ public class AlloyFriendlyURLMapper extends DefaultFriendlyURLMapper {
 
 		String lifecycle = liferayPortletURL.getLifecycle();
 
-		if (lifecycle.equals(PortletRequest.ACTION_PHASE)) {
+		String delta = routeParameters.get("delta");
+
+		if (lifecycle.equals(PortletRequest.ACTION_PHASE) || (delta != null)) {
 			routeParameters.put("method", HttpMethods.POST);
 		}
 		else {
@@ -126,6 +127,7 @@ public class AlloyFriendlyURLMapper extends DefaultFriendlyURLMapper {
 		String namespace = PortalUtil.getPortletNamespace(portletId);
 
 		addParameter(namespace, parameterMap, "p_p_id", portletId);
+
 		addParameter(parameterMap, "p_p_lifecycle", getLifecycle(request));
 
 		String format = routeParameters.get("format");
@@ -138,9 +140,7 @@ public class AlloyFriendlyURLMapper extends DefaultFriendlyURLMapper {
 	}
 
 	protected String getLifecycle(HttpServletRequest request) {
-		String method = request.getMethod();
-
-		if (StringUtil.equalsIgnoreCase(method, HttpMethods.POST)) {
+		if (PortalUtil.isMultipartRequest(request)) {
 			return "1";
 		}
 

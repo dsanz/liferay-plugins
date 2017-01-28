@@ -17,24 +17,24 @@
 
 package com.liferay.so.hook.upgrade.v3_0_0;
 
+import com.liferay.document.library.kernel.model.DLFileEntry;
+import com.liferay.document.library.kernel.model.DLFileVersion;
+import com.liferay.document.library.kernel.service.DLFileEntryLocalServiceUtil;
+import com.liferay.document.library.kernel.service.DLFileVersionLocalServiceUtil;
+import com.liferay.document.library.kernel.util.DL;
+import com.liferay.expando.kernel.model.ExpandoColumn;
+import com.liferay.expando.kernel.model.ExpandoTableConstants;
+import com.liferay.expando.kernel.model.ExpandoValue;
+import com.liferay.expando.kernel.service.ExpandoColumnLocalServiceUtil;
+import com.liferay.expando.kernel.service.ExpandoValueLocalServiceUtil;
 import com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery;
 import com.liferay.portal.kernel.dao.orm.DynamicQuery;
 import com.liferay.portal.kernel.dao.orm.Property;
 import com.liferay.portal.kernel.dao.orm.PropertyFactoryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.upgrade.UpgradeProcess;
+import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.kernel.util.StringPool;
-import com.liferay.portal.util.PortalUtil;
-import com.liferay.portlet.documentlibrary.model.DLFileEntry;
-import com.liferay.portlet.documentlibrary.model.DLFileVersion;
-import com.liferay.portlet.documentlibrary.service.DLFileEntryLocalServiceUtil;
-import com.liferay.portlet.documentlibrary.service.DLFileVersionLocalServiceUtil;
-import com.liferay.portlet.documentlibrary.util.DL;
-import com.liferay.portlet.expando.model.ExpandoColumn;
-import com.liferay.portlet.expando.model.ExpandoTableConstants;
-import com.liferay.portlet.expando.model.ExpandoValue;
-import com.liferay.portlet.expando.service.ExpandoColumnLocalServiceUtil;
-import com.liferay.portlet.expando.service.persistence.ExpandoValueActionableDynamicQuery;
 
 /**
  * @author Matthew Kong
@@ -62,10 +62,13 @@ public class UpgradeDocumentLibrary extends UpgradeProcess {
 		}
 
 		ActionableDynamicQuery actionableDynamicQuery =
-			new ExpandoValueActionableDynamicQuery() {
+			ExpandoValueLocalServiceUtil.getActionableDynamicQuery();
+
+		actionableDynamicQuery.setAddCriteriaMethod(
+			new ActionableDynamicQuery.AddCriteriaMethod() {
 
 				@Override
-				protected void addCriteria(DynamicQuery dynamicQuery) {
+				public void addCriteria(DynamicQuery dynamicQuery) {
 					Property columnIdProperty = PropertyFactoryUtil.forName(
 						"columnId");
 
@@ -77,11 +80,13 @@ public class UpgradeDocumentLibrary extends UpgradeProcess {
 					dynamicQuery.add(dataProperty.eq(StringPool.TRUE));
 				}
 
-				@Override
-				protected void performAction(Object object)
-					throws PortalException {
+			});
+		actionableDynamicQuery.setPerformActionMethod(
+			new ActionableDynamicQuery.PerformActionMethod<ExpandoValue>() {
 
-					ExpandoValue expandoValue = (ExpandoValue)object;
+				@Override
+				public void performAction(ExpandoValue expandoValue)
+					throws PortalException {
 
 					DLFileVersion dlFileVersion =
 						DLFileVersionLocalServiceUtil.fetchDLFileVersion(
@@ -98,7 +103,7 @@ public class UpgradeDocumentLibrary extends UpgradeProcess {
 					DLFileEntryLocalServiceUtil.updateDLFileEntry(dlFileEntry);
 				}
 
-			};
+			});
 
 		actionableDynamicQuery.performActions();
 

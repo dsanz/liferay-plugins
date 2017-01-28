@@ -14,9 +14,11 @@
 
 package com.liferay.akismet.service;
 
+import aQute.bnd.annotation.ProviderType;
+
 import com.liferay.portal.kernel.bean.PortletBeanLocatorUtil;
+import com.liferay.portal.kernel.service.InvokableLocalService;
 import com.liferay.portal.kernel.util.ReferenceRegistry;
-import com.liferay.portal.service.InvokableLocalService;
 
 /**
  * Provides the local service utility for AkismetData. This utility wraps
@@ -32,6 +34,7 @@ import com.liferay.portal.service.InvokableLocalService;
  * @see com.liferay.akismet.service.impl.AkismetDataLocalServiceImpl
  * @generated
  */
+@ProviderType
 public class AkismetDataLocalServiceUtil {
 	/*
 	 * NOTE FOR DEVELOPERS:
@@ -85,27 +88,99 @@ public class AkismetDataLocalServiceUtil {
 		return getService().deleteAkismetData(akismetDataId);
 	}
 
-	public static void deleteAkismetData(java.lang.String className,
-		long classPK)
-		throws com.liferay.portal.kernel.exception.PortalException {
-		getService().deleteAkismetData(className, classPK);
+	public static com.liferay.akismet.model.AkismetData fetchAkismetData(
+		java.lang.String className, long classPK) {
+		return getService().fetchAkismetData(className, classPK);
 	}
 
-	public static void deleteAkismetData(java.util.Date modifiedDate) {
-		getService().deleteAkismetData(modifiedDate);
+	public static com.liferay.akismet.model.AkismetData fetchAkismetData(
+		long akismetDataId) {
+		return getService().fetchAkismetData(akismetDataId);
+	}
+
+	/**
+	* Returns the akismet data with the primary key.
+	*
+	* @param akismetDataId the primary key of the akismet data
+	* @return the akismet data
+	* @throws PortalException if a akismet data with the primary key could not be found
+	*/
+	public static com.liferay.akismet.model.AkismetData getAkismetData(
+		long akismetDataId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		return getService().getAkismetData(akismetDataId);
+	}
+
+	/**
+	* Updates the akismet data in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
+	*
+	* @param akismetData the akismet data
+	* @return the akismet data that was updated
+	*/
+	public static com.liferay.akismet.model.AkismetData updateAkismetData(
+		com.liferay.akismet.model.AkismetData akismetData) {
+		return getService().updateAkismetData(akismetData);
+	}
+
+	public static com.liferay.akismet.model.AkismetData updateAkismetData(
+		java.lang.String className, long classPK, java.lang.String type,
+		java.lang.String permalink, java.lang.String referrer,
+		java.lang.String userAgent, java.lang.String userIP,
+		java.lang.String userURL) {
+		return getService()
+				   .updateAkismetData(className, classPK, type, permalink,
+			referrer, userAgent, userIP, userURL);
+	}
+
+	public static com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery getActionableDynamicQuery() {
+		return getService().getActionableDynamicQuery();
+	}
+
+	public static com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery() {
+		return getService().dynamicQuery();
+	}
+
+	public static com.liferay.portal.kernel.dao.orm.IndexableActionableDynamicQuery getIndexableActionableDynamicQuery() {
+		return getService().getIndexableActionableDynamicQuery();
 	}
 
 	/**
 	* @throws PortalException
 	*/
-	public static com.liferay.portal.model.PersistedModel deletePersistedModel(
-		com.liferay.portal.model.PersistedModel persistedModel)
+	public static com.liferay.portal.kernel.model.PersistedModel deletePersistedModel(
+		com.liferay.portal.kernel.model.PersistedModel persistedModel)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		return getService().deletePersistedModel(persistedModel);
 	}
 
-	public static com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery() {
-		return getService().dynamicQuery();
+	public static com.liferay.portal.kernel.model.PersistedModel getPersistedModel(
+		java.io.Serializable primaryKeyObj)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		return getService().getPersistedModel(primaryKeyObj);
+	}
+
+	/**
+	* Returns the number of akismet datas.
+	*
+	* @return the number of akismet datas
+	*/
+	public static int getAkismetDatasCount() {
+		return getService().getAkismetDatasCount();
+	}
+
+	public static java.lang.Object invokeMethod(java.lang.String name,
+		java.lang.String[] parameterTypes, java.lang.Object[] arguments)
+		throws java.lang.Throwable {
+		return getService().invokeMethod(name, parameterTypes, arguments);
+	}
+
+	/**
+	* Returns the OSGi service identifier.
+	*
+	* @return the OSGi service identifier
+	*/
+	public static java.lang.String getOSGiServiceIdentifier() {
+		return getService().getOSGiServiceIdentifier();
 	}
 
 	/**
@@ -159,57 +234,6 @@ public class AkismetDataLocalServiceUtil {
 	}
 
 	/**
-	* Returns the number of rows that match the dynamic query.
-	*
-	* @param dynamicQuery the dynamic query
-	* @return the number of rows that match the dynamic query
-	*/
-	public static long dynamicQueryCount(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery) {
-		return getService().dynamicQueryCount(dynamicQuery);
-	}
-
-	/**
-	* Returns the number of rows that match the dynamic query.
-	*
-	* @param dynamicQuery the dynamic query
-	* @param projection the projection to apply to the query
-	* @return the number of rows that match the dynamic query
-	*/
-	public static long dynamicQueryCount(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery,
-		com.liferay.portal.kernel.dao.orm.Projection projection) {
-		return getService().dynamicQueryCount(dynamicQuery, projection);
-	}
-
-	public static com.liferay.akismet.model.AkismetData fetchAkismetData(
-		long akismetDataId) {
-		return getService().fetchAkismetData(akismetDataId);
-	}
-
-	public static com.liferay.akismet.model.AkismetData fetchAkismetData(
-		java.lang.String className, long classPK) {
-		return getService().fetchAkismetData(className, classPK);
-	}
-
-	public static com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery getActionableDynamicQuery() {
-		return getService().getActionableDynamicQuery();
-	}
-
-	/**
-	* Returns the akismet data with the primary key.
-	*
-	* @param akismetDataId the primary key of the akismet data
-	* @return the akismet data
-	* @throws PortalException if a akismet data with the primary key could not be found
-	*/
-	public static com.liferay.akismet.model.AkismetData getAkismetData(
-		long akismetDataId)
-		throws com.liferay.portal.kernel.exception.PortalException {
-		return getService().getAkismetData(akismetDataId);
-	}
-
-	/**
 	* Returns a range of all the akismet datas.
 	*
 	* <p>
@@ -226,63 +250,37 @@ public class AkismetDataLocalServiceUtil {
 	}
 
 	/**
-	* Returns the number of akismet datas.
+	* Returns the number of rows matching the dynamic query.
 	*
-	* @return the number of akismet datas
+	* @param dynamicQuery the dynamic query
+	* @return the number of rows matching the dynamic query
 	*/
-	public static int getAkismetDatasCount() {
-		return getService().getAkismetDatasCount();
+	public static long dynamicQueryCount(
+		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery) {
+		return getService().dynamicQueryCount(dynamicQuery);
 	}
 
 	/**
-	* Returns the Spring bean ID for this bean.
+	* Returns the number of rows matching the dynamic query.
 	*
-	* @return the Spring bean ID for this bean
+	* @param dynamicQuery the dynamic query
+	* @param projection the projection to apply to the query
+	* @return the number of rows matching the dynamic query
 	*/
-	public static java.lang.String getBeanIdentifier() {
-		return getService().getBeanIdentifier();
+	public static long dynamicQueryCount(
+		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery,
+		com.liferay.portal.kernel.dao.orm.Projection projection) {
+		return getService().dynamicQueryCount(dynamicQuery, projection);
 	}
 
-	public static com.liferay.portal.model.PersistedModel getPersistedModel(
-		java.io.Serializable primaryKeyObj)
+	public static void deleteAkismetData(java.lang.String className,
+		long classPK)
 		throws com.liferay.portal.kernel.exception.PortalException {
-		return getService().getPersistedModel(primaryKeyObj);
+		getService().deleteAkismetData(className, classPK);
 	}
 
-	public static java.lang.Object invokeMethod(java.lang.String name,
-		java.lang.String[] parameterTypes, java.lang.Object[] arguments)
-		throws java.lang.Throwable {
-		return getService().invokeMethod(name, parameterTypes, arguments);
-	}
-
-	/**
-	* Sets the Spring bean ID for this bean.
-	*
-	* @param beanIdentifier the Spring bean ID for this bean
-	*/
-	public static void setBeanIdentifier(java.lang.String beanIdentifier) {
-		getService().setBeanIdentifier(beanIdentifier);
-	}
-
-	/**
-	* Updates the akismet data in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
-	*
-	* @param akismetData the akismet data
-	* @return the akismet data that was updated
-	*/
-	public static com.liferay.akismet.model.AkismetData updateAkismetData(
-		com.liferay.akismet.model.AkismetData akismetData) {
-		return getService().updateAkismetData(akismetData);
-	}
-
-	public static com.liferay.akismet.model.AkismetData updateAkismetData(
-		java.lang.String className, long classPK, java.lang.String type,
-		java.lang.String permalink, java.lang.String referrer,
-		java.lang.String userAgent, java.lang.String userIP,
-		java.lang.String userURL) {
-		return getService()
-				   .updateAkismetData(className, classPK, type, permalink,
-			referrer, userAgent, userIP, userURL);
+	public static void deleteAkismetData(java.util.Date modifiedDate) {
+		getService().deleteAkismetData(modifiedDate);
 	}
 
 	public static void clearService() {
@@ -306,13 +304,6 @@ public class AkismetDataLocalServiceUtil {
 		}
 
 		return _service;
-	}
-
-	/**
-	 * @deprecated As of 6.2.0
-	 */
-	@Deprecated
-	public void setService(AkismetDataLocalService service) {
 	}
 
 	private static AkismetDataLocalService _service;

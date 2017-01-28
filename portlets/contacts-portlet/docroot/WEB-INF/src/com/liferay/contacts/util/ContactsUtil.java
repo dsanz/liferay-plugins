@@ -21,31 +21,31 @@ import com.liferay.contacts.model.Entry;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.json.JSONFactoryUtil;
 import com.liferay.portal.kernel.json.JSONObject;
+import com.liferay.portal.kernel.model.Address;
+import com.liferay.portal.kernel.model.Contact;
+import com.liferay.portal.kernel.model.Country;
+import com.liferay.portal.kernel.model.EmailAddress;
+import com.liferay.portal.kernel.model.ListType;
+import com.liferay.portal.kernel.model.Phone;
+import com.liferay.portal.kernel.model.Region;
+import com.liferay.portal.kernel.model.User;
+import com.liferay.portal.kernel.model.Website;
+import com.liferay.portal.kernel.service.AddressLocalServiceUtil;
+import com.liferay.portal.kernel.service.CountryServiceUtil;
+import com.liferay.portal.kernel.service.EmailAddressLocalServiceUtil;
+import com.liferay.portal.kernel.service.ListTypeServiceUtil;
+import com.liferay.portal.kernel.service.PhoneLocalServiceUtil;
+import com.liferay.portal.kernel.service.RegionServiceUtil;
+import com.liferay.portal.kernel.service.WebsiteLocalServiceUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.PortalClassLoaderUtil;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Validator;
-import com.liferay.portal.model.Address;
-import com.liferay.portal.model.Contact;
-import com.liferay.portal.model.Country;
-import com.liferay.portal.model.EmailAddress;
-import com.liferay.portal.model.ListType;
-import com.liferay.portal.model.Phone;
-import com.liferay.portal.model.Region;
-import com.liferay.portal.model.User;
-import com.liferay.portal.model.Website;
-import com.liferay.portal.service.AddressLocalServiceUtil;
-import com.liferay.portal.service.CountryServiceUtil;
-import com.liferay.portal.service.EmailAddressLocalServiceUtil;
-import com.liferay.portal.service.ListTypeServiceUtil;
-import com.liferay.portal.service.PhoneLocalServiceUtil;
-import com.liferay.portal.service.RegionServiceUtil;
-import com.liferay.portal.service.WebsiteLocalServiceUtil;
-import com.liferay.portlet.social.model.SocialRequestConstants;
-import com.liferay.portlet.social.service.SocialRelationLocalServiceUtil;
-import com.liferay.portlet.social.service.SocialRequestLocalServiceUtil;
+import com.liferay.social.kernel.model.SocialRequestConstants;
+import com.liferay.social.kernel.service.SocialRelationLocalServiceUtil;
+import com.liferay.social.kernel.service.SocialRequestLocalServiceUtil;
 
 import java.lang.reflect.Field;
 
@@ -60,9 +60,9 @@ public class ContactsUtil {
 	public static JSONObject getEntryJSONObject(Entry entry) {
 		JSONObject jsonObject = JSONFactoryUtil.createJSONObject();
 
+		jsonObject.put("comments", entry.getComments());
 		jsonObject.put("emailAddress", entry.getEmailAddress());
 		jsonObject.put("entryId", String.valueOf(entry.getEntryId()));
-		jsonObject.put("comments", entry.getComments());
 		jsonObject.put("fullName", entry.getFullName());
 		jsonObject.put("portalUser", false);
 
@@ -137,11 +137,15 @@ public class ContactsUtil {
 
 			jsonObject.put("connectionRequested", connectionRequested);
 
-			boolean connected =
-				!connectionRequested &&
+			boolean connected = false;
+
+			if (!connectionRequested &&
 				SocialRelationLocalServiceUtil.hasRelation(
 					userId, user.getUserId(),
-					SocialRelationConstants.TYPE_BI_CONNECTION);
+					SocialRelationConstants.TYPE_BI_CONNECTION)) {
+
+				connected = true;
+			}
 
 			jsonObject.put("connected", connected);
 
@@ -163,6 +167,7 @@ public class ContactsUtil {
 		Contact contact = user.getContact();
 
 		sb.append(_getName(user, contact));
+
 		sb.append(_getJobTitle(user));
 		sb.append(_getEmailAddresses(user));
 		sb.append(_getPhones(user));
@@ -291,39 +296,15 @@ public class ContactsUtil {
 	private static String _getInstantMessaging(Contact contact) {
 		StringBundler sb = new StringBundler(18);
 
-		if (Validator.isNotNull(contact.getAimSn())) {
-			sb.append("X-AIM;type=OTHER;type=pref:");
-			sb.append(contact.getAimSn());
-			sb.append(StringPool.NEW_LINE);
-		}
-
-		if (Validator.isNotNull(contact.getIcqSn())) {
-			sb.append("X-ICQ;type=OTHER;type=pref:");
-			sb.append(contact.getAimSn());
-			sb.append(StringPool.NEW_LINE);
-		}
-
 		if (Validator.isNotNull(contact.getJabberSn())) {
 			sb.append("X-JABBER;type=OTHER;type=pref:");
 			sb.append(contact.getJabberSn());
 			sb.append(StringPool.NEW_LINE);
 		}
 
-		if (Validator.isNotNull(contact.getMsnSn())) {
-			sb.append("X-MSN;type=OTHER;type=pref:");
-			sb.append(contact.getMsnSn());
-			sb.append(StringPool.NEW_LINE);
-		}
-
 		if (Validator.isNotNull(contact.getSkypeSn())) {
 			sb.append("X-SKYPE;type=OTHER;type=pref:");
 			sb.append(contact.getSkypeSn());
-			sb.append(StringPool.NEW_LINE);
-		}
-
-		if (Validator.isNotNull(contact.getYmSn())) {
-			sb.append("X-YM;type=OTHER;type=pref:");
-			sb.append(contact.getYmSn());
 			sb.append(StringPool.NEW_LINE);
 		}
 

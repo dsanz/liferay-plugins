@@ -16,7 +16,9 @@ package com.liferay.socialcoding.model;
 
 import aQute.bnd.annotation.ProviderType;
 
-import com.liferay.portal.model.PersistedModel;
+import com.liferay.portal.kernel.annotation.ImplementationClassName;
+import com.liferay.portal.kernel.model.PersistedModel;
+import com.liferay.portal.kernel.util.Accessor;
 
 /**
  * The extended model interface for the JIRAIssue service. Represents a row in the &quot;jiraissue&quot; database table, with each column mapped to a property of this class.
@@ -27,6 +29,7 @@ import com.liferay.portal.model.PersistedModel;
  * @see com.liferay.socialcoding.model.impl.JIRAIssueModelImpl
  * @generated
  */
+@ImplementationClassName("com.liferay.socialcoding.model.impl.JIRAIssueImpl")
 @ProviderType
 public interface JIRAIssue extends JIRAIssueModel, PersistedModel {
 	/*
@@ -34,5 +37,22 @@ public interface JIRAIssue extends JIRAIssueModel, PersistedModel {
 	 *
 	 * Never modify this interface directly. Add methods to {@link com.liferay.socialcoding.model.impl.JIRAIssueImpl} and rerun ServiceBuilder to automatically copy the method declarations to this interface.
 	 */
+	public static final Accessor<JIRAIssue, Long> JIRA_ISSUE_ID_ACCESSOR = new Accessor<JIRAIssue, Long>() {
+			@Override
+			public Long get(JIRAIssue jiraIssue) {
+				return jiraIssue.getJiraIssueId();
+			}
+
+			@Override
+			public Class<Long> getAttributeClass() {
+				return Long.class;
+			}
+
+			@Override
+			public Class<JIRAIssue> getTypeClass() {
+				return JIRAIssue.class;
+			}
+		};
+
 	public java.lang.String getKey();
 }

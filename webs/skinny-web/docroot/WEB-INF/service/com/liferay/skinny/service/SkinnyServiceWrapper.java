@@ -16,7 +16,7 @@ package com.liferay.skinny.service;
 
 import aQute.bnd.annotation.ProviderType;
 
-import com.liferay.portal.service.ServiceWrapper;
+import com.liferay.portal.kernel.service.ServiceWrapper;
 
 /**
  * Provides a wrapper for {@link SkinnyService}.
@@ -32,14 +32,21 @@ public class SkinnyServiceWrapper implements SkinnyService,
 		_skinnyService = skinnyService;
 	}
 
+	@Override
+	public java.lang.Object invokeMethod(java.lang.String name,
+		java.lang.String[] parameterTypes, java.lang.Object[] arguments)
+		throws java.lang.Throwable {
+		return _skinnyService.invokeMethod(name, parameterTypes, arguments);
+	}
+
 	/**
-	* Returns the Spring bean ID for this bean.
+	* Returns the OSGi service identifier.
 	*
-	* @return the Spring bean ID for this bean
+	* @return the OSGi service identifier
 	*/
 	@Override
-	public java.lang.String getBeanIdentifier() {
-		return _skinnyService.getBeanIdentifier();
+	public java.lang.String getOSGiServiceIdentifier() {
+		return _skinnyService.getOSGiServiceIdentifier();
 	}
 
 	@Override
@@ -54,39 +61,6 @@ public class SkinnyServiceWrapper implements SkinnyService,
 		java.lang.String locale) throws java.lang.Exception {
 		return _skinnyService.getSkinnyJournalArticles(companyId, groupName,
 			ddmStructureId, locale);
-	}
-
-	@Override
-	public java.lang.Object invokeMethod(java.lang.String name,
-		java.lang.String[] parameterTypes, java.lang.Object[] arguments)
-		throws java.lang.Throwable {
-		return _skinnyService.invokeMethod(name, parameterTypes, arguments);
-	}
-
-	/**
-	* Sets the Spring bean ID for this bean.
-	*
-	* @param beanIdentifier the Spring bean ID for this bean
-	*/
-	@Override
-	public void setBeanIdentifier(java.lang.String beanIdentifier) {
-		_skinnyService.setBeanIdentifier(beanIdentifier);
-	}
-
-	/**
-	 * @deprecated As of 6.1.0, replaced by {@link #getWrappedService}
-	 */
-	@Deprecated
-	public SkinnyService getWrappedSkinnyService() {
-		return _skinnyService;
-	}
-
-	/**
-	 * @deprecated As of 6.1.0, replaced by {@link #setWrappedService}
-	 */
-	@Deprecated
-	public void setWrappedSkinnyService(SkinnyService skinnyService) {
-		_skinnyService = skinnyService;
 	}
 
 	@Override

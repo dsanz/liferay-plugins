@@ -27,9 +27,9 @@
 </p>
 
 <p>
-	<%= _testProperty("field.enable.com.liferay.portal.model.Contact.male", false) %><br />
-	<%= _testProperty("field.enable.com.liferay.portal.model.Contact.birthday", false) %><br />
-	<%= _testProperty("field.enable.com.liferay.portal.model.Organization.status", true) %>
+	<%= _testProperty("field.enable.com.liferay.portal.kernel.model.Contact.male", false) %><br />
+	<%= _testProperty("field.enable.com.liferay.portal.kernel.model.Contact.birthday", false) %><br />
+	<%= _testProperty("field.enable.com.liferay.portal.kernel.model.Organization.status", true) %>
 </p>
 
 <h3>language-properties</h3>
@@ -40,23 +40,28 @@
 
 <h3>custom-jsp-dir</h3>
 
-<liferay-util:buffer var="blogsViewJsp">
-	<liferay-util:include page="/html/portlet/blogs/view.jsp" />
+<liferay-util:buffer var="setupWizardJsp">
+	<liferay-util:include page="/html/portal/setup_wizard.jsp" />
 </liferay-util:buffer>
 
 <p>
-	/META-INF/custom_jsps=<%= _assertTrue(blogsViewJsp.contains("Custom Blogs Header")) %>
+	/META-INF/custom_jsps=<%= _assertTrue(setupWizardJsp.contains("Custom Setup Wizard Header")) %>
 </p>
 
 <h3>service</h3>
 
 <p>
-	com.liferay.portal.service.UserLocalService=<%= _assertEquals(TestHookUserImpl.class.getName(), UserLocalServiceUtil.getUserByEmailAddress(themeDisplay.getCompanyId(), "test@liferay.com").getClass().getName()) %>
+
+	<%
+	Class<?> clazz = UserLocalServiceUtil.getUserByEmailAddress(themeDisplay.getCompanyId(), "test@liferay.com").getClass();
+	%>
+
+	com.liferay.portal.kernel.service.UserLocalService=<%= _assertEquals(TestHookUserImpl.class.getName(), clazz.getName()) %>
 </p>
 
 <%!
 private static String _assertEquals(Object expected, Object actual) {
-	return _assertTrue(Validator.equals(expected, actual));
+	return _assertTrue(Objects.equals(expected, actual));
 }
 
 private static String _assertFalse(boolean value) {

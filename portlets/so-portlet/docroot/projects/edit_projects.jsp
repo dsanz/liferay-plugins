@@ -38,7 +38,7 @@ int yearRangeEnd = curCal.get(Calendar.YEAR);
 
 int[] projectsEntriesIndexes = new int[projectsEntries.size()];
 
-for (int i = 0; i < projectsEntries.size() ; i++) {
+for (int i = 0; i < projectsEntries.size(); i++) {
 	projectsEntriesIndexes[i] = i;
 }
 
@@ -91,8 +91,8 @@ String namespace = PortalUtil.getPortletNamespace(PortletKeys.MY_ACCOUNT);
 
 				<div style="clear: both;"><!-- --></div>
 
-				<aui:layout cssClass="lfr-form-row-inline">
-					<aui:column>
+				<aui:row cssClass="lfr-form-row-inline">
+					<aui:col>
 
 						<%
 						String fieldParam = "projectsEntryStartDate";
@@ -105,8 +105,9 @@ String namespace = PortalUtil.getPortletNamespace(PortletKeys.MY_ACCOUNT);
 
 							<%@ include file="/projects/select_date.jspf" %>
 						</div>
-					</aui:column>
-					<aui:column>
+					</aui:col>
+
+					<aui:col>
 
 						<%
 						String fieldParam = "projectsEntryEndDate";
@@ -119,8 +120,9 @@ String namespace = PortalUtil.getPortletNamespace(PortletKeys.MY_ACCOUNT);
 
 							<%@ include file="/projects/select_date.jspf" %>
 						</div>
-					</aui:column>
-					<aui:column>
+					</aui:col>
+
+					<aui:col>
 
 						<%
 						String fieldParam = "projectsEntryCurrent" + projectsEntriesIndex;
@@ -131,8 +133,8 @@ String namespace = PortalUtil.getPortletNamespace(PortletKeys.MY_ACCOUNT);
 
 							<liferay-ui:input-checkbox defaultValue="<%= current %>" param="<%= fieldParam %>" />
 						</div>
-					</aui:column>
-				</aui:layout>
+					</aui:col>
+				</aui:row>
 
 				<aui:input fieldParam='<%= "projectsEntryDescription" + projectsEntriesIndex %>' name="description" />
 			</div>

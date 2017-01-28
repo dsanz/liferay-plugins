@@ -14,12 +14,14 @@
 
 package com.liferay.testtransaction.model;
 
-import com.liferay.portal.kernel.bean.AutoEscape;
-import com.liferay.portal.model.BaseModel;
-import com.liferay.portal.model.CacheModel;
-import com.liferay.portal.service.ServiceContext;
+import aQute.bnd.annotation.ProviderType;
 
-import com.liferay.portlet.expando.model.ExpandoBridge;
+import com.liferay.expando.kernel.model.ExpandoBridge;
+
+import com.liferay.portal.kernel.bean.AutoEscape;
+import com.liferay.portal.kernel.model.BaseModel;
+import com.liferay.portal.kernel.model.CacheModel;
+import com.liferay.portal.kernel.service.ServiceContext;
 
 import java.io.Serializable;
 
@@ -36,6 +38,7 @@ import java.io.Serializable;
  * @see com.liferay.testtransaction.model.impl.BarModelImpl
  * @generated
  */
+@ProviderType
 public interface BarModel extends BaseModel<Bar> {
 	/*
 	 * NOTE FOR DEVELOPERS:
@@ -123,19 +126,19 @@ public interface BarModel extends BaseModel<Bar> {
 	public Object clone();
 
 	@Override
-	public int compareTo(Bar bar);
+	public int compareTo(com.liferay.testtransaction.model.Bar bar);
 
 	@Override
 	public int hashCode();
 
 	@Override
-	public CacheModel<Bar> toCacheModel();
+	public CacheModel<com.liferay.testtransaction.model.Bar> toCacheModel();
 
 	@Override
-	public Bar toEscapedModel();
+	public com.liferay.testtransaction.model.Bar toEscapedModel();
 
 	@Override
-	public Bar toUnescapedModel();
+	public com.liferay.testtransaction.model.Bar toUnescapedModel();
 
 	@Override
 	public String toString();

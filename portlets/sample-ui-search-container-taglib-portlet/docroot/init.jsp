@@ -16,23 +16,23 @@
 
 <%@ taglib uri="http://java.sun.com/portlet_2_0" prefix="portlet" %>
 
-<%@ taglib uri="http://liferay.com/tld/portlet" prefix="liferay-portlet" %>
-<%@ taglib uri="http://liferay.com/tld/theme" prefix="liferay-theme" %>
-<%@ taglib uri="http://liferay.com/tld/ui" prefix="liferay-ui" %>
+<%@ taglib uri="http://liferay.com/tld/portlet" prefix="liferay-portlet" %><%@
+taglib uri="http://liferay.com/tld/theme" prefix="liferay-theme" %><%@
+taglib uri="http://liferay.com/tld/ui" prefix="liferay-ui" %>
 
-<%@ page import="com.liferay.portal.kernel.util.ParamUtil" %><%@
+<%@ page import="com.liferay.portal.kernel.model.User" %><%@
+page import="com.liferay.portal.kernel.service.UserLocalServiceUtil" %><%@
+page import="com.liferay.portal.kernel.util.ParamUtil" %><%@
+page import="com.liferay.portal.kernel.util.PortalUtil" %><%@
 page import="com.liferay.portal.kernel.util.WebKeys" %><%@
-page import="com.liferay.portal.model.User" %><%@
-page import="com.liferay.portal.service.UserLocalServiceUtil" %><%@
-page import="com.liferay.portal.util.PortalUtil" %><%@
 page import="com.liferay.taglib.search.ResultRow" %>
 
 <%@ page import="javax.portlet.PortletURL" %><%@
 page import="javax.portlet.WindowState" %>
 
-<portlet:defineObjects />
-
 <liferay-theme:defineObjects />
+
+<portlet:defineObjects />
 
 <%
 String currentURL = PortalUtil.getCurrentURL(request);

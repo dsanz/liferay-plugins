@@ -17,16 +17,19 @@ package com.liferay.socialcoding.jira.social;
 import com.liferay.portal.kernel.json.JSONArray;
 import com.liferay.portal.kernel.json.JSONFactoryUtil;
 import com.liferay.portal.kernel.json.JSONObject;
+import com.liferay.portal.kernel.security.permission.PermissionChecker;
+import com.liferay.portal.kernel.service.ServiceContext;
+import com.liferay.portal.kernel.util.CharPool;
+import com.liferay.portal.kernel.util.ClassResourceBundleLoader;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.HtmlUtil;
+import com.liferay.portal.kernel.util.ResourceBundleLoader;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Validator;
-import com.liferay.portal.security.permission.PermissionChecker;
-import com.liferay.portal.service.ServiceContext;
-import com.liferay.portlet.social.model.BaseSocialActivityInterpreter;
-import com.liferay.portlet.social.model.SocialActivity;
+import com.liferay.social.kernel.model.BaseSocialActivityInterpreter;
+import com.liferay.social.kernel.model.SocialActivity;
 import com.liferay.socialcoding.model.JIRAAction;
 import com.liferay.socialcoding.model.JIRAIssue;
 import com.liferay.socialcoding.service.JIRAActionLocalServiceUtil;
@@ -114,6 +117,11 @@ public class JIRAActivityInterpreter extends BaseSocialActivityInterpreter {
 	}
 
 	@Override
+	protected ResourceBundleLoader getResourceBundleLoader() {
+		return _resourceBundleLoader;
+	}
+
+	@Override
 	protected Object[] getTitleArguments(
 			String groupName, SocialActivity activity, String link,
 			String title, ServiceContext serviceContext)
@@ -161,7 +169,7 @@ public class JIRAActivityInterpreter extends BaseSocialActivityInterpreter {
 		String field = jiraChangeItem.getString("field");
 
 		field = StringUtil.replace(
-			StringUtil.toLowerCase(field), StringPool.SPACE, StringPool.DASH);
+			StringUtil.toLowerCase(field), CharPool.SPACE, CharPool.DASH);
 
 		String newString = jiraChangeItem.getString("newString");
 		String newValue = jiraChangeItem.getString("newValue");
@@ -208,9 +216,8 @@ public class JIRAActivityInterpreter extends BaseSocialActivityInterpreter {
 		}
 
 		if (jiraChangeItemsJSONArray.length() == 0) {
-			return(
-				serviceContext.translate(
-					"activity-social-coding-jira-add-change-default"));
+			return serviceContext.translate(
+				"activity-social-coding-jira-add-change-default");
 		}
 
 		StringBundler sb = new StringBundler(jiraChangeItemsJSONArray.length());
@@ -228,5 +235,9 @@ public class JIRAActivityInterpreter extends BaseSocialActivityInterpreter {
 	}
 
 	private static final String[] _CLASS_NAMES = {JIRAIssue.class.getName()};
+
+	private final ResourceBundleLoader _resourceBundleLoader =
+		new ClassResourceBundleLoader(
+			"content.Language", JIRAActivityInterpreter.class);
 
 }

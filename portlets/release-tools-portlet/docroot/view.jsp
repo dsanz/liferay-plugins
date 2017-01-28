@@ -20,6 +20,7 @@
 
 <%@ taglib uri="http://liferay.com/tld/ui" prefix="liferay-ui" %>
 
+<%@ page import="com.liferay.portal.kernel.util.HtmlUtil" %>
 <%@ page import="com.liferay.portal.kernel.util.HttpUtil" %>
 <%@ page import="com.liferay.portal.kernel.util.ParamUtil" %>
 <%@ page import="com.liferay.portal.kernel.util.ReleaseInfo" %>
@@ -64,37 +65,35 @@ An example URL is: <em>http://sourceforge.net/project/showfiles.php?group_id=492
 <br /><br />
 
 <form action="<portlet:renderURL />" method="post" name="<portlet:namespace />fm">
+	<table class="lfr-table">
+		<tr>
+			<td>
+				<liferay-ui:message key="url" />:
+			</td>
+			<td>
+				<input name="<portlet:namespace />url" size="120" type="text" value="<%= HtmlUtil.escape(url) %>" />
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<liferay-ui:message key="project" />:
+			</td>
+			<td>
+				<%= projectName %>
+			</td>
+		</tr>
+	</table>
 
-<table class="lfr-table">
-<tr>
-	<td>
-		<liferay-ui:message key="url" />:
-	</td>
-	<td>
-		<input name="<portlet:namespace />url" size="120" type="text" value="<%= url %>" />
-	</td>
-</tr>
-<tr>
-	<td>
-		<liferay-ui:message key="project" />:
-	</td>
-	<td>
-		<%= projectName %>
-	</td>
-</tr>
-</table>
+	<br />
 
-<br />
-
-<input type="submit" value="<liferay-ui:message key="refresh" />" />
-
+	<input type="submit" value="<liferay-ui:message key="refresh" />" />
 </form>
 
 <c:if test="<%= Validator.isNotNull(url) %>">
 	<br />
 
 	<div class="portlet-msg-info">
-		Below are a list of plugins that are on SourceForge's download page but not available for the Plugin Installer.
+		Below are a list of plugins that are on SourceForge's download page.
 	</div>
 
 	<%
@@ -107,20 +106,12 @@ An example URL is: <em>http://sourceforge.net/project/showfiles.php?group_id=492
 	while (matcher.find()) {
 		String fileName = matcher.group(1);
 
-		String directDownloadURL = "http://downloads.sourceforge.net/" + projectName + "/" + fileName;
-
-		try {
-			sfPlugins.add(fileName);
-
-			com.liferay.portlet.softwarecatalog.service.SCProductVersionLocalServiceUtil.getProductVersionByDirectDownloadURL(directDownloadURL);
-		}
-		catch (Exception e) {
+		sfPlugins.add(fileName);
 	%>
 
-			<%= fileName %><br />
+		<%= fileName %><br />
 
 	<%
-		}
 	}
 	%>
 

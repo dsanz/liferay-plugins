@@ -14,9 +14,11 @@
 
 package com.liferay.so.service;
 
+import aQute.bnd.annotation.ProviderType;
+
 import com.liferay.portal.kernel.bean.PortletBeanLocatorUtil;
+import com.liferay.portal.kernel.service.InvokableLocalService;
 import com.liferay.portal.kernel.util.ReferenceRegistry;
-import com.liferay.portal.service.InvokableLocalService;
 
 /**
  * Provides the local service utility for ProjectsEntry. This utility wraps
@@ -32,12 +34,39 @@ import com.liferay.portal.service.InvokableLocalService;
  * @see com.liferay.so.service.impl.ProjectsEntryLocalServiceImpl
  * @generated
  */
+@ProviderType
 public class ProjectsEntryLocalServiceUtil {
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify this class directly. Add custom service methods to {@link com.liferay.so.service.impl.ProjectsEntryLocalServiceImpl} and rerun ServiceBuilder to regenerate this class.
 	 */
+	public static com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery getActionableDynamicQuery() {
+		return getService().getActionableDynamicQuery();
+	}
+
+	public static com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery() {
+		return getService().dynamicQuery();
+	}
+
+	public static com.liferay.portal.kernel.dao.orm.IndexableActionableDynamicQuery getIndexableActionableDynamicQuery() {
+		return getService().getIndexableActionableDynamicQuery();
+	}
+
+	/**
+	* @throws PortalException
+	*/
+	public static com.liferay.portal.kernel.model.PersistedModel deletePersistedModel(
+		com.liferay.portal.kernel.model.PersistedModel persistedModel)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		return getService().deletePersistedModel(persistedModel);
+	}
+
+	public static com.liferay.portal.kernel.model.PersistedModel getPersistedModel(
+		java.io.Serializable primaryKeyObj)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		return getService().getPersistedModel(primaryKeyObj);
+	}
 
 	/**
 	* Adds the projects entry to the database. Also notifies the appropriate model listeners.
@@ -74,15 +103,6 @@ public class ProjectsEntryLocalServiceUtil {
 	}
 
 	/**
-	* @throws PortalException
-	*/
-	public static com.liferay.portal.model.PersistedModel deletePersistedModel(
-		com.liferay.portal.model.PersistedModel persistedModel)
-		throws com.liferay.portal.kernel.exception.PortalException {
-		return getService().deletePersistedModel(persistedModel);
-	}
-
-	/**
 	* Deletes the projects entry from the database. Also notifies the appropriate model listeners.
 	*
 	* @param projectsEntry the projects entry
@@ -106,8 +126,73 @@ public class ProjectsEntryLocalServiceUtil {
 		return getService().deleteProjectsEntry(projectsEntryId);
 	}
 
-	public static com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery() {
-		return getService().dynamicQuery();
+	public static com.liferay.so.model.ProjectsEntry fetchProjectsEntry(
+		long projectsEntryId) {
+		return getService().fetchProjectsEntry(projectsEntryId);
+	}
+
+	/**
+	* Returns the projects entry with the primary key.
+	*
+	* @param projectsEntryId the primary key of the projects entry
+	* @return the projects entry
+	* @throws PortalException if a projects entry with the primary key could not be found
+	*/
+	public static com.liferay.so.model.ProjectsEntry getProjectsEntry(
+		long projectsEntryId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		return getService().getProjectsEntry(projectsEntryId);
+	}
+
+	/**
+	* Updates the projects entry in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
+	*
+	* @param projectsEntry the projects entry
+	* @return the projects entry that was updated
+	*/
+	public static com.liferay.so.model.ProjectsEntry updateProjectsEntry(
+		com.liferay.so.model.ProjectsEntry projectsEntry) {
+		return getService().updateProjectsEntry(projectsEntry);
+	}
+
+	public static com.liferay.so.model.ProjectsEntry updateProjectsEntry(
+		long projectsEntryId, java.lang.String title,
+		java.lang.String description, int startDateMonth, int startDateDay,
+		int startDateYear, int endDateMonth, int endDateDay, int endDateYear,
+		boolean current, java.lang.String data)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		return getService()
+				   .updateProjectsEntry(projectsEntryId, title, description,
+			startDateMonth, startDateDay, startDateYear, endDateMonth,
+			endDateDay, endDateYear, current, data);
+	}
+
+	/**
+	* Returns the number of projects entries.
+	*
+	* @return the number of projects entries
+	*/
+	public static int getProjectsEntriesCount() {
+		return getService().getProjectsEntriesCount();
+	}
+
+	public static int getUserProjectsEntriesCount(long userId) {
+		return getService().getUserProjectsEntriesCount(userId);
+	}
+
+	public static java.lang.Object invokeMethod(java.lang.String name,
+		java.lang.String[] parameterTypes, java.lang.Object[] arguments)
+		throws java.lang.Throwable {
+		return getService().invokeMethod(name, parameterTypes, arguments);
+	}
+
+	/**
+	* Returns the OSGi service identifier.
+	*
+	* @return the OSGi service identifier
+	*/
+	public static java.lang.String getOSGiServiceIdentifier() {
+		return getService().getOSGiServiceIdentifier();
 	}
 
 	/**
@@ -161,54 +246,6 @@ public class ProjectsEntryLocalServiceUtil {
 	}
 
 	/**
-	* Returns the number of rows that match the dynamic query.
-	*
-	* @param dynamicQuery the dynamic query
-	* @return the number of rows that match the dynamic query
-	*/
-	public static long dynamicQueryCount(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery) {
-		return getService().dynamicQueryCount(dynamicQuery);
-	}
-
-	/**
-	* Returns the number of rows that match the dynamic query.
-	*
-	* @param dynamicQuery the dynamic query
-	* @param projection the projection to apply to the query
-	* @return the number of rows that match the dynamic query
-	*/
-	public static long dynamicQueryCount(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery,
-		com.liferay.portal.kernel.dao.orm.Projection projection) {
-		return getService().dynamicQueryCount(dynamicQuery, projection);
-	}
-
-	public static com.liferay.so.model.ProjectsEntry fetchProjectsEntry(
-		long projectsEntryId) {
-		return getService().fetchProjectsEntry(projectsEntryId);
-	}
-
-	public static com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery getActionableDynamicQuery() {
-		return getService().getActionableDynamicQuery();
-	}
-
-	/**
-	* Returns the Spring bean ID for this bean.
-	*
-	* @return the Spring bean ID for this bean
-	*/
-	public static java.lang.String getBeanIdentifier() {
-		return getService().getBeanIdentifier();
-	}
-
-	public static com.liferay.portal.model.PersistedModel getPersistedModel(
-		java.io.Serializable primaryKeyObj)
-		throws com.liferay.portal.kernel.exception.PortalException {
-		return getService().getPersistedModel(primaryKeyObj);
-	}
-
-	/**
 	* Returns a range of all the projects entries.
 	*
 	* <p>
@@ -224,73 +261,33 @@ public class ProjectsEntryLocalServiceUtil {
 		return getService().getProjectsEntries(start, end);
 	}
 
-	/**
-	* Returns the number of projects entries.
-	*
-	* @return the number of projects entries
-	*/
-	public static int getProjectsEntriesCount() {
-		return getService().getProjectsEntriesCount();
-	}
-
-	/**
-	* Returns the projects entry with the primary key.
-	*
-	* @param projectsEntryId the primary key of the projects entry
-	* @return the projects entry
-	* @throws PortalException if a projects entry with the primary key could not be found
-	*/
-	public static com.liferay.so.model.ProjectsEntry getProjectsEntry(
-		long projectsEntryId)
-		throws com.liferay.portal.kernel.exception.PortalException {
-		return getService().getProjectsEntry(projectsEntryId);
-	}
-
 	public static java.util.List<com.liferay.so.model.ProjectsEntry> getUserProjectsEntries(
 		long userId) {
 		return getService().getUserProjectsEntries(userId);
 	}
 
-	public static int getUserProjectsEntriesCount(long userId) {
-		return getService().getUserProjectsEntriesCount(userId);
-	}
-
-	public static java.lang.Object invokeMethod(java.lang.String name,
-		java.lang.String[] parameterTypes, java.lang.Object[] arguments)
-		throws java.lang.Throwable {
-		return getService().invokeMethod(name, parameterTypes, arguments);
+	/**
+	* Returns the number of rows matching the dynamic query.
+	*
+	* @param dynamicQuery the dynamic query
+	* @return the number of rows matching the dynamic query
+	*/
+	public static long dynamicQueryCount(
+		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery) {
+		return getService().dynamicQueryCount(dynamicQuery);
 	}
 
 	/**
-	* Sets the Spring bean ID for this bean.
+	* Returns the number of rows matching the dynamic query.
 	*
-	* @param beanIdentifier the Spring bean ID for this bean
+	* @param dynamicQuery the dynamic query
+	* @param projection the projection to apply to the query
+	* @return the number of rows matching the dynamic query
 	*/
-	public static void setBeanIdentifier(java.lang.String beanIdentifier) {
-		getService().setBeanIdentifier(beanIdentifier);
-	}
-
-	/**
-	* Updates the projects entry in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
-	*
-	* @param projectsEntry the projects entry
-	* @return the projects entry that was updated
-	*/
-	public static com.liferay.so.model.ProjectsEntry updateProjectsEntry(
-		com.liferay.so.model.ProjectsEntry projectsEntry) {
-		return getService().updateProjectsEntry(projectsEntry);
-	}
-
-	public static com.liferay.so.model.ProjectsEntry updateProjectsEntry(
-		long projectsEntryId, java.lang.String title,
-		java.lang.String description, int startDateMonth, int startDateDay,
-		int startDateYear, int endDateMonth, int endDateDay, int endDateYear,
-		boolean current, java.lang.String data)
-		throws com.liferay.portal.kernel.exception.PortalException {
-		return getService()
-				   .updateProjectsEntry(projectsEntryId, title, description,
-			startDateMonth, startDateDay, startDateYear, endDateMonth,
-			endDateDay, endDateYear, current, data);
+	public static long dynamicQueryCount(
+		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery,
+		com.liferay.portal.kernel.dao.orm.Projection projection) {
+		return getService().dynamicQueryCount(dynamicQuery, projection);
 	}
 
 	public static void clearService() {
@@ -314,13 +311,6 @@ public class ProjectsEntryLocalServiceUtil {
 		}
 
 		return _service;
-	}
-
-	/**
-	 * @deprecated As of 6.2.0
-	 */
-	@Deprecated
-	public void setService(ProjectsEntryLocalService service) {
 	}
 
 	private static ProjectsEntryLocalService _service;

@@ -17,7 +17,11 @@
 
 package com.liferay.microblogs.service.impl;
 
-import com.liferay.microblogs.UnsupportedMicroblogsEntryException;
+import com.liferay.asset.kernel.AssetRendererFactoryRegistryUtil;
+import com.liferay.asset.kernel.model.AssetRenderer;
+import com.liferay.asset.kernel.model.AssetRendererFactory;
+import com.liferay.asset.kernel.service.AssetEntryLocalServiceUtil;
+import com.liferay.microblogs.exception.UnsupportedMicroblogsEntryException;
 import com.liferay.microblogs.microblogs.social.MicroblogsActivityKeys;
 import com.liferay.microblogs.model.MicroblogsEntry;
 import com.liferay.microblogs.model.MicroblogsEntryConstants;
@@ -30,27 +34,23 @@ import com.liferay.portal.kernel.json.JSONFactoryUtil;
 import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.messaging.DestinationNames;
 import com.liferay.portal.kernel.messaging.MessageBusUtil;
+import com.liferay.portal.kernel.model.Group;
+import com.liferay.portal.kernel.model.Subscription;
+import com.liferay.portal.kernel.model.User;
+import com.liferay.portal.kernel.model.UserNotificationDeliveryConstants;
 import com.liferay.portal.kernel.process.ProcessCallable;
 import com.liferay.portal.kernel.process.ProcessException;
 import com.liferay.portal.kernel.search.Indexer;
-import com.liferay.portal.kernel.transaction.TransactionCommitCallbackRegistryUtil;
+import com.liferay.portal.kernel.service.GroupLocalServiceUtil;
+import com.liferay.portal.kernel.service.ServiceContext;
+import com.liferay.portal.kernel.service.SubscriptionLocalServiceUtil;
+import com.liferay.portal.kernel.service.UserLocalServiceUtil;
+import com.liferay.portal.kernel.service.UserNotificationEventLocalServiceUtil;
+import com.liferay.portal.kernel.transaction.TransactionCommitCallbackUtil;
 import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.StringUtil;
-import com.liferay.portal.model.Group;
-import com.liferay.portal.model.Subscription;
-import com.liferay.portal.model.User;
-import com.liferay.portal.model.UserNotificationDeliveryConstants;
-import com.liferay.portal.service.GroupLocalServiceUtil;
-import com.liferay.portal.service.ServiceContext;
-import com.liferay.portal.service.SubscriptionLocalServiceUtil;
-import com.liferay.portal.service.UserLocalServiceUtil;
-import com.liferay.portal.service.UserNotificationEventLocalServiceUtil;
-import com.liferay.portlet.asset.AssetRendererFactoryRegistryUtil;
-import com.liferay.portlet.asset.model.AssetRenderer;
-import com.liferay.portlet.asset.model.AssetRendererFactory;
-import com.liferay.portlet.asset.service.AssetEntryLocalServiceUtil;
-import com.liferay.portlet.social.service.SocialActivityLocalServiceUtil;
+import com.liferay.social.kernel.service.SocialActivityLocalServiceUtil;
 
 import java.io.Serializable;
 
@@ -448,7 +448,7 @@ public class MicroblogsEntryLocalServiceImpl
 			"entryTitle",
 			MicroblogsUtil.getProcessedContent(
 				StringUtil.shorten(microblogsEntry.getContent(), 50),
-			serviceContext));
+				serviceContext));
 
 		AssetRendererFactory assetRendererFactory =
 			AssetRendererFactoryRegistryUtil.getAssetRendererFactoryByClassName(
@@ -488,7 +488,7 @@ public class MicroblogsEntryLocalServiceImpl
 
 		};
 
-		TransactionCommitCallbackRegistryUtil.registerCallback(callable);
+		TransactionCommitCallbackUtil.registerCallback(callable);
 	}
 
 	protected void subscribeUsers(
@@ -573,7 +573,8 @@ public class MicroblogsEntryLocalServiceImpl
 			int pages = count / Indexer.DEFAULT_INTERVAL;
 
 			for (int i = 0; i <= pages; i++) {
-				int start = (i * Indexer.DEFAULT_INTERVAL);
+				int start = i * Indexer.DEFAULT_INTERVAL;
+
 				int end = start + Indexer.DEFAULT_INTERVAL;
 
 				if (count < end) {

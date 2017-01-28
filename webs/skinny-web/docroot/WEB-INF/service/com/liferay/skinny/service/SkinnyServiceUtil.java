@@ -17,8 +17,8 @@ package com.liferay.skinny.service;
 import aQute.bnd.annotation.ProviderType;
 
 import com.liferay.portal.kernel.bean.PortletBeanLocatorUtil;
+import com.liferay.portal.kernel.service.InvokableService;
 import com.liferay.portal.kernel.util.ReferenceRegistry;
-import com.liferay.portal.service.InvokableService;
 
 /**
  * Provides the remote service utility for Skinny. This utility wraps
@@ -41,14 +41,19 @@ public class SkinnyServiceUtil {
 	 *
 	 * Never modify this class directly. Add custom service methods to {@link com.liferay.skinny.service.impl.SkinnyServiceImpl} and rerun ServiceBuilder to regenerate this class.
 	 */
+	public static java.lang.Object invokeMethod(java.lang.String name,
+		java.lang.String[] parameterTypes, java.lang.Object[] arguments)
+		throws java.lang.Throwable {
+		return getService().invokeMethod(name, parameterTypes, arguments);
+	}
 
 	/**
-	* Returns the Spring bean ID for this bean.
+	* Returns the OSGi service identifier.
 	*
-	* @return the Spring bean ID for this bean
+	* @return the OSGi service identifier
 	*/
-	public static java.lang.String getBeanIdentifier() {
-		return getService().getBeanIdentifier();
+	public static java.lang.String getOSGiServiceIdentifier() {
+		return getService().getOSGiServiceIdentifier();
 	}
 
 	public static java.util.List<com.liferay.skinny.model.SkinnyDDLRecord> getSkinnyDDLRecords(
@@ -62,21 +67,6 @@ public class SkinnyServiceUtil {
 		return getService()
 				   .getSkinnyJournalArticles(companyId, groupName,
 			ddmStructureId, locale);
-	}
-
-	public static java.lang.Object invokeMethod(java.lang.String name,
-		java.lang.String[] parameterTypes, java.lang.Object[] arguments)
-		throws java.lang.Throwable {
-		return getService().invokeMethod(name, parameterTypes, arguments);
-	}
-
-	/**
-	* Sets the Spring bean ID for this bean.
-	*
-	* @param beanIdentifier the Spring bean ID for this bean
-	*/
-	public static void setBeanIdentifier(java.lang.String beanIdentifier) {
-		getService().setBeanIdentifier(beanIdentifier);
 	}
 
 	public static void clearService() {
@@ -100,13 +90,6 @@ public class SkinnyServiceUtil {
 		}
 
 		return _service;
-	}
-
-	/**
-	 * @deprecated As of 6.2.0
-	 */
-	@Deprecated
-	public void setService(SkinnyService service) {
 	}
 
 	private static SkinnyService _service;

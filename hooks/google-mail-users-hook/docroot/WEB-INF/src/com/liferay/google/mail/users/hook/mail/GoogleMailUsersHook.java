@@ -16,18 +16,18 @@ package com.liferay.google.mail.users.hook.mail;
 
 import com.liferay.google.apps.connector.util.GoogleDirectoryUtil;
 import com.liferay.google.apps.connector.util.GoogleGmailSettingsUtil;
-import com.liferay.mail.model.Filter;
-import com.liferay.mail.util.Hook;
+import com.liferay.mail.kernel.model.Filter;
+import com.liferay.mail.kernel.util.Hook;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.model.Company;
+import com.liferay.portal.kernel.model.User;
+import com.liferay.portal.kernel.security.auth.FullNameGenerator;
+import com.liferay.portal.kernel.service.CompanyLocalServiceUtil;
+import com.liferay.portal.kernel.service.UserLocalServiceUtil;
 import com.liferay.portal.kernel.util.PortalClassLoaderUtil;
 import com.liferay.portal.kernel.util.StringPool;
-import com.liferay.portal.model.Company;
-import com.liferay.portal.model.User;
-import com.liferay.portal.security.auth.FullNameGenerator;
-import com.liferay.portal.service.CompanyLocalServiceUtil;
-import com.liferay.portal.service.UserLocalServiceUtil;
 
 import java.lang.reflect.Method;
 
@@ -151,7 +151,7 @@ public class GoogleMailUsersHook implements Hook {
 		ClassLoader classLoader = PortalClassLoaderUtil.getClassLoader();
 
 		Class<?> clazz = classLoader.loadClass(
-			"com.liferay.portal.security.auth.FullNameGeneratorFactory");
+			"com.liferay.portal.kernel.security.auth.FullNameGeneratorFactory");
 
 		Method method = clazz.getMethod("getInstance");
 

@@ -18,59 +18,55 @@
 
 <%@ taglib uri="http://java.sun.com/portlet_2_0" prefix="portlet" %>
 
-<%@ taglib uri="http://liferay.com/tld/theme" prefix="liferay-theme" %>
-<%@ taglib uri="http://liferay.com/tld/ui" prefix="liferay-ui" %>
-<%@ taglib uri="http://liferay.com/tld/util" prefix="liferay-util" %>
+<%@ taglib uri="http://liferay.com/tld/theme" prefix="liferay-theme" %><%@
+taglib uri="http://liferay.com/tld/ui" prefix="liferay-ui" %><%@
+taglib uri="http://liferay.com/tld/util" prefix="liferay-util" %>
 
-<%@ page import="com.liferay.chat.NoSuchEntryException" %><%@
+<%@ page import="com.liferay.blogs.kernel.service.BlogsEntryLocalService" %><%@
+page import="com.liferay.blogs.kernel.service.BlogsEntryLocalServiceUtil" %><%@
+page import="com.liferay.blogs.kernel.service.BlogsStatsUserLocalServiceUtil" %><%@
+page import="com.liferay.chat.exception.NoSuchEntryException" %><%@
 page import="com.liferay.chat.model.Entry" %><%@
 page import="com.liferay.chat.model.EntryClp" %><%@
 page import="com.liferay.chat.service.EntryLocalService" %><%@
 page import="com.liferay.chat.service.EntryLocalServiceUtil" %><%@
 page import="com.liferay.chat.service.StatusLocalServiceUtil" %><%@
+page import="com.liferay.journal.util.JournalContentUtil" %><%@
+page import="com.liferay.portal.kernel.concurrent.ThreadPoolExecutor" %><%@
 page import="com.liferay.portal.kernel.dao.db.DB" %><%@
-page import="com.liferay.portal.kernel.dao.db.DBFactoryUtil" %><%@
+page import="com.liferay.portal.kernel.dao.db.DBManagerUtil" %><%@
+page import="com.liferay.portal.kernel.dao.db.DBType" %><%@
 page import="com.liferay.portal.kernel.dao.jdbc.DataAccess" %><%@
 page import="com.liferay.portal.kernel.dao.orm.DynamicQueryFactoryUtil" %><%@
-page import="com.liferay.portal.kernel.dao.orm.EntityCache" %><%@
-page import="com.liferay.portal.kernel.dao.orm.EntityCacheUtil" %><%@
-page import="com.liferay.portal.kernel.dao.orm.FinderCache" %><%@
-page import="com.liferay.portal.kernel.dao.orm.FinderCacheUtil" %><%@
 page import="com.liferay.portal.kernel.dao.orm.PortalCustomSQL" %><%@
 page import="com.liferay.portal.kernel.dao.orm.PortalCustomSQLUtil" %><%@
 page import="com.liferay.portal.kernel.dao.orm.QueryUtil" %><%@
 page import="com.liferay.portal.kernel.executor.PortalExecutorManagerUtil" %><%@
-page import="com.liferay.portal.kernel.concurrent.ThreadPoolExecutor" %><%@
 page import="com.liferay.portal.kernel.format.PhoneNumberFormatUtil" %><%@
 page import="com.liferay.portal.kernel.language.LanguageUtil" %><%@
 page import="com.liferay.portal.kernel.messaging.Message" %><%@
 page import="com.liferay.portal.kernel.messaging.MessageBusUtil" %><%@
+page import="com.liferay.portal.kernel.model.Group" %><%@
+page import="com.liferay.portal.kernel.model.GroupWrapper" %><%@
+page import="com.liferay.portal.kernel.model.Role" %><%@
+page import="com.liferay.portal.kernel.model.User" %><%@
+page import="com.liferay.portal.kernel.model.UserWrapper" %><%@
 page import="com.liferay.portal.kernel.portlet.PortletClassLoaderUtil" %><%@
 page import="com.liferay.portal.kernel.search.SearchEngineUtil" %><%@
 page import="com.liferay.portal.kernel.security.pacl.permission.PortalFilePermission" %><%@
+page import="com.liferay.portal.kernel.service.CompanyLocalServiceUtil" %><%@
+page import="com.liferay.portal.kernel.service.GroupLocalServiceUtil" %><%@
+page import="com.liferay.portal.kernel.service.ServiceContext" %><%@
+page import="com.liferay.portal.kernel.service.UserLocalServiceUtil" %><%@
+page import="com.liferay.portal.kernel.theme.ThemeDisplay" %><%@
 page import="com.liferay.portal.kernel.util.HttpUtil" %><%@
 page import="com.liferay.portal.kernel.util.LocaleUtil" %><%@
 page import="com.liferay.portal.kernel.util.OSDetector" %><%@
+page import="com.liferay.portal.kernel.util.Portal" %><%@
 page import="com.liferay.portal.kernel.util.PortalClassLoaderUtil" %><%@
+page import="com.liferay.portal.kernel.util.PortalUtil" %><%@
 page import="com.liferay.portal.kernel.util.PropsKeys" %><%@
 page import="com.liferay.portal.kernel.util.ServerDetector" %><%@
-page import="com.liferay.portal.kernel.util.Validator" %><%@
-page import="com.liferay.portal.model.Group" %><%@
-page import="com.liferay.portal.model.GroupWrapper" %><%@
-page import="com.liferay.portal.model.Role" %><%@
-page import="com.liferay.portal.model.User" %><%@
-page import="com.liferay.portal.model.UserWrapper" %><%@
-page import="com.liferay.portal.service.CompanyLocalServiceUtil" %><%@
-page import="com.liferay.portal.service.GroupLocalServiceUtil" %><%@
-page import="com.liferay.portal.service.ServiceContext" %><%@
-page import="com.liferay.portal.service.UserLocalServiceUtil" %><%@
-page import="com.liferay.portal.theme.ThemeDisplay" %><%@
-page import="com.liferay.portal.util.Portal" %><%@
-page import="com.liferay.portal.util.PortalUtil" %><%@
-page import="com.liferay.portlet.blogs.service.BlogsEntryLocalService" %><%@
-page import="com.liferay.portlet.blogs.service.BlogsEntryLocalServiceUtil" %><%@
-page import="com.liferay.portlet.blogs.service.BlogsStatsUserLocalServiceUtil" %><%@
-page import="com.liferay.portlet.journal.util.JournalContentUtil" %><%@
 page import="com.liferay.testpacl.hook.action.FailureStrutsAction" %><%@
 page import="com.liferay.testpacl.hook.action.SuccessStrutsAction" %><%@
 page import="com.liferay.testpacl.hook.indexer.OrganizationIndexerPostProcessor" %><%@
@@ -101,7 +97,8 @@ page import="java.sql.Statement" %>
 
 <%@ page import="java.util.ArrayList" %><%@
 page import="java.util.List" %><%@
-page import="java.util.Map" %>
+page import="java.util.Map" %><%@
+page import="java.util.Objects" %>
 
 <%@ page import="javax.crypto.Cipher" %><%@
 page import="javax.crypto.KeyGenerator" %><%@
@@ -114,6 +111,6 @@ page import="javax.naming.InitialContext" %>
 
 <%@ page import="org.codehaus.jackson.map.ObjectMapper" %>
 
-<portlet:defineObjects />
-
 <liferay-theme:defineObjects />
+
+<portlet:defineObjects />

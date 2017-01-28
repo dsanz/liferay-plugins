@@ -21,21 +21,26 @@ import com.liferay.chat.service.StatusLocalServiceUtil;
 import com.liferay.chat.util.BuddyFinderUtil;
 import com.liferay.chat.util.ChatConstants;
 import com.liferay.chat.util.PortletPropsValues;
-import com.liferay.portal.NoSuchUserException;
+import com.liferay.portal.kernel.exception.NoSuchLayoutSetException;
+import com.liferay.portal.kernel.exception.NoSuchUserException;
 import com.liferay.portal.kernel.json.JSONArray;
 import com.liferay.portal.kernel.json.JSONFactoryUtil;
 import com.liferay.portal.kernel.json.JSONObject;
+import com.liferay.portal.kernel.model.ContactConstants;
+import com.liferay.portal.kernel.model.LayoutSet;
+import com.liferay.portal.kernel.model.User;
+import com.liferay.portal.kernel.model.UserConstants;
 import com.liferay.portal.kernel.poller.BasePollerProcessor;
 import com.liferay.portal.kernel.poller.PollerRequest;
 import com.liferay.portal.kernel.poller.PollerResponse;
+import com.liferay.portal.kernel.service.LayoutSetLocalServiceUtil;
+import com.liferay.portal.kernel.service.UserLocalServiceUtil;
 import com.liferay.portal.kernel.util.HtmlUtil;
+import com.liferay.portal.kernel.util.HttpUtil;
 import com.liferay.portal.kernel.util.ListUtil;
+import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.Time;
-import com.liferay.portal.model.ContactConstants;
-import com.liferay.portal.model.User;
-import com.liferay.portal.model.UserConstants;
-import com.liferay.portal.service.UserLocalServiceUtil;
 
 import java.util.Collections;
 import java.util.List;
@@ -103,10 +108,29 @@ public class ChatPollerProcessor extends BasePollerProcessor {
 
 			curUserJSONObject.put("awake", awake);
 
+			String displayURL = StringPool.BLANK;
+
+			try {
+				LayoutSet layoutSet = LayoutSetLocalServiceUtil.getLayoutSet(
+					groupId, false);
+
+				if (layoutSet.getPageCount() > 0) {
+					displayURL = PortalUtil.getLayoutSetDisplayURL(
+						layoutSet, false);
+
+					displayURL = HttpUtil.removeDomain(displayURL);
+				}
+			}
+			catch (NoSuchLayoutSetException nslse) {
+			}
+
+			curUserJSONObject.put("displayURL", displayURL);
+
 			String fullName = ContactConstants.getFullName(
 				firstName, middleName, lastName);
 
 			curUserJSONObject.put("fullName", fullName);
+
 			curUserJSONObject.put("groupId", groupId);
 			curUserJSONObject.put("portraitId", portraitId);
 
@@ -120,6 +144,7 @@ public class ChatPollerProcessor extends BasePollerProcessor {
 			String statusMessage = buddyStatus.getMessage();
 
 			curUserJSONObject.put("statusMessage", statusMessage);
+
 			curUserJSONObject.put("userId", userId);
 
 			buddiesJSONArray.put(curUserJSONObject);
@@ -154,8 +179,8 @@ public class ChatPollerProcessor extends BasePollerProcessor {
 		for (Entry entry : entries) {
 			JSONObject entryJSONObject = JSONFactoryUtil.createJSONObject();
 
-			entryJSONObject.put("entryId", entry.getEntryId());
 			entryJSONObject.put("createDate", entry.getCreateDate());
+			entryJSONObject.put("entryId", entry.getEntryId());
 			entryJSONObject.put("fromUserId", entry.getFromUserId());
 
 			if (entry.getFromUserId() != pollerRequest.getUserId()) {
@@ -172,9 +197,9 @@ public class ChatPollerProcessor extends BasePollerProcessor {
 				}
 			}
 
-			entryJSONObject.put("toUserId", entry.getToUserId());
 			entryJSONObject.put("content", HtmlUtil.escape(entry.getContent()));
 			entryJSONObject.put("flag", entry.getFlag());
+			entryJSONObject.put("toUserId", entry.getToUserId());
 
 			entriesJSONArray.put(entryJSONObject);
 		}

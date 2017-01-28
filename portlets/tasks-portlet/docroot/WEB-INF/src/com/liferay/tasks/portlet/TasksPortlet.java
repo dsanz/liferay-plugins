@@ -17,27 +17,24 @@
 
 package com.liferay.tasks.portlet;
 
+import com.liferay.asset.kernel.exception.AssetTagException;
+import com.liferay.asset.kernel.service.AssetEntryLocalServiceUtil;
 import com.liferay.portal.kernel.json.JSONFactoryUtil;
 import com.liferay.portal.kernel.json.JSONObject;
+import com.liferay.portal.kernel.model.Layout;
 import com.liferay.portal.kernel.portlet.LiferayWindowState;
+import com.liferay.portal.kernel.portlet.PortletURLFactoryUtil;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCPortlet;
+import com.liferay.portal.kernel.service.ServiceContext;
+import com.liferay.portal.kernel.service.ServiceContextFactory;
 import com.liferay.portal.kernel.servlet.ServletResponseUtil;
 import com.liferay.portal.kernel.servlet.SessionErrors;
 import com.liferay.portal.kernel.servlet.SessionMessages;
-import com.liferay.portal.kernel.util.Constants;
+import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.ParamUtil;
+import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.util.WebKeys;
-import com.liferay.portal.model.Layout;
-import com.liferay.portal.service.ServiceContext;
-import com.liferay.portal.service.ServiceContextFactory;
-import com.liferay.portal.theme.ThemeDisplay;
-import com.liferay.portal.util.PortalUtil;
-import com.liferay.portlet.PortletURLFactoryUtil;
-import com.liferay.portlet.asset.AssetTagException;
-import com.liferay.portlet.asset.service.AssetEntryLocalServiceUtil;
-import com.liferay.portlet.messageboards.model.MBMessage;
-import com.liferay.portlet.messageboards.service.MBMessageServiceUtil;
 import com.liferay.tasks.model.TasksEntry;
 import com.liferay.tasks.service.TasksEntryLocalServiceUtil;
 import com.liferay.tasks.service.TasksEntryServiceUtil;
@@ -66,7 +63,7 @@ public class TasksPortlet extends MVCPortlet {
 
 		long tasksEntryId = ParamUtil.getLong(actionRequest, "tasksEntryId");
 
-		TasksEntryLocalServiceUtil.deleteTasksEntry(tasksEntryId);
+		TasksEntryServiceUtil.deleteTasksEntry(tasksEntryId);
 
 		String redirect = ParamUtil.getString(actionRequest, "redirect");
 
@@ -110,47 +107,6 @@ public class TasksPortlet extends MVCPortlet {
 
 		if (Validator.isNotNull(redirect)) {
 			actionResponse.sendRedirect(redirect);
-		}
-	}
-
-	public void updateMessage(
-			ActionRequest actionRequest, ActionResponse actionResponse)
-		throws Exception {
-
-		ThemeDisplay themeDisplay = (ThemeDisplay)actionRequest.getAttribute(
-			WebKeys.THEME_DISPLAY);
-
-		String cmd = ParamUtil.getString(actionRequest, Constants.CMD);
-
-		long groupId = PortalUtil.getScopeGroupId(actionRequest);
-		String className = ParamUtil.getString(actionRequest, "className");
-		long classPK = ParamUtil.getLong(actionRequest, "classPK");
-		long messageId = ParamUtil.getLong(actionRequest, "messageId");
-		long threadId = ParamUtil.getLong(actionRequest, "threadId");
-		long parentMessageId = ParamUtil.getLong(
-			actionRequest, "parentMessageId");
-		String subject = ParamUtil.getString(actionRequest, "subject");
-		String body = ParamUtil.getString(actionRequest, "body");
-
-		ServiceContext serviceContext = ServiceContextFactory.getInstance(
-			MBMessage.class.getName(), actionRequest);
-
-		if (cmd.equals(Constants.DELETE)) {
-			MBMessageServiceUtil.deleteDiscussionMessage(
-				groupId, className, classPK, className, classPK,
-				themeDisplay.getUserId(), messageId);
-		}
-		else if (messageId <= 0) {
-			MBMessageServiceUtil.addDiscussionMessage(
-				groupId, className, classPK, className, classPK,
-				themeDisplay.getUserId(), threadId, parentMessageId, subject,
-				body, serviceContext);
-		}
-		else {
-			MBMessageServiceUtil.updateDiscussionMessage(
-				className, classPK, className, classPK,
-				themeDisplay.getUserId(), messageId, subject, body,
-				serviceContext);
 		}
 	}
 
@@ -244,7 +200,7 @@ public class TasksPortlet extends MVCPortlet {
 		ServiceContext serviceContext = ServiceContextFactory.getInstance(
 			TasksEntry.class.getName(), actionRequest);
 
-		TasksEntryLocalServiceUtil.updateTasksEntryStatus(
+		TasksEntryServiceUtil.updateTasksEntryStatus(
 			tasksEntryId, resolverUserId, status, serviceContext);
 
 		Layout layout = themeDisplay.getLayout();

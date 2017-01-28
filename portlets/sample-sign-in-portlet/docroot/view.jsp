@@ -22,14 +22,16 @@
 <%@ taglib uri="http://liferay.com/tld/theme" prefix="liferay-theme" %>
 <%@ taglib uri="http://liferay.com/tld/ui" prefix="liferay-ui" %>
 
-<%@ page import="com.liferay.portal.CookieNotSupportedException" %>
-<%@ page import="com.liferay.portal.NoSuchUserException" %>
-<%@ page import="com.liferay.portal.PasswordExpiredException" %>
-<%@ page import="com.liferay.portal.UserEmailAddressException" %>
-<%@ page import="com.liferay.portal.UserLockoutException" %>
-<%@ page import="com.liferay.portal.UserPasswordException" %>
-<%@ page import="com.liferay.portal.UserScreenNameException" %>
+<%@ page import="com.liferay.portal.kernel.exception.CookieNotSupportedException" %>
+<%@ page import="com.liferay.portal.kernel.exception.NoSuchUserException" %>
+<%@ page import="com.liferay.portal.kernel.exception.PasswordExpiredException" %>
+<%@ page import="com.liferay.portal.kernel.exception.UserEmailAddressException" %>
+<%@ page import="com.liferay.portal.kernel.exception.UserLockoutException" %>
+<%@ page import="com.liferay.portal.kernel.exception.UserPasswordException" %>
+<%@ page import="com.liferay.portal.kernel.exception.UserScreenNameException" %>
 <%@ page import="com.liferay.portal.kernel.language.LanguageUtil" %>
+<%@ page import="com.liferay.portal.kernel.model.Company" %>
+<%@ page import="com.liferay.portal.kernel.security.auth.AuthException" %>
 <%@ page import="com.liferay.portal.kernel.util.ClassResolverUtil" %>
 <%@ page import="com.liferay.portal.kernel.util.Constants" %>
 <%@ page import="com.liferay.portal.kernel.util.GetterUtil" %>
@@ -38,14 +40,12 @@
 <%@ page import="com.liferay.portal.kernel.util.ParamUtil" %>
 <%@ page import="com.liferay.portal.kernel.util.PortalClassInvoker" %>
 <%@ page import="com.liferay.portal.kernel.util.PropsUtil" %>
-<%@ page import="com.liferay.portal.model.Company" %>
-<%@ page import="com.liferay.portal.security.auth.AuthException" %>
 
 <%@ page import="javax.portlet.WindowState" %>
 
-<portlet:defineObjects />
-
 <liferay-theme:defineObjects />
+
+<portlet:defineObjects />
 
 <c:choose>
 	<c:when test="<%= themeDisplay.isSignedIn() %>">
@@ -87,27 +87,26 @@
 			<liferay-ui:error exception="<%= UserScreenNameException.class %>" message="please-enter-a-valid-screen-name" />
 
 			<table class="lfr-table">
-			<tr>
-				<td>
-					<aui:input name="login" style="width: 120px;" type="text" value="<%= HtmlUtil.escape(login) %>" />
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<aui:input name="password" style="width: 120px;" type="password" value="" />
-
-					<span id="<portlet:namespace />passwordCapsLockSpan" style="display: none;"><liferay-ui:message key="caps-lock-is-on" /></span>
-				</td>
-			</tr>
-
-			<c:if test='<%= company.isAutoLogin() && !GetterUtil.getBoolean(PropsUtil.get("session.disabled")) %>'>
 				<tr>
 					<td>
-						<aui:input checked="<%= rememberMe %>" name="rememberMe" type="checkbox" />
+						<aui:input name="login" style="width: 120px;" type="text" value="<%= HtmlUtil.escape(login) %>" />
 					</td>
 				</tr>
-			</c:if>
+				<tr>
+					<td>
+						<aui:input name="password" style="width: 120px;" type="password" value="" />
 
+						<span id="<portlet:namespace />passwordCapsLockSpan" style="display: none;"><liferay-ui:message key="caps-lock-is-on" /></span>
+					</td>
+				</tr>
+
+				<c:if test='<%= company.isAutoLogin() && !GetterUtil.getBoolean(PropsUtil.get("session.disabled")) %>'>
+					<tr>
+						<td>
+							<aui:input checked="<%= rememberMe %>" name="rememberMe" type="checkbox" />
+						</td>
+					</tr>
+				</c:if>
 			</table>
 
 			<br />

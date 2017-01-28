@@ -14,7 +14,9 @@
 
 package com.liferay.chat.service;
 
-import com.liferay.portal.service.ServiceWrapper;
+import aQute.bnd.annotation.ProviderType;
+
+import com.liferay.portal.kernel.service.ServiceWrapper;
 
 /**
  * Provides a wrapper for {@link EntryLocalService}.
@@ -23,17 +25,11 @@ import com.liferay.portal.service.ServiceWrapper;
  * @see EntryLocalService
  * @generated
  */
+@ProviderType
 public class EntryLocalServiceWrapper implements EntryLocalService,
 	ServiceWrapper<EntryLocalService> {
 	public EntryLocalServiceWrapper(EntryLocalService entryLocalService) {
 		_entryLocalService = entryLocalService;
-	}
-
-	@Override
-	public com.liferay.chat.model.Entry addEntry(long createDate,
-		long fromUserId, long toUserId, java.lang.String content) {
-		return _entryLocalService.addEntry(createDate, fromUserId, toUserId,
-			content);
 	}
 
 	/**
@@ -46,6 +42,13 @@ public class EntryLocalServiceWrapper implements EntryLocalService,
 	public com.liferay.chat.model.Entry addEntry(
 		com.liferay.chat.model.Entry entry) {
 		return _entryLocalService.addEntry(entry);
+	}
+
+	@Override
+	public com.liferay.chat.model.Entry addEntry(long createDate,
+		long fromUserId, long toUserId, java.lang.String content) {
+		return _entryLocalService.addEntry(createDate, fromUserId, toUserId,
+			content);
 	}
 
 	@Override
@@ -63,11 +66,6 @@ public class EntryLocalServiceWrapper implements EntryLocalService,
 	@Override
 	public com.liferay.chat.model.Entry createEntry(long entryId) {
 		return _entryLocalService.createEntry(entryId);
-	}
-
-	@Override
-	public void deleteEntries(long userId) {
-		_entryLocalService.deleteEntries(userId);
 	}
 
 	/**
@@ -95,19 +93,93 @@ public class EntryLocalServiceWrapper implements EntryLocalService,
 		return _entryLocalService.deleteEntry(entryId);
 	}
 
+	@Override
+	public com.liferay.chat.model.Entry fetchEntry(long entryId) {
+		return _entryLocalService.fetchEntry(entryId);
+	}
+
 	/**
-	* @throws PortalException
+	* Returns the entry with the primary key.
+	*
+	* @param entryId the primary key of the entry
+	* @return the entry
+	* @throws PortalException if a entry with the primary key could not be found
 	*/
 	@Override
-	public com.liferay.portal.model.PersistedModel deletePersistedModel(
-		com.liferay.portal.model.PersistedModel persistedModel)
+	public com.liferay.chat.model.Entry getEntry(long entryId)
 		throws com.liferay.portal.kernel.exception.PortalException {
-		return _entryLocalService.deletePersistedModel(persistedModel);
+		return _entryLocalService.getEntry(entryId);
+	}
+
+	/**
+	* Updates the entry in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
+	*
+	* @param entry the entry
+	* @return the entry that was updated
+	*/
+	@Override
+	public com.liferay.chat.model.Entry updateEntry(
+		com.liferay.chat.model.Entry entry) {
+		return _entryLocalService.updateEntry(entry);
+	}
+
+	@Override
+	public com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery getActionableDynamicQuery() {
+		return _entryLocalService.getActionableDynamicQuery();
 	}
 
 	@Override
 	public com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery() {
 		return _entryLocalService.dynamicQuery();
+	}
+
+	@Override
+	public com.liferay.portal.kernel.dao.orm.IndexableActionableDynamicQuery getIndexableActionableDynamicQuery() {
+		return _entryLocalService.getIndexableActionableDynamicQuery();
+	}
+
+	/**
+	* @throws PortalException
+	*/
+	@Override
+	public com.liferay.portal.kernel.model.PersistedModel deletePersistedModel(
+		com.liferay.portal.kernel.model.PersistedModel persistedModel)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		return _entryLocalService.deletePersistedModel(persistedModel);
+	}
+
+	@Override
+	public com.liferay.portal.kernel.model.PersistedModel getPersistedModel(
+		java.io.Serializable primaryKeyObj)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		return _entryLocalService.getPersistedModel(primaryKeyObj);
+	}
+
+	/**
+	* Returns the number of entries.
+	*
+	* @return the number of entries
+	*/
+	@Override
+	public int getEntriesCount() {
+		return _entryLocalService.getEntriesCount();
+	}
+
+	@Override
+	public java.lang.Object invokeMethod(java.lang.String name,
+		java.lang.String[] parameterTypes, java.lang.Object[] arguments)
+		throws java.lang.Throwable {
+		return _entryLocalService.invokeMethod(name, parameterTypes, arguments);
+	}
+
+	/**
+	* Returns the OSGi service identifier.
+	*
+	* @return the OSGi service identifier
+	*/
+	@Override
+	public java.lang.String getOSGiServiceIdentifier() {
+		return _entryLocalService.getOSGiServiceIdentifier();
 	}
 
 	/**
@@ -164,52 +236,6 @@ public class EntryLocalServiceWrapper implements EntryLocalService,
 	}
 
 	/**
-	* Returns the number of rows that match the dynamic query.
-	*
-	* @param dynamicQuery the dynamic query
-	* @return the number of rows that match the dynamic query
-	*/
-	@Override
-	public long dynamicQueryCount(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery) {
-		return _entryLocalService.dynamicQueryCount(dynamicQuery);
-	}
-
-	/**
-	* Returns the number of rows that match the dynamic query.
-	*
-	* @param dynamicQuery the dynamic query
-	* @param projection the projection to apply to the query
-	* @return the number of rows that match the dynamic query
-	*/
-	@Override
-	public long dynamicQueryCount(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery,
-		com.liferay.portal.kernel.dao.orm.Projection projection) {
-		return _entryLocalService.dynamicQueryCount(dynamicQuery, projection);
-	}
-
-	@Override
-	public com.liferay.chat.model.Entry fetchEntry(long entryId) {
-		return _entryLocalService.fetchEntry(entryId);
-	}
-
-	@Override
-	public com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery getActionableDynamicQuery() {
-		return _entryLocalService.getActionableDynamicQuery();
-	}
-
-	/**
-	* Returns the Spring bean ID for this bean.
-	*
-	* @return the Spring bean ID for this bean
-	*/
-	@Override
-	public java.lang.String getBeanIdentifier() {
-		return _entryLocalService.getBeanIdentifier();
-	}
-
-	/**
 	* Returns a range of all the entries.
 	*
 	* <p>
@@ -226,29 +252,6 @@ public class EntryLocalServiceWrapper implements EntryLocalService,
 		return _entryLocalService.getEntries(start, end);
 	}
 
-	/**
-	* Returns the number of entries.
-	*
-	* @return the number of entries
-	*/
-	@Override
-	public int getEntriesCount() {
-		return _entryLocalService.getEntriesCount();
-	}
-
-	/**
-	* Returns the entry with the primary key.
-	*
-	* @param entryId the primary key of the entry
-	* @return the entry
-	* @throws PortalException if a entry with the primary key could not be found
-	*/
-	@Override
-	public com.liferay.chat.model.Entry getEntry(long entryId)
-		throws com.liferay.portal.kernel.exception.PortalException {
-		return _entryLocalService.getEntry(entryId);
-	}
-
 	@Override
 	public java.util.List<com.liferay.chat.model.Entry> getNewEntries(
 		long userId, long createDate, int start, int end) {
@@ -261,56 +264,35 @@ public class EntryLocalServiceWrapper implements EntryLocalService,
 		return _entryLocalService.getOldEntries(createDate, start, end);
 	}
 
-	@Override
-	public com.liferay.portal.model.PersistedModel getPersistedModel(
-		java.io.Serializable primaryKeyObj)
-		throws com.liferay.portal.kernel.exception.PortalException {
-		return _entryLocalService.getPersistedModel(primaryKeyObj);
-	}
-
-	@Override
-	public java.lang.Object invokeMethod(java.lang.String name,
-		java.lang.String[] parameterTypes, java.lang.Object[] arguments)
-		throws java.lang.Throwable {
-		return _entryLocalService.invokeMethod(name, parameterTypes, arguments);
-	}
-
 	/**
-	* Sets the Spring bean ID for this bean.
+	* Returns the number of rows matching the dynamic query.
 	*
-	* @param beanIdentifier the Spring bean ID for this bean
+	* @param dynamicQuery the dynamic query
+	* @return the number of rows matching the dynamic query
 	*/
 	@Override
-	public void setBeanIdentifier(java.lang.String beanIdentifier) {
-		_entryLocalService.setBeanIdentifier(beanIdentifier);
+	public long dynamicQueryCount(
+		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery) {
+		return _entryLocalService.dynamicQueryCount(dynamicQuery);
 	}
 
 	/**
-	* Updates the entry in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
+	* Returns the number of rows matching the dynamic query.
 	*
-	* @param entry the entry
-	* @return the entry that was updated
+	* @param dynamicQuery the dynamic query
+	* @param projection the projection to apply to the query
+	* @return the number of rows matching the dynamic query
 	*/
 	@Override
-	public com.liferay.chat.model.Entry updateEntry(
-		com.liferay.chat.model.Entry entry) {
-		return _entryLocalService.updateEntry(entry);
+	public long dynamicQueryCount(
+		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery,
+		com.liferay.portal.kernel.dao.orm.Projection projection) {
+		return _entryLocalService.dynamicQueryCount(dynamicQuery, projection);
 	}
 
-	/**
-	 * @deprecated As of 6.1.0, replaced by {@link #getWrappedService}
-	 */
-	@Deprecated
-	public EntryLocalService getWrappedEntryLocalService() {
-		return _entryLocalService;
-	}
-
-	/**
-	 * @deprecated As of 6.1.0, replaced by {@link #setWrappedService}
-	 */
-	@Deprecated
-	public void setWrappedEntryLocalService(EntryLocalService entryLocalService) {
-		_entryLocalService = entryLocalService;
+	@Override
+	public void deleteEntries(long userId) {
+		_entryLocalService.deleteEntries(userId);
 	}
 
 	@Override

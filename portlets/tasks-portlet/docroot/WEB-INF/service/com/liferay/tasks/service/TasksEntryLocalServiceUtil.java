@@ -14,9 +14,11 @@
 
 package com.liferay.tasks.service;
 
+import aQute.bnd.annotation.ProviderType;
+
 import com.liferay.portal.kernel.bean.PortletBeanLocatorUtil;
+import com.liferay.portal.kernel.service.InvokableLocalService;
 import com.liferay.portal.kernel.util.ReferenceRegistry;
-import com.liferay.portal.service.InvokableLocalService;
 
 /**
  * Provides the local service utility for TasksEntry. This utility wraps
@@ -32,12 +34,39 @@ import com.liferay.portal.service.InvokableLocalService;
  * @see com.liferay.tasks.service.impl.TasksEntryLocalServiceImpl
  * @generated
  */
+@ProviderType
 public class TasksEntryLocalServiceUtil {
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify this class directly. Add custom service methods to {@link com.liferay.tasks.service.impl.TasksEntryLocalServiceImpl} and rerun ServiceBuilder to regenerate this class.
 	 */
+	public static com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery getActionableDynamicQuery() {
+		return getService().getActionableDynamicQuery();
+	}
+
+	public static com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery() {
+		return getService().dynamicQuery();
+	}
+
+	public static com.liferay.portal.kernel.dao.orm.IndexableActionableDynamicQuery getIndexableActionableDynamicQuery() {
+		return getService().getIndexableActionableDynamicQuery();
+	}
+
+	/**
+	* @throws PortalException
+	*/
+	public static com.liferay.portal.kernel.model.PersistedModel deletePersistedModel(
+		com.liferay.portal.kernel.model.PersistedModel persistedModel)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		return getService().deletePersistedModel(persistedModel);
+	}
+
+	public static com.liferay.portal.kernel.model.PersistedModel getPersistedModel(
+		java.io.Serializable primaryKeyObj)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		return getService().getPersistedModel(primaryKeyObj);
+	}
 
 	/**
 	* Adds the tasks entry to the database. Also notifies the appropriate model listeners.
@@ -54,7 +83,7 @@ public class TasksEntryLocalServiceUtil {
 		long userId, java.lang.String title, int priority, long assigneeUserId,
 		int dueDateMonth, int dueDateDay, int dueDateYear, int dueDateHour,
 		int dueDateMinute, boolean addDueDate,
-		com.liferay.portal.service.ServiceContext serviceContext)
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		return getService()
 				   .addTasksEntry(userId, title, priority, assigneeUserId,
@@ -71,15 +100,6 @@ public class TasksEntryLocalServiceUtil {
 	public static com.liferay.tasks.model.TasksEntry createTasksEntry(
 		long tasksEntryId) {
 		return getService().createTasksEntry(tasksEntryId);
-	}
-
-	/**
-	* @throws PortalException
-	*/
-	public static com.liferay.portal.model.PersistedModel deletePersistedModel(
-		com.liferay.portal.model.PersistedModel persistedModel)
-		throws com.liferay.portal.kernel.exception.PortalException {
-		return getService().deletePersistedModel(persistedModel);
 	}
 
 	/**
@@ -108,8 +128,120 @@ public class TasksEntryLocalServiceUtil {
 		return getService().deleteTasksEntry(tasksEntryId);
 	}
 
-	public static com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery() {
-		return getService().dynamicQuery();
+	public static com.liferay.tasks.model.TasksEntry fetchTasksEntry(
+		long tasksEntryId) {
+		return getService().fetchTasksEntry(tasksEntryId);
+	}
+
+	/**
+	* Returns the tasks entry with the primary key.
+	*
+	* @param tasksEntryId the primary key of the tasks entry
+	* @return the tasks entry
+	* @throws PortalException if a tasks entry with the primary key could not be found
+	*/
+	public static com.liferay.tasks.model.TasksEntry getTasksEntry(
+		long tasksEntryId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		return getService().getTasksEntry(tasksEntryId);
+	}
+
+	/**
+	* Updates the tasks entry in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
+	*
+	* @param tasksEntry the tasks entry
+	* @return the tasks entry that was updated
+	*/
+	public static com.liferay.tasks.model.TasksEntry updateTasksEntry(
+		com.liferay.tasks.model.TasksEntry tasksEntry) {
+		return getService().updateTasksEntry(tasksEntry);
+	}
+
+	public static com.liferay.tasks.model.TasksEntry updateTasksEntry(
+		long tasksEntryId, java.lang.String title, int priority,
+		long assigneeUserId, long resolverUserId, int dueDateMonth,
+		int dueDateDay, int dueDateYear, int dueDateHour, int dueDateMinute,
+		boolean addDueDate, int status,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		return getService()
+				   .updateTasksEntry(tasksEntryId, title, priority,
+			assigneeUserId, resolverUserId, dueDateMonth, dueDateDay,
+			dueDateYear, dueDateHour, dueDateMinute, addDueDate, status,
+			serviceContext);
+	}
+
+	public static com.liferay.tasks.model.TasksEntry updateTasksEntryStatus(
+		long tasksEntryId, long resolverUserId, int status,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		return getService()
+				   .updateTasksEntryStatus(tasksEntryId, resolverUserId,
+			status, serviceContext);
+	}
+
+	public static int getAssigneeTasksEntriesCount(long assigneeUserId) {
+		return getService().getAssigneeTasksEntriesCount(assigneeUserId);
+	}
+
+	public static int getGroupAssigneeTasksEntriesCount(long groupId,
+		long assigneeUserId) {
+		return getService()
+				   .getGroupAssigneeTasksEntriesCount(groupId, assigneeUserId);
+	}
+
+	public static int getGroupResolverTasksEntriesCount(long groupId,
+		long resolverUserId) {
+		return getService()
+				   .getGroupResolverTasksEntriesCount(groupId, resolverUserId);
+	}
+
+	public static int getGroupUserTasksEntriesCount(long groupId, long userId) {
+		return getService().getGroupUserTasksEntriesCount(groupId, userId);
+	}
+
+	public static int getResolverTasksEntriesCount(long resolverUserId) {
+		return getService().getResolverTasksEntriesCount(resolverUserId);
+	}
+
+	/**
+	* Returns the number of tasks entries.
+	*
+	* @return the number of tasks entries
+	*/
+	public static int getTasksEntriesCount() {
+		return getService().getTasksEntriesCount();
+	}
+
+	public static int getTasksEntriesCount(long groupId) {
+		return getService().getTasksEntriesCount(groupId);
+	}
+
+	public static int getTasksEntriesCount(long groupId, long userId,
+		int priority, long assigneeUserId, int status, long[] tagsEntryIds,
+		long[] notTagsEntryIds) {
+		return getService()
+				   .getTasksEntriesCount(groupId, userId, priority,
+			assigneeUserId, status, tagsEntryIds, notTagsEntryIds);
+	}
+
+	public static int getUserTasksEntriesCount(long userId) {
+		return getService().getUserTasksEntriesCount(userId);
+	}
+
+	public static java.lang.Object invokeMethod(java.lang.String name,
+		java.lang.String[] parameterTypes, java.lang.Object[] arguments)
+		throws java.lang.Throwable {
+		return getService().invokeMethod(name, parameterTypes, arguments);
+	}
+
+	/**
+	* Returns the OSGi service identifier.
+	*
+	* @return the OSGi service identifier
+	*/
+	public static java.lang.String getOSGiServiceIdentifier() {
+		return getService().getOSGiServiceIdentifier();
 	}
 
 	/**
@@ -162,55 +294,9 @@ public class TasksEntryLocalServiceUtil {
 				   .dynamicQuery(dynamicQuery, start, end, orderByComparator);
 	}
 
-	/**
-	* Returns the number of rows that match the dynamic query.
-	*
-	* @param dynamicQuery the dynamic query
-	* @return the number of rows that match the dynamic query
-	*/
-	public static long dynamicQueryCount(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery) {
-		return getService().dynamicQueryCount(dynamicQuery);
-	}
-
-	/**
-	* Returns the number of rows that match the dynamic query.
-	*
-	* @param dynamicQuery the dynamic query
-	* @param projection the projection to apply to the query
-	* @return the number of rows that match the dynamic query
-	*/
-	public static long dynamicQueryCount(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery,
-		com.liferay.portal.kernel.dao.orm.Projection projection) {
-		return getService().dynamicQueryCount(dynamicQuery, projection);
-	}
-
-	public static com.liferay.tasks.model.TasksEntry fetchTasksEntry(
-		long tasksEntryId) {
-		return getService().fetchTasksEntry(tasksEntryId);
-	}
-
-	public static com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery getActionableDynamicQuery() {
-		return getService().getActionableDynamicQuery();
-	}
-
 	public static java.util.List<com.liferay.tasks.model.TasksEntry> getAssigneeTasksEntries(
 		long assigneeUserId, int start, int end) {
 		return getService().getAssigneeTasksEntries(assigneeUserId, start, end);
-	}
-
-	public static int getAssigneeTasksEntriesCount(long assigneeUserId) {
-		return getService().getAssigneeTasksEntriesCount(assigneeUserId);
-	}
-
-	/**
-	* Returns the Spring bean ID for this bean.
-	*
-	* @return the Spring bean ID for this bean
-	*/
-	public static java.lang.String getBeanIdentifier() {
-		return getService().getBeanIdentifier();
 	}
 
 	public static java.util.List<com.liferay.tasks.model.TasksEntry> getGroupAssigneeTasksEntries(
@@ -220,12 +306,6 @@ public class TasksEntryLocalServiceUtil {
 			start, end);
 	}
 
-	public static int getGroupAssigneeTasksEntriesCount(long groupId,
-		long assigneeUserId) {
-		return getService()
-				   .getGroupAssigneeTasksEntriesCount(groupId, assigneeUserId);
-	}
-
 	public static java.util.List<com.liferay.tasks.model.TasksEntry> getGroupResolverTasksEntries(
 		long groupId, long resolverUserId, int start, int end) {
 		return getService()
@@ -233,48 +313,14 @@ public class TasksEntryLocalServiceUtil {
 			start, end);
 	}
 
-	public static int getGroupResolverTasksEntriesCount(long groupId,
-		long resolverUserId) {
-		return getService()
-				   .getGroupResolverTasksEntriesCount(groupId, resolverUserId);
-	}
-
 	public static java.util.List<com.liferay.tasks.model.TasksEntry> getGroupUserTasksEntries(
 		long groupId, long userId, int start, int end) {
 		return getService().getGroupUserTasksEntries(groupId, userId, start, end);
 	}
 
-	public static int getGroupUserTasksEntriesCount(long groupId, long userId) {
-		return getService().getGroupUserTasksEntriesCount(groupId, userId);
-	}
-
-	public static com.liferay.portal.model.PersistedModel getPersistedModel(
-		java.io.Serializable primaryKeyObj)
-		throws com.liferay.portal.kernel.exception.PortalException {
-		return getService().getPersistedModel(primaryKeyObj);
-	}
-
 	public static java.util.List<com.liferay.tasks.model.TasksEntry> getResolverTasksEntries(
 		long resolverUserId, int start, int end) {
 		return getService().getResolverTasksEntries(resolverUserId, start, end);
-	}
-
-	public static int getResolverTasksEntriesCount(long resolverUserId) {
-		return getService().getResolverTasksEntriesCount(resolverUserId);
-	}
-
-	public static java.util.List<com.liferay.tasks.model.TasksEntry> getTasksEntries(
-		long groupId, int start, int end) {
-		return getService().getTasksEntries(groupId, start, end);
-	}
-
-	public static java.util.List<com.liferay.tasks.model.TasksEntry> getTasksEntries(
-		long groupId, long userId, int priority, long assigneeUserId,
-		int status, long[] assetTagIds, long[] notAssetTagIds, int start,
-		int end) {
-		return getService()
-				   .getTasksEntries(groupId, userId, priority, assigneeUserId,
-			status, assetTagIds, notAssetTagIds, start, end);
 	}
 
 	/**
@@ -293,38 +339,18 @@ public class TasksEntryLocalServiceUtil {
 		return getService().getTasksEntries(start, end);
 	}
 
-	/**
-	* Returns the number of tasks entries.
-	*
-	* @return the number of tasks entries
-	*/
-	public static int getTasksEntriesCount() {
-		return getService().getTasksEntriesCount();
+	public static java.util.List<com.liferay.tasks.model.TasksEntry> getTasksEntries(
+		long groupId, int start, int end) {
+		return getService().getTasksEntries(groupId, start, end);
 	}
 
-	public static int getTasksEntriesCount(long groupId) {
-		return getService().getTasksEntriesCount(groupId);
-	}
-
-	public static int getTasksEntriesCount(long groupId, long userId,
-		int priority, long assigneeUserId, int status, long[] tagsEntryIds,
-		long[] notTagsEntryIds) {
+	public static java.util.List<com.liferay.tasks.model.TasksEntry> getTasksEntries(
+		long groupId, long userId, int priority, long assigneeUserId,
+		int status, long[] assetTagIds, long[] notAssetTagIds, int start,
+		int end) {
 		return getService()
-				   .getTasksEntriesCount(groupId, userId, priority,
-			assigneeUserId, status, tagsEntryIds, notTagsEntryIds);
-	}
-
-	/**
-	* Returns the tasks entry with the primary key.
-	*
-	* @param tasksEntryId the primary key of the tasks entry
-	* @return the tasks entry
-	* @throws PortalException if a tasks entry with the primary key could not be found
-	*/
-	public static com.liferay.tasks.model.TasksEntry getTasksEntry(
-		long tasksEntryId)
-		throws com.liferay.portal.kernel.exception.PortalException {
-		return getService().getTasksEntry(tasksEntryId);
+				   .getTasksEntries(groupId, userId, priority, assigneeUserId,
+			status, assetTagIds, notAssetTagIds, start, end);
 	}
 
 	public static java.util.List<com.liferay.tasks.model.TasksEntry> getUserTasksEntries(
@@ -332,23 +358,28 @@ public class TasksEntryLocalServiceUtil {
 		return getService().getUserTasksEntries(userId, start, end);
 	}
 
-	public static int getUserTasksEntriesCount(long userId) {
-		return getService().getUserTasksEntriesCount(userId);
-	}
-
-	public static java.lang.Object invokeMethod(java.lang.String name,
-		java.lang.String[] parameterTypes, java.lang.Object[] arguments)
-		throws java.lang.Throwable {
-		return getService().invokeMethod(name, parameterTypes, arguments);
+	/**
+	* Returns the number of rows matching the dynamic query.
+	*
+	* @param dynamicQuery the dynamic query
+	* @return the number of rows matching the dynamic query
+	*/
+	public static long dynamicQueryCount(
+		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery) {
+		return getService().dynamicQueryCount(dynamicQuery);
 	}
 
 	/**
-	* Sets the Spring bean ID for this bean.
+	* Returns the number of rows matching the dynamic query.
 	*
-	* @param beanIdentifier the Spring bean ID for this bean
+	* @param dynamicQuery the dynamic query
+	* @param projection the projection to apply to the query
+	* @return the number of rows matching the dynamic query
 	*/
-	public static void setBeanIdentifier(java.lang.String beanIdentifier) {
-		getService().setBeanIdentifier(beanIdentifier);
+	public static long dynamicQueryCount(
+		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery,
+		com.liferay.portal.kernel.dao.orm.Projection projection) {
+		return getService().dynamicQueryCount(dynamicQuery, projection);
 	}
 
 	public static void updateAsset(long userId,
@@ -357,40 +388,6 @@ public class TasksEntryLocalServiceUtil {
 		throws com.liferay.portal.kernel.exception.PortalException {
 		getService()
 			.updateAsset(userId, tasksEntry, assetCategoryIds, assetTagNames);
-	}
-
-	/**
-	* Updates the tasks entry in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
-	*
-	* @param tasksEntry the tasks entry
-	* @return the tasks entry that was updated
-	*/
-	public static com.liferay.tasks.model.TasksEntry updateTasksEntry(
-		com.liferay.tasks.model.TasksEntry tasksEntry) {
-		return getService().updateTasksEntry(tasksEntry);
-	}
-
-	public static com.liferay.tasks.model.TasksEntry updateTasksEntry(
-		long tasksEntryId, java.lang.String title, int priority,
-		long assigneeUserId, long resolverUserId, int dueDateMonth,
-		int dueDateDay, int dueDateYear, int dueDateHour, int dueDateMinute,
-		boolean addDueDate, int status,
-		com.liferay.portal.service.ServiceContext serviceContext)
-		throws com.liferay.portal.kernel.exception.PortalException {
-		return getService()
-				   .updateTasksEntry(tasksEntryId, title, priority,
-			assigneeUserId, resolverUserId, dueDateMonth, dueDateDay,
-			dueDateYear, dueDateHour, dueDateMinute, addDueDate, status,
-			serviceContext);
-	}
-
-	public static com.liferay.tasks.model.TasksEntry updateTasksEntryStatus(
-		long tasksEntryId, long resolverUserId, int status,
-		com.liferay.portal.service.ServiceContext serviceContext)
-		throws com.liferay.portal.kernel.exception.PortalException {
-		return getService()
-				   .updateTasksEntryStatus(tasksEntryId, resolverUserId,
-			status, serviceContext);
 	}
 
 	public static void clearService() {
@@ -414,13 +411,6 @@ public class TasksEntryLocalServiceUtil {
 		}
 
 		return _service;
-	}
-
-	/**
-	 * @deprecated As of 6.2.0
-	 */
-	@Deprecated
-	public void setService(TasksEntryLocalService service) {
 	}
 
 	private static TasksEntryLocalService _service;

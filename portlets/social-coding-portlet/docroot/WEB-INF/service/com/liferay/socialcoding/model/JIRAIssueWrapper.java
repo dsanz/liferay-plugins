@@ -16,8 +16,13 @@ package com.liferay.socialcoding.model;
 
 import aQute.bnd.annotation.ProviderType;
 
+import com.liferay.expando.kernel.model.ExpandoBridge;
+
+import com.liferay.portal.kernel.model.ModelWrapper;
+import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.util.Validator;
-import com.liferay.portal.model.ModelWrapper;
+
+import java.io.Serializable;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -137,13 +142,58 @@ public class JIRAIssueWrapper implements JIRAIssue, ModelWrapper<JIRAIssue> {
 	}
 
 	@Override
-	public java.lang.Object clone() {
-		return new JIRAIssueWrapper((JIRAIssue)_jiraIssue.clone());
+	public boolean isCachedModel() {
+		return _jiraIssue.isCachedModel();
+	}
+
+	@Override
+	public boolean isEscapedModel() {
+		return _jiraIssue.isEscapedModel();
+	}
+
+	@Override
+	public boolean isNew() {
+		return _jiraIssue.isNew();
+	}
+
+	@Override
+	public ExpandoBridge getExpandoBridge() {
+		return _jiraIssue.getExpandoBridge();
+	}
+
+	@Override
+	public com.liferay.portal.kernel.model.CacheModel<com.liferay.socialcoding.model.JIRAIssue> toCacheModel() {
+		return _jiraIssue.toCacheModel();
+	}
+
+	@Override
+	public com.liferay.socialcoding.model.JIRAIssue toEscapedModel() {
+		return new JIRAIssueWrapper(_jiraIssue.toEscapedModel());
+	}
+
+	@Override
+	public com.liferay.socialcoding.model.JIRAIssue toUnescapedModel() {
+		return new JIRAIssueWrapper(_jiraIssue.toUnescapedModel());
 	}
 
 	@Override
 	public int compareTo(com.liferay.socialcoding.model.JIRAIssue jiraIssue) {
 		return _jiraIssue.compareTo(jiraIssue);
+	}
+
+	@Override
+	public int hashCode() {
+		return _jiraIssue.hashCode();
+	}
+
+	@Override
+	public Serializable getPrimaryKeyObj() {
+		return _jiraIssue.getPrimaryKeyObj();
+	}
+
+	@Override
+	public java.lang.Object clone() {
+		return new JIRAIssueWrapper((JIRAIssue)_jiraIssue.clone());
 	}
 
 	/**
@@ -157,16 +207,6 @@ public class JIRAIssueWrapper implements JIRAIssue, ModelWrapper<JIRAIssue> {
 	}
 
 	/**
-	* Returns the create date of this j i r a issue.
-	*
-	* @return the create date of this j i r a issue
-	*/
-	@Override
-	public java.util.Date getCreateDate() {
-		return _jiraIssue.getCreateDate();
-	}
-
-	/**
 	* Returns the description of this j i r a issue.
 	*
 	* @return the description of this j i r a issue
@@ -177,68 +217,8 @@ public class JIRAIssueWrapper implements JIRAIssue, ModelWrapper<JIRAIssue> {
 	}
 
 	@Override
-	public com.liferay.portlet.expando.model.ExpandoBridge getExpandoBridge() {
-		return _jiraIssue.getExpandoBridge();
-	}
-
-	/**
-	* Returns the issue number of this j i r a issue.
-	*
-	* @return the issue number of this j i r a issue
-	*/
-	@Override
-	public long getIssueNumber() {
-		return _jiraIssue.getIssueNumber();
-	}
-
-	/**
-	* Returns the jira issue ID of this j i r a issue.
-	*
-	* @return the jira issue ID of this j i r a issue
-	*/
-	@Override
-	public long getJiraIssueId() {
-		return _jiraIssue.getJiraIssueId();
-	}
-
-	@Override
 	public java.lang.String getKey() {
 		return _jiraIssue.getKey();
-	}
-
-	/**
-	* Returns the modified date of this j i r a issue.
-	*
-	* @return the modified date of this j i r a issue
-	*/
-	@Override
-	public java.util.Date getModifiedDate() {
-		return _jiraIssue.getModifiedDate();
-	}
-
-	/**
-	* Returns the primary key of this j i r a issue.
-	*
-	* @return the primary key of this j i r a issue
-	*/
-	@Override
-	public long getPrimaryKey() {
-		return _jiraIssue.getPrimaryKey();
-	}
-
-	@Override
-	public java.io.Serializable getPrimaryKeyObj() {
-		return _jiraIssue.getPrimaryKeyObj();
-	}
-
-	/**
-	* Returns the project ID of this j i r a issue.
-	*
-	* @return the project ID of this j i r a issue
-	*/
-	@Override
-	public long getProjectId() {
-		return _jiraIssue.getProjectId();
 	}
 
 	/**
@@ -282,23 +262,73 @@ public class JIRAIssueWrapper implements JIRAIssue, ModelWrapper<JIRAIssue> {
 	}
 
 	@Override
-	public int hashCode() {
-		return _jiraIssue.hashCode();
+	public java.lang.String toString() {
+		return _jiraIssue.toString();
 	}
 
 	@Override
-	public boolean isCachedModel() {
-		return _jiraIssue.isCachedModel();
+	public java.lang.String toXmlString() {
+		return _jiraIssue.toXmlString();
 	}
 
+	/**
+	* Returns the create date of this j i r a issue.
+	*
+	* @return the create date of this j i r a issue
+	*/
 	@Override
-	public boolean isEscapedModel() {
-		return _jiraIssue.isEscapedModel();
+	public Date getCreateDate() {
+		return _jiraIssue.getCreateDate();
 	}
 
+	/**
+	* Returns the modified date of this j i r a issue.
+	*
+	* @return the modified date of this j i r a issue
+	*/
 	@Override
-	public boolean isNew() {
-		return _jiraIssue.isNew();
+	public Date getModifiedDate() {
+		return _jiraIssue.getModifiedDate();
+	}
+
+	/**
+	* Returns the issue number of this j i r a issue.
+	*
+	* @return the issue number of this j i r a issue
+	*/
+	@Override
+	public long getIssueNumber() {
+		return _jiraIssue.getIssueNumber();
+	}
+
+	/**
+	* Returns the jira issue ID of this j i r a issue.
+	*
+	* @return the jira issue ID of this j i r a issue
+	*/
+	@Override
+	public long getJiraIssueId() {
+		return _jiraIssue.getJiraIssueId();
+	}
+
+	/**
+	* Returns the primary key of this j i r a issue.
+	*
+	* @return the primary key of this j i r a issue
+	*/
+	@Override
+	public long getPrimaryKey() {
+		return _jiraIssue.getPrimaryKey();
+	}
+
+	/**
+	* Returns the project ID of this j i r a issue.
+	*
+	* @return the project ID of this j i r a issue
+	*/
+	@Override
+	public long getProjectId() {
+		return _jiraIssue.getProjectId();
 	}
 
 	@Override
@@ -327,7 +357,7 @@ public class JIRAIssueWrapper implements JIRAIssue, ModelWrapper<JIRAIssue> {
 	* @param createDate the create date of this j i r a issue
 	*/
 	@Override
-	public void setCreateDate(java.util.Date createDate) {
+	public void setCreateDate(Date createDate) {
 		_jiraIssue.setCreateDate(createDate);
 	}
 
@@ -342,20 +372,18 @@ public class JIRAIssueWrapper implements JIRAIssue, ModelWrapper<JIRAIssue> {
 	}
 
 	@Override
-	public void setExpandoBridgeAttributes(
-		com.liferay.portal.model.BaseModel<?> baseModel) {
-		_jiraIssue.setExpandoBridgeAttributes(baseModel);
-	}
-
-	@Override
-	public void setExpandoBridgeAttributes(
-		com.liferay.portlet.expando.model.ExpandoBridge expandoBridge) {
+	public void setExpandoBridgeAttributes(ExpandoBridge expandoBridge) {
 		_jiraIssue.setExpandoBridgeAttributes(expandoBridge);
 	}
 
 	@Override
 	public void setExpandoBridgeAttributes(
-		com.liferay.portal.service.ServiceContext serviceContext) {
+		com.liferay.portal.kernel.model.BaseModel<?> baseModel) {
+		_jiraIssue.setExpandoBridgeAttributes(baseModel);
+	}
+
+	@Override
+	public void setExpandoBridgeAttributes(ServiceContext serviceContext) {
 		_jiraIssue.setExpandoBridgeAttributes(serviceContext);
 	}
 
@@ -385,7 +413,7 @@ public class JIRAIssueWrapper implements JIRAIssue, ModelWrapper<JIRAIssue> {
 	* @param modifiedDate the modified date of this j i r a issue
 	*/
 	@Override
-	public void setModifiedDate(java.util.Date modifiedDate) {
+	public void setModifiedDate(Date modifiedDate) {
 		_jiraIssue.setModifiedDate(modifiedDate);
 	}
 
@@ -405,7 +433,7 @@ public class JIRAIssueWrapper implements JIRAIssue, ModelWrapper<JIRAIssue> {
 	}
 
 	@Override
-	public void setPrimaryKeyObj(java.io.Serializable primaryKeyObj) {
+	public void setPrimaryKeyObj(Serializable primaryKeyObj) {
 		_jiraIssue.setPrimaryKeyObj(primaryKeyObj);
 	}
 
@@ -460,31 +488,6 @@ public class JIRAIssueWrapper implements JIRAIssue, ModelWrapper<JIRAIssue> {
 	}
 
 	@Override
-	public com.liferay.portal.model.CacheModel<com.liferay.socialcoding.model.JIRAIssue> toCacheModel() {
-		return _jiraIssue.toCacheModel();
-	}
-
-	@Override
-	public com.liferay.socialcoding.model.JIRAIssue toEscapedModel() {
-		return new JIRAIssueWrapper(_jiraIssue.toEscapedModel());
-	}
-
-	@Override
-	public java.lang.String toString() {
-		return _jiraIssue.toString();
-	}
-
-	@Override
-	public com.liferay.socialcoding.model.JIRAIssue toUnescapedModel() {
-		return new JIRAIssueWrapper(_jiraIssue.toUnescapedModel());
-	}
-
-	@Override
-	public java.lang.String toXmlString() {
-		return _jiraIssue.toXmlString();
-	}
-
-	@Override
 	public boolean equals(Object obj) {
 		if (this == obj) {
 			return true;
@@ -501,14 +504,6 @@ public class JIRAIssueWrapper implements JIRAIssue, ModelWrapper<JIRAIssue> {
 		}
 
 		return false;
-	}
-
-	/**
-	 * @deprecated As of 6.1.0, replaced by {@link #getWrappedModel}
-	 */
-	@Deprecated
-	public JIRAIssue getWrappedJIRAIssue() {
-		return _jiraIssue;
 	}
 
 	@Override

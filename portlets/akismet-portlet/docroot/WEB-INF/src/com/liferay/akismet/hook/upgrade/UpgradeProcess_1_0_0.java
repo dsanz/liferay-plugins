@@ -28,7 +28,7 @@ public class UpgradeProcess_1_0_0 extends UpgradeProcess {
 
 	@Override
 	protected void doUpgrade() throws Exception {
-		if (!tableHasColumn("Akismet_AkismetData", "mbMessageId")) {
+		if (!hasColumn("Akismet_AkismetData", "mbMessageId")) {
 			return;
 		}
 
@@ -38,7 +38,7 @@ public class UpgradeProcess_1_0_0 extends UpgradeProcess {
 		runSQL(
 			"update Akismet_AkismetData set classNameId = (select " +
 				"classNameId from ClassName_ where value = " +
-					"'com.liferay.portlet.messageboards.model.MBMessage')");
+					"'com.liferay.message.boards.kernel.model.MBMessage')");
 		runSQL("update Akismet_AkismetData set classPK = mbMessageId");
 
 		runSQL("alter table Akismet_AkismetData drop column mbMessageId");

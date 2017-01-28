@@ -34,7 +34,7 @@ User selUser = (User)request.getAttribute("user.selUser");
 <aui:fieldset>
 	<aui:input name="categories" type="assetCategories" />
 
-	<aui:input name="tags" type="assetTags"  />
+	<aui:input name="tags" type="assetTags" />
 </aui:fieldset>
 
 <aui:script>
@@ -53,6 +53,6 @@ User selUser = (User)request.getAttribute("user.selUser");
 		}
 		%>
 
-		return '<%= sb %>'
+		return '<%= HtmlUtil.escape(HtmlUtil.replaceNewLine(sb.toString())) %>'
 	}
 </aui:script>

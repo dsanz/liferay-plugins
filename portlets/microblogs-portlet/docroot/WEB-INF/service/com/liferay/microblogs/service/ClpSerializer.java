@@ -22,10 +22,10 @@ import com.liferay.portal.kernel.io.unsync.UnsyncByteArrayInputStream;
 import com.liferay.portal.kernel.io.unsync.UnsyncByteArrayOutputStream;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.model.BaseModel;
 import com.liferay.portal.kernel.util.ClassLoaderObjectInputStream;
 import com.liferay.portal.kernel.util.PropsUtil;
 import com.liferay.portal.kernel.util.Validator;
-import com.liferay.portal.model.BaseModel;
 
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -266,13 +266,14 @@ public class ClpSerializer {
 		String className = clazz.getName();
 
 		if (className.equals(
-					"com.liferay.microblogs.UnsupportedMicroblogsEntryException")) {
-			return new com.liferay.microblogs.UnsupportedMicroblogsEntryException(throwable.getMessage(),
+					"com.liferay.microblogs.exception.UnsupportedMicroblogsEntryException")) {
+			return new com.liferay.microblogs.exception.UnsupportedMicroblogsEntryException(throwable.getMessage(),
 				throwable.getCause());
 		}
 
-		if (className.equals("com.liferay.microblogs.NoSuchEntryException")) {
-			return new com.liferay.microblogs.NoSuchEntryException(throwable.getMessage(),
+		if (className.equals(
+					"com.liferay.microblogs.exception.NoSuchEntryException")) {
+			return new com.liferay.microblogs.exception.NoSuchEntryException(throwable.getMessage(),
 				throwable.getCause());
 		}
 

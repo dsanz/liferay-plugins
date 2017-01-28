@@ -26,6 +26,34 @@ public class AlloyException extends Exception {
 		super(msg);
 	}
 
+	public AlloyException(String msg, boolean log) {
+		super(msg);
+
+		this.log = log;
+	}
+
+	public AlloyException(String msg, Object[] arguments) {
+		super(msg);
+
+		this.arguments = arguments;
+	}
+
+	public AlloyException(String msg, Object[] arguments, boolean log) {
+		super(msg);
+
+		this.arguments = arguments;
+		this.log = log;
+	}
+
+	public AlloyException(
+		String msg, Object[] arguments, boolean log, Throwable cause) {
+
+		super(msg, cause);
+
+		this.arguments = arguments;
+		this.log = log;
+	}
+
 	public AlloyException(String msg, Throwable cause) {
 		super(msg, cause);
 	}
@@ -33,5 +61,8 @@ public class AlloyException extends Exception {
 	public AlloyException(Throwable cause) {
 		super(cause);
 	}
+
+	protected Object[] arguments = null;
+	protected boolean log = true;
 
 }

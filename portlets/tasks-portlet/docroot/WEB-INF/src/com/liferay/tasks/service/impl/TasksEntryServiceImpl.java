@@ -18,8 +18,8 @@
 package com.liferay.tasks.service.impl;
 
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.security.permission.ActionKeys;
-import com.liferay.portal.service.ServiceContext;
+import com.liferay.portal.kernel.security.permission.ActionKeys;
+import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.tasks.model.TasksEntry;
 import com.liferay.tasks.service.base.TasksEntryServiceBaseImpl;
 import com.liferay.tasks.service.permission.TasksEntryPermission;
@@ -46,6 +46,15 @@ public class TasksEntryServiceImpl extends TasksEntryServiceBaseImpl {
 			serviceContext);
 	}
 
+	public TasksEntry deleteTasksEntry(long tasksEntryId)
+		throws PortalException {
+
+		TasksEntryPermission.check(
+			getPermissionChecker(), tasksEntryId, ActionKeys.UPDATE);
+
+		return tasksEntryLocalService.deleteTasksEntry(tasksEntryId);
+	}
+
 	public TasksEntry getTasksEntry(long tasksEntryId) throws PortalException {
 		TasksEntryPermission.check(
 			getPermissionChecker(), tasksEntryId, ActionKeys.VIEW);
@@ -67,6 +76,18 @@ public class TasksEntryServiceImpl extends TasksEntryServiceBaseImpl {
 			tasksEntryId, title, priority, assigneeUserId, resolverUserId,
 			dueDateMonth, dueDateDay, dueDateYear, dueDateHour, dueDateMinute,
 			neverDue, status, serviceContext);
+	}
+
+	public TasksEntry updateTasksEntryStatus(
+			long tasksEntryId, long resolverUserId, int status,
+			ServiceContext serviceContext)
+		throws PortalException {
+
+		TasksEntryPermission.check(
+			getPermissionChecker(), tasksEntryId, ActionKeys.UPDATE);
+
+		return tasksEntryLocalService.updateTasksEntryStatus(
+			tasksEntryId, resolverUserId, status, serviceContext);
 	}
 
 }

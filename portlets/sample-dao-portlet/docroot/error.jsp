@@ -20,7 +20,7 @@
 <%@ page import="java.util.Properties" %>
 
 <span class="alert alert-danger">
-An unexpected error occurred.
+	An unexpected error occurred.
 </span>
 
 Please check that these database settings are correct:
@@ -38,7 +38,7 @@ while (enu.hasMoreElements()) {
 	String value = props.getProperty(key);
 %>
 
-	<strong><%= key %></strong>=<%= value%><br />
+	<strong><%= key %></strong>=<%= value %><br />
 
 <%
 }

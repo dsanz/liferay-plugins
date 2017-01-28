@@ -14,8 +14,15 @@
 
 package com.liferay.chat.model;
 
+import aQute.bnd.annotation.ProviderType;
+
+import com.liferay.expando.kernel.model.ExpandoBridge;
+
+import com.liferay.portal.kernel.model.ModelWrapper;
+import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.util.Validator;
-import com.liferay.portal.model.ModelWrapper;
+
+import java.io.Serializable;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -29,6 +36,7 @@ import java.util.Map;
  * @see Entry
  * @generated
  */
+@ProviderType
 public class EntryWrapper implements Entry, ModelWrapper<Entry> {
 	public EntryWrapper(Entry entry) {
 		_entry = entry;
@@ -98,13 +106,68 @@ public class EntryWrapper implements Entry, ModelWrapper<Entry> {
 	}
 
 	@Override
-	public java.lang.Object clone() {
-		return new EntryWrapper((Entry)_entry.clone());
+	public boolean isCachedModel() {
+		return _entry.isCachedModel();
+	}
+
+	@Override
+	public boolean isEscapedModel() {
+		return _entry.isEscapedModel();
+	}
+
+	@Override
+	public boolean isNew() {
+		return _entry.isNew();
+	}
+
+	@Override
+	public com.liferay.chat.model.Entry toEscapedModel() {
+		return new EntryWrapper(_entry.toEscapedModel());
+	}
+
+	@Override
+	public com.liferay.chat.model.Entry toUnescapedModel() {
+		return new EntryWrapper(_entry.toUnescapedModel());
+	}
+
+	@Override
+	public ExpandoBridge getExpandoBridge() {
+		return _entry.getExpandoBridge();
+	}
+
+	@Override
+	public com.liferay.portal.kernel.model.CacheModel<com.liferay.chat.model.Entry> toCacheModel() {
+		return _entry.toCacheModel();
 	}
 
 	@Override
 	public int compareTo(com.liferay.chat.model.Entry entry) {
 		return _entry.compareTo(entry);
+	}
+
+	/**
+	* Returns the flag of this entry.
+	*
+	* @return the flag of this entry
+	*/
+	@Override
+	public int getFlag() {
+		return _entry.getFlag();
+	}
+
+	@Override
+	public int hashCode() {
+		return _entry.hashCode();
+	}
+
+	@Override
+	public Serializable getPrimaryKeyObj() {
+		return _entry.getPrimaryKeyObj();
+	}
+
+	@Override
+	public java.lang.Object clone() {
+		return new EntryWrapper((Entry)_entry.clone());
 	}
 
 	/**
@@ -115,6 +178,36 @@ public class EntryWrapper implements Entry, ModelWrapper<Entry> {
 	@Override
 	public java.lang.String getContent() {
 		return _entry.getContent();
+	}
+
+	/**
+	* Returns the from user uuid of this entry.
+	*
+	* @return the from user uuid of this entry
+	*/
+	@Override
+	public java.lang.String getFromUserUuid() {
+		return _entry.getFromUserUuid();
+	}
+
+	/**
+	* Returns the to user uuid of this entry.
+	*
+	* @return the to user uuid of this entry
+	*/
+	@Override
+	public java.lang.String getToUserUuid() {
+		return _entry.getToUserUuid();
+	}
+
+	@Override
+	public java.lang.String toString() {
+		return _entry.toString();
+	}
+
+	@Override
+	public java.lang.String toXmlString() {
+		return _entry.toXmlString();
 	}
 
 	/**
@@ -137,21 +230,6 @@ public class EntryWrapper implements Entry, ModelWrapper<Entry> {
 		return _entry.getEntryId();
 	}
 
-	@Override
-	public com.liferay.portlet.expando.model.ExpandoBridge getExpandoBridge() {
-		return _entry.getExpandoBridge();
-	}
-
-	/**
-	* Returns the flag of this entry.
-	*
-	* @return the flag of this entry
-	*/
-	@Override
-	public int getFlag() {
-		return _entry.getFlag();
-	}
-
 	/**
 	* Returns the from user ID of this entry.
 	*
@@ -160,16 +238,6 @@ public class EntryWrapper implements Entry, ModelWrapper<Entry> {
 	@Override
 	public long getFromUserId() {
 		return _entry.getFromUserId();
-	}
-
-	/**
-	* Returns the from user uuid of this entry.
-	*
-	* @return the from user uuid of this entry
-	*/
-	@Override
-	public java.lang.String getFromUserUuid() {
-		return _entry.getFromUserUuid();
 	}
 
 	/**
@@ -182,11 +250,6 @@ public class EntryWrapper implements Entry, ModelWrapper<Entry> {
 		return _entry.getPrimaryKey();
 	}
 
-	@Override
-	public java.io.Serializable getPrimaryKeyObj() {
-		return _entry.getPrimaryKeyObj();
-	}
-
 	/**
 	* Returns the to user ID of this entry.
 	*
@@ -195,36 +258,6 @@ public class EntryWrapper implements Entry, ModelWrapper<Entry> {
 	@Override
 	public long getToUserId() {
 		return _entry.getToUserId();
-	}
-
-	/**
-	* Returns the to user uuid of this entry.
-	*
-	* @return the to user uuid of this entry
-	*/
-	@Override
-	public java.lang.String getToUserUuid() {
-		return _entry.getToUserUuid();
-	}
-
-	@Override
-	public int hashCode() {
-		return _entry.hashCode();
-	}
-
-	@Override
-	public boolean isCachedModel() {
-		return _entry.isCachedModel();
-	}
-
-	@Override
-	public boolean isEscapedModel() {
-		return _entry.isEscapedModel();
-	}
-
-	@Override
-	public boolean isNew() {
-		return _entry.isNew();
 	}
 
 	@Override
@@ -268,20 +301,18 @@ public class EntryWrapper implements Entry, ModelWrapper<Entry> {
 	}
 
 	@Override
-	public void setExpandoBridgeAttributes(
-		com.liferay.portal.model.BaseModel<?> baseModel) {
-		_entry.setExpandoBridgeAttributes(baseModel);
-	}
-
-	@Override
-	public void setExpandoBridgeAttributes(
-		com.liferay.portlet.expando.model.ExpandoBridge expandoBridge) {
+	public void setExpandoBridgeAttributes(ExpandoBridge expandoBridge) {
 		_entry.setExpandoBridgeAttributes(expandoBridge);
 	}
 
 	@Override
 	public void setExpandoBridgeAttributes(
-		com.liferay.portal.service.ServiceContext serviceContext) {
+		com.liferay.portal.kernel.model.BaseModel<?> baseModel) {
+		_entry.setExpandoBridgeAttributes(baseModel);
+	}
+
+	@Override
+	public void setExpandoBridgeAttributes(ServiceContext serviceContext) {
 		_entry.setExpandoBridgeAttributes(serviceContext);
 	}
 
@@ -331,7 +362,7 @@ public class EntryWrapper implements Entry, ModelWrapper<Entry> {
 	}
 
 	@Override
-	public void setPrimaryKeyObj(java.io.Serializable primaryKeyObj) {
+	public void setPrimaryKeyObj(Serializable primaryKeyObj) {
 		_entry.setPrimaryKeyObj(primaryKeyObj);
 	}
 
@@ -356,31 +387,6 @@ public class EntryWrapper implements Entry, ModelWrapper<Entry> {
 	}
 
 	@Override
-	public com.liferay.portal.model.CacheModel<com.liferay.chat.model.Entry> toCacheModel() {
-		return _entry.toCacheModel();
-	}
-
-	@Override
-	public com.liferay.chat.model.Entry toEscapedModel() {
-		return new EntryWrapper(_entry.toEscapedModel());
-	}
-
-	@Override
-	public java.lang.String toString() {
-		return _entry.toString();
-	}
-
-	@Override
-	public com.liferay.chat.model.Entry toUnescapedModel() {
-		return new EntryWrapper(_entry.toUnescapedModel());
-	}
-
-	@Override
-	public java.lang.String toXmlString() {
-		return _entry.toXmlString();
-	}
-
-	@Override
 	public boolean equals(Object obj) {
 		if (this == obj) {
 			return true;
@@ -397,14 +403,6 @@ public class EntryWrapper implements Entry, ModelWrapper<Entry> {
 		}
 
 		return false;
-	}
-
-	/**
-	 * @deprecated As of 6.1.0, replaced by {@link #getWrappedModel}
-	 */
-	@Deprecated
-	public Entry getWrappedEntry() {
-		return _entry;
 	}
 
 	@Override
@@ -427,5 +425,5 @@ public class EntryWrapper implements Entry, ModelWrapper<Entry> {
 		_entry.resetOriginalValues();
 	}
 
-	private Entry _entry;
+	private final Entry _entry;
 }

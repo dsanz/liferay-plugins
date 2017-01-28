@@ -14,12 +14,16 @@
 
 package com.liferay.contacts.service.persistence;
 
+import aQute.bnd.annotation.ProviderType;
+
 import com.liferay.portal.kernel.bean.PortletBeanLocatorUtil;
 import com.liferay.portal.kernel.util.ReferenceRegistry;
 
 /**
  * @author Brian Wing Shun Chan
+ * @generated
  */
+@ProviderType
 public class EntryFinderUtil {
 	public static int countByKeywords(long companyId, long userId,
 		java.lang.String keywords) {
@@ -30,7 +34,7 @@ public class EntryFinderUtil {
 		return getFinder().countByKeywords(userId, keywords);
 	}
 
-	public static java.util.List<com.liferay.portal.model.BaseModel<?>> findByKeywords(
+	public static java.util.List<com.liferay.portal.kernel.model.BaseModel<?>> findByKeywords(
 		long companyId, long userId, java.lang.String keywords, int start,
 		int end) {
 		return getFinder()

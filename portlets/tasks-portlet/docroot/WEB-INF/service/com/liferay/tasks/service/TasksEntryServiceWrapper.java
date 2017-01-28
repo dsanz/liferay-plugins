@@ -14,7 +14,9 @@
 
 package com.liferay.tasks.service;
 
-import com.liferay.portal.service.ServiceWrapper;
+import aQute.bnd.annotation.ProviderType;
+
+import com.liferay.portal.kernel.service.ServiceWrapper;
 
 /**
  * Provides a wrapper for {@link TasksEntryService}.
@@ -23,6 +25,7 @@ import com.liferay.portal.service.ServiceWrapper;
  * @see TasksEntryService
  * @generated
  */
+@ProviderType
 public class TasksEntryServiceWrapper implements TasksEntryService,
 	ServiceWrapper<TasksEntryService> {
 	public TasksEntryServiceWrapper(TasksEntryService tasksEntryService) {
@@ -34,27 +37,47 @@ public class TasksEntryServiceWrapper implements TasksEntryService,
 		java.lang.String title, int priority, long assigneeUserId,
 		int dueDateMonth, int dueDateDay, int dueDateYear, int dueDateHour,
 		int dueDateMinute, boolean neverDue,
-		com.liferay.portal.service.ServiceContext serviceContext)
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		return _tasksEntryService.addTasksEntry(title, priority,
 			assigneeUserId, dueDateMonth, dueDateDay, dueDateYear, dueDateHour,
 			dueDateMinute, neverDue, serviceContext);
 	}
 
-	/**
-	* Returns the Spring bean ID for this bean.
-	*
-	* @return the Spring bean ID for this bean
-	*/
 	@Override
-	public java.lang.String getBeanIdentifier() {
-		return _tasksEntryService.getBeanIdentifier();
+	public com.liferay.tasks.model.TasksEntry deleteTasksEntry(
+		long tasksEntryId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		return _tasksEntryService.deleteTasksEntry(tasksEntryId);
 	}
 
 	@Override
 	public com.liferay.tasks.model.TasksEntry getTasksEntry(long tasksEntryId)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		return _tasksEntryService.getTasksEntry(tasksEntryId);
+	}
+
+	@Override
+	public com.liferay.tasks.model.TasksEntry updateTasksEntry(
+		long tasksEntryId, java.lang.String title, int priority,
+		long assigneeUserId, long resolverUserId, int dueDateMonth,
+		int dueDateDay, int dueDateYear, int dueDateHour, int dueDateMinute,
+		boolean neverDue, int status,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		return _tasksEntryService.updateTasksEntry(tasksEntryId, title,
+			priority, assigneeUserId, resolverUserId, dueDateMonth, dueDateDay,
+			dueDateYear, dueDateHour, dueDateMinute, neverDue, status,
+			serviceContext);
+	}
+
+	@Override
+	public com.liferay.tasks.model.TasksEntry updateTasksEntryStatus(
+		long tasksEntryId, long resolverUserId, int status,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		return _tasksEntryService.updateTasksEntryStatus(tasksEntryId,
+			resolverUserId, status, serviceContext);
 	}
 
 	@Override
@@ -65,43 +88,13 @@ public class TasksEntryServiceWrapper implements TasksEntryService,
 	}
 
 	/**
-	* Sets the Spring bean ID for this bean.
+	* Returns the OSGi service identifier.
 	*
-	* @param beanIdentifier the Spring bean ID for this bean
+	* @return the OSGi service identifier
 	*/
 	@Override
-	public void setBeanIdentifier(java.lang.String beanIdentifier) {
-		_tasksEntryService.setBeanIdentifier(beanIdentifier);
-	}
-
-	@Override
-	public com.liferay.tasks.model.TasksEntry updateTasksEntry(
-		long tasksEntryId, java.lang.String title, int priority,
-		long assigneeUserId, long resolverUserId, int dueDateMonth,
-		int dueDateDay, int dueDateYear, int dueDateHour, int dueDateMinute,
-		boolean neverDue, int status,
-		com.liferay.portal.service.ServiceContext serviceContext)
-		throws com.liferay.portal.kernel.exception.PortalException {
-		return _tasksEntryService.updateTasksEntry(tasksEntryId, title,
-			priority, assigneeUserId, resolverUserId, dueDateMonth, dueDateDay,
-			dueDateYear, dueDateHour, dueDateMinute, neverDue, status,
-			serviceContext);
-	}
-
-	/**
-	 * @deprecated As of 6.1.0, replaced by {@link #getWrappedService}
-	 */
-	@Deprecated
-	public TasksEntryService getWrappedTasksEntryService() {
-		return _tasksEntryService;
-	}
-
-	/**
-	 * @deprecated As of 6.1.0, replaced by {@link #setWrappedService}
-	 */
-	@Deprecated
-	public void setWrappedTasksEntryService(TasksEntryService tasksEntryService) {
-		_tasksEntryService = tasksEntryService;
+	public java.lang.String getOSGiServiceIdentifier() {
+		return _tasksEntryService.getOSGiServiceIdentifier();
 	}
 
 	@Override

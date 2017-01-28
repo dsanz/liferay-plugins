@@ -14,9 +14,11 @@
 
 package com.liferay.contacts.service;
 
+import aQute.bnd.annotation.ProviderType;
+
 import com.liferay.portal.kernel.bean.PortletBeanLocatorUtil;
+import com.liferay.portal.kernel.service.InvokableService;
 import com.liferay.portal.kernel.util.ReferenceRegistry;
-import com.liferay.portal.service.InvokableService;
 
 /**
  * Provides the remote service utility for Entry. This utility wraps
@@ -32,20 +34,18 @@ import com.liferay.portal.service.InvokableService;
  * @see com.liferay.contacts.service.impl.EntryServiceImpl
  * @generated
  */
+@ProviderType
 public class EntryServiceUtil {
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify this class directly. Add custom service methods to {@link com.liferay.contacts.service.impl.EntryServiceImpl} and rerun ServiceBuilder to regenerate this class.
 	 */
-
-	/**
-	* Returns the Spring bean ID for this bean.
-	*
-	* @return the Spring bean ID for this bean
-	*/
-	public static java.lang.String getBeanIdentifier() {
-		return getService().getBeanIdentifier();
+	public static com.liferay.portal.kernel.json.JSONArray searchUsersAndContacts(
+		long companyId, java.lang.String keywords, int start, int end)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		return getService()
+				   .searchUsersAndContacts(companyId, keywords, start, end);
 	}
 
 	public static java.lang.Object invokeMethod(java.lang.String name,
@@ -54,20 +54,13 @@ public class EntryServiceUtil {
 		return getService().invokeMethod(name, parameterTypes, arguments);
 	}
 
-	public static com.liferay.portal.kernel.json.JSONArray searchUsersAndContacts(
-		long companyId, java.lang.String keywords, int start, int end)
-		throws com.liferay.portal.kernel.exception.PortalException {
-		return getService()
-				   .searchUsersAndContacts(companyId, keywords, start, end);
-	}
-
 	/**
-	* Sets the Spring bean ID for this bean.
+	* Returns the OSGi service identifier.
 	*
-	* @param beanIdentifier the Spring bean ID for this bean
+	* @return the OSGi service identifier
 	*/
-	public static void setBeanIdentifier(java.lang.String beanIdentifier) {
-		getService().setBeanIdentifier(beanIdentifier);
+	public static java.lang.String getOSGiServiceIdentifier() {
+		return getService().getOSGiServiceIdentifier();
 	}
 
 	public static void clearService() {
@@ -91,13 +84,6 @@ public class EntryServiceUtil {
 		}
 
 		return _service;
-	}
-
-	/**
-	 * @deprecated As of 6.2.0
-	 */
-	@Deprecated
-	public void setService(EntryService service) {
 	}
 
 	private static EntryService _service;
